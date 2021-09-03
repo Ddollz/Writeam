@@ -76,7 +76,6 @@ def signupadmin(request):
 def updateProfile(request):
     if request.method == 'POST':
         user = accounts.objects.get(id=request.POST.get('pk'))
-        # for info in user.item_set.all():
         print(user.profile_image)
         user.email = request.POST.get('email')
         user.address = request.POST.get('address')
@@ -88,11 +87,4 @@ def updateProfile(request):
             user.profile_image = request.FILES['avatar']
 
         user.save()
-        # print(request.POST.get('pk'))
-        # if form.is_valid():
-        #     form.is_staff = True
-        #     user = form.save()
-        #     group = Group.objects.get(name='HR Staff')
-        #     user.groups.add(group)
-        #     return redirect('signin')
     return redirect(request.META['HTTP_REFERER'])
