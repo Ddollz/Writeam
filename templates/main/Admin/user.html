@@ -43,7 +43,7 @@
               <td>{{ group }}</td>
               <td>{{ user.email }}</td>
               <td>{{ user.last_login }}</td>
-              <td><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">View</button></td>
+              <td><a href="{% url 'updateProfile' user.id %}" type="button" class="btn btn-primary">View</a></td>
             </tr>
 
             {% endif %}

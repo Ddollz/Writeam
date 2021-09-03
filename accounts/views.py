@@ -73,10 +73,10 @@ def signupadmin(request):
     return render(request, 'main/Admin/Signup.html', {'form': form, 'errors': form.errors})
 
 
-def updateProfile(request):
+def updateProfile(request, pk):
+    user = accounts.objects.get(id=pk)
     if request.method == 'POST':
-        user = accounts.objects.get(id=request.POST.get('pk'))
-        print(user.profile_image)
+        user = accounts.objects.get(id=pk)
         user.email = request.POST.get('email')
         user.address = request.POST.get('address')
         user.phone = request.POST.get('phone')
@@ -87,4 +87,6 @@ def updateProfile(request):
             user.profile_image = request.FILES['avatar']
 
         user.save()
-    return redirect(request.META['HTTP_REFERER'])
+
+    context = {'user': user}
+    return render(request, 'main/Admin/include/updateUser.html', context)

@@ -79,7 +79,7 @@
                 </a>
                 <span class="tooltip">Calendar</span>
             </li>
-            {% if user.groups.all.0|stringformat:'s' == 'HR Manager'%}
+            {% if request.user.groups.all.0|stringformat:'s' == 'HR Manager'%}
 
             <li>
                 <a href="{% url 'adminUsers'%}">
@@ -105,17 +105,17 @@
                 <span class="tooltip">Setting</span>
             </li>
             <li class="profile">
-                <button data-bs-toggle="modal" data-bs-target="#currentUserModal" style="border:none; background-color:transparent;">
+                <a href="{% url 'updateProfile' request.user.id %}" style="border:none; background-color:transparent;">
                     <div class="profile-details">
                         <img src="{{request.user.profile_image.url}}" alt="profileImg" />
                         <div class="name_job">
                             <div class="name">{{request.user.first_name}} {{request.user.last_name}}</div>
 
-                            <div class="job">{{user.groups.all.0}}</div>
+                            <div class="job">{{request.user.groups.all.0}}</div>
 
                         </div>
                     </div>
-                </button>
+                </a>
                 <a class="bx bx-log-out" id="log_out" href="{% url 'index'%}" style="color:white; padding-left: 10px;"></a>
             </li>
         </ul>
