@@ -1,0 +1,159 @@
+{% extends 'main/Admin/include/base.html' %}
+
+{% load static%}
+{% block content%}
+<section class="home-section">
+    <div class="container-fluid px-4">
+        <h1 class="mt-4">Onboarding</h1>
+        <ol class="breadcrumb mb-4">
+            <li class="breadcrumb-item active">Welcome Recruiters!</li>
+        </ol>
+        <div class="row">
+            <div class="col-xl-6 col-md-6">
+                <div class="card bg-dark text-white mb-4">
+                    <div class="card-body empty" id="card1">
+                        <div class="text-start text-uppercase fw-bold">Inbox <span class="float-end" id="span1">1/10</span></div>
+                        <hr>
+                        <div class="fill " id="1" draggable="true"> <img class="img-circle" src="../assets/img/admin/Otherimage/em.jpg" draggable="false" /> Ericka Michelle S. Labajo
+                            <span class="float-end" id="button1"><button type="button" class="btn btn-dark ms-1" data-bs-toggle="modal" data-bs-target="#AddSchedule">Add Schedule</button></span>
+                            <span class="float-end" id="button2"><button type="button" class="btn btn-dark ms-1" data-bs-toggle="modal" data-bs-target="#Resume">View</button></span>
+                            <span class="float-end" id="button3"><button type="button" class="btn btn-dark ms-1">Reject</button></span>
+                            <span class="float-end" id="button4"><button type="button" class="btn btn-dark ms-1">Hire</button></span>
+                        </div>
+                        <div class="fill " id="4" draggable="true"> <img class="img-circle" src="../assets/img/admin/Otherimage/erol.jpg" draggable="false" /> Karl Erol C. Pasion
+                            <span class="float-end" id="button1"><button type="button" class="btn btn-dark ms-1" data-bs-toggle="modal" data-bs-target="#AddSchedule">Add Schedule</button></span>
+                            <span class="float-end" id="button2"><button type="button" class="btn btn-dark ms-1" data-bs-toggle="modal" data-bs-target="#Resume">View</button></span>
+                            <span class="float-end" id="button3"><button type="button" class="btn btn-dark ms-1">Reject</button></span>
+                            <span class="float-end" id="button4"><button type="button" class="btn btn-dark ms-1">Hire</button></span>
+                        </div>
+                        <div class="fill " id="3" draggable="true"> <img class="img-circle" src="../assets/img/admin/Otherimage/paco.jpg" draggable="false" /> Christian Jay A. Paco
+                            <span class="float-end" id="button1"><button type="button" class="btn btn-dark ms-1" data-bs-toggle="modal" data-bs-target="#AddSchedule">Add Schedule</button></span>
+                            <span class="float-end" id="button2"><button type="button" class="btn btn-dark ms-1" data-bs-toggle="modal" data-bs-target="#Resume">View</button></span>
+                            <span class="float-end" id="button3"><button type="button" class="btn btn-dark ms-1">Reject</button></span>
+                            <span class="float-end" id="button4"><button type="button" class="btn btn-dark ms-1">Hire</button></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6 col-md-6 ">
+                <div class="card bg-dark text-white mb-4">
+                    <div class="card-body empty" id="card2">
+                        <div class="text-start text-uppercase fw-bold">Screening <span class="float-end" id="span2">0/10</span></div>
+                        <hr>
+                        <div class="fill " id="44" draggable="true"> <img class="img-circle" src="../assets/img/admin/Otherimage/4.png" draggable="false" /> Ben S. Viliaraza
+                            <span class="float-end" id="button1"><button type="button" class="btn btn-dark ms-1" data-bs-toggle="modal" data-bs-target="#AddSchedule">Add Schedule</button></span>
+                            <span class="float-end" id="button2"><button type="button" class="btn btn-dark ms-1" data-bs-toggle="modal" data-bs-target="#Resume">View</button></span>
+                            <span class="float-end" id="button3"><button type="button" class="btn btn-dark ms-1">Reject</button></span>
+                            <span class="float-end" id="button4"><button type="button" class="btn btn-dark ms-1">Hire</button></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-md-center">
+            <div class="col-xl-4 col-md-6 ">
+                <div class="card bg-dark text-white mb-4">
+                    <div class="card-body empty" id="card4">
+                        <div class="text-start text-uppercase fw-bold">Accepted<span class="float-end" id="span4">0/10</span></div>
+                        <hr>
+                        <div class="fill " id="11" draggable="true"> <img class="img-circle" src="../assets/img/admin/Otherimage/5.png" draggable="false" /> Taffy P. Cabiling
+                            <span class="float-end" id="button1"><button type="button" class="btn btn-dark ms-1" data-bs-toggle="modal" data-bs-target="#AddSchedule">Add Schedule</button></span>
+                            <span class="float-end" id="button2"><button type="button" class="btn btn-dark ms-1" data-bs-toggle="modal" data-bs-target="#Resume">View</button></span>
+                            <span class="float-end" id="button3"><button type="button" class="btn btn-dark ms-1">Reject</button></span>
+                            <span class="float-end" id="button4"><button type="button" class="btn btn-dark ms-1">Hire</button></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-4 col-md-6 ">
+                <div class="card bg-dark text-white mb-4">
+                    <div class="card-body empty" id="card5">
+                        <div class="text-start text-uppercase fw-bold">Rejected<span class="float-end" id="span5">0/10</span></div>
+                        <hr>
+
+                        <div class="fill " id="22" draggable="true"> <img class="img-circle" src="../assets/img/admin/Otherimage/1.png" draggable="false" /> Hunter P. Razer
+                            <span class="float-end" id="button1"><button type="button" class="btn btn-dark ms-1" data-bs-toggle="modal" data-bs-target="#AddSchedule">Add Schedule</button></span>
+                            <span class="float-end" id="button2"><button type="button" class="btn btn-dark ms-1" data-bs-toggle="modal" data-bs-target="#Resume">View</button></span>
+                            <span class="float-end" id="button3"><button type="button" class="btn btn-dark ms-1">Reject</button></span>
+                            <span class="float-end" id="button4"><button type="button" class="btn btn-dark ms-1">Hire</button></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="AddSchedule" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Edit Event</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="input-group mb-3">
+                        <label class="input-group-text" for="inputGroupSelect01">Options</label>
+                        <select class="form-select" id="inputGroupSelect01">
+                            <option selected>Choose...</option>
+                            <option value="1">Screening</option>
+                            <option value="2">Interview</option>
+                        </select>
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="inputGroup-sizing-sm">Applicant</span>
+                        <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="Search">
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="inputGroup-sizing-sm">Date: </span>
+                        <input type="date" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="Search">
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="inputGroup-sizing-sm">From: </span>
+                        <input type="time" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="Search">
+                        <span class="input-group-text" id="inputGroup-sizing-sm">To: </span>
+                        <input type="time" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="Search">
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">Email</span>
+                        <input type="text" class="form-control" placeholder="HumanAlytics@Analytics.com" aria-label="Username" aria-describedby="basic-addon1">
+                    </div>
+                    <div class="input-group">
+                        <textarea class="form-control" aria-label="With textarea" placeholder="Message"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="Resume" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog  modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Edit Event</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="d-flex justify-content-center">
+                        <img src="assets/img/Resume.PNG" alt="" srcset="">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Print</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
+{% block scriptContent %}
+<script src="{% static 'assets/js/admin/dragndrop.js'%}"></script>
+{% endblock %}

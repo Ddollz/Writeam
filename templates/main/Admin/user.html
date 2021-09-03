@@ -1,0 +1,156 @@
+{% extends 'main/Admin/include/base.html' %}
+
+{% load static%}
+{% block content%}
+<section class="home-section">
+  <div class="container-fluid px-4">
+    <h1 class="mt-4">Human Resources Staff</h1>
+    <ol class="breadcrumb mb-4">
+      <li class="breadcrumb-item active">Welcome Recruiters!</li>
+    </ol>
+    <div class="row">
+      <div class="card mb-4 shadow">
+        <table id="datatablesSimple">
+          <thead>
+            <tr>
+              <th>Avatar</th>
+              <th>Name</th>
+              <th>Position</th>
+              <th>Address</th>
+              <th>Last Login</th>
+              <th>More Details</th>
+            </tr>
+          </thead>
+          <tfoot>
+            <tr>
+              <th>Avatar</th>
+              <th>Name</th>
+              <th>Position</th>
+              <th>Address</th>
+              <th>Last Login</th>
+              <th>More Details</th>
+            </tr>
+          </tfoot>
+          <tbody>
+
+            {% for user in userList%}
+            {% for group in user.groups.all %}
+            {% if group|stringformat:'s' == 'HR Manager' or group|stringformat:'s' == 'HR Staff'%}
+
+            <tr>
+              <td><img class="picturetable" src="{{user.profile_image.url}}" alt="profileImg" /></td>
+              <td>{{user.first_name}} {{user.last_name}}</td>
+              <td>{{ group }}</td>
+              <td>{{ user.email }}</td>
+              <td>{{ user.last_login }}</td>
+              <td><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">View</button></td>
+            </tr>
+
+            {% endif %}
+            {% endfor %}
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+</section>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg userModal">
+    <div class="modal-content userContent">
+      <div class="modal-body">
+        <div class="container">
+          <div class="row">
+            <div class="col-4 column1">
+              <div class="dashboard mt-5">
+                <div class="prof text-center ">
+                  <img src="#" class="rounded" alt="" />
+                  <h4 class="fw-bolder mt-3">Karl Erol C Pasion</h4>
+                  <p class="fw-bold mt-2">HR Manager</p>
+
+                  <div class="proj">
+                    <h5 class="fw-bold">Social Media</h5>
+                    <hr>
+                    <a href=""><i class="bi bi-facebook"></i></a>
+                    <a href=""><i class="bi bi-google"></i></a>
+                    <a href=""><i class="bi bi-linkedin"></i></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-8 column2">
+              <div class="userInfo">
+                <div class="info mt-3">
+                  <h3 class="fw-bold">INFORMATION <button class="editButton"><i class="bi bi-pencil-square"></i></button></h3>
+                  <hr>
+                  <div class="page-modal active">
+                    <div class="row ">
+                      <div class="col">
+                        <h4>Email</h4>
+                        <p>pasionkarlerol@gmail.com</p>
+
+                        <h4>Birthday</h4>
+                        <p>Feb, 7, 2000</p>
+
+                        <h4>ID No.</h4>
+                        <p>12</p>
+                      </div>
+
+                      <div class="col">
+                        <h4>Phone</h4>
+                        <p>09673987112</p>
+
+                        <h4>Address</h4>
+                        <p>307D Lakandula Tulip St</p>
+
+                      </div>
+                    </div>
+                  </div>
+                  <form action="" class="page-modal">
+                    <div class="row ">
+                      <div class="col">
+                        <h4>Email</h4>
+                        <div class="mb-3">
+                          <input type="email" class="form-control" id="email">
+                        </div>
+
+                        <h4>Birthday</h4>
+                        <div class="mb-3">
+                          <input type="date" class="form-control" id="birthday">
+                        </div>
+
+                        <h4>Staff Id No.</h4>
+                        <div class="mb-3">
+                          <input type="text" class="form-control" id="idNo">
+                        </div>
+                      </div>
+
+                      <div class="col">
+                        <h4>Phone</h4>
+                        <div class="mb-3">
+                          <input type="text" class="form-control" id="phone">
+                        </div>
+
+                        <h4>Address</h4>
+                        <div class="mb-3">
+                          <input type="text" class="form-control" id="address">
+                        </div>
+
+                      </div>
+                    </div>
+                  </form>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

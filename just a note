@@ -1,0 +1,29 @@
+reset migrate
+py manage.py showmigrations
+py manage.py migrate --fake "nametoapp" zero
+py manage.py makemigrations "nametoapp"
+py manage.py migrate
+
+
+Continue This tutorial
+Login/Registration
+https://www.youtube.com/watch?v=tUqUdu0Sjyc&list=PL-51WBLyFTg2vW-_6XBoUpE7vpmoR3ztO&index=14
+Grouping the users
+https://www.youtube.com/watch?v=eBsc65jTKvw&list=PL-51WBLyFTg2vW-_6XBoUpE7vpmoR3ztO&index=15
+Extending users
+https://www.youtube.com/watch?v=gXGQmt_U9Ao&list=PL-51WBLyFTg2vW-_6XBoUpE7vpmoR3ztO&index=16
+Changing format of forms user
+https://www.youtube.com/watch?v=quJzUzCs6Q0&list=PLEsfXFp6DpzRMby_cSoWTFw8zaMdTEXgL&index=63
+
+Extra~~
+https://www.youtube.com/watch?v=m3efqF9abyg&list=PLCC34OHNcOtr025c1kHSPrnP18YPB-NFi&index=4
+
+master!
+https://www.youtube.com/watch?v=5qhlDC_bQsA
+
+
+google auth
+https://www.youtube.com/watch?v=NG48CLLsb1A
+
+Custom user
+https://www.youtube.com/watch?v=Ae7nc1EGv-A
