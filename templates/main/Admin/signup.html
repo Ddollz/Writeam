@@ -27,7 +27,7 @@
             <li></li>
         </ul>
         <div class="d-flex align-items-center justify-content-center">
-            <div class="card border-0 " style="width: 18rem; background-color:rgba(231, 76, 60, 0); width: 400px;">
+            <div class="card border-0 " style="background-color:rgba(231, 76, 60, 0); width: 500px;">
                 <div class="card-body ">
                     <h3 class="card-title text-center">HumanAlytics</h3>
                     <h6 class="card-subtitle mb-4 text-center text-muted ">Register for free! Make the most of your professional life as an excellent writer. </p>
@@ -37,41 +37,76 @@
                                 <p>We found some errors. Please review the form and make corrections.</p>
                             </div>
                         </div>
-                        <form class="needs-validation" method="POST" action="signin" novalidate>
+                        <form class="needs-validation" method="POST" action="signupadmin" novalidate>
                             {% csrf_token %}
                             {{form.nom_field_errors}}
-                            <div class="mb-3 ">
-                                {{ form.email }}
-                                <!-- <input type="email" class="form-control" placeholder="Email" name="email" required> -->
-                                <div class="invalid-feedback">
-                                    This value is not a valid email address
+                            <div class="row">
+                                <div class="col">
+                                    <div class="mb-3 ">
+                                        {{ form.email }}
+                                        <!-- <input type="email" class="form-control" placeholder="Email" name="email" required> -->
+                                        <div class="invalid-feedback">
+                                            This value is not a valid email address
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+
+                                    <div class="mb-3 ">
+                                        {{ form.username }}
+                                        <div class="invalid-feedback">
+                                            This value is not a valid Username
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
-                            <div class="mb-3 ">
-                                {{ form.username }}
-                                <!-- <input type="email" class="form-control" placeholder="Email" name="email" required> -->
-                                <div class="invalid-feedback">
-                                    This value is not a valid Username
-                                </div>
-                            </div>
-                            <div class="mb-3 ">
 
-                                {{ form.password1 }}
-                                <!-- <input type="password" class="form-control " placeholder="Password" name="password" required> -->
-                                <div class="invalid-feedback">
-                                    This value is not a valid password
+                            <div class="row">
+                                <div class="col">
+                                    <div class="mb-3 ">
+                                        {{ form.first_name }}
+                                    </div>
                                 </div>
-                            </div>
-
-                            <div class="mb-3 ">
-                                {{ form.password2 }}
-                                <!-- <input type="password" class="form-control " placeholder="Confirm Password" name="passconf" required> -->
-                                <div class="invalid-feedback" id="conflabel">
-                                    This value is not a valid password
+                                <div class="col">
+                                    <div class="mb-3 ">
+                                        {{ form.last_name }}
+                                    </div>
                                 </div>
                             </div>
 
+                            <div class="row">
+                                <div class="col">
+                                    <div class="mb-3 ">
+                                        {{ form.phone }}
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="mb-3 ">
+                                        {{ form.address }}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col">
+                                    <div class="mb-3 ">
+                                        {{ form.password1 }}
+                                        <div class="invalid-feedback">
+                                            This value is not a valid password
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="mb-3 ">
+                                        {{ form.password2 }}
+                                        <!-- <input type="password" class="form-control " placeholder="Confirm Password" name="passconf" required> -->
+                                        <div class="invalid-feedback" id="conflabel">
+                                            This value is not a valid password
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="mb-3 form-check" style=" text-align: left;">
                                 <input type="checkbox" class="form-check-input me-1" id="exampleCheck1" required>
                                 <label class="form-check-label" for="exampleCheck1" style="font-size:14px; text-align: left;"> I agree to HumanAlytic's <span><a href="test" style="text-decoration: underline;">

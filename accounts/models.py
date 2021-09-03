@@ -50,7 +50,8 @@ class accounts(AbstractBaseUser, PermissionsMixin):
         max_length=255, upload_to=get_profile_image_filepath, null=True, blank=True, default=get_default_profile)
     address = models.TextField(
         verbose_name='address', max_length=50, blank=True)
-
+    phone = models.CharField(
+        verbose_name='phone', max_length=50, blank=True)
     objects = myAccountManager()
 
     USERNAME_FIELD = "email"

@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import Group
 from .forms import clientFormReg, clientFormLogin, adminFormReg
+from .models import accounts
 from .decorators import unauthenticated_user
 
 # Create your views here.
@@ -64,12 +65,34 @@ def signupadmin(request):
         if form.is_valid():
             form.is_staff = True
             user = form.save()
-            # add group
-            group = Group.objects.get(name='HRStaff')
+            group = Group.objects.get(name='HR Staff')
             user.groups.add(group)
-            # remove group This is temporary
-            # group.user_set.remove(user)
             return redirect('signin')
     else:
         form = adminFormReg()
     return render(request, 'main/Admin/Signup.html', {'form': form, 'errors': form.errors})
+
+
+def updateProfile(request):
+    if request.method == 'POST':
+        user = accounts.objects.get(id=request.POST.get('pk'))
+        # for info in user.item_set.all():
+        print(user.profile_image)
+        user.email = request.POST.get('email')
+        user.address = request.POST.get('address')
+        user.phone = request.POST.get('phone')
+        user.first_name = request.POST.get('fname')
+        user.last_name = request.POST.get('lname')
+        filepath = request.FILES['avatar'] if 'avatar' in request.FILES else False
+        if filepath:
+            user.profile_image = request.FILES['avatar']
+
+        user.save()
+        # print(request.POST.get('pk'))
+        # if form.is_valid():
+        #     form.is_staff = True
+        #     user = form.save()
+        #     group = Group.objects.get(name='HR Staff')
+        #     user.groups.add(group)
+        #     return redirect('signin')
+    return redirect(request.META['HTTP_REFERER'])

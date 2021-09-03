@@ -57,6 +57,19 @@ class adminFormReg(UserCreationForm):
                              widget=forms.TextInput(attrs={'class': 'form-control', 'type': 'email', 'placeholder': 'Email'}))
     username = forms.CharField(label="", max_length=255, required=True, error_messages={'unique': 'The Username is already registered'},
                                widget=forms.TextInput(attrs={'class': 'form-control', 'type': 'text', 'placeholder': 'Username'}))
+
+    first_name = forms.CharField(label="", max_length=255,
+                                 widget=forms.TextInput(attrs={'class': 'form-control', 'type': 'text', 'placeholder': 'First Name'}))
+
+    last_name = forms.CharField(label="", max_length=255,
+                                widget=forms.TextInput(attrs={'class': 'form-control', 'type': 'text', 'placeholder': 'Last Name'}))
+
+    phone = forms.CharField(label="", max_length=255,
+                            widget=forms.TextInput(attrs={'class': 'form-control', 'type': 'text', 'placeholder': 'Phone'}))
+
+    address = forms.CharField(label="", max_length=255,
+                              widget=forms.TextInput(attrs={'class': 'form-control', 'type': 'text', 'placeholder': 'Address'}))
+
     password1 = forms.CharField(label="", max_length=255, required=True, widget=forms.TextInput(
         attrs={'class': 'form-control', 'type': 'password', 'placeholder': 'Password', 'id': 'password'}))
     password2 = forms.CharField(label="", max_length=255, required=True, widget=forms.TextInput(
@@ -72,7 +85,8 @@ class adminFormReg(UserCreationForm):
 
     class Meta:
         model = accounts
-        fields = ('email', 'username', 'password1', 'password2')
+        fields = ('email', 'username', 'first_name', 'last_name',
+                  'phone', 'address', 'password1', 'password2')
 
     def clean(self):
         email = self.cleaned_data.get('The Email is already registered')

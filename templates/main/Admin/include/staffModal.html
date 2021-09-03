@@ -1,0 +1,116 @@
+<!-- Modal -->
+<div class="modal fade" id="currentUserModal" tabindex="-1" aria-labelledby="currentUserModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg userModal">
+        <div class="modal-content userContent">
+            <div class="modal-body">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-4 column1">
+                            <div class="dashboard mt-5">
+                                <div class="prof text-center ">
+                                    <img src="{{request.user.profile_image.url}}" class="rounded" alt="" />
+                                    <h4 class="fw-bolder mt-3">{{request.user.first_name}} {{request.user.last_name}}</h4>
+                                    <p class="fw-bold mt-2">{{user.groups.all.0}}</p>
+
+                                    <div class="proj">
+                                        <h5 class="fw-bold">Social Media</h5>
+                                        <hr>
+                                        <a href=""><i class="bi bi-facebook"></i></a>
+                                        <a href=""><i class="bi bi-google"></i></a>
+                                        <a href=""><i class="bi bi-linkedin"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-8 column2">
+                            <div class="userInfo">
+                                <div class="info mt-3">
+                                    <h3 class="fw-bold">INFORMATION <button class="editButton"><i class="bi bi-pencil-square"></i></button></h3>
+                                    <hr>
+                                    <div class="page-modal active">
+                                        <div class="row ">
+                                            <div class="col">
+
+                                                <h4>ID No.</h4>
+                                                <p>{{request.user.id}}</p>
+
+                                                <h4>Address</h4>
+                                                <p>{{request.user.address}}</p>
+
+                                            </div>
+
+                                            <div class="col">
+
+                                                <h4>Email</h4>
+                                                <p>{{request.user.email}}</p>
+
+                                                <h4>Phone</h4>
+                                                <p>{{request.user.phone}}</p>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <form action="updateProfile" method="POST" class="page-modal" enctype="multipart/form-data">
+                                        {% csrf_token %}
+
+                                        <h4>Avatar</h4>
+                                        <div class="mb-3">
+                                            <input name="avatar" type="file" class="form-control" />
+                                        </div>
+                                        <div class="row ">
+                                            <div class="col">
+
+                                                <h4>Staff Id No.</h4>
+                                                <div class="mb-3">
+                                                    <input type="text" class="form-control" name="pk" value="{{request.user.id}}" readonly="true">
+                                                </div>
+
+                                                <h4>First Name</h4>
+                                                <div class="mb-3">
+                                                    <input type="text" class="form-control" name="fname" value="{{request.user.first_name}}">
+                                                </div>
+
+
+                                                <h4>Address</h4>
+                                                <div class="mb-3">
+                                                    <input type="text" class="form-control" name="address" value="{{request.user.address}}">
+                                                </div>
+
+
+                                            </div>
+
+                                            <div class="col">
+
+                                                <h4>Email</h4>
+                                                <div class="mb-3">
+                                                    <input type="email" class="form-control" name="email" value="{{request.user.email}}">
+                                                </div>
+
+                                                <h4>Last Name</h4>
+                                                <div class="mb-3">
+                                                    <input type="text" class="form-control" name="lname" value="{{request.user.last_name}}">
+                                                </div>
+
+                                                <h4>Phone</h4>
+                                                <div class="mb-3">
+                                                    <input type="text" class="form-control" name="phone" value="{{request.user.phone}}">
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary float-end">Save Changes</button>
+
+                                    </form>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
