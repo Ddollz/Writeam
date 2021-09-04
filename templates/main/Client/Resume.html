@@ -17,48 +17,50 @@
 <!-- ======= Top Bar ======= -->
 <section id="topbar" class="d-flex align-items-center justify-content-end text-light position-fixed col-12" style="background-color: rgb(201, 76, 76, 0)">
   <span class="spanacc me-2">Done already?</span>
-  <a href="index.html" class="btn btn-outline-light btn-sm text-start button me-2" type="button " id="button-addon1 ">Return</a>
+  <a href="{%url 'index'%}" class="btn btn-outline-light btn-sm text-start button me-2" type="button " id="button-addon1 ">Return</a>
   <!-- <span class="spanacc me-2"> Need Help? </span> -->
 </section>
 <div class="split-screen" style="background-color: #80beef;">
   <div class="resume" style="background-color: white">
     <div class="container">
-      <div class="border-0" style="width: 100%; height: auto">
-        <div class="card-body">
-          <h3 class="card-title text-center">
-            <span class="titleresume" role="textbox" contenteditable data-placeholder="Untitled">Untitled</span>
-          </h3>
-          <h6 class="card-subtitle mb-4 text-center text-muted">
-            Enter your resume details.
-          </h6>
-          <div class="card mb-3 infobox" id="infobox">
-            <div class="card-body text-center">
-              <i class="bi bi-exclamation-circle-fill"></i>
-              <p>
-                We found some errors.
-                Please review the form
-                and make
-                corrections.
-              </p>
-            </div>
-          </div>
-          <div class="progress_bar sticky-top">
-            <div class="progress__label mb-2">
-              <span class="progress__percent">0%</span>
-              Profile completeness
-              <span class="float-end progress__add">
-                10+ <span class="progress__addlabel">Add Personal Details</span>
-              </span>
-            </div>
-            <div class="progress mb-3">
-              <div class="progress__fill" id="progFill">
+      <form action="resume" method="POST" id='form1' enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="border-0" style="width: 100%; height: auto">
+          <div class="card-body">
+            <h3 class="card-title text-center">
+              <span class="titleresume" role="textbox" contenteditable data-placeholder="Untitled">Untitled</span>
+            </h3>
+            <h6 class="card-subtitle mb-4 text-center text-muted">
+              Enter your resume details.
+            </h6>
+            <div class="card mb-3 infobox" id="infobox">
+              <div class="card-body text-center">
+                <i class="bi bi-exclamation-circle-fill"></i>
+                <p>
+                  We found some errors.
+                  Please review the form
+                  and make
+                  corrections.
+                </p>
               </div>
             </div>
-          </div>
-          <div class="page active">
-            <form class="needs-validation" novalidate>
-              <h4>Personal Details
-              </h4>
+            <div class="progress_bar sticky-top">
+              <div class="progress__label mb-2">
+                <span class="progress__percent">0%</span>
+                Profile completeness
+                <span class="float-end progress__add">
+                  10+ <span class="progress__addlabel">Add Personal Details</span>
+                </span>
+              </div>
+              <div class="progress mb-3">
+                <div class="progress__fill" id="progFill">
+                </div>
+              </div>
+            </div>
+            <div class="page active">
+              <!-- <form class="needs-validation" method="POST" action="{%url 'resume'%}" novalidate> -->
+              {{form1.non_field_errors}}
+              <h4>Personal Details</h4>
               <div class="row mb-3">
                 <div id="profile">
                   <div class="dashes">
@@ -76,7 +78,8 @@
               <div class="row mb-3">
                 <div class="col">
                   <label class="form-label">First name</label>
-                  <input type="text" class="form-control" id="fname" required />
+                  {{form1.fname}}
+                  <!-- <input type="text" class="form-control" id="fname" name='fname' required /> -->
                   <div class="invalid-feedback">
                   </div>
                 </div>
@@ -151,48 +154,20 @@
                   </div>
                 </div>
               </div>
-              <!-- <div class="row mb-2">
-                  <div class="col">
-                    <label class="form-label">
-                      Driving License
-                      (Optional)
-                    </label>
-                    <input type="text" class="form-control" id="license" />
-                    <div class="invalid-feedback">
-                    </div>
-                  </div> 
-                  <div class="col">
-                    <label class="form-label">Nationality
-                      (Optional)</label>
-                    <input type="text" class="form-control" id="national" />
-                    <div class="invalid-feedback">
-                    </div>
-                  </div>
-                </div> -->
-            </form>
-            <!-- <div class="row">
-                <div class="col-6">
-                </div>
-                <div class="col-6">
-                  <button class="
-                        btn btn-outline-secondary
-                        text-start
-                        float-end
-                        next
-                      " type="button ">
-                    Next
-                  </button>
-                </div>
-              </div> -->
+              <!-- </form> -->
+              <div class="mt-5">
+                <!-- <form class="needs-validation" id='form2' method="POST" action="{%url 'resume'%}" novalidate> -->
+                {{form2.non_field_errors}}
+                <label class="form-label">Date Of Birth</label>
+                {{form2.bday}}
+                <!-- <input type="text" class="form-control" name='bdate' required /> -->
 
-            <div class="mt-5">
-              <form class="needs-validation" novalidate>
                 <h4>Professional Summary</h4>
                 <div class="row mb-5">
                   <div class="col">
                     <label class="form-check-label" style="font-size:14px">Description</label>
-                    <div id="summaryEditor">
-                    </div>
+                    <!-- <div id="summaryEditor">
+                    </div> -->
                   </div>
                 </div>
                 <h4 class="mt-5">Employment History</h4>
@@ -210,138 +185,111 @@
                     </button>
                   </div>
                 </div>
-              </form>
-              <!-- <div class="row">
-                <div class="col-6">
-                  <button class="btn btn-outline-secondary text-start back" type="button ">
-                    Back
-                  </button>
-                </div>
-                <div class="col-6">
-                  <button class="btn btn-outline-secondary text-start float-end next " type="button ">
-                    Next
-                  </button>
-                </div>
-              </div> -->
-            </div>
+                <!-- </form> -->
+              </div>
 
-            <div class="mt-5">
-              <form class="needs-validation" novalidate>
-                <h4>Education</h4>
-                <div class="row mb-3">
-                  <div class="col d-grid gap-2">
-                    <div class="accordion" id="education">
+              <div class="mt-5">
+                <form class="needs-validation" novalidate>
+                  <h4>Education</h4>
+                  <div class="row mb-3">
+                    <div class="col d-grid gap-2">
+                      <div class="accordion" id="education">
+                      </div>
+
+                      <button type="button" class="btn text-start" id="addEduc">
+                        + Add Education
+                      </button>
+
+                      <button type="button" class="btn text-start" id="removeEduc">
+                        - Remove Education
+                      </button>
                     </div>
-
-                    <button type="button" class="btn text-start" id="addEduc">
-                      + Add Education
-                    </button>
-
-                    <button type="button" class="btn text-start" id="removeEduc">
-                      - Remove Education
-                    </button>
                   </div>
-                </div>
 
-                <h4 class="mt-5">Website & Social Link</h4>
+                  <h4 class="mt-5">Website & Social Link</h4>
 
-                <div class="row mb-3">
-                  <div class="col d-grid gap-2">
-                    <div class="accordion" id="social"></div>
+                  <div class="row mb-3">
+                    <div class="col d-grid gap-2">
+                      <div class="accordion" id="social"></div>
 
-                    <button type="button" class="btn text-start" id="addSocial">
-                      + Add Link
-                    </button>
+                      <button type="button" class="btn text-start" id="addSocial">
+                        + Add Link
+                      </button>
 
-                    <button type="button" class="btn text-start" id="removeSocial">
-                      - Remove Employement
-                    </button>
-                  </div>
-                </div>
-              </form>
-              <!-- <div class="row">
-                <div class="col-6">
-                  <button class="btn btn-outline-secondary text-start back" type="button ">
-                    Back
-                  </button>
-                </div>
-                <div class="col-6">
-                  <button class="
-                        btn btn-outline-secondary
-                        text-start
-                        float-end
-                        next
-                      " type="button ">
-                    Next
-                  </button>
-                </div>
-              </div> -->
-            </div>
-
-            <div class="mt-5">
-              <form class="needs-validation" novalidate>
-                <h4>Skills</h4>
-                <div class="row mb-3">
-                  <div class="col d-grid gap-2">
-                    <div class="accordion" id="skill"></div>
-
-                    <button type="button" class="btn text-start" id="addSkill">
-                      + Add Skill
-                    </button>
-
-                    <button type="button" class="btn text-start" id="removeSkill">
-                      - Remove Skill
-                    </button>
-                  </div>
-                </div>
-
-                <h4 class="mt-5">References</h4>
-                <div class="row mb-3">
-                  <div class="col d-grid gap-2">
-                    <div class="accordion" id="reference">
+                      <button type="button" class="btn text-start" id="removeSocial">
+                        - Remove Employement
+                      </button>
                     </div>
-
-                    <button type="button" class="btn text-start" id="addReference">
-                      + Add Reference
-                    </button>
-
-                    <button type="button" class="btn text-start" id="removeReference">
-                      - Remove Reference
-                    </button>
                   </div>
-                </div>
-              </form>
-              <button class="btn btn-outline-secondary text-center float-end next" type="button">
-                Next
-              </button>
-            </div>
-          </div>
+                </form>
+              </div>
 
-          <div class="page">
-            <h4>Sample Article</h4>
+              <div class="mt-5">
+                <form class="needs-validation" novalidate>
+                  <h4>Skills</h4>
+                  <div class="row mb-3">
+                    <div class="col d-grid gap-2">
+                      <div class="accordion" id="skill"></div>
 
-            <div class="mb-3">
-              <label for="formFile" class="form-label">Please Upload 1 Sample Article</label>
-              <input class="form-control" type="file" id="formFile">
-            </div>
+                      <button type="button" class="btn text-start" id="addSkill">
+                        + Add Skill
+                      </button>
 
-            <div class="row">
-              <div class="col-6">
-                <button class="btn btn-outline-secondary text-center back" type="button ">
-                  Back
+                      <button type="button" class="btn text-start" id="removeSkill">
+                        - Remove Skill
+                      </button>
+                    </div>
+                  </div>
+
+                  <h4 class="mt-5">References</h4>
+                  <div class="row mb-3">
+                    <div class="col d-grid gap-2">
+                      <div class="accordion" id="reference">
+                      </div>
+
+                      <button type="button" class="btn text-start" id="addReference">
+                        + Add Reference
+                      </button>
+
+                      <button type="button" class="btn text-start" id="removeReference">
+                        - Remove Reference
+                      </button>
+                    </div>
+                  </div>
+                </form>
+                <button class="btn btn-outline-secondary text-center float-end next" type="button">
+                  Next
                 </button>
               </div>
-              <div class="col-6">
-                <button class="btn btn-outline-secondary text-center float-end" type="button" id="save">
-                  Continue
-                </button>
+            </div>
+
+            <div class="page">
+              <h4>Sample Article</h4>
+
+              <div class="mb-3">
+                <label for="formFile" class="form-label">Please Upload 1 Sample Article</label>
+                <input class="form-control" type="file" id="formFile">
+              </div>
+
+              <div class="row">
+                <div class="col-6">
+                  <button class="btn btn-outline-secondary text-center back" type="button ">
+                    Back
+                  </button>
+                </div>
+                <div class="col-6">
+                  <button class="btn btn-outline-secondary text-center float-end" type="button" id="save">
+                    Continue
+                  </button>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      </form>
     </div>
   </div>
+
   <div class="preview">
     <page size="A4-Preview" id="A4">
       <div class="page-container">
@@ -367,35 +315,8 @@
               </span>
             </p>
             <hr class="skillDiv">
-            <!-- <p class="title">Details <br>
-                <span class="subContent">
-                  <span id="preAddress">Lakandula Tulip St</span> <br>
-                  <span id="preCityPC">Manila, 1012 </span><br>
-                  <span id="preCountry">Philippines </span><br>
-                  <span id="preEmail">Pasionkarlerol@gmail.com </span><br>
-                  <span id="preNumber">09673987112</span><br>
-                  <div id="dateDivider">
-                    <span id="preLabelBirth">Date / Place of birth</span> <br>
-                    <span id="preBirthday">Manila, Feb 7 2000</span><br>
-                  </div>
-                  <div id="nationalDivider">
-                    <span id="preLabelNationality">Nationality</span> <br>
-                    <span id="preNationality">Filipino</span><br>
-                  </div>
-                  <div id="licenseDivider">
-                    <span id="preLabelDriLicense">Driving License</span> <br>
-                    <span id="preDriLicense">Full</span>
-                  </div>
-                </span>
-              </p>
-              <hr> -->
             <p class="title socialDiv">Links <br>
             <div id="preSocialLink">
-
-              <!-- <span class="subContent">
-                  www.github.com/Ddollz <br>
-                  www.facebook.com/D.dollzs
-                </span> -->
             </div>
             <hr class="socialDiv">
             </p>
@@ -429,49 +350,22 @@
                     <span id="preNationality"></span><br>
                   </div>
                 </div>
-                <!-- <div class="col">
-
-                    <div id="licenseDivider">
-                      <span id="preLabelDriLicense">Driving License</span> <br>
-                      <span id="preDriLicense">Full</span>
-                    </div>
-                  </div> -->
               </div>
             </span>
             <hr>
 
             <h5 class="title experienceDiv">Experience</h5>
             <div id="preWorkExperience">
-              <!-- <p class="subtitle">
-                  <span id="preWorkTitle">Free Lance Content Writer, MT5 Forex</span><br>
-                  <span class="subContent">
-                    01/2021 – Present <br>
-                    &emsp;-&emsp;Over 15-30 Submitted Articles
-                  </span>
-                </p> -->
             </div>
             <hr class="experienceDiv">
             <h5 class="title educDiv">Education</h5>
             <div id="preEducation">
-              <!-- <p class="subtitle">
-                  Feu Institute Of Technology <br>
-                  <span class="subContent">
-                    08/2018 - Present<br>
-                    Bachelor of Science in Information Technology
-                  </span>
-                </p> -->
             </div>
             <hr class="educDiv">
             <h5 class="title refDiv">Reference</h5>
             <div id="preReference">
 
             </div>
-            <!-- <p class="subtitle">
-                Renato, Vendor<br>
-                <span class="subContent">
-                  Email.Com 09286120906
-                </span>
-              </p> -->
             <hr class="refDiv">
           </div>
         </div>
@@ -504,7 +398,8 @@
               <p class="">Your Requirements has been sent successfully! <br>
                 You may see the status in your profile!
               </p>
-              <button type="button" class="btn text-center mb-3 mt-2" data-bs-dismiss="modal">Continue</button>
+              <button type="button" class="btn text-center mb-3 mt-2" onclick="submitForms()">Continue</button>
+              <!-- data-bs-dismiss="modal" -->
               <div class="custom-shape-divider-bottom-1630055058">
                 <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
                   <path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" opacity=".25" class="shape-fill"></path>
@@ -531,18 +426,6 @@
 <script src="{% static 'assets/js/multistepform.js' %}"></script>
 <script src="{% static 'assets/js/progressBar.js' %}"></script>
 
-<!-- <div class="mb-3 form-check">
-  <input type="checkbox" class="form-check-input me-1" id="exampleCheck1" required>
-  <label class="form-check-label" for="exampleCheck1" style="font-size:14px"> I agree to HumanAlytic's <span><a href="test" style="text-decoration: underline;">
-      Terms of Service</a></span></label>
-  </div>
-  <div class="mb-4 form-check">
-  <input type="checkbox" class="form-check-input me-1" id="exampleCheck2" required>
-  <label class="form-check-label" for="exampleCheck2" style="font-size:14px">
-      I accept HumanAlytic's use of my data for the service and everything else described in the <span><a href="test" style="text-decoration: underline;">
-          Privacy Policy</a></span>
-  </label>
-  </div> -->
 
 <script>
   $(document).ready(function () {
@@ -585,6 +468,10 @@
         doc.save($(".titleresume").text() + ".pdf");
       });
 
+      submitForms = function () {
+        document.getElementById("form1").submit();
+        // document.getElementById("form2").submit();
+      }
       var myModal = new bootstrap.Modal(document.getElementById("exampleModal"), {});
       myModal.show();
     });
