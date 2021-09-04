@@ -4,6 +4,7 @@ from django.contrib.auth.models import Group
 from .forms import clientFormReg, clientFormLogin, adminFormReg
 from .models import accounts
 from .decorators import unauthenticated_user
+from clientApp.models import personalDetails
 
 # Create your views here.
 
@@ -17,6 +18,9 @@ def signup(request):
             # add group
             group = Group.objects.get(name='Clients')
             user.groups.add(group)
+            personalDetails.objects.create(
+                accounts=user,
+            )
             # remove group This is temporary
             # group.user_set.remove(user)
             return redirect('signin')
@@ -67,6 +71,9 @@ def signupadmin(request):
             user = form.save()
             group = Group.objects.get(name='HR Staff')
             user.groups.add(group)
+            personalDetails.objects.create(
+                accounts=user,
+            )
             return redirect('signin')
     else:
         form = adminFormReg()

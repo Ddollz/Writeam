@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from accounts.models import accounts
-from .forms import personalInfo, proAndEmpInfo
+from .forms import personalDetailsForm
 # Create your views here.
 
 
@@ -31,13 +31,14 @@ def faq(request):
 def resume(request):
 
     if request.method == 'POST':
-        form1 = personalInfo(request.POST)
-        form2 = proAndEmpInfo(request.POST)
-        if form1.is_valid():
-            print(form1.cleaned_data['fname'])
-        if form2.is_valid():
-            print(form2.cleaned_data['bday'])
+        form1 = personalDetailsForm(request.POST)
 
-    form1 = personalInfo()
-    form2 = proAndEmpInfo()
-    return render(request, 'main/Client/resume.html', {'form1': form1, 'form2': form2})
+    #     form1 = personalInfo(request.POST)
+    #     form2 = proAndEmpInfo(request.POST)
+    #     if form1.is_valid():
+    #         print(form1.cleaned_data['fname'])
+    #     if form2.is_valid():
+    #         print(form2.cleaned_data['bday'])
+
+    form1 = personalDetailsForm()
+    return render(request, 'main/Client/resume.html', {'form1': form1})

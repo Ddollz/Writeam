@@ -4,7 +4,6 @@ $(document).ready(function () {
     var label = "heading";
     var label1 = "collapse";
 
-    const employeeEditor = [];
 
     var employeeIdLabel = "jobExp";
     var educIdLabel = "education";
@@ -200,7 +199,7 @@ $(document).ready(function () {
         <div class="row mb-5">\
             <div class="col">\
                 <label class="form-label ">Description</label>\
-                <div id="employeeEditor' + counter + '" class ="employeeEditor">\
+                <textarea name="" class="form-control employeeEditor" id="employeeEditor" style="height: 100px"></textarea>\
                 </div>\
             </div>\
         </div>\
@@ -212,14 +211,7 @@ $(document).ready(function () {
 </div>';
 
         $('#employeeHistoryAccordion').append(employeeHistory);
-        var temp = new Quill('#employeeEditor' + counter, {
-            theme: 'snow',
-            modules: {
-                toolbar: false
-            }
-        });
         employeeHistoryCounterId++;
-        employeeEditor.push(temp);
     }
 
     function appendEducation(titleid, label, label1, counter) {

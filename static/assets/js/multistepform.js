@@ -195,7 +195,6 @@ $(document).ready(function () {
 
         if (e.originalEvent) {
             var file = e.originalEvent.dataTransfer.files[0];
-            console.log(file);
 
             var reader = new FileReader();
 
@@ -385,43 +384,33 @@ $(document).ready(function () {
 
 
     //Summary
-    var summaryEditor = new Quill('#summaryEditor', {
-        theme: 'snow',
-        modules: {
-            toolbar: false
-        }
-    });
+    var summaryEditor = $("#summaryEditor");
+
     //profileDesc
     summaryTemp = true;
-    if (summaryEditor.getLength() == "1") {
+    console.log(summaryEditor.val().length)
+    if (summaryEditor.val().length <= 0) {
         $(".profileDiv").hide();
     }
-    summaryEditor.on('text-change', function (delta, oldDelta, source) {
-        if (source == 'api') {
-            console.log("An API call triggered this change.");
-        } else if (source == 'user') {
+    summaryEditor.on('input propertychange', function () {
 
-            if (summaryEditor.getLength() > 1) {
-                $(".profileDiv").show();
-
-                if (summaryTemp) {
-                    updateProgressBar("16", $(".progress__percent").text(), 1);
-                    summaryTemp = false;
-                }
+        if (summaryEditor.val().length > 1) {
+            $(".profileDiv").show();
+            if (summaryTemp) {
+                updateProgressBar("16", $(".progress__percent").text(), 1);
                 summaryTemp = false;
-            } else {
-                $(".profileDiv").hide();
-
-                if (!summaryTemp) {
-                    updateProgressBar("16", $(".progress__percent").text(), 0);
-                    summaryTemp = true;
-                }
             }
-            $("#profileDesc").html(summaryEditor.getText());
+            summaryTemp = false;
+        } else {
+            $(".profileDiv").hide();
 
+            if (!summaryTemp) {
+                updateProgressBar("16", $(".progress__percent").text(), 0);
+                summaryTemp = true;
+            }
         }
+        $("#profileDesc").html(summaryEditor.val());
     });
-
 
 
     var jobaccTemp = true;
@@ -480,21 +469,15 @@ $(document).ready(function () {
                 i.addEventListener('change', preEmployerCityChange);
             }
             $(".employeeEditor").each(function (index, value) {
-                var container = value;
-                var editor = new Quill(container);
-                editor.on('text-change', function (delta, oldDelta, source) {
-                    if (source == 'api') {
-                        console.log("An API call triggered this change.");
-                    } else if (source == 'user') {
-                        if (index == "0") {
-                            $("#preWorkDesc0").html(editor.getText());
-                        }
-                        if (index == "1") {
-                            $("#preWorkDesc1").html(editor.getText());
-                        }
-                        if (index == "2") {
-                            $("#preWorkDesc2").html(editor.getText());
-                        }
+                $(this).on('input propertychange', function () {
+                    if (index == "0") {
+                        $("#preWorkDesc0").html($(this).val());
+                    }
+                    if (index == "1") {
+                        $("#preWorkDesc1").html($(this).val());
+                    }
+                    if (index == "2") {
+                        $("#preWorkDesc2").html($(this).val());
                     }
                 });
             });
