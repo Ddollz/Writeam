@@ -186,13 +186,9 @@
                   <div class="col d-grid gap-2">
                     <div class="accordion" id="employeeHistoryAccordion">
 
-                      {% for dict in formset.errors %}
-                      {% for error in dict.values %}
-                      {{ error }}
-                      {% endfor %}
-                      {% endfor %}
 
                       {{formset.management_form}}
+
                       {%for form in formset%}
                       {{form.non_field_errors}}
                       <div class="accordion-item jobAccodionItem{{ forloop.counter0 }}">

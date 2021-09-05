@@ -47,7 +47,6 @@ INSTALLED_APPS = [
     'accounts.apps.AccountsConfig',
     'clientApp.apps.ClientappConfig',
     'adminApp.apps.AdminappConfig',
-    'django_quill',
 ]
 
 MIDDLEWARE = [

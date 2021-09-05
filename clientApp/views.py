@@ -4,7 +4,7 @@ from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from accounts.models import accounts
 from .models import employmentHistory, personalDetails
-from django.forms import formset_factory, modelformset_factory, inlineformset_factory
+from django.forms import inlineformset_factory
 from .forms import personalDetailsForm, employmentHistoryForm
 # Create your views here.
 
@@ -39,10 +39,10 @@ def resume(request):
         personalDetails, employmentHistory, form=employmentHistoryForm, extra=3, max_num=3)
     formset = workExpFormSet(instance=user)
 
-    print(employmentHistory.objects.filter(personaldetails=user).delete())
     if request.method == 'POST':
         form1 = personalDetailsForm(request.POST, request.FILES, instance=user)
         formset = workExpFormSet(request.POST, instance=user)
+        employmentHistory.objects.filter(personaldetails=user).delete()
         if form1.is_valid():
             form1.save()
 
@@ -50,6 +50,5 @@ def resume(request):
             formset.save()
         else:
             print(formset.errors)
-        # print(formset)
 
     return render(request, 'main/Client/resume.html', {'form1': form1, 'formset': formset})

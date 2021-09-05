@@ -4,7 +4,12 @@ from .models import personalDetails, employmentHistory, education, skill, link, 
 
 
 class personalDetailsAdmin(admin.ModelAdmin):
-    list_display = ('accounts', 'jobTitle')
+    list_display = ('accounts', 'jobTitle', 'fname',
+                    'lname', 'city', 'email', 'phone')
+
+    search_fields = ('JobTitle', 'city')
+    list_filter = ('city',)
+    readonly_fields = ('id',)
     fieldsets = (
     )
     add_fieldsets = (
@@ -12,11 +17,19 @@ class personalDetailsAdmin(admin.ModelAdmin):
 
 
 class employmentHistoryAdmin(admin.ModelAdmin):
-    list_display = ('personaldetails', 'employer')
+    list_display = ('personaldetails', 'JobTitle', 'city',
+                    'employer', 'start_date', 'end_date')
+    search_fields = ('JobTitle', 'city', 'employer',)
+    readonly_fields = ('id', 'start_date', 'end_date')
     fieldsets = (
     )
     add_fieldsets = (
+        (None, {
+            'classes': ('wide',),
+            'fields': ('personaldetails', 'JobTitle', 'city', 'employer', 'start_date', 'end_date')}
+         ),
     )
+    list_filter = ("JobTitle", 'city', 'start_date', 'end_date',)
 
 
 admin.site.register(personalDetails, personalDetailsAdmin)
