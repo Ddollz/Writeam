@@ -165,13 +165,13 @@ $(document).ready(function () {
         <div class="row mb-2">\
             <div class="col">\
                 <label class="form-label ">Job title</label>\
-                <input type="text" class="form-control jobTitle" id="jobTitle' + counter + '">\
+                <input type="text" class="form-control jobTitle   ">\
                 <div class="invalid-feedback">\
                 </div>\
             </div>\
             <div class="col">\
                 <label class="form-label ">Employer</label>\
-                <input type="text" class="form-control employerName" id="employerName' + counter + '">\
+                <input type="text" class="form-control employerName">\
                 <div class="invalid-feedback">\
                 </div>\
             </div>\
@@ -179,19 +179,19 @@ $(document).ready(function () {
         <div class="row mb-4">\
             <div class="col-3">\
                 <label class="form-label ">Start Date (Optional)</label>\
-                <input type="text" class="form-control startDate" id = "startDate' + counter + '">\
+                <input type="text" class="form-control startDate">\
                 <div class="invalid-feedback">\
                 </div>\
             </div>\
             <div class="col-3">\
                 <label class="form-label ">End Date (Optional)</label>\
-                <input type="text" class="form-control endDate" id = "endDate' + counter + '">\
+                <input type="text" class="form-control endDate">\
                 <div class="invalid-feedback">\
                 </div>\
             </div>\
             <div class="col-6">\
                 <label class="form-label ">City</label>\
-                <input type="text" class="form-control employerCity" id = "employerCity' + counter + '">\
+                <input type="text" class="form-control employerCity">\
                 <div class="invalid-feedback">\
                 </div>\
             </div>\
@@ -199,7 +199,7 @@ $(document).ready(function () {
         <div class="row mb-5">\
             <div class="col">\
                 <label class="form-label ">Description</label>\
-                <textarea name="" class="form-control employeeEditor" id="employeeEditor" style="height: 100px"></textarea>\
+                <textarea name="" class="form-control employeeEditor" style="height: 100px"></textarea>\
                 </div>\
             </div>\
         </div>\

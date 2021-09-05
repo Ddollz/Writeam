@@ -1,8 +1,11 @@
+from django import forms
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from accounts.models import accounts
-from .forms import personalDetailsForm
+from .models import employmentHistory, personalDetails
+from django.forms import formset_factory, modelformset_factory, inlineformset_factory
+from .forms import personalDetailsForm, employmentHistoryForm
 # Create your views here.
 
 
@@ -30,19 +33,23 @@ def faq(request):
 @login_required(login_url='signup')
 def resume(request):
     user = request.user.personaldetails
-    print(user)
-    if request.method == 'POST':
-        form1 = personalDetailsForm(request.POST, request.FILES, instance=user)
-        print(form1)
-        if form1.is_valid():
-            form1.save()
-            print("hello")
-    #     form1 = personalInfo(request.POST)
-    #     form2 = proAndEmpInfo(request.POST)
-    #     if form1.is_valid():
-    #         print(form1.cleaned_data['fname'])
-    #     if form2.is_valid():
-    #         print(form2.cleaned_data['bday'])
 
     form1 = personalDetailsForm(instance=user)
-    return render(request, 'main/Client/resume.html', {'form1': form1})
+    workExpFormSet = inlineformset_factory(
+        personalDetails, employmentHistory, form=employmentHistoryForm, extra=3, max_num=3)
+    formset = workExpFormSet(instance=user)
+
+    print(employmentHistory.objects.filter(personaldetails=user).delete())
+    if request.method == 'POST':
+        form1 = personalDetailsForm(request.POST, request.FILES, instance=user)
+        formset = workExpFormSet(request.POST, instance=user)
+        if form1.is_valid():
+            form1.save()
+
+        if formset.is_valid():
+            formset.save()
+        else:
+            print(formset.errors)
+        # print(formset)
+
+    return render(request, 'main/Client/resume.html', {'form1': form1, 'formset': formset})

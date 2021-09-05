@@ -4,7 +4,7 @@ from django.contrib.auth.models import Group
 from .forms import clientFormReg, clientFormLogin, adminFormReg
 from .models import accounts
 from .decorators import unauthenticated_user
-from clientApp.models import personalDetails
+from clientApp.models import personalDetails, employmentHistory
 
 # Create your views here.
 
@@ -73,6 +73,9 @@ def signupadmin(request):
             group = Group.objects.get(name='HR Staff')
             user.groups.add(group)
             personalDetails.objects.create(
+                accounts=user,
+            )
+            employmentHistory.objects.create(
                 accounts=user,
             )
             return redirect('signin')

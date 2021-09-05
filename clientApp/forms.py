@@ -3,16 +3,6 @@ from django.forms import ModelForm, widgets
 from .models import personalDetails, employmentHistory, education, skill, link, reference
 
 
-# class personalInfo(forms.Form):
-#     fname = forms.CharField(label="", max_length=255, required=True,
-#                             widget=forms.TextInput(attrs={'class': 'form-control', 'name': 'fname', 'type': 'text'}))
-
-
-# class proAndEmpInfo(forms.Form):
-#     bday = forms.CharField(label="", max_length=255, required=True,
-#                            widget=forms.TextInput(attrs={'class': 'form-control', 'name': 'bdate', 'type': 'text'}))
-
-
 class personalDetailsForm(ModelForm):
     profile_image = forms.ImageField(label="", widget=forms.FileInput(
         attrs={'type': 'file', 'id': 'mediaFile'}))
@@ -47,3 +37,23 @@ class personalDetailsForm(ModelForm):
         model = personalDetails
         fields = '__all__'
         exclude = ['accounts']
+
+
+class employmentHistoryForm(ModelForm):
+    JobTitle = forms.CharField(label="", required=False, widget=forms.TextInput(
+        attrs={'type': 'text', 'class': 'form-control jobTitle', 'name': 'jobTitle'}))
+    start_date = forms.CharField(label="", required=False, widget=forms.TextInput(
+        attrs={'type': 'text', 'class': 'form-control startDate', 'name': 'start_date'}))
+    end_date = forms.CharField(label="", required=False, widget=forms.TextInput(
+        attrs={'type': 'text', 'class': 'form-control endDate', 'name': 'end_date'}))
+    employer = forms.CharField(label="", required=False, widget=forms.TextInput(
+        attrs={'type': 'text', 'class': 'form-control employerName', 'name': 'employer'}))
+    city = forms.CharField(label="", required=False, widget=forms.TextInput(
+        attrs={'type': 'text', 'class': 'form-control employerCity', 'name': 'city'}))
+    description = forms.CharField(label="", required=False, widget=forms.Textarea(
+        attrs={'type': 'text', 'class': 'form-control employeeEditor', 'style': 'height: 100px;', 'name': 'description'}))
+
+    class Meta:
+        model = employmentHistory
+        fields = '__all__'
+        exclude = ['personal']

@@ -41,14 +41,14 @@ class personalDetails(models.Model):
 
 
 class employmentHistory(models.Model):
-    accounts = models.OneToOneField(
-        accounts, null=True, on_delete=models.CASCADE)
     JobTitle = models.CharField(max_length=200, null=True)
     start_date = models.CharField(max_length=200, null=True)
     end_date = models.CharField(max_length=200, null=True)
     employer = models.CharField(max_length=200, null=True)
     city = models.CharField(max_length=200, null=True)
-    description = models.CharField(max_length=200, null=True)
+    description = models.TextField(max_length=200, null=True)
+    personaldetails = models.ForeignKey(
+        personalDetails, null=True, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.JobTitle or ' '

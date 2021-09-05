@@ -3,7 +3,7 @@ from .models import personalDetails, employmentHistory, education, skill, link, 
 # Register your models here.
 
 
-class test(admin.ModelAdmin):
+class personalDetailsAdmin(admin.ModelAdmin):
     list_display = ('accounts', 'jobTitle')
     fieldsets = (
     )
@@ -11,8 +11,16 @@ class test(admin.ModelAdmin):
     )
 
 
-admin.site.register(personalDetails, test)
-admin.site.register(employmentHistory)
+class employmentHistoryAdmin(admin.ModelAdmin):
+    list_display = ('personaldetails', 'employer')
+    fieldsets = (
+    )
+    add_fieldsets = (
+    )
+
+
+admin.site.register(personalDetails, personalDetailsAdmin)
+admin.site.register(employmentHistory, employmentHistoryAdmin)
 admin.site.register(education)
 admin.site.register(skill)
 admin.site.register(link)

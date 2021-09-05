@@ -185,15 +185,77 @@
                 <div class="row mb-3">
                   <div class="col d-grid gap-2">
                     <div class="accordion" id="employeeHistoryAccordion">
-                    </div>
-                    <input type="hidden" id="cordionWorkId" value="">
-                    <button type="button" class="btn text-start" id="addEmploy">
-                      + Add Employement
-                    </button>
 
-                    <button type="button" class="btn text-start" id="removeEmploy">
-                      - Remove Employement
-                    </button>
+                      {% for dict in formset.errors %}
+                      {% for error in dict.values %}
+                      {{ error }}
+                      {% endfor %}
+                      {% endfor %}
+
+                      {{formset.management_form}}
+                      {%for form in formset%}
+                      {{form.non_field_errors}}
+                      <div class="accordion-item jobAccodionItem{{ forloop.counter0 }}">
+                        <h2 class="accordion-header" id="jobExpheading{{ forloop.counter0 }}">
+                          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#jobExpcollapse{{ forloop.counter0 }}" aria-expanded="false" aria-controls="jobExpcollapse{{ forloop.counter0 }}">
+                            <span id="AccordionWorkTitleLabel{{ forloop.counter0 }}" style="text-transform: uppercase;">(Not Specified)</span>
+                          </button>
+                        </h2>
+                        <div id="jobExpcollapse{{ forloop.counter0 }}" class="accordion-collapse collapse" aria-labelledby="jobExpheading{{ forloop.counter0 }}" data-bs-parent="#employeeHistoryAccordion">
+                          <div class="accordion-body">
+                            <div class="row mb-2">
+                              <div class="col">
+                                <label class="form-label ">Job title<input type="hidden" value="{{ form.initial.id }}" name='formDataId'></label>
+
+                                {{form.JobTitle}}
+                                <!-- <input type="text" class="form-control jobTitle"> -->
+                                <div class="invalid-feedback">
+                                </div>
+                              </div>
+                              <div class="col">
+                                <label class="form-label ">Employer</label>
+                                {{form.employer}}
+                                <!-- <input type="text" class="form-control employerName"> -->
+                                <div class="invalid-feedback">
+                                </div>
+                              </div>
+                            </div>
+                            <div class="row mb-4">
+                              <div class="col-3">
+                                <label class="form-label ">Start Date (Optional)</label>
+                                {{form.start_date}}
+                                <!-- <input type="text" class="form-control startDate"> -->
+                                <div class="invalid-feedback">
+                                </div>
+                              </div>
+                              <div class="col-3">
+                                <label class="form-label ">End Date (Optional)</label>
+                                {{form.end_date}}
+                                <!-- <input type="text" class="form-control endDate"> -->
+                                <div class="invalid-feedback">
+                                </div>
+                              </div>
+                              <div class="col-6">
+                                <label class="form-label ">City</label>
+                                {{form.city}}
+                                <!-- <input type="text" class="form-control employerCity"> -->
+                                <div class="invalid-feedback">
+                                </div>
+                              </div>
+                            </div>
+                            <div class="row mb-2">
+                              <div class="col">
+                                <label class="form-label ">Description</label>
+                                {{form.description}}
+                                <!-- <textarea name="" class="form-control employeeEditor" id="employeeEditor"></textarea> -->
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      {% endfor %}
+                    </div>
                   </div>
                 </div>
                 <!-- </form> -->
@@ -366,7 +428,41 @@
             <hr>
 
             <h5 class="title experienceDiv">Experience</h5>
+
             <div id="preWorkExperience">
+
+              <p class="subtitle preWorkSub0">
+                <span id="preWorkTitle0"></span>,
+                <span id="preEmployer0"></span>,
+                <span id="preWorkCity0"></span><br>
+                <span class="subContent">
+                  <span id="preWorkstartDate0"></span> -
+                  <span id="preWorkendDate0"></span> <br>
+                  &emsp;-&emsp;<span id="preWorkDesc0"></span>
+                </span>
+              </p>
+
+              <p class="subtitle preWorkSub1">
+                <span id="preWorkTitle1"></span>,
+                <span id="preEmployer1"></span>,
+                <span id="preWorkCity1"></span><br>
+                <span class="subContent">
+                  <span id="preWorkstartDate1"></span> -
+                  <span id="preWorkendDate1"></span> <br>
+                  &emsp;-&emsp;<span id="preWorkDesc1"></span>
+                </span>
+              </p>
+
+              <p class="subtitle preWorkSub2">
+                <span id="preWorkTitle2"></span>,
+                <span id="preEmployer2"></span>,
+                <span id="preWorkCity2"></span><br>
+                <span class="subContent">
+                  <span id="preWorkstartDate2"></span> -
+                  <span id="preWorkendDate2"></span> <br>
+                  &emsp;-&emsp;<span id="preWorkDesc2"></span>
+                </span>
+              </p>
             </div>
             <hr class="experienceDiv">
             <h5 class="title educDiv">Education</h5>
