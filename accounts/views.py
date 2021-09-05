@@ -18,6 +18,7 @@ def signup(request):
             # add group
             group = Group.objects.get(name='Clients')
             user.groups.add(group)
+            print(user)
             personalDetails.objects.create(
                 accounts=user,
             )

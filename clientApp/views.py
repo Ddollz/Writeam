@@ -29,10 +29,14 @@ def faq(request):
 # @allowed_users(allowed_roles=['Clients', 'HR Staff', 'HR Manager'])
 @login_required(login_url='signup')
 def resume(request):
-
+    user = request.user.personaldetails
+    print(user)
     if request.method == 'POST':
-        form1 = personalDetailsForm(request.POST)
-
+        form1 = personalDetailsForm(request.POST, request.FILES, instance=user)
+        print(form1)
+        if form1.is_valid():
+            form1.save()
+            print("hello")
     #     form1 = personalInfo(request.POST)
     #     form2 = proAndEmpInfo(request.POST)
     #     if form1.is_valid():
@@ -40,5 +44,5 @@ def resume(request):
     #     if form2.is_valid():
     #         print(form2.cleaned_data['bday'])
 
-    form1 = personalDetailsForm()
+    form1 = personalDetailsForm(instance=user)
     return render(request, 'main/Client/resume.html', {'form1': form1})

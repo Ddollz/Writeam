@@ -9,11 +9,15 @@ def get_profile_image_filepath(self, filename):
     return f'profile_images/{self.pk}/{"profile_image.png"}'
 
 
+def get_default_profile():
+    return "writeamImage/profile_image.png"
+
+
 class personalDetails(models.Model):
     accounts = models.OneToOneField(
         accounts, null=True, on_delete=models.CASCADE)
     profile_image = models.ImageField(
-        max_length=255, upload_to=get_profile_image_filepath, null=True, blank=True)
+        max_length=255, upload_to=get_profile_image_filepath, null=True, blank=True, default=get_default_profile)
     jobTitle = models.CharField(max_length=200, null=True)
     fname = models.CharField(max_length=200, null=True)
     lname = models.CharField(max_length=200, null=True)

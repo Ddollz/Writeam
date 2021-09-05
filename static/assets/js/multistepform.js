@@ -248,6 +248,17 @@ $(document).ready(function () {
 
     //jobTitle = jobWant
     jobTemp = true;
+
+    // ! Update
+    $("#jobWant").html($('#jobTitle').val());
+    $("#fullname").html($('#fname').val() + " " + $('#lname').val());
+    $("#preAddress").html($('#address').val());
+    $("#preCountry").html($('#country').val());
+    $("#preCityPC").html($('#city').val() + ", " + $('#postal').val());
+    $("#preEmail").html($('#email').val());
+    $("#preNumber").html($('#phone').val());
+    $("#profileDesc").html($('#summaryEditor').val());
+
     $('#jobTitle').change(function (e) {
         $("#jobWant").html($('#jobTitle').val());
 
