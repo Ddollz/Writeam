@@ -195,7 +195,6 @@ $(document).ready(function () {
 
         if (e.originalEvent) {
             var file = e.originalEvent.dataTransfer.files[0];
-            console.log(file);
 
             var reader = new FileReader();
 
@@ -249,6 +248,17 @@ $(document).ready(function () {
 
     //jobTitle = jobWant
     jobTemp = true;
+
+    // ! Update
+    $("#jobWant").html($('#jobTitle').val());
+    $("#fullname").html($('#fname').val() + " " + $('#lname').val());
+    $("#preAddress").html($('#address').val());
+    $("#preCountry").html($('#country').val());
+    $("#preCityPC").html($('#city').val() + ", " + $('#postal').val());
+    $("#preEmail").html($('#email').val());
+    $("#preNumber").html($('#phone').val());
+    $("#profileDesc").html($('#summaryEditor').val());
+
     $('#jobTitle').change(function (e) {
         $("#jobWant").html($('#jobTitle').val());
 
@@ -385,47 +395,34 @@ $(document).ready(function () {
 
 
     //Summary
-    var summaryEditor = new Quill('#summaryEditor', {
-        theme: 'snow',
-        modules: {
-            toolbar: false
-        }
-    });
+    var summaryEditor = $("#summaryEditor");
+
     //profileDesc
     summaryTemp = true;
-    if (summaryEditor.getLength() == "1") {
+    if (summaryEditor.val().length <= 0) {
         $(".profileDiv").hide();
     }
-    summaryEditor.on('text-change', function (delta, oldDelta, source) {
-        if (source == 'api') {
-            console.log("An API call triggered this change.");
-        } else if (source == 'user') {
+    summaryEditor.on('input propertychange', function () {
 
-            if (summaryEditor.getLength() > 1) {
-                $(".profileDiv").show();
-
-                if (summaryTemp) {
-                    updateProgressBar("16", $(".progress__percent").text(), 1);
-                    summaryTemp = false;
-                }
+        if (summaryEditor.val().length > 1) {
+            $(".profileDiv").show();
+            if (summaryTemp) {
+                updateProgressBar("16", $(".progress__percent").text(), 1);
                 summaryTemp = false;
-            } else {
-                $(".profileDiv").hide();
-
-                if (!summaryTemp) {
-                    updateProgressBar("16", $(".progress__percent").text(), 0);
-                    summaryTemp = true;
-                }
             }
-            $("#profileDesc").html(summaryEditor.getText());
+            summaryTemp = false;
+        } else {
+            $(".profileDiv").hide();
 
+            if (!summaryTemp) {
+                updateProgressBar("16", $(".progress__percent").text(), 0);
+                summaryTemp = true;
+            }
         }
+        $("#profileDesc").html(summaryEditor.val());
     });
 
 
-
-    var jobaccTemp = true;
-    var jobaccTemp1 = true;
     //jobTitle
     //employerName
     //startDate
@@ -433,163 +430,198 @@ $(document).ready(function () {
     //employeeCity
     //AccordionTitleLabel
     //experienceDiv
-    if ($(".jobAccodionItem0").length == 0) {
-        $(".experienceDiv").hide();
+    var preJobTitle = $('.jobTitle');
+    var workStartdate = $('.startDate');
+    var workEnddate = $('.endDate');
+    var employerName = $('.employerName');
+    var employerCity = $('.employerCity');
+
+    $(".jobTitle").each(function (index) {
+        // console.log(index + ": " + $(this).val());
+
+        if ($($('.jobTitle')[index]).val().length > 0 && index == 0) {
+            $("#AccordionWorkTitleLabel0").html($(this).val());
+            $("#preWorkTitle0").html($($('.jobTitle')[index]).val());
+            $('.preWorkSub0').show();
+            $('.experienceDiv').show();
+        } else {
+            $('.preWorkSub0').hide();
+        }
+        if ($($('.jobTitle')[index]).val().length > 0 && index == 1) {
+            $("#AccordionWorkTitleLabel1").html($(this).val());
+            $("#preWorkTitle1").html($($('.jobTitle')[index]).val());
+            $('.preWorkSub1').show();
+            $('.experienceDiv').show();
+        } else {
+            $('.preWorkSub1').hide();
+        }
+        if ($($('.jobTitle')[index]).val().length > 0 && index == 2) {
+            $("#AccordionWorkTitleLabel2").html($(this).val());
+            $("#preWorkTitle2").html($($('.jobTitle')[index]).val());
+            $('.preWorkSub2').show();
+            $('.experienceDiv').show();
+        } else {
+            $('.preWorkSub2').hide();
+        }
+        if ($('.preWorkSub2').is(":hidden") && $('.preWorkSub1').is(":hidden") && $('.preWorkSub0').is(":hidden")) {
+            $('.experienceDiv').hide();
+        }
+
+        if ($($('.employerName')[index]).val().length > 0 && index == 0) {
+            $("#preEmployer0").html($($('.employerName')[index]).val());
+        }
+        if ($($('.employerName')[index]).val().length > 0 && index == 1) {
+            $("#preEmployer1").html($($('.employerName')[index]).val());
+        }
+        if ($($('.employerName')[index]).val().length > 0 && index == 2) {
+            $("#preEmployer2").html($($('.employerName')[index]).val());
+        }
+
+        if ($($('.employerCity')[index]).val().length > 0 && index == 0) {
+            $("#preWorkCity0").html($($('.employerCity')[index]).val());
+        }
+        if ($($('.employerCity')[index]).val().length > 0 && index == 1) {
+            $("#preWorkCity1").html($($('.employerCity')[index]).val());
+        }
+        if ($($('.employerCity')[index]).val().length > 0 && index == 2) {
+            $("#preWorkCity2").html($($('.employerCity')[index]).val());
+        }
+
+        if ($($('.startDate')[index]).val().length > 0 && index == 0) {
+            $("#preWorkstartDate0").html($($('.startDate')[index]).val());
+        }
+        if ($($('.startDate')[index]).val().length > 0 && index == 1) {
+            $("#preWorkstartDate1").html($($('.startDate')[index]).val());
+        }
+        if ($($('.startDate')[index]).val().length > 0 && index == 2) {
+            $("#preWorkstartDate2").html($($('.startDate')[index]).val());
+        }
+
+        if ($($('.endDate')[index]).val().length > 0 && index == 0) {
+            $("#preWorkendDate0").html($($('.endDate')[index]).val());
+        }
+        if ($($('.endDate')[index]).val().length > 0 && index == 1) {
+            $("#preWorkendDate1").html($($('.endDate')[index]).val());
+        }
+        if ($($('.endDate')[index]).val().length > 0 && index == 2) {
+            $("#preWorkendDate2").html($($('.endDate')[index]).val());
+        }
+
+        if ($($('.employeeEditor')[index]).val().length > 0 && index == 0) {
+            $("#preWorkDesc0").html($($('.employeeEditor')[index]).val());
+        }
+        if ($($('.employeeEditor')[index]).val().length > 0 && index == 1) {
+            $("#preWorkDesc1").html($($('.employeeEditor')[index]).val());
+        }
+        if ($($('.employeeEditor')[index]).val().length > 0 && index == 2) {
+            $("#preWorkDesc2").html($($('.employeeEditor')[index]).val());
+        }
+    });
+    preJobTitleChange()
+    if (preJobTitle.val().length <= 0) {
+        $('.preWorkSub0').hide();
+        $('.preWorkSub1').hide();
+        $('.preWorkSub2').hide();
     }
-    var jobCounter = 0;
-    $("#addEmploy").click(function () {
 
-        if (jobaccTemp) {
-            updateProgressBar("11.864", $(".progress__percent").text(), 1);
-            jobaccTemp = false;
-            jobaccTemp1 = false;
-        }
-        $(".experienceDiv").show();
-        // console.log(jobCounter);
-        if (jobCounter < 3) {
+    if (preJobTitle.val().length <= 0) {
+        $('.experienceDiv').hide();
+    }
+    // $('#preWorkExperience').append(addPreExp);
+    for (const i of preJobTitle) {
+        i.addEventListener('change', preJobTitleChange);
+    }
+    for (const i of workStartdate) {
+        i.addEventListener('change', preJobstartdateChange);
+    }
+    for (const i of workEnddate) {
+        i.addEventListener('change', preJobenddateChange);
+    }
+    for (const i of employerName) {
+        i.addEventListener('change', preEmployerNameChange);
+    }
+    for (const i of employerCity) {
+        i.addEventListener('change', preEmployerCityChange);
+    }
 
-            var addPreExp = '<p class="subtitle preWorkSub' + jobCounter + '">\
-          <span id="preWorkTitle'+ jobCounter + '"></span>,\
-          <span id="preEmployer'+ jobCounter + '"></span>,\
-          <span id="preWorkCity'+ jobCounter + '"></span><br>\
-          <span class="subContent">\
-          <span id="preWorkstartDate'+ jobCounter + '"></span> - \
-          <span id="preWorkendDate'+ jobCounter + '"></span> <br>\
-            &emsp;-&emsp;<span id="preWorkDesc'+ jobCounter + '"></span>\
-          </span>\
-        </p>';
-            var preJobTitle = $('.jobTitle');
-            var workStartdate = $('.startDate');
-            var workEnddate = $('.endDate');
-            var employerName = $('.employerName');
-            var employerCity = $('.employerCity');
-            $('#preWorkExperience').append(addPreExp);
-            for (const i of preJobTitle) {
-                i.addEventListener('change', preJobTitleChange);
+    $(".employeeEditor").each(function (index, value) {
+        $(this).on('input propertychange', function () {
+            if (index == "0") {
+                $("#preWorkDesc0").html($(this).val());
             }
-            for (const i of workStartdate) {
-                i.addEventListener('change', preJobstartdateChange);
+            if (index == "1") {
+                $("#preWorkDesc1").html($(this).val());
             }
-            for (const i of workEnddate) {
-                i.addEventListener('change', preJobenddateChange);
+            if (index == "2") {
+                $("#preWorkDesc2").html($(this).val());
             }
-            for (const i of employerName) {
-                i.addEventListener('change', preEmployerNameChange);
+        });
+    });
+
+    //date
+    $('.startDate').datepicker(
+        {
+            dateFormat: "MM yy",
+            changeMonth: true,
+            changeYear: true,
+            yearRange: "1980:2021",
+            showButtonPanel: true,
+            onClose: function (dateText, inst) {
+                function isDonePressed() {
+                    return ($('#ui-datepicker-div').html().indexOf('ui-datepicker-close ui-state-default ui-priority-primary ui-corner-all ui-state-hover') > -1);
+                }
+
+                if (isDonePressed()) {
+                    var month = $("#ui-datepicker-div .ui-datepicker-month :selected").val();
+                    var year = $("#ui-datepicker-div .ui-datepicker-year :selected").val();
+                    $(this).datepicker('setDate', new Date(year, month, 1)).trigger('change');
+                    preJobstartdateChange(this);
+                    $('.date-picker').focusout()//Added to remove focus from datepicker input box on selecting date
+                }
+            },
+            beforeShow: function (input, inst) {
+
+                inst.dpDiv.addClass('month_year_datepicker')
+
+                if ((datestr = $(this).val()).length > 0) {
+                    year = datestr.substring(datestr.length - 4, datestr.length);
+                    month = datestr.substring(0, 2);
+                    $(this).datepicker('option', 'defaultDate', new Date(year, month - 1, 1));
+                    $(this).datepicker('setDate', new Date(year, month - 1, 1));
+                    $(".ui-datepicker-calendar").hide();
+                }
             }
-            for (const i of employerCity) {
-                i.addEventListener('change', preEmployerCityChange);
+        });
+    $('.endDate').datepicker({
+        dateFormat: "MM yy",
+        changeMonth: true,
+        changeYear: true,
+        yearRange: "1980:2021",
+        showButtonPanel: true,
+        onClose: function (dateText, inst) {
+            function isDonePressed() {
+                return ($('#ui-datepicker-div').html().indexOf('ui-datepicker-close ui-state-default ui-priority-primary ui-corner-all ui-state-hover') > -1);
             }
-            $(".employeeEditor").each(function (index, value) {
-                var container = value;
-                var editor = new Quill(container);
-                editor.on('text-change', function (delta, oldDelta, source) {
-                    if (source == 'api') {
-                        console.log("An API call triggered this change.");
-                    } else if (source == 'user') {
-                        if (index == "0") {
-                            $("#preWorkDesc0").html(editor.getText());
-                        }
-                        if (index == "1") {
-                            $("#preWorkDesc1").html(editor.getText());
-                        }
-                        if (index == "2") {
-                            $("#preWorkDesc2").html(editor.getText());
-                        }
-                    }
-                });
-            });
-
-            jobCounter++;
-            //date
-            $('.startDate').datepicker(
-                {
-                    dateFormat: "MM yy",
-                    changeMonth: true,
-                    changeYear: true,
-                    yearRange: "1980:2021",
-                    showButtonPanel: true,
-                    onClose: function (dateText, inst) {
-
-
-                        function isDonePressed() {
-                            return ($('#ui-datepicker-div').html().indexOf('ui-datepicker-close ui-state-default ui-priority-primary ui-corner-all ui-state-hover') > -1);
-                        }
-
-                        if (isDonePressed()) {
-                            var month = $("#ui-datepicker-div .ui-datepicker-month :selected").val();
-                            var year = $("#ui-datepicker-div .ui-datepicker-year :selected").val();
-                            $(this).datepicker('setDate', new Date(year, month, 1)).trigger('change');
-                            preJobstartdateChange(this);
-                            $('.date-picker').focusout()//Added to remove focus from datepicker input box on selecting date
-                        }
-                    },
-                    beforeShow: function (input, inst) {
-
-                        inst.dpDiv.addClass('month_year_datepicker')
-
-                        if ((datestr = $(this).val()).length > 0) {
-                            year = datestr.substring(datestr.length - 4, datestr.length);
-                            month = datestr.substring(0, 2);
-                            $(this).datepicker('option', 'defaultDate', new Date(year, month - 1, 1));
-                            $(this).datepicker('setDate', new Date(year, month - 1, 1));
-                            $(".ui-datepicker-calendar").hide();
-                        }
-                    }
-                });
-            $('.endDate').datepicker(
-                {
-                    dateFormat: "MM yy",
-                    changeMonth: true,
-                    changeYear: true,
-                    yearRange: "1980:2021",
-                    showButtonPanel: true,
-                    onClose: function (dateText, inst) {
-
-
-                        function isDonePressed() {
-                            return ($('#ui-datepicker-div').html().indexOf('ui-datepicker-close ui-state-default ui-priority-primary ui-corner-all ui-state-hover') > -1);
-                        }
-
-                        if (isDonePressed()) {
-                            var month = $("#ui-datepicker-div .ui-datepicker-month :selected").val();
-                            var year = $("#ui-datepicker-div .ui-datepicker-year :selected").val();
-                            $(this).datepicker('setDate', new Date(year, month, 1)).trigger('change');
-                            preJobenddateChange(this);
-                            $('.date-picker').focusout()//Added to remove focus from datepicker input box on selecting date
-                        }
-                    },
-                    beforeShow: function (input, inst) {
-
-                        inst.dpDiv.addClass('month_year_datepicker')
-
-                        if ((datestr = $(this).val()).length > 0) {
-                            year = datestr.substring(datestr.length - 4, datestr.length);
-                            month = datestr.substring(0, 2);
-                            $(this).datepicker('option', 'defaultDate', new Date(year, month - 1, 1));
-                            $(this).datepicker('setDate', new Date(year, month - 1, 1));
-                            $(".ui-datepicker-calendar").hide();
-                        }
-                    }
-                });
+            if (isDonePressed()) {
+                var month = $("#ui-datepicker-div .ui-datepicker-month :selected").val();
+                var year = $("#ui-datepicker-div .ui-datepicker-year :selected").val();
+                $(this).datepicker('setDate', new Date(year, month, 1)).trigger('change');
+                preJobenddateChange(this);
+                $('.date-picker').focusout()//Added to remove focus from datepicker input box on selecting date
+            }
+        },
+        beforeShow: function (input, inst) {
+            inst.dpDiv.addClass('month_year_datepicker')
+            if ((datestr = $(this).val()).length > 0) {
+                year = datestr.substring(datestr.length - 4, datestr.length);
+                month = datestr.substring(0, 2);
+                $(this).datepicker('option', 'defaultDate', new Date(year, month - 1, 1));
+                $(this).datepicker('setDate', new Date(year, month - 1, 1));
+                $(".ui-datepicker-calendar").hide();
+            }
         }
     });
 
-    $("#removeEmploy").click(function () {
-        if ($(".jobAccodionItem0").length == 0) {
-            $(".experienceDiv").hide();
-            if (!jobaccTemp1) {
-                updateProgressBar("11.864", $(".progress__percent").text(), 0);
-                jobaccTemp = true;
-                jobaccTemp1 = true;
-            }
-        }
-        if (jobCounter != 0) {
-            temp = jobCounter - 1;
-            $(".preWorkSub" + temp).remove();
-            jobCounter--;
-        }
-
-    });
     function preJobTitleChange() {
 
         var cordionSelector = $("#employeeHistoryAccordion").children().find(".show").attr('id');
@@ -604,6 +636,28 @@ $(document).ready(function () {
         if (cordionSelector == "jobExpcollapse2") {
             $("#preWorkTitle2").html($(this).val());
             $("#AccordionWorkTitleLabel2").html($(this).val());
+        }
+
+        if ($('#AccordionWorkTitleLabel0').text().length > 0 && $('#AccordionWorkTitleLabel0').text() != "(Not Specified)") {
+            $('.preWorkSub0').show();
+            $('.experienceDiv').show();
+        } else {
+            $('.preWorkSub0').hide();
+        }
+        if ($('#AccordionWorkTitleLabel1').text().length > 0 && $('#AccordionWorkTitleLabel1').text() != "(Not Specified)") {
+            $('.preWorkSub1').show();
+            $('.experienceDiv').show();
+        } else {
+            $('.preWorkSub1').hide();
+        } if ($('#AccordionWorkTitleLabel2').text().length > 0 && $('#AccordionWorkTitleLabel2').text() != "(Not Specified)") {
+            $('.preWorkSub2').show();
+            $('.experienceDiv').show();
+        } else {
+            $('.preWorkSub2').hide();
+        }
+        if ($('.preWorkSub2').is(":hidden") && $('.preWorkSub1').is(":hidden") && $('.preWorkSub0').is(":hidden")) {
+            $('.experienceDiv').hide();
+
         }
     }
 
@@ -685,154 +739,181 @@ $(document).ready(function () {
     }
 
 
-    //school
-    //degree
-    //educStartDate
-    //educEndDate
-    //educCity
-    //AccordionEducTitleLabel
-    //educDiv
-    accorEducTemp = true;
-    accorEducTemp1 = true;
-    if ($(".accordionEduc0").length == 0) {
-        $(".educDiv").hide();
+
+    var preEducTitle = $('.school');
+    var educStartdate = $('.educStartDate');
+    var educEnddate = $('.educEndDate');
+    var educCity = $('.educCity');
+    var educDegree = $('.degree');
+    $(".school").each(function (index) {
+        if ($($('.school')[index]).val().length > 0 && index == 0) {
+            $("#AccordionEducTitleLabel0").html($(this).val());
+            $("#preEducTitle0").html($($('.school')[index]).val());
+            $('.preEducSub0').show();
+            $('.educDiv').show();
+        } else {
+            $('.preEducSub0').hide();
+        }
+        if ($($('.school')[index]).val().length > 0 && index == 1) {
+            $("#AccordionEducTitleLabel1").html($(this).val());
+            $("#preEducTitle1").html($($('.school')[index]).val());
+            $('.preEducSub1').show();
+            $('.educDiv').show();
+        } else {
+            $('.preEducSub1').hide();
+        }
+        if ($($('.school')[index]).val().length > 0 && index == 2) {
+            $("#AccordionEducTitleLabel2").html($(this).val());
+            $("#preEducTitle2").html($($('.school')[index]).val());
+            $('.preEducSub2').show();
+            $('.educDiv').show();
+        } else {
+            $('.preEducSub2').hide();
+        }
+        if ($('.preEducSub2').is(":hidden") && $('.preEducSub1').is(":hidden") && $('.preEducSub0').is(":hidden")) {
+            $('.educDiv').hide();
+        }
+
+        if ($($('.degree')[index]).val().length > 0 && index == 0) {
+            $("#preEducDegree0").html($($('.degree')[index]).val());
+        }
+        if ($($('.degree')[index]).val().length > 0 && index == 1) {
+            $("#preEducDegree1").html($($('.degree')[index]).val());
+        }
+        if ($($('.degree')[index]).val().length > 0 && index == 2) {
+            $("#preEducDegree2").html($($('.degree')[index]).val());
+        }
+
+        if ($($('.educCity')[index]).val().length > 0 && index == 0) {
+            $("#preEducCity0").html($($('.educCity')[index]).val());
+        }
+        if ($($('.educCity')[index]).val().length > 0 && index == 1) {
+            $("#preEducCity1").html($($('.educCity')[index]).val());
+        }
+        if ($($('.educCity')[index]).val().length > 0 && index == 2) {
+            $("#preEducCity2").html($($('.educCity')[index]).val());
+        }
+
+        if ($($('.educStartDate')[index]).val().length > 0 && index == 0) {
+            $("#preWorkstartDate0").html($($('.educStartDate')[index]).val());
+        }
+        if ($($('.educStartDate')[index]).val().length > 0 && index == 1) {
+            $("#preWorkstartDate1").html($($('.educStartDate')[index]).val());
+        }
+        if ($($('.educStartDate')[index]).val().length > 0 && index == 2) {
+            $("#preWorkstartDate2").html($($('.educStartDate')[index]).val());
+        }
+
+        if ($($('.educEndDate')[index]).val().length > 0 && index == 0) {
+            $("#preWorkendDate0").html($($('.educEndDate')[index]).val());
+        }
+        if ($($('.educEndDate')[index]).val().length > 0 && index == 1) {
+            $("#preWorkendDate1").html($($('.educEndDate')[index]).val());
+        }
+        if ($($('.educEndDate')[index]).val().length > 0 && index == 2) {
+            $("#preWorkendDate2").html($($('.educEndDate')[index]).val());
+        }
+    });
+
+    preEducTitleChange()
+    if (preEducTitle.val().length <= 0) {
+        $('.preEducSub0').hide();
+        $('.preEducSub1').hide();
+        $('.preEducSub2').hide();
     }
-    var schoolCounter = 0;
-    $("#addEduc").click(function () {
-        if (accorEducTemp) {
-            updateProgressBar("11.864", $(".progress__percent").text(), 1);
-            accorEducTemp = false;
-            accorEducTemp1 = false;
 
-        }
-        $(".educDiv").show();
-        if (schoolCounter < 3) {
+    if (preEducTitle.val().length <= 0) {
+        $('.educDiv').hide();
+    }
 
-            var addPreEduc = '<p class="subtitle preEducSub' + schoolCounter + '">\
-          <span id="preEducTitle'+ schoolCounter + '"></span>,\
-          <span id="preEducCity'+ schoolCounter + '"></span><br>\
-          <span class="subContent">\
-          <span id="preEducstartDate'+ schoolCounter + '"></span> - \
-          <span id="preEducendDate'+ schoolCounter + '"></span> <br>\
-            &emsp;-&emsp;<span id="preEducDegree'+ schoolCounter + '"></span>\
-          </span>\
-        </p>';
-            var preEducTitle = $('.school');
-            var educStartdate = $('.educStartDate');
-            var educEnddate = $('.educEndDate');
-            var educCity = $('.educCity');
-            var educDegree = $('.degree');
-            $('#preEducation').append(addPreEduc);
-            for (const i of preEducTitle) {
-                i.addEventListener('change', preEducTitleChange);
+    for (const i of preEducTitle) {
+        i.addEventListener('change', preEducTitleChange);
+    }
+    for (const i of educStartdate) {
+        i.addEventListener('change', preEducstartdateChange);
+    }
+    for (const i of educEnddate) {
+        i.addEventListener('change', preEducenddateChange);
+    }
+    for (const i of educCity) {
+        i.addEventListener('change', preEducCityChange);
+    }
+    for (const i of educDegree) {
+        i.addEventListener('change', preEducDegreeChange);
+    }
+
+    //date
+    $('.educStartDate').datepicker(
+        {
+            dateFormat: "MM yy",
+            changeMonth: true,
+            changeYear: true,
+            yearRange: "1980:2021",
+            showButtonPanel: true,
+            onClose: function (dateText, inst) {
+
+
+                function isDonePressed() {
+                    return ($('#ui-datepicker-div').html().indexOf('ui-datepicker-close ui-state-default ui-priority-primary ui-corner-all ui-state-hover') > -1);
+                }
+
+                if (isDonePressed()) {
+                    var month = $("#ui-datepicker-div .ui-datepicker-month :selected").val();
+                    var year = $("#ui-datepicker-div .ui-datepicker-year :selected").val();
+                    $(this).datepicker('setDate', new Date(year, month, 1)).trigger('change');
+                    preEducstartdateChange(this);
+                    $('.date-picker').focusout()//Added to remove focus from datepicker input box on selecting date
+                }
+            },
+            beforeShow: function (input, inst) {
+
+                inst.dpDiv.addClass('month_year_datepicker')
+
+                if ((datestr = $(this).val()).length > 0) {
+                    year = datestr.substring(datestr.length - 4, datestr.length);
+                    month = datestr.substring(0, 2);
+                    $(this).datepicker('option', 'defaultDate', new Date(year, month - 1, 1));
+                    $(this).datepicker('setDate', new Date(year, month - 1, 1));
+                    $(".ui-datepicker-calendar").hide();
+                }
             }
-            for (const i of educStartdate) {
-                i.addEventListener('change', preEducstartdateChange);
+        });
+    $('.educEndDate').datepicker(
+        {
+            dateFormat: "MM yy",
+            changeMonth: true,
+            changeYear: true,
+            yearRange: "1980:2021",
+            showButtonPanel: true,
+            onClose: function (dateText, inst) {
+
+
+                function isDonePressed() {
+                    return ($('#ui-datepicker-div').html().indexOf('ui-datepicker-close ui-state-default ui-priority-primary ui-corner-all ui-state-hover') > -1);
+                }
+
+                if (isDonePressed()) {
+                    var month = $("#ui-datepicker-div .ui-datepicker-month :selected").val();
+                    var year = $("#ui-datepicker-div .ui-datepicker-year :selected").val();
+                    $(this).datepicker('setDate', new Date(year, month, 1)).trigger('change');
+                    preEducenddateChange(this);
+                    $('.date-picker').focusout()//Added to remove focus from datepicker input box on selecting date
+                }
+            },
+            beforeShow: function (input, inst) {
+
+                inst.dpDiv.addClass('month_year_datepicker')
+
+                if ((datestr = $(this).val()).length > 0) {
+                    year = datestr.substring(datestr.length - 4, datestr.length);
+                    month = datestr.substring(0, 2);
+                    $(this).datepicker('option', 'defaultDate', new Date(year, month - 1, 1));
+                    $(this).datepicker('setDate', new Date(year, month - 1, 1));
+                    $(".ui-datepicker-calendar").hide();
+                }
             }
-            for (const i of educEnddate) {
-                i.addEventListener('change', preEducenddateChange);
-            }
-            for (const i of educCity) {
-                i.addEventListener('change', preEducCityChange);
-            }
-            for (const i of educDegree) {
-                i.addEventListener('change', preEducDegreeChange);
-            }
-            schoolCounter++;
+        });
 
-            //date
-            $('.educStartDate').datepicker(
-                {
-                    dateFormat: "MM yy",
-                    changeMonth: true,
-                    changeYear: true,
-                    yearRange: "1980:2021",
-                    showButtonPanel: true,
-                    onClose: function (dateText, inst) {
-
-
-                        function isDonePressed() {
-                            return ($('#ui-datepicker-div').html().indexOf('ui-datepicker-close ui-state-default ui-priority-primary ui-corner-all ui-state-hover') > -1);
-                        }
-
-                        if (isDonePressed()) {
-                            var month = $("#ui-datepicker-div .ui-datepicker-month :selected").val();
-                            var year = $("#ui-datepicker-div .ui-datepicker-year :selected").val();
-                            $(this).datepicker('setDate', new Date(year, month, 1)).trigger('change');
-                            preEducstartdateChange(this);
-                            $('.date-picker').focusout()//Added to remove focus from datepicker input box on selecting date
-                        }
-                    },
-                    beforeShow: function (input, inst) {
-
-                        inst.dpDiv.addClass('month_year_datepicker')
-
-                        if ((datestr = $(this).val()).length > 0) {
-                            year = datestr.substring(datestr.length - 4, datestr.length);
-                            month = datestr.substring(0, 2);
-                            $(this).datepicker('option', 'defaultDate', new Date(year, month - 1, 1));
-                            $(this).datepicker('setDate', new Date(year, month - 1, 1));
-                            $(".ui-datepicker-calendar").hide();
-                        }
-                    }
-                });
-            $('.educEndDate').datepicker(
-                {
-                    dateFormat: "MM yy",
-                    changeMonth: true,
-                    changeYear: true,
-                    yearRange: "1980:2021",
-                    showButtonPanel: true,
-                    onClose: function (dateText, inst) {
-
-
-                        function isDonePressed() {
-                            return ($('#ui-datepicker-div').html().indexOf('ui-datepicker-close ui-state-default ui-priority-primary ui-corner-all ui-state-hover') > -1);
-                        }
-
-                        if (isDonePressed()) {
-                            var month = $("#ui-datepicker-div .ui-datepicker-month :selected").val();
-                            var year = $("#ui-datepicker-div .ui-datepicker-year :selected").val();
-                            $(this).datepicker('setDate', new Date(year, month, 1)).trigger('change');
-                            preEducenddateChange(this);
-                            $('.date-picker').focusout()//Added to remove focus from datepicker input box on selecting date
-                        }
-                    },
-                    beforeShow: function (input, inst) {
-
-                        inst.dpDiv.addClass('month_year_datepicker')
-
-                        if ((datestr = $(this).val()).length > 0) {
-                            year = datestr.substring(datestr.length - 4, datestr.length);
-                            month = datestr.substring(0, 2);
-                            $(this).datepicker('option', 'defaultDate', new Date(year, month - 1, 1));
-                            $(this).datepicker('setDate', new Date(year, month - 1, 1));
-                            $(".ui-datepicker-calendar").hide();
-                        }
-                    }
-                });
-        }
-    });
-
-    $("#removeEduc").click(function () {
-
-        if ($(".accordionEduc0").length == 0) {
-            $(".educDiv").hide();
-            if (!accorEducTemp1) {
-
-                updateProgressBar("11.864", $(".progress__percent").text(), 0);
-                accorEducTemp = true;
-                accorEducTemp1 = true;
-            }
-        }
-        if (schoolCounter != 0) {
-            temp = schoolCounter - 1;
-            $(".preEducSub" + temp).remove();
-            schoolCounter--;
-
-        }
-
-    });
 
     function preEducTitleChange() {
         var cordionSelector = $("#education").children().find(".show").attr('id');
@@ -847,6 +928,28 @@ $(document).ready(function () {
         if (cordionSelector == "educationcollapse2") {
             $("#preEducTitle2").html($(this).val());
             $("#AccordionEducTitleLabel2").html($(this).val());
+        }
+
+        if ($('#AccordionEducTitleLabel0').text().length > 0 && $('#AccordionEducTitleLabel0').text() != "(Not Specified)") {
+            $('.preEducSub0').show();
+            $('.educDiv').show();
+        } else {
+            $('.preEducSub0').hide();
+        }
+        if ($('#AccordionEducTitleLabel1').text().length > 0 && $('#AccordionEducTitleLabel1').text() != "(Not Specified)") {
+            $('.preEducSub1').show();
+            $('.educDiv').show();
+        } else {
+            $('.preEducSub1').hide();
+        } if ($('#AccordionEducTitleLabel2').text().length > 0 && $('#AccordionEducTitleLabel2').text() != "(Not Specified)") {
+            $('.preEducSub2').show();
+            $('.educDiv').show();
+        } else {
+            $('.preEducSub2').hide();
+        }
+        if ($('.preEducSub2').is(":hidden") && $('.preEducSub1').is(":hidden") && $('.preEducSub0').is(":hidden")) {
+            $('.educDiv').hide();
+
         }
     }
 
@@ -929,59 +1032,42 @@ $(document).ready(function () {
     }
 
 
-    //socialLink
-    accorSocTemp = true;
-    accorSocTemp1 = true;
-    if ($(".accordionSocial0").length == 0) {
-        $(".socialDiv").hide();
+    $(".socialLink").each(function (index) {
+        if ($($('.socialLink')[index]).val().length > 0 && index == 0) {
+            $("#AccordionSocialTitleLabel0").html($(this).val());
+            $("#preLink0").html($($('.socialLink')[index]).val());
+            $('.preSocialSub0').show();
+            $('.socialDiv').show();
+        } else {
+            $('.socialDiv').hide();
+        }
+        if ($($('.socialLink')[index]).val().length > 0 && index == 1) {
+            $("#AccordionSocialTitleLabel1").html($(this).val());
+            $("#preLink1").html($($('.socialLink')[index]).val());
+            $('.preSocialSub1').show();
+            $('.socialDiv').show();
+        } else {
+            $('.preSocialSub1').hide();
+        }
+        if ($($('.socialLink')[index]).val().length > 0 && index == 2) {
+            $("#AccordionSocialTitleLabel2").html($(this).val());
+            $("#preLink2").html($($('.socialLink')[index]).val());
+            $('.preSocialSub2').show();
+            $('.socialDiv').show();
+        } else {
+            $('.preSocialSub2').hide();
+        }
+        if ($('.preSocialSub2').is(":hidden") && $('.preSocialSub1').is(":hidden") && $('.preSocialSub0').is(":hidden")) {
+            $('.socialDiv').hide();
+        }
+    });
+    var preSocialLink = $('.socialLink');
+
+    for (const i of preSocialLink) {
+        i.addEventListener('change', preSocialLinkChange);
     }
-    var socialCounter = 0;
-    $("#addSocial").click(function () {
-        $(".socialDiv").show();
-        if (socialCounter < 3) {
-            // <span class="subContent">
-            //   www.github.com/Ddollz <br>
-            //   www.facebook.com/D.dollzs
-            // </span>.
+    preSocialLinkChange()
 
-            if (accorSocTemp) {
-                updateProgressBar("11.864", $(".progress__percent").text(), 1);
-                accorSocTemp = false;
-                accorSocTemp1 = false;
-
-            }
-            var addPreLink = '<p class="subContent preSocialSub' + socialCounter + '">\
-                            <span id="preLink'+ socialCounter + '"></span>\
-                          </p>';
-
-            var preSocialLink = $('.socialLink');
-            $('#preSocialLink').append(addPreLink);
-
-            for (const i of preSocialLink) {
-                i.addEventListener('change', preSocialLinkChange);
-            }
-            socialCounter++;
-        }
-    });
-
-    $("#removeSocial").click(function () {
-
-        if ($(".accordionSocial0").length == 0) {
-            $(".socialDiv").hide();
-
-            if (!accorSocTemp) {
-                updateProgressBar("11.864", $(".progress__percent").text(), 0);
-                accorSocTemp = true;
-                accorSocTemp1 = true;
-
-            }
-        }
-        if (socialCounter != 0) {
-            temp = socialCounter - 1;
-            $(".preSocialSub" + temp).remove();
-            socialCounter--;
-        }
-    });
     function preSocialLinkChange() {
         var cordionSelector = $("#social").children().find(".show").attr('id');
         if (cordionSelector == "socialcollapse0") {
@@ -996,6 +1082,27 @@ $(document).ready(function () {
             $("#preLink2").html($(this).val());
             $("#AccordionSocialTitleLabel2").html($(this).val());
         }
+        if ($('#AccordionSocialTitleLabel0').text().length > 0 && $('#AccordionSocialTitleLabel0').text() != "(Not Specified)") {
+            $('.preSocialSub0').show();
+            $('.socialDiv').show();
+        } else {
+            $('.preSocialSub0').hide();
+        }
+        if ($('#AccordionSocialTitleLabel1').text().length > 0 && $('#AccordionSocialTitleLabel1').text() != "(Not Specified)") {
+            $('.preSocialSub1').show();
+            $('.socialDiv').show();
+        } else {
+            $('.preSocialSub1').hide();
+        } if ($('#AccordionSocialTitleLabel2').text().length > 0 && $('#AccordionSocialTitleLabel2').text() != "(Not Specified)") {
+            $('.preSocialSub2').show();
+            $('.socialDiv').show();
+        } else {
+            $('.preSocialSub2').hide();
+        }
+        if ($('.preSocialSub2').is(":hidden") && $('.preSocialSub1').is(":hidden") && $('.preSocialSub0').is(":hidden")) {
+            $('.socialDiv').hide();
+
+        }
     }
 
     //refname
@@ -1005,75 +1112,85 @@ $(document).ready(function () {
     //AccordionReferenceTitleLabel
     //refDiv
 
-    //      <p class="subtitle">
-    //     Renato, Vendor<br>
-    //     <span class="subContent">
-    //       Email.Com 09286120906
-    //     </span>
-    //   </p> 
+    var preRefName = $('.refname');
+    var preRefCompany = $('.refcompany');
+    var preRefEmail = $('.refPhone');
+    var preRefPhone = $('.refEmail');
+    $(".refname").each(function (index) {
+        if ($($('.refname')[index]).val().length > 0 && index == 0) {
+            $("#AccordionReferenceTitleLabel0").html($(this).val());
+            $("#preRefName0").html($($('.refname')[index]).val());
+            $('.preRefSub0').show();
+            $('.refDiv').show();
+        } else {
+            $('.preRefSub0').hide();
+        }
+        if ($($('.refname')[index]).val().length > 0 && index == 1) {
+            $("#AccordionReferenceTitleLabel1").html($(this).val());
+            $("#preRefName1").html($($('.refname')[index]).val());
+            $('.preRefSub1').show();
+            $('.refDiv').show();
+        } else {
+            $('.preRefSub1').hide();
+        }
+        if ($($('.refname')[index]).val().length > 0 && index == 2) {
+            $("#AccordionReferenceTitleLabel2").html($(this).val());
+            $("#preRefName2").html($($('.refname')[index]).val());
+            $('.preRefSub2').show();
+            $('.refDiv').show();
+        } else {
+            $('.preRefSub2').hide();
+        }
+        if ($('.preRefSub2').is(":hidden") && $('.preRefSub1').is(":hidden") && $('.preRefSub0').is(":hidden")) {
+            $('.refDiv').hide();
+        }
 
-    accorRefTemp = true;
-    accorRefTemp1 = true;
-    if ($(".accordionReference0").length == 0) {
-        $(".refDiv").hide();
+        if ($($('.refcompany')[index]).val().length > 0 && index == 0) {
+            $("#preRefCompany0").html($($('.refcompany')[index]).val());
+        }
+        if ($($('.refcompany')[index]).val().length > 0 && index == 1) {
+            $("#preRefCompany1").html($($('.refcompany')[index]).val());
+        }
+        if ($($('.refcompany')[index]).val().length > 0 && index == 2) {
+            $("#preRefCompany2").html($($('.refcompany')[index]).val());
+        }
+
+        if ($($('.refEmail')[index]).val().length > 0 && index == 0) {
+            $("#preRefEmail0").html($($('.refEmail')[index]).val());
+        }
+        if ($($('.refEmail')[index]).val().length > 0 && index == 1) {
+            $("#preRefEmail1").html($($('.refEmail')[index]).val());
+        }
+        if ($($('.refEmail')[index]).val().length > 0 && index == 2) {
+            $("#preRefEmail2").html($($('.refEmail')[index]).val());
+        }
+
+        if ($($('.refPhone')[index]).val().length > 0 && index == 0) {
+            $("#preRefPhone0").html($($('.refPhone')[index]).val());
+        }
+        if ($($('.refPhone')[index]).val().length > 0 && index == 1) {
+            $("#preRefPhone1").html($($('.refPhone')[index]).val());
+        }
+        if ($($('.refPhone')[index]).val().length > 0 && index == 2) {
+            $("#preRefPhone2").html($($('.refPhone')[index]).val());
+        }
+    });
+
+    preRefNameChange()
+
+    for (const i of preRefName) {
+        i.addEventListener('change', preRefNameChange);
     }
-    var referenceCounter = 0;
-    $("#addReference").click(function () {
-        $(".refDiv").show();
-        if (referenceCounter < 3) {
+    for (const i of preRefCompany) {
+        i.addEventListener('change', preRefCompChange);
+    }
+    for (const i of preRefEmail) {
+        i.addEventListener('change', preRefEmailChange);
+    }
+    for (const i of preRefPhone) {
+        i.addEventListener('change', preRefPhoneChange);
+    }
 
-            if (accorRefTemp) {
-                updateProgressBar("11.864", $(".progress__percent").text(), 1);
-                accorRefTemp = false;
-                accorRefTemp1 = false;
-
-            }
-            var addPreRef = '<p class="subtitle preRefSub' + referenceCounter + '">\
-          <span id="preRefName'+ referenceCounter + '"></span>,\
-          <span id="preRefCompany'+ referenceCounter + '"></span><br>\
-          <span class="subContent">\
-          <span id="preRefEmail'+ referenceCounter + '"></span> - \
-          <span id="preRefPhone'+ referenceCounter + '"></span> <br>\
-          </span>\
-        </p>';
-            var preRefName = $('.refname');
-            var preRefCompany = $('.refcompany');
-            var preRefEmail = $('.refPhone');
-            var preRefPhone = $('.refEmail');
-            $('#preReference').append(addPreRef);
-            for (const i of preRefName) {
-                i.addEventListener('change', preRefNameChange);
-            }
-            for (const i of preRefCompany) {
-                i.addEventListener('change', preRefCompChange);
-            }
-            for (const i of preRefEmail) {
-                i.addEventListener('change', preRefEmailChange);
-            }
-            for (const i of preRefPhone) {
-                i.addEventListener('change', preRefPhoneChange);
-            }
-            referenceCounter++;
-        }
-    });
-
-    $("#removeReference").click(function () {
-
-        if ($(".accordionReference0").length == 0) {
-            $(".refDiv").hide();
-            if (!accorRefTemp) {
-                updateProgressBar("11.864", $(".progress__percent").text(), 0);
-                accorRefTemp = true;
-                accorRefTemp1 = true;
-
-            }
-        }
-        if (referenceCounter != 0) {
-            temp = referenceCounter - 1;
-            $(".preRefSub" + temp).remove();
-            referenceCounter--;
-        }
-    });
 
     function preRefNameChange() {
         var cordionSelector = $("#reference").children().find(".show").attr('id');
@@ -1088,6 +1205,28 @@ $(document).ready(function () {
         if (cordionSelector == "referencecollapse2") {
             $("#preRefName2").html($(this).val());
             $("#AccordionReferenceTitleLabel2").html($(this).val());
+        }
+
+        if ($('#AccordionReferenceTitleLabel0').text().length > 0 && $('#AccordionReferenceTitleLabel0').text() != "(Not Specified)") {
+            $('.preRefSub0').show();
+            $('.refDiv').show();
+        } else {
+            $('.preRefSub0').hide();
+        }
+        if ($('#AccordionReferenceTitleLabel1').text().length > 0 && $('#AccordionReferenceTitleLabel1').text() != "(Not Specified)") {
+            $('.preRefSub1').show();
+            $('.refDiv').show();
+        } else {
+            $('.preRefSub1').hide();
+        } if ($('#AccordionReferenceTitleLabel2').text().length > 0 && $('#AccordionReferenceTitleLabel2').text() != "(Not Specified)") {
+            $('.preRefSub2').show();
+            $('.refDiv').show();
+        } else {
+            $('.preRefSub2').hide();
+        }
+        if ($('.preRefSub2').is(":hidden") && $('.preRefSub1').is(":hidden") && $('.preRefSub0').is(":hidden")) {
+            $('.refDiv').hide();
+
         }
     }
 
@@ -1135,6 +1274,38 @@ $(document).ready(function () {
     //accordionSkill
     //skilltitle
     //skillcollapse
+
+    var preSkill = $('.skilltitle');
+    for (const i of preSkill) {
+        i.addEventListener('change', preSkillNameChange);
+    }
+
+    $(".skilltitle").each(function (index) {
+        if ($($('.skilltitle')[index]).val().length > 0 && index == 0) {
+            $("#preSkillName0").html($($('.skilltitle')[index]).val());
+            $('.preSocialSub0').show();
+            $('.socialDiv').show();
+        } else {
+            $('.socialDiv').hide();
+        }
+        if ($($('.skilltitle')[index]).val().length > 0 && index == 1) {
+            $("#preSkillName1").html($($('.skilltitle')[index]).val());
+            $('.preSocialSub1').show();
+            $('.socialDiv').show();
+        } else {
+            $('.preSocialSub1').hide();
+        }
+        if ($($('.skilltitle')[index]).val().length > 0 && index == 2) {
+            $("#preSkillName2").html($($('.skilltitle')[index]).val());
+            $('.preSocialSub2').show();
+            $('.socialDiv').show();
+        } else {
+            $('.preSocialSub2').hide();
+        }
+        if ($('.preSocialSub2').is(":hidden") && $('.preSocialSub1').is(":hidden") && $('.preSocialSub0').is(":hidden")) {
+            $('.socialDiv').hide();
+        }
+    });
 
     accorSkillTemp = true;
     accorSkillTemp1 = true;

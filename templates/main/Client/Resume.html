@@ -208,6 +208,11 @@
                                 </div>
                               </div>
                               <div class="col">
+
+                                <div class="float-end">
+                                  {{form.DELETE}}
+                                  <label class="bi bi-trash-fill"></label>
+                                </div>
                                 <label class="form-label ">Employer</label>
                                 {{form.employer}}
                                 <!-- <input type="text" class="form-control employerName"> -->
@@ -282,6 +287,11 @@
                                 </div>
                               </div>
                               <div class="col">
+
+                                <div class="float-end">
+                                  {{form.DELETE}}
+                                  <label class="bi bi-trash-fill"></label>
+                                </div>
                                 <label class="form-label ">Degree</label>
                                 {{form.degree}}
                                 <div class="invalid-feedback">
@@ -336,11 +346,16 @@
                           <div class="accordion-body">
                             <div class="row mb-2">
                               <div class="col">
+                                <div class="float-end">
+                                  {{form.DELETE}}
+                                  <label class="bi bi-trash-fill"></label>
+                                </div>
                                 <label class="form-label ">Link</label>
                                 {{form.link}}
                                 <div class="invalid-feedback">
                                 </div>
                               </div>
+
                             </div>
                           </div>
                         </div>
@@ -356,15 +371,34 @@
                 <h4>Skills</h4>
                 <div class="row mb-3">
                   <div class="col d-grid gap-2">
-                    <div class="accordion" id="skill"></div>
+                    <div class="accordion" id="skill">
 
-                    <button type="button" class="btn text-start" id="addSkill">
-                      + Add Skill
-                    </button>
+                      <table class="table">
+                        <thead>
+                          <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">skill</th>
+                            <th scope="col">Delete</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {{formset4.management_form}}
+                          {%for form in formset4%}
+                          {{form.non_field_errors}}
+                          {{form.id}}
+                          <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{form.skill}}</td>
+                            <td>
+                              <div class="form-group">{{form.DELETE}}</div>
+                            </td>
+                          </tr>
 
-                    <button type="button" class="btn text-start" id="removeSkill">
-                      - Remove Skill
-                    </button>
+                          {% endfor %}
+                          <!-- <div>{{formset4.empty_form}}</div> -->
+                        </tbody>
+                      </table>
+                    </div>
                   </div>
                 </div>
 
@@ -393,6 +427,11 @@
                                 </div>
                               </div>
                               <div class="col">
+
+                                <div class="float-end">
+                                  {{form.DELETE}}
+                                  <label class="bi bi-trash-fill"></label>
+                                </div>
                                 <label class="form-label ">Company</label>
                                 {{form.company}}
                                 <div class="invalid-feedback">
@@ -475,7 +514,16 @@
 
             <p class="title skillDiv">Skill<br>
               <span class="subContent" id="skillContent">
-
+                <span id="preSkillName0"> <br></span>
+                <span id="preSkillName1"> <br></span>
+                <span id="preSkillName2"> <br></span>
+                <span id="preSkillName3"> <br></span>
+                <span id="preSkillName4"> <br></span>
+                <span id="preSkillName5"> <br></span>
+                <span id="preSkillName6"> <br></span>
+                <span id="preSkillName7"> <br></span>
+                <span id="preSkillName8"> <br></span>
+                <span id="preSkillName9"> <br></span>
               </span>
             </p>
             <hr class="skillDiv">
@@ -680,7 +728,6 @@
 <script src="{% static 'assets/vendor/jqUI/jquery-ui.min.js' %}"></script>
 <!-- <script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script> -->
 <script src="{% static 'assets/js/main.js' %}"></script>
-<script src="{% static 'assets/js/quillmain.js' %}"></script>
 <script src="{% static 'assets/js/multistepform.js' %}"></script>
 <script src="{% static 'assets/js/progressBar.js' %}"></script>
 

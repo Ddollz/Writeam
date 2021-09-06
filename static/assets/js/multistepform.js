@@ -1191,68 +1191,6 @@ $(document).ready(function () {
         i.addEventListener('change', preRefPhoneChange);
     }
 
-    accorRefTemp = true;
-    accorRefTemp1 = true;
-    if ($(".accordionReference0").length == 0) {
-        $(".refDiv").hide();
-    }
-    var referenceCounter = 0;
-    $("#addReference").click(function () {
-        $(".refDiv").show();
-        if (referenceCounter < 3) {
-
-            if (accorRefTemp) {
-                updateProgressBar("11.864", $(".progress__percent").text(), 1);
-                accorRefTemp = false;
-                accorRefTemp1 = false;
-
-            }
-            var addPreRef = '<p class="subtitle preRefSub' + referenceCounter + '">\
-          <span id="preRefName'+ referenceCounter + '"></span>,\
-          <span id="preRefCompany'+ referenceCounter + '"></span><br>\
-          <span class="subContent">\
-          <span id="preRefEmail'+ referenceCounter + '"></span> - \
-          <span id="preRefPhone'+ referenceCounter + '"></span> <br>\
-          </span>\
-        </p>';
-            var preRefName = $('.refname');
-            var preRefCompany = $('.refcompany');
-            var preRefEmail = $('.refPhone');
-            var preRefPhone = $('.refEmail');
-            $('#preReference').append(addPreRef);
-            for (const i of preRefName) {
-                i.addEventListener('change', preRefNameChange);
-            }
-            for (const i of preRefCompany) {
-                i.addEventListener('change', preRefCompChange);
-            }
-            for (const i of preRefEmail) {
-                i.addEventListener('change', preRefEmailChange);
-            }
-            for (const i of preRefPhone) {
-                i.addEventListener('change', preRefPhoneChange);
-            }
-            referenceCounter++;
-        }
-    });
-
-    $("#removeReference").click(function () {
-
-        if ($(".accordionReference0").length == 0) {
-            $(".refDiv").hide();
-            if (!accorRefTemp) {
-                updateProgressBar("11.864", $(".progress__percent").text(), 0);
-                accorRefTemp = true;
-                accorRefTemp1 = true;
-
-            }
-        }
-        if (referenceCounter != 0) {
-            temp = referenceCounter - 1;
-            $(".preRefSub" + temp).remove();
-            referenceCounter--;
-        }
-    });
 
     function preRefNameChange() {
         var cordionSelector = $("#reference").children().find(".show").attr('id');
@@ -1337,92 +1275,233 @@ $(document).ready(function () {
     //skilltitle
     //skillcollapse
 
-    accorSkillTemp = true;
-    accorSkillTemp1 = true;
-
-    if ($(".accordionSkill0").length == 0) {
-        $(".skillDiv").hide();
+    $("#preSkillName0").hide()
+    $("#preSkillName1").hide()
+    $("#preSkillName2").hide()
+    $("#preSkillName3").hide()
+    $("#preSkillName4").hide()
+    $("#preSkillName5").hide()
+    $("#preSkillName6").hide()
+    $("#preSkillName7").hide()
+    $("#preSkillName8").hide()
+    $("#preSkillName9").hide()
+    if ($("#id_skill_set-0-skill").val().length > 0) {
+        $("#preSkillName0").html($("#id_skill_set-0-skill").val() + '<br>');
+        $("#preSkillName0").show()
     }
-    var skillCounter = 0;
-    $("#addSkill").click(function () {
-        $(".skillDiv").show();
-        if (skillCounter < 10) {
-
-            if (accorSkillTemp) {
-                updateProgressBar("11.884", $(".progress__percent").text(), 1);
-                accorSkillTemp = false;
-                accorSkillTemp1 = false;
+    if ($("#id_skill_set-1-skill").val().length > 0) {
+        $("#preSkillName1").html($("#id_skill_set-1-skill").val() + '<br>');
+        $("#preSkillName1").show()
+    } if ($("#id_skill_set-2-skill").val().length > 0) {
+        $("#preSkillName2").html($("#id_skill_set-2-skill").val() + '<br>');
+        $("#preSkillName2").show()
+    } if ($("#id_skill_set-3-skill").val().length > 0) {
+        $("#preSkillName3").html($("#id_skill_set-3-skill").val() + '<br>');
+        $("#preSkillName3").show()
+    } if ($("#id_skill_set-4-skill").val().length > 0) {
+        $("#preSkillName4").html($("#id_skill_set-4-skill").val() + '<br>');
+        $("#preSkillName4").show()
+    } if ($("#id_skill_set-5-skill").val().length > 0) {
+        $("#preSkillName5").html($("#id_skill_set-5-skill").val() + '<br>');
+        $("#preSkillName5").show()
+    } if ($("#id_skill_set-6-skill").val().length > 0) {
+        $("#preSkillName6").html($("#id_skill_set-6-skill").val() + '<br>');
+        $("#preSkillName6").show()
+    } if ($("#id_skill_set-7-skill").val().length > 0) {
+        $("#preSkillName7").html($("#id_skill_set-7-skill").val() + '<br>');
+        $("#preSkillName7").show()
+    } if ($("#id_skill_set-8-skill").val().length > 0) {
+        $("#preSkillName8").html($("#id_skill_set-8-skill").val() + '<br>');
+        $("#preSkillName8").show()
+    }
+    if ($("#id_skill_set-9-skill").val().length > 0) {
+        $("#preSkillName9").html($("#id_skill_set-9-skill").val() + '<br>');
+        $("#preSkillName9").show()
+    }
+    var preSkill = $('.skilltitle');
+    tempo = false;
+    preSkill.change(function () {
+        var self = $(this)
+        if (self.attr('id') == "id_skill_set-0-skill") {
+            $("#preSkillName0").html(self.val() + '<br>');
+            if (self.val() == '') {
+                $("#preSkillName0").hide()
+                tempo = false
+            } else {
+                $("#preSkillName0").show()
+                tempo = true
             }
-            var addPreSkill = '<span id="preSkillName' + skillCounter + '"></span> <br>';
-            var preSkill = $('.skilltitle');
-            $('#skillContent').append(addPreSkill);
-            for (const i of preSkill) {
-                i.addEventListener('change', preSkillNameChange);
+        }
+        if (self.attr('id') == "id_skill_set-1-skill") {
+            $("#preSkillName1").html(self.val() + '<br>');
+            if (self.val() == '') {
+                $("#preSkillName1").hide()
+                tempo = false
+            } else {
+                $("#preSkillName1").show()
             }
-            skillCounter++;
+        }
+        if (self.attr('id') == "id_skill_set-2-skill") {
+            $("#preSkillName2").html(self.val() + '<br>');
+            if (self.val() == '') {
+                $("#preSkillName2").hide()
+                tempo = false
+            } else {
+                $("#preSkillName2").show()
+                tempo = true
+            }
+        }
+        if (self.attr('id') == "id_skill_set-3-skill") {
+            $("#preSkillName3").html(self.val() + '<br>');
+            if (self.val() == '') {
+                $("#preSkillName3").hide()
+                tempo = false
+            } else {
+                $("#preSkillName3").show()
+                tempo = true
+            }
+        }
+        if (self.attr('id') == "id_skill_set-4-skill") {
+            $("#preSkillName4").html(self.val() + '<br>');
+            if (self.val() == '') {
+                $("#preSkillName4").hide()
+                tempo = false
+            } else {
+                $("#preSkillName4").show()
+                tempo = true
+            }
+        }
+        if (self.attr('id') == "id_skill_set-5-skill") {
+            $("#preSkillName5").html(self.val() + '<br>');
+            if (self.val() == '') {
+                $("#preSkillName5").hide()
+                tempo = false
+            } else {
+                $("#preSkillName5").show()
+                tempo = true
+            }
+        }
+        if (self.attr('id') == "id_skill_set-6-skill") {
+            $("#preSkillName6").html(self.val() + '<br>');
+            if (self.val() == '') {
+                $("#preSkillName6").hide()
+                tempo = false
+            } else {
+                $("#preSkillName6").show()
+                tempo = true
+            }
+        }
+        if (self.attr('id') == "id_skill_set-7-skill") {
+            $("#preSkillName7").html(self.val() + '<br>');
+            if (self.val() == '') {
+                $("#preSkillName7").hide()
+                tempo = false
+            } else {
+                $("#preSkillName7").show()
+                tempo = true
+            }
+        }
+        if (self.attr('id') == "id_skill_set-8-skill") {
+            $("#preSkillName8").html(self.val() + '<br>');
+            if (self.val() == '') {
+                $("#preSkillName8").hide()
+                tempo = false
+            } else {
+                $("#preSkillName8").show()
+                tempo = true
+            }
+        }
+        if (self.attr('id') == "id_skill_set-9-skill") {
+            $("#preSkillName9").html(self.val() + '<br>');
+            if (self.val() == '') {
+                $("#preSkillName9").hide()
+                tempo = false
+            } else {
+                $("#preSkillName9").show()
+                tempo = true
+            }
+        }
+        if ($("#preSkillName0").is(":hidden") &&
+            $("#preSkillName1").is(":hidden") &&
+            $("#preSkillName2").is(":hidden") &&
+            $("#preSkillName3").is(":hidden") &&
+            $("#preSkillName4").is(":hidden") &&
+            $("#preSkillName5").is(":hidden") &&
+            $("#preSkillName6").is(":hidden") &&
+            $("#preSkillName7").is(":hidden") &&
+            $("#preSkillName8").is(":hidden") &&
+            $("#preSkillName9").is(":hidden") && tempo == false
+        ) {
+            $(".skillDiv").hide()
+        } else {
+            $(".skillDiv").show()
+            tempo = true
         }
     });
+    // $(".skilltitle").each(function (index) {
+    //     if ($($('.skilltitle')[index]).val().length > 0 && index == 0) {
+    //         $("#preSkillName0").html($($('.skilltitle')[index]).val());
+    //         $('#preSkillName0').show();
+    //     } else {
+    //         $('#preSkillName0').hide();
+    //     }
+    //     if ($($('.skilltitle')[index]).val().length > 0 && index == 1) {
+    //         $("#preSkillName1").html($($('.skilltitle')[index]).val());
+    //         $('#preSkillName1').show();
+    //     } else {
+    //         $('.preSkillName1').hide();
+    //     }
+    //     if ($($('.skilltitle')[index]).val().length > 0 && index == 2) {
+    //         $("#preSkillName2").html($($('.skilltitle')[index]).val());
+    //         $('#preSkillName2').show();
+    //     } else {
+    //         $('#preSkillName2').hide();
+    //     }
+    // });
 
-    $("#removeSkill").click(function () {
+    // accorSkillTemp = true;
+    // accorSkillTemp1 = true;
 
-        if ($(".accordionSkill0").length == 0) {
-            $(".skillDiv").hide();
+    // var skillCounter = 0;
+    // $("#addSkill").click(function () {
+    //     $(".skillDiv").show();
+    //     if (skillCounter < 10) {
 
-            if (!accorSkillTemp) {
-                updateProgressBar("11.884", $(".progress__percent").text(), 0);
-                accorSkillTemp = true;
-                accorSkillTemp1 = true;
-            }
-        }
-        if (skillCounter != 0) {
-            temp = skillCounter - 1;
-            $(".preRefSub" + temp).remove();
-            skillCounter--;
-        }
-    });
-    function preSkillNameChange() {
+    //         if (accorSkillTemp) {
+    //             updateProgressBar("11.884", $(".progress__percent").text(), 1);
+    //             accorSkillTemp = false;
+    //             accorSkillTemp1 = false;
+    //         }
+    //         var addPreSkill = '<span id="preSkillName' + skillCounter + '"></span> <br>';
+    //         var preSkill = $('.skilltitle');
+    //         $('#skillContent').append(addPreSkill);
+    //         for (const i of preSkill) {
+    //             i.addEventListener('change', preSkillNameChange);
+    //         }
+    //         skillCounter++;
+    //     }
+    // });
 
-        var cordionSelector = $("#skill").children().find(".show").attr('id');
-        if (cordionSelector == "skillcollapse0") {
-            $("#preSkillName0").html($(this).val());
-            $("#AccordionSkillTitleLabel0").html($(this).val());
-        }
-        if (cordionSelector == "skillcollapse1") {
-            $("#preSkillName1").html($(this).val());
-            $("#AccordionSkillTitleLabel1").html($(this).val());
-        }
-        if (cordionSelector == "skillcollapse2") {
-            $("#preSkillName2").html($(this).val());
-            $("#AccordionSkillTitleLabel2").html($(this).val());
-        }
-        if (cordionSelector == "skillcollapse3") {
-            $("#preSkillName3").html($(this).val());
-            $("#AccordionSkillTitleLabel3").html($(this).val());
-        }
-        if (cordionSelector == "skillcollapse4") {
-            $("#preSkillName4").html($(this).val());
-            $("#AccordionSkillTitleLabel4").html($(this).val());
-        }
-        if (cordionSelector == "skillcollapse5") {
-            $("#preSkillName5").html($(this).val());
-            $("#AccordionSkillTitleLabel5").html($(this).val());
-        }
-        if (cordionSelector == "skillcollapse6") {
-            $("#preSkillName6").html($(this).val());
-            $("#AccordionSkillTitleLabel6").html($(this).val());
-        }
-        if (cordionSelector == "skillcollapse7") {
-            $("#preSkillName7").html($(this).val());
-            $("#AccordionSkillTitleLabel7").html($(this).val());
-        }
-        if (cordionSelector == "skillcollapse8") {
-            $("#preSkillName8").html($(this).val());
-            $("#AccordionSkillTitleLabel8").html($(this).val());
-        }
-        if (cordionSelector == "skillcollapse9") {
-            $("#preSkillName9").html($(this).val());
-            $("#AccordionSkillTitleLabel9").html($(this).val());
-        }
-    }
+    // function preSkillNameChange(index) {
+    //     console.log($(this))
+    //     if ($(this).val().length > 0 && index == 0) {
+    //         $("#preSkillName0").html($($('.skilltitle')[index]).val());
+    //         $('#preSkillName0').show();
+    //     } else {
+    //         $('#preSkillName0').hide();
+    //     }
+    //     if ($(this).val().length > 0 && index == 1) {
+    //         $("#preSkillName1").html($($('.skilltitle')[index]).val());
+    //         $('#preSkillName1').show();
+    //     } else {
+    //         $('.preSkillName1').hide();
+    //     }
+    //     if ($(this).val().length > 0 && index == 2) {
+    //         $("#preSkillName2").html($($('.skilltitle')[index]).val());
+    //         $('#preSkillName2').show();
+    //     } else {
+    //         $('#preSkillName2').hide();
+    //     }
+    // }
 
 });

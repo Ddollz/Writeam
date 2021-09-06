@@ -87,6 +87,19 @@ class linkForm(ModelForm):
         exclude = ['personal']
 
 
+class skillForm(ModelForm):
+    skill = forms.CharField(label="", required=False, widget=forms.TextInput(
+        attrs={'type': 'text', 'class': 'form-control skilltitle'}))
+
+    DELETE = forms.BooleanField(
+        widget=forms.CheckboxInput(attrs={'class': 'btn-check'}))
+
+    class Meta:
+        model = skill
+        fields = '__all__'
+        exclude = ['personal']
+
+
 class referenceForm(ModelForm):
 
     name = forms.CharField(label="", required=False, widget=forms.TextInput(

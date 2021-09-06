@@ -69,9 +69,18 @@ class referenceAdmin(admin.ModelAdmin):
     list_filter = ("company",)
 
 
+class skillAdmin(admin.ModelAdmin):
+    list_display = ('id', 'skill')
+    readonly_fields = ('id',)
+    fieldsets = (
+    )
+    add_fieldsets = (
+    )
+
+
 admin.site.register(personalDetails, personalDetailsAdmin)
 admin.site.register(employmentHistory, employmentHistoryAdmin)
 admin.site.register(education, educationAdmin)
-admin.site.register(skill)
+admin.site.register(skill, skillAdmin)
 admin.site.register(link, linkAdmin)
 admin.site.register(reference, referenceAdmin)
