@@ -1319,6 +1319,8 @@ $(document).ready(function () {
         $("#preSkillName9").show()
     }
     var preSkill = $('.skilltitle');
+
+    $(".skillDiv").hide()
     tempo = false;
     preSkill.change(function () {
         var self = $(this)
@@ -1415,7 +1417,6 @@ $(document).ready(function () {
             $("#preSkillName9").html(self.val() + '<br>');
             if (self.val() == '') {
                 $("#preSkillName9").hide()
-                tempo = false
             } else {
                 $("#preSkillName9").show()
                 tempo = true
