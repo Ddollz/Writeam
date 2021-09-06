@@ -42,7 +42,7 @@ def resume(request):
     if request.method == 'POST':
         form1 = personalDetailsForm(request.POST, request.FILES, instance=user)
         formset = workExpFormSet(request.POST, instance=user)
-        employmentHistory.objects.filter(personaldetails=user).delete()
+        # employmentHistory.objects.filter(personaldetails=user).delete()
         if form1.is_valid():
             form1.save()
 

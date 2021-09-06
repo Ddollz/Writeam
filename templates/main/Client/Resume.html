@@ -188,9 +188,9 @@
 
 
                       {{formset.management_form}}
-
                       {%for form in formset%}
                       {{form.non_field_errors}}
+                      {{form.id}}
                       <div class="accordion-item jobAccodionItem{{ forloop.counter0 }}">
                         <h2 class="accordion-header" id="jobExpheading{{ forloop.counter0 }}">
                           <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#jobExpcollapse{{ forloop.counter0 }}" aria-expanded="false" aria-controls="jobExpcollapse{{ forloop.counter0 }}">
@@ -201,8 +201,7 @@
                           <div class="accordion-body">
                             <div class="row mb-2">
                               <div class="col">
-                                <label class="form-label ">Job title<input type="hidden" value="{{ form.initial.id }}" name='formDataId'></label>
-
+                                <label class="form-label ">Job title</label>
                                 {{form.JobTitle}}
                                 <!-- <input type="text" class="form-control jobTitle"> -->
                                 <div class="invalid-feedback">

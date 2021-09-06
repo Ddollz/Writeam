@@ -17,7 +17,7 @@ class personalDetailsAdmin(admin.ModelAdmin):
 
 
 class employmentHistoryAdmin(admin.ModelAdmin):
-    list_display = ('personaldetails', 'JobTitle', 'city',
+    list_display = ('id', 'personaldetails', 'JobTitle', 'city',
                     'employer', 'start_date', 'end_date')
     search_fields = ('JobTitle', 'city', 'employer',)
     readonly_fields = ('id', 'start_date', 'end_date')
