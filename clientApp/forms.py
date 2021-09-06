@@ -85,3 +85,20 @@ class linkForm(ModelForm):
         model = link
         fields = '__all__'
         exclude = ['personal']
+
+
+class referenceForm(ModelForm):
+
+    name = forms.CharField(label="", required=False, widget=forms.TextInput(
+        attrs={'type': 'text', 'class': 'form-control refname'}))
+    email = forms.EmailField(label="", required=False, widget=forms.TextInput(
+        attrs={'type': 'email', 'class': 'form-control refEmail'}))
+    company = forms.CharField(label="", required=False, widget=forms.TextInput(
+        attrs={'type': 'text', 'class': 'form-control refcompany'}))
+    phone = forms.CharField(label="", required=False, widget=forms.TextInput(
+        attrs={'type': 'text', 'class': 'form-control refPhone'}))
+
+    class Meta:
+        model = reference
+        fields = '__all__'
+        exclude = ['personal']

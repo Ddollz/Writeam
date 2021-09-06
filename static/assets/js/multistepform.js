@@ -1112,6 +1112,85 @@ $(document).ready(function () {
     //AccordionReferenceTitleLabel
     //refDiv
 
+    var preRefName = $('.refname');
+    var preRefCompany = $('.refcompany');
+    var preRefEmail = $('.refPhone');
+    var preRefPhone = $('.refEmail');
+    $(".refname").each(function (index) {
+        if ($($('.refname')[index]).val().length > 0 && index == 0) {
+            $("#AccordionReferenceTitleLabel0").html($(this).val());
+            $("#preRefName0").html($($('.refname')[index]).val());
+            $('.preRefSub0').show();
+            $('.refDiv').show();
+        } else {
+            $('.preRefSub0').hide();
+        }
+        if ($($('.refname')[index]).val().length > 0 && index == 1) {
+            $("#AccordionReferenceTitleLabel1").html($(this).val());
+            $("#preRefName1").html($($('.refname')[index]).val());
+            $('.preRefSub1').show();
+            $('.refDiv').show();
+        } else {
+            $('.preRefSub1').hide();
+        }
+        if ($($('.refname')[index]).val().length > 0 && index == 2) {
+            $("#AccordionReferenceTitleLabel2").html($(this).val());
+            $("#preRefName2").html($($('.refname')[index]).val());
+            $('.preRefSub2').show();
+            $('.refDiv').show();
+        } else {
+            $('.preRefSub2').hide();
+        }
+        if ($('.preRefSub2').is(":hidden") && $('.preRefSub1').is(":hidden") && $('.preRefSub0').is(":hidden")) {
+            $('.refDiv').hide();
+        }
+
+        if ($($('.refcompany')[index]).val().length > 0 && index == 0) {
+            $("#preRefCompany0").html($($('.refcompany')[index]).val());
+        }
+        if ($($('.refcompany')[index]).val().length > 0 && index == 1) {
+            $("#preRefCompany1").html($($('.refcompany')[index]).val());
+        }
+        if ($($('.refcompany')[index]).val().length > 0 && index == 2) {
+            $("#preRefCompany2").html($($('.refcompany')[index]).val());
+        }
+
+        if ($($('.refEmail')[index]).val().length > 0 && index == 0) {
+            $("#preRefEmail0").html($($('.refEmail')[index]).val());
+        }
+        if ($($('.refEmail')[index]).val().length > 0 && index == 1) {
+            $("#preRefEmail1").html($($('.refEmail')[index]).val());
+        }
+        if ($($('.refEmail')[index]).val().length > 0 && index == 2) {
+            $("#preRefEmail2").html($($('.refEmail')[index]).val());
+        }
+
+        if ($($('.refPhone')[index]).val().length > 0 && index == 0) {
+            $("#preRefPhone0").html($($('.refPhone')[index]).val());
+        }
+        if ($($('.refPhone')[index]).val().length > 0 && index == 1) {
+            $("#preRefPhone1").html($($('.refPhone')[index]).val());
+        }
+        if ($($('.refPhone')[index]).val().length > 0 && index == 2) {
+            $("#preRefPhone2").html($($('.refPhone')[index]).val());
+        }
+    });
+
+    preRefNameChange()
+
+    for (const i of preRefName) {
+        i.addEventListener('change', preRefNameChange);
+    }
+    for (const i of preRefCompany) {
+        i.addEventListener('change', preRefCompChange);
+    }
+    for (const i of preRefEmail) {
+        i.addEventListener('change', preRefEmailChange);
+    }
+    for (const i of preRefPhone) {
+        i.addEventListener('change', preRefPhoneChange);
+    }
+
     accorRefTemp = true;
     accorRefTemp1 = true;
     if ($(".accordionReference0").length == 0) {
@@ -1188,6 +1267,28 @@ $(document).ready(function () {
         if (cordionSelector == "referencecollapse2") {
             $("#preRefName2").html($(this).val());
             $("#AccordionReferenceTitleLabel2").html($(this).val());
+        }
+
+        if ($('#AccordionReferenceTitleLabel0').text().length > 0 && $('#AccordionReferenceTitleLabel0').text() != "(Not Specified)") {
+            $('.preRefSub0').show();
+            $('.refDiv').show();
+        } else {
+            $('.preRefSub0').hide();
+        }
+        if ($('#AccordionReferenceTitleLabel1').text().length > 0 && $('#AccordionReferenceTitleLabel1').text() != "(Not Specified)") {
+            $('.preRefSub1').show();
+            $('.refDiv').show();
+        } else {
+            $('.preRefSub1').hide();
+        } if ($('#AccordionReferenceTitleLabel2').text().length > 0 && $('#AccordionReferenceTitleLabel2').text() != "(Not Specified)") {
+            $('.preRefSub2').show();
+            $('.refDiv').show();
+        } else {
+            $('.preRefSub2').hide();
+        }
+        if ($('.preRefSub2').is(":hidden") && $('.preRefSub1').is(":hidden") && $('.preRefSub0').is(":hidden")) {
+            $('.refDiv').hide();
+
         }
     }
 

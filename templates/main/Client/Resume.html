@@ -257,136 +257,170 @@
               </div>
 
               <div class="mt-5">
-                <form class="needs-validation" novalidate>
-                  <h4>Education</h4>
-                  <div class="row mb-3">
-                    <div class="col d-grid gap-2">
-                      <div class="accordion" id="education">
+                <h4>Education</h4>
+                <div class="row mb-3">
+                  <div class="col d-grid gap-2">
+                    <div class="accordion" id="education">
 
-                        {{formset1.management_form}}
-                        {%for form in formset1%}
-                        {{form.non_field_errors}}
-                        {{form.id}}
-                        <div class="accordion-item accordionEduc{{ forloop.counter0 }}">
-                          <h2 class="accordion-header" id="educationheading{{ forloop.counter0 }}">
-                            <button class="accordion-button collapsed AccordionEducTitleLabel" type="button" data-bs-toggle="collapse" data-bs-target="#educationcollapse{{ forloop.counter0 }}" aria-expanded="false" aria-controls="educationcollapse{{ forloop.counter0 }}">
-                              <span id="AccordionEducTitleLabel{{ forloop.counter0 }}" style="text-transform: uppercase;">(Not Specified)</span>
-                            </button>
-                          </h2>
-                          <div id="educationcollapse{{ forloop.counter0 }}" class="accordion-collapse collapse" aria-labelledby="educationheading{{ forloop.counter0 }}" data-bs-parent="#education">
-                            <div class="accordion-body">
-                              <div class="row mb-2">
-                                <div class="col">
-                                  <label class="form-label ">School</label>
-                                  {{form.school}}
-                                  <div class="invalid-feedback">
-                                  </div>
-                                </div>
-                                <div class="col">
-                                  <label class="form-label ">Degree</label>
-                                  {{form.degree}}
-                                  <div class="invalid-feedback">
-                                  </div>
+                      {{formset1.management_form}}
+                      {%for form in formset1%}
+                      {{form.non_field_errors}}
+                      {{form.id}}
+                      <div class="accordion-item accordionEduc{{ forloop.counter0 }}">
+                        <h2 class="accordion-header" id="educationheading{{ forloop.counter0 }}">
+                          <button class="accordion-button collapsed AccordionEducTitleLabel" type="button" data-bs-toggle="collapse" data-bs-target="#educationcollapse{{ forloop.counter0 }}" aria-expanded="false" aria-controls="educationcollapse{{ forloop.counter0 }}">
+                            <span id="AccordionEducTitleLabel{{ forloop.counter0 }}" style="text-transform: uppercase;">(Not Specified)</span>
+                          </button>
+                        </h2>
+                        <div id="educationcollapse{{ forloop.counter0 }}" class="accordion-collapse collapse" aria-labelledby="educationheading{{ forloop.counter0 }}" data-bs-parent="#education">
+                          <div class="accordion-body">
+                            <div class="row mb-2">
+                              <div class="col">
+                                <label class="form-label ">School</label>
+                                {{form.school}}
+                                <div class="invalid-feedback">
                                 </div>
                               </div>
-                              <div class="row mb-4">
-                                <div class="col-3">
-                                  <label class="form-label ">Start Date</label>
-                                  {{form.start_date}}
-                                  <div class="invalid-feedback">
-                                  </div>
+                              <div class="col">
+                                <label class="form-label ">Degree</label>
+                                {{form.degree}}
+                                <div class="invalid-feedback">
                                 </div>
-                                <div class="col-3">
-                                  <label class="form-label ">End Date</label>
-                                  {{form.end_date}}
-                                  <div class="invalid-feedback">
-                                  </div>
+                              </div>
+                            </div>
+                            <div class="row mb-4">
+                              <div class="col-3">
+                                <label class="form-label ">Start Date</label>
+                                {{form.start_date}}
+                                <div class="invalid-feedback">
                                 </div>
-                                <div class="col-6">
-                                  <label class="form-label ">City</label>
-                                  {{form.city}}
-                                  <div class="invalid-feedback">
-                                  </div>
+                              </div>
+                              <div class="col-3">
+                                <label class="form-label ">End Date</label>
+                                {{form.end_date}}
+                                <div class="invalid-feedback">
+                                </div>
+                              </div>
+                              <div class="col-6">
+                                <label class="form-label ">City</label>
+                                {{form.city}}
+                                <div class="invalid-feedback">
                                 </div>
                               </div>
                             </div>
                           </div>
                         </div>
-                        {%endfor%}
                       </div>
+                      {%endfor%}
                     </div>
                   </div>
+                </div>
 
-                  <h4 class="mt-5">Website & Social Link</h4>
+                <h4 class="mt-5">Website & Social Link</h4>
 
-                  <div class="row mb-3">
-                    <div class="col d-grid gap-2">
-                      <div class="accordion" id="social">
+                <div class="row mb-3">
+                  <div class="col d-grid gap-2">
+                    <div class="accordion" id="social">
 
-                        {{formset2.management_form}}
-                        {%for form in formset2%}
-                        {{form.non_field_errors}}
-                        {{form.id}}
-                        <div class="accordion-item accordionSocial{{ forloop.counter0 }}">
-                          <h2 class="accordion-header" id="socialheading{{ forloop.counter0 }}">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#socialcollapse{{ forloop.counter0 }}" aria-expanded="false" aria-controls="socialcollapse{{ forloop.counter0 }}">
-                              <span id="AccordionSocialTitleLabel{{ forloop.counter0 }}" style="text-transform: uppercase;">(Not Specified)</span>
-                            </button>
-                          </h2>
-                          <div id="socialcollapse{{ forloop.counter0 }}" class="accordion-collapse collapse" aria-labelledby="socialheading{{ forloop.counter0 }}" data-bs-parent="#social">
-                            <div class="accordion-body">
-                              <div class="row mb-2">
-                                <div class="col">
-                                  <label class="form-label ">Link</label>
-                                  {{form.link}}
-                                  <div class="invalid-feedback">
-                                  </div>
+                      {{formset2.management_form}}
+                      {%for form in formset2%}
+                      {{form.non_field_errors}}
+                      {{form.id}}
+                      <div class="accordion-item accordionSocial{{ forloop.counter0 }}">
+                        <h2 class="accordion-header" id="socialheading{{ forloop.counter0 }}">
+                          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#socialcollapse{{ forloop.counter0 }}" aria-expanded="false" aria-controls="socialcollapse{{ forloop.counter0 }}">
+                            <span id="AccordionSocialTitleLabel{{ forloop.counter0 }}" style="text-transform: uppercase;">(Not Specified)</span>
+                          </button>
+                        </h2>
+                        <div id="socialcollapse{{ forloop.counter0 }}" class="accordion-collapse collapse" aria-labelledby="socialheading{{ forloop.counter0 }}" data-bs-parent="#social">
+                          <div class="accordion-body">
+                            <div class="row mb-2">
+                              <div class="col">
+                                <label class="form-label ">Link</label>
+                                {{form.link}}
+                                <div class="invalid-feedback">
                                 </div>
                               </div>
                             </div>
                           </div>
                         </div>
-                        {%endfor%}
-
                       </div>
+                      {%endfor%}
+
                     </div>
                   </div>
-                </form>
+                </div>
               </div>
 
               <div class="mt-5">
-                <form class="needs-validation" novalidate>
-                  <h4>Skills</h4>
-                  <div class="row mb-3">
-                    <div class="col d-grid gap-2">
-                      <div class="accordion" id="skill"></div>
+                <h4>Skills</h4>
+                <div class="row mb-3">
+                  <div class="col d-grid gap-2">
+                    <div class="accordion" id="skill"></div>
 
-                      <button type="button" class="btn text-start" id="addSkill">
-                        + Add Skill
-                      </button>
+                    <button type="button" class="btn text-start" id="addSkill">
+                      + Add Skill
+                    </button>
 
-                      <button type="button" class="btn text-start" id="removeSkill">
-                        - Remove Skill
-                      </button>
-                    </div>
+                    <button type="button" class="btn text-start" id="removeSkill">
+                      - Remove Skill
+                    </button>
                   </div>
+                </div>
 
-                  <h4 class="mt-5">References</h4>
-                  <div class="row mb-3">
-                    <div class="col d-grid gap-2">
-                      <div class="accordion" id="reference">
+                <h4 class="mt-5">References</h4>
+                <div class="row mb-3">
+                  <div class="col d-grid gap-2">
+                    <div class="accordion" id="reference">
+
+                      {{formset3.management_form}}
+                      {%for form in formset3%}
+                      {{form.non_field_errors}}
+                      {{form.id}}
+                      <div class="accordion-item accordionReference{{ forloop.counter0 }}">
+                        <h2 class="accordion-header" id="referenceheading{{ forloop.counter0 }}">
+                          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#referencecollapse{{ forloop.counter0 }}" aria-expanded="false" aria-controls="referencecollapse{{ forloop.counter0 }}">
+                            <span id="AccordionReferenceTitleLabel{{ forloop.counter0 }}" style="text-transform: uppercase;">(Not Specified)</span>
+                          </button>
+                        </h2>
+                        <div id="referencecollapse{{ forloop.counter0 }}" class="accordion-collapse collapse" aria-labelledby="referenceheading{{ forloop.counter0 }}" data-bs-parent="#reference">
+                          <div class="accordion-body">
+                            <div class="row mb-2">
+                              <div class="col">
+                                <label class="form-label ">Referent\'s Fullname</label>
+                                {{form.name}}
+                                <div class="invalid-feedback">
+                                </div>
+                              </div>
+                              <div class="col">
+                                <label class="form-label ">Company</label>
+                                {{form.company}}
+                                <div class="invalid-feedback">
+                                </div>
+                              </div>
+                            </div>
+                            <div class="row mb-2">
+                              <div class="col">
+                                <label class="form-label ">Phone</label>
+                                {{form.phone}}
+                                <div class="invalid-feedback">
+                                </div>
+                              </div>
+                              <div class="col">
+                                <label class="form-label ">Email</label>
+                                {{form.email}}
+                                <div class="invalid-feedback">
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
                       </div>
 
-                      <button type="button" class="btn text-start" id="addReference">
-                        + Add Reference
-                      </button>
-
-                      <button type="button" class="btn text-start" id="removeReference">
-                        - Remove Reference
-                      </button>
+                      {% endfor %}
                     </div>
                   </div>
-                </form>
+                </div>
                 <button class="btn btn-outline-secondary text-center float-end next" type="button">
                   Next
                 </button>
@@ -565,7 +599,30 @@
             <hr class="educDiv">
             <h5 class="title refDiv">Reference</h5>
             <div id="preReference">
-
+              <p class="subtitle preRefSub0">
+                <span id="preRefName0"></span>,
+                <span id="preRefCompany0"></span><br>
+                <span class="subContent">
+                  <span id="preRefEmail0"></span> -
+                  <span id="preRefPhone0"></span> <br>
+                </span>
+              </p>
+              <p class="subtitle preRefSub1">
+                <span id="preRefName1"></span>,
+                <span id="preRefCompany1"></span><br>
+                <span class="subContent">
+                  <span id="preRefEmail1"></span> -
+                  <span id="preRefPhone1"></span> <br>
+                </span>
+              </p>
+              <p class="subtitle preRefSub2">
+                <span id="preRefName2"></span>,
+                <span id="preRefCompany2"></span><br>
+                <span class="subContent">
+                  <span id="preRefEmail2"></span> -
+                  <span id="preRefPhone2"></span> <br>
+                </span>
+              </p>
             </div>
             <hr class="refDiv">
           </div>
@@ -599,7 +656,7 @@
               <p class="">Your Requirements has been sent successfully! <br>
                 You may see the status in your profile!
               </p>
-              <button type="button" class="btn text-center mb-5 mt-2" onclick="submitForms()">Continue</button>
+              <button type="button" class="btn text-center mb-5 mt-2" onclick="submitForms()" style="width: auto;">Submit Application</button>
               <!-- data-bs-dismiss="modal" -->
               <div class="custom-shape-divider-bottom-1630055058">
                 <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">

@@ -4,8 +4,8 @@ from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from accounts.models import accounts
 from django.forms import inlineformset_factory
-from .models import employmentHistory, personalDetails, education, link
-from .forms import personalDetailsForm, employmentHistoryForm, educationForm, linkForm
+from .models import employmentHistory, personalDetails, education, link, reference
+from .forms import personalDetailsForm, employmentHistoryForm, educationForm, linkForm, referenceForm
 # Create your views here.
 
 
@@ -48,11 +48,16 @@ def resume(request):
         personalDetails, link, form=linkForm, max_num=3)
     formset2 = linkFormSet(instance=user)
 
+    referenceFormSet = inlineformset_factory(
+        personalDetails, reference, form=referenceForm, max_num=3)
+    formset3 = referenceFormSet(instance=user)
+
     if request.method == 'POST':
         form1 = personalDetailsForm(request.POST, request.FILES, instance=user)
         formset = workExpFormSet(request.POST, instance=user)
         formset1 = educationFormSet(request.POST, instance=user)
         formset2 = linkFormSet(request.POST, instance=user)
+        formset3 = referenceFormSet(request.POST, instance=user)
 
         # employmentHistory.objects.filter(personaldetails=user).delete()
         if form1.is_valid():
@@ -68,4 +73,18 @@ def resume(request):
         else:
             print(formset1.errors)
 
-    return render(request, 'main/Client/resume.html', {'form1': form1, 'formset': formset, 'formset1': formset1, 'formset2': formset2})
+        if formset2.is_valid():
+            formset2.save()
+        else:
+            print(formset2.errors)
+
+        if formset3.is_valid():
+            formset3.save()
+        else:
+            print(formset3)
+
+    context = {'form1': form1, 'formset': formset,
+               'formset1': formset1, 'formset2': formset2,
+               'formset3': formset3
+               }
+    return render(request, 'main/Client/resume.html', context)

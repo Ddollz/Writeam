@@ -57,9 +57,21 @@ class linkAdmin(admin.ModelAdmin):
     )
 
 
+class referenceAdmin(admin.ModelAdmin):
+    list_display = ('id', 'name', 'company', 'phone',
+                    'email')
+    search_fields = ('company',)
+    readonly_fields = ('id',)
+    fieldsets = (
+    )
+    add_fieldsets = (
+    )
+    list_filter = ("company",)
+
+
 admin.site.register(personalDetails, personalDetailsAdmin)
 admin.site.register(employmentHistory, employmentHistoryAdmin)
 admin.site.register(education, educationAdmin)
 admin.site.register(skill)
 admin.site.register(link, linkAdmin)
-admin.site.register(reference)
+admin.site.register(reference, referenceAdmin)
