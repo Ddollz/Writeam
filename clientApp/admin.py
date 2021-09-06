@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import personalDetails, employmentHistory, education, skill, link, reference
+from .models import personalDetails, employmentHistory, education, skill, link, reference, article
 # Register your models here.
 
 
@@ -78,9 +78,20 @@ class skillAdmin(admin.ModelAdmin):
     )
 
 
+class articleAdmin(admin.ModelAdmin):
+    list_display = ('id', 'headline', 'article')
+    readonly_fields = ('id',)
+    search_fields = ('headline',)
+    fieldsets = (
+    )
+    add_fieldsets = (
+    )
+
+
 admin.site.register(personalDetails, personalDetailsAdmin)
 admin.site.register(employmentHistory, employmentHistoryAdmin)
 admin.site.register(education, educationAdmin)
 admin.site.register(skill, skillAdmin)
 admin.site.register(link, linkAdmin)
 admin.site.register(reference, referenceAdmin)
+admin.site.register(article, articleAdmin)

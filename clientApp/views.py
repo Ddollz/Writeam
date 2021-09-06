@@ -4,8 +4,8 @@ from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from accounts.models import accounts
 from django.forms import inlineformset_factory
-from .models import employmentHistory, personalDetails, education, link, reference, skill
-from .forms import personalDetailsForm, employmentHistoryForm, educationForm, linkForm, referenceForm, skillForm
+from .models import employmentHistory, personalDetails, education, link, reference, skill, article
+from .forms import personalDetailsForm, employmentHistoryForm, educationForm, linkForm, referenceForm, skillForm, articleform
 # Create your views here.
 
 
@@ -33,8 +33,10 @@ def faq(request):
 @login_required(login_url='signup')
 def resume(request):
     user = request.user.personaldetails
+    articleuser = request.user.article
 
     form1 = personalDetailsForm(instance=user)
+    formfile = articleform(instance=articleuser)
 
     workExpFormSet = inlineformset_factory(
         personalDetails, employmentHistory, form=employmentHistoryForm, extra=3, max_num=3)
@@ -58,12 +60,15 @@ def resume(request):
 
     if request.method == 'POST':
         form1 = personalDetailsForm(request.POST, request.FILES, instance=user)
+        formfile = articleform(
+            request.POST, request.FILES, instance=articleuser)
         formset = workExpFormSet(request.POST, instance=user)
         formset1 = educationFormSet(request.POST, instance=user)
         formset2 = linkFormSet(request.POST, instance=user)
         formset3 = referenceFormSet(request.POST, instance=user)
         formset4 = skillFormSet(request.POST, instance=user)
 
+        print(formfile)
         # employmentHistory.objects.filter(personaldetails=user).delete()
         if form1.is_valid():
             form1.save()
@@ -93,8 +98,14 @@ def resume(request):
         else:
             print(formset4)
 
-    context = {'form1': form1, 'formset': formset,
-               'formset1': formset1, 'formset2': formset2,
-               'formset3': formset3, 'formset4': formset4
+        if formfile.is_valid():
+            formfile.save()
+        else:
+            print(formfile.errors)
+
+    context = {'form1': form1, 'formfile': formfile,
+               'formset': formset, 'formset1': formset1,
+               'formset2': formset2, 'formset3': formset3,
+               'formset4': formset4
                }
     return render(request, 'main/Client/resume.html', context)

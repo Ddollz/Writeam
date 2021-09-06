@@ -13,6 +13,24 @@ def get_default_profile():
     return "writeamImage/profile_image.png"
 
 
+def get_profile_article_filepath(self, filename):
+    return f'article/{self.accounts.pk}/{filename}'
+
+
+class article(models.Model):
+    accounts = models.OneToOneField(
+        accounts, null=True, on_delete=models.CASCADE)
+    headline = models.CharField(max_length=255, null=True)
+    article = models.FileField(
+        max_length=255, upload_to=get_profile_article_filepath, null=True, blank=True)
+
+    def __str__(self):
+        return self.headline or ' '
+
+    def get_profile_article_filename(self):
+        return str(self.article)[str(self.article).index(f'article/{self.pk}/'):]
+
+
 class personalDetails(models.Model):
     accounts = models.OneToOneField(
         accounts, null=True, on_delete=models.CASCADE)

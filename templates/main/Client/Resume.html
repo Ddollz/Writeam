@@ -468,10 +468,17 @@
 
             <div class="page">
               <h4>Sample Article</h4>
+              {{formfile.non_field_errors}}
 
               <div class="mb-3">
+                <label for="formFile" class="form-label">HeadLine</label>
+                {{formfile.headline}}
+                <!-- <input class="form-control" type="text"> -->
+              </div>
+              <div class="mb-3">
                 <label for="formFile" class="form-label">Please Upload 1 Sample Article</label>
-                <input class="form-control" type="file" id="formFile">
+                {{formfile.article}}
+                <!-- <input class="form-control" type="file" id="formFile"> -->
               </div>
 
               <div class="row">

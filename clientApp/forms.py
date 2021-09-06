@@ -1,6 +1,6 @@
 from django import forms
-from django.forms import ModelForm, widgets
-from .models import personalDetails, employmentHistory, education, skill, link, reference
+from django.forms import ModelForm
+from .models import personalDetails, employmentHistory, education, skill, link, reference, article
 
 
 class personalDetailsForm(ModelForm):
@@ -115,3 +115,15 @@ class referenceForm(ModelForm):
         model = reference
         fields = '__all__'
         exclude = ['personal']
+
+
+class articleform(ModelForm):
+    headline = forms.CharField(label="", required=False, widget=forms.TextInput(
+        attrs={'type': 'text', 'class': 'form-control'}))
+    article = forms.FileField(required=False, widget=forms.FileInput(
+        attrs={'type': 'file', 'class': 'form-control', 'id': 'formFile'}))
+
+    class Meta:
+        model = article
+        fields = '__all__'
+        exclude = ['accounts']
