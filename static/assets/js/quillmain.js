@@ -16,7 +16,6 @@ $(document).ready(function () {
     var socialCounter = 0;
     var skillCounter = 0;
     var referenceCounter = 0;
-
     $("#addEmploy").click(function () {
         if ($("#employeeHistoryAccordion").children().length < 3) {
             appendEmpHistory(employeeIdLabel, label, label1, employeeHistoryCounterId);
@@ -152,67 +151,6 @@ $(document).ready(function () {
         }
     });
 
-    function appendEmpHistory(titleid, label, label1, counter) {
-        var employeeHistory =
-            '<div class="accordion-item jobAccodionItem' + employeeHistoryCounterId + '"> \
-<h2 class="accordion-header" id="' + titleid + label + counter + '"> \
-    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#' + titleid + label1 + counter + '" aria-expanded="false" aria-controls="' + titleid + label1 + counter + '"> \
-        <span id = "AccordionWorkTitleLabel'+ counter + '"style = "text-transform: uppercase;" >(Not Specified)</span>\
-    </button> \
-</h2> \
-<div id="' + titleid + label1 + counter + '" class="accordion-collapse collapse" aria-labelledby="' + titleid + label + counter + '" data-bs-parent="#employeeHistoryAccordion"> \
-    <div class="accordion-body">\
-        <div class="row mb-2">\
-            <div class="col">\
-                <label class="form-label ">Job title</label>\
-                <input type="text" class="form-control jobTitle   ">\
-                <div class="invalid-feedback">\
-                </div>\
-            </div>\
-            <div class="col">\
-                <label class="form-label ">Employer</label>\
-                <input type="text" class="form-control employerName">\
-                <div class="invalid-feedback">\
-                </div>\
-            </div>\
-        </div>\
-        <div class="row mb-4">\
-            <div class="col-3">\
-                <label class="form-label ">Start Date (Optional)</label>\
-                <input type="text" class="form-control startDate">\
-                <div class="invalid-feedback">\
-                </div>\
-            </div>\
-            <div class="col-3">\
-                <label class="form-label ">End Date (Optional)</label>\
-                <input type="text" class="form-control endDate">\
-                <div class="invalid-feedback">\
-                </div>\
-            </div>\
-            <div class="col-6">\
-                <label class="form-label ">City</label>\
-                <input type="text" class="form-control employerCity">\
-                <div class="invalid-feedback">\
-                </div>\
-            </div>\
-        </div>\
-        <div class="row mb-5">\
-            <div class="col">\
-                <label class="form-label ">Description</label>\
-                <textarea name="" class="form-control employeeEditor" style="height: 100px"></textarea>\
-                </div>\
-            </div>\
-        </div>\
-        <div class="row justify-content-end">\
-        <div class="col-2"></div>\
-        </div>\
-    </div>\
-</div>\
-</div>';
-
-        $('#employeeHistoryAccordion').append(employeeHistory);
-        employeeHistoryCounterId++;
-    }
 
     function appendEducation(titleid, label, label1, counter) {
         var education =

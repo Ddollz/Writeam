@@ -55,8 +55,8 @@ class employmentHistory(models.Model):
 
 
 class education(models.Model):
-    accounts = models.OneToOneField(
-        accounts, null=True, on_delete=models.CASCADE)
+    personaldetails = models.ForeignKey(
+        personalDetails, null=True, on_delete=models.CASCADE)
     school = models.CharField(max_length=200, null=True)
     degree = models.CharField(max_length=200, null=True)
     start_date = models.CharField(max_length=200, null=True)
@@ -68,8 +68,8 @@ class education(models.Model):
 
 
 class skill(models.Model):
-    accounts = models.OneToOneField(
-        accounts, null=True, on_delete=models.CASCADE)
+    personaldetails = models.ForeignKey(
+        personalDetails, null=True, on_delete=models.CASCADE)
     skill = models.TextField(max_length=300, null=True)
 
     def __str__(self):
@@ -77,8 +77,8 @@ class skill(models.Model):
 
 
 class link(models.Model):
-    accounts = models.OneToOneField(
-        accounts, null=True, on_delete=models.CASCADE)
+    personaldetails = models.ForeignKey(
+        personalDetails, null=True, on_delete=models.CASCADE)
     link = models.TextField(max_length=300, null=True)
 
     def __str__(self):
@@ -86,8 +86,8 @@ class link(models.Model):
 
 
 class reference(models.Model):
-    accounts = models.OneToOneField(
-        accounts, null=True, on_delete=models.CASCADE)
+    personaldetails = models.ForeignKey(
+        personalDetails, null=True, on_delete=models.CASCADE)
     name = models.CharField(max_length=200, null=True)
     company = models.CharField(max_length=200, null=True)
     phone = models.CharField(max_length=200, null=True)

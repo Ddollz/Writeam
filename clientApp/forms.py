@@ -41,19 +41,37 @@ class personalDetailsForm(ModelForm):
 
 class employmentHistoryForm(ModelForm):
     JobTitle = forms.CharField(label="", required=False, widget=forms.TextInput(
-        attrs={'type': 'text', 'class': 'form-control jobTitle', 'name': 'jobTitle'}))
+        attrs={'type': 'text', 'class': 'form-control jobTitle'}))
     start_date = forms.CharField(label="", required=False, widget=forms.TextInput(
-        attrs={'type': 'text', 'class': 'form-control startDate', 'name': 'start_date'}))
+        attrs={'type': 'text', 'class': 'form-control startDate'}))
     end_date = forms.CharField(label="", required=False, widget=forms.TextInput(
-        attrs={'type': 'text', 'class': 'form-control endDate', 'name': 'end_date'}))
+        attrs={'type': 'text', 'class': 'form-control endDate'}))
     employer = forms.CharField(label="", required=False, widget=forms.TextInput(
-        attrs={'type': 'text', 'class': 'form-control employerName', 'name': 'employer'}))
+        attrs={'type': 'text', 'class': 'form-control employerName'}))
     city = forms.CharField(label="", required=False, widget=forms.TextInput(
-        attrs={'type': 'text', 'class': 'form-control employerCity', 'name': 'city'}))
+        attrs={'type': 'text', 'class': 'form-control employerCity'}))
     description = forms.CharField(label="", required=False, widget=forms.Textarea(
-        attrs={'type': 'text', 'class': 'form-control employeeEditor', 'style': 'height: 100px;', 'name': 'description'}))
+        attrs={'type': 'text', 'class': 'form-control employeeEditor', 'style': 'height: 100px;'}))
 
     class Meta:
         model = employmentHistory
+        fields = '__all__'
+        exclude = ['personal']
+
+
+class educationForm(ModelForm):
+    school = forms.CharField(label="", required=False, widget=forms.TextInput(
+        attrs={'type': 'text', 'class': 'form-control school'}))
+    start_date = forms.CharField(label="", required=False, widget=forms.TextInput(
+        attrs={'type': 'text', 'class': 'form-control educStartDate'}))
+    end_date = forms.CharField(label="", required=False, widget=forms.TextInput(
+        attrs={'type': 'text', 'class': 'form-control educEndDate'}))
+    degree = forms.CharField(label="", required=False, widget=forms.TextInput(
+        attrs={'type': 'text', 'class': 'form-control degree'}))
+    city = forms.CharField(label="", required=False, widget=forms.TextInput(
+        attrs={'type': 'text', 'class': 'form-control educCity'}))
+
+    class Meta:
+        model = education
         fields = '__all__'
         exclude = ['personal']

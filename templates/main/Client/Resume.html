@@ -262,15 +262,58 @@
                   <div class="row mb-3">
                     <div class="col d-grid gap-2">
                       <div class="accordion" id="education">
+
+                        {{formset1.management_form}}
+                        {%for form in formset1%}
+                        {{form.non_field_errors}}
+                        {{form.id}}
+                        <div class="accordion-item accordionEduc{{ forloop.counter0 }}">
+                          <h2 class="accordion-header" id="educationheading{{ forloop.counter0 }}">
+                            <button class="accordion-button collapsed AccordionEducTitleLabel" type="button" data-bs-toggle="collapse" data-bs-target="#educationcollapse{{ forloop.counter0 }}" aria-expanded="false" aria-controls="educationcollapse{{ forloop.counter0 }}">
+                              <span id="AccordionEducTitleLabel{{ forloop.counter0 }}" style="text-transform: uppercase;">(Not Specified)</span>
+                            </button>
+                          </h2>
+                          <div id="educationcollapse{{ forloop.counter0 }}" class="accordion-collapse collapse" aria-labelledby="educationheading{{ forloop.counter0 }}" data-bs-parent="#education">
+                            <div class="accordion-body">
+                              <div class="row mb-2">
+                                <div class="col">
+                                  <label class="form-label ">School</label>
+                                  {{form.school}}
+                                  <div class="invalid-feedback">
+                                  </div>
+                                </div>
+                                <div class="col">
+                                  <label class="form-label ">Degree</label>
+                                  {{form.degree}}
+                                  <div class="invalid-feedback">
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="row mb-4">
+                                <div class="col-3">
+                                  <label class="form-label ">Start Date</label>
+                                  {{form.start_date}}
+                                  <div class="invalid-feedback">
+                                  </div>
+                                </div>
+                                <div class="col-3">
+                                  <label class="form-label ">End Date</label>
+                                  {{form.end_date}}
+                                  <div class="invalid-feedback">
+                                  </div>
+                                </div>
+                                <div class="col-6">
+                                  <label class="form-label ">City</label>
+                                  {{form.city}}
+                                  <div class="invalid-feedback">
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        {%endfor%}
                       </div>
-
-                      <button type="button" class="btn text-start" id="addEduc">
-                        + Add Education
-                      </button>
-
-                      <button type="button" class="btn text-start" id="removeEduc">
-                        - Remove Education
-                      </button>
                     </div>
                   </div>
 
@@ -462,6 +505,34 @@
             <hr class="experienceDiv">
             <h5 class="title educDiv">Education</h5>
             <div id="preEducation">
+              <p class="subtitle preEducSub0">
+                <span id="preEducTitle0"></span>,
+                <span id="preEducCity0"></span><br>
+                <span class="subContent">
+                  <span id="preEducstartDate0"></span> -
+                  <span id="preEducendDate0"></span> <br>
+                  &emsp;-&emsp;<span id="preEducDegree0"></span>
+                </span>
+              </p>
+              <p class="subtitle preEducSub1">
+                <span id="preEducTitle1"></span>,
+                <span id="preEducCity1"></span><br>
+                <span class="subContent">
+                  <span id="preEducstartDate1"></span> -
+                  <span id="preEducendDate1"></span> <br>
+                  &emsp;-&emsp;<span id="preEducDegree1"></span>
+                </span>
+              </p>
+
+              <p class="subtitle preEducSub2">
+                <span id="preEducTitle2"></span>,
+                <span id="preEducCity2"></span><br>
+                <span class="subContent">
+                  <span id="preEducstartDate2"></span> -
+                  <span id="preEducendDate2"></span> <br>
+                  &emsp;-&emsp;<span id="preEducDegree2"></span>
+                </span>
+              </p>
             </div>
             <hr class="educDiv">
             <h5 class="title refDiv">Reference</h5>
@@ -500,7 +571,7 @@
               <p class="">Your Requirements has been sent successfully! <br>
                 You may see the status in your profile!
               </p>
-              <button type="button" class="btn text-center mb-3 mt-2" onclick="submitForms()">Continue</button>
+              <button type="button" class="btn text-center mb-5 mt-2" onclick="submitForms()">Continue</button>
               <!-- data-bs-dismiss="modal" -->
               <div class="custom-shape-divider-bottom-1630055058">
                 <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
