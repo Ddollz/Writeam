@@ -7,5 +7,6 @@ urlpatterns = [
     path("logout", views.logoutUser, name="logout"),
     path("signupadmin", views.signupadmin, name="signupadmin"),
     path("updateProfile/<str:pk>", views.updateProfile, name="updateProfile"),
+    # path("success/<str:pk>", views.success, name="success"),
 
 ]

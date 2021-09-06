@@ -6,7 +6,26 @@ from .models import accounts
 from .decorators import unauthenticated_user
 from clientApp.models import personalDetails, employmentHistory
 
+# from django.core.mail import EmailMessage
+# from django.conf import settings
+# from django.template.loader import render_to_string
+
 # Create your views here.
+
+
+# def success(request, pk):
+#     project = accounts.objects.get(id=pk)
+#     template = render_to_string(
+#         'main/Client/include/emailMsg.html', {'name': project.first_name})
+#     email = EmailMessage(
+#         'Thank you for registering Writeam!',
+#         template,
+#         settings.EMAIL_HOST_USER,
+#         [project.email],
+#     )
+#     email.fail_silently = False
+#     email.send()
+#     return render(request, 'main/Client/Success.html', {})
 
 
 @unauthenticated_user
@@ -24,6 +43,7 @@ def signup(request):
             )
             # remove group This is temporary
             # group.user_set.remove(user)
+            # return redirect('success/'+str(user.id))
             return redirect('signin')
     else:
         form = clientFormReg()
