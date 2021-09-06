@@ -1032,59 +1032,42 @@ $(document).ready(function () {
     }
 
 
-    //socialLink
-    accorSocTemp = true;
-    accorSocTemp1 = true;
-    if ($(".accordionSocial0").length == 0) {
-        $(".socialDiv").hide();
+    $(".socialLink").each(function (index) {
+        if ($($('.socialLink')[index]).val().length > 0 && index == 0) {
+            $("#AccordionSocialTitleLabel0").html($(this).val());
+            $("#preLink0").html($($('.socialLink')[index]).val());
+            $('.preSocialSub0').show();
+            $('.socialDiv').show();
+        } else {
+            $('.socialDiv').hide();
+        }
+        if ($($('.socialLink')[index]).val().length > 0 && index == 1) {
+            $("#AccordionSocialTitleLabel1").html($(this).val());
+            $("#preLink1").html($($('.socialLink')[index]).val());
+            $('.preSocialSub1').show();
+            $('.socialDiv').show();
+        } else {
+            $('.preSocialSub1').hide();
+        }
+        if ($($('.socialLink')[index]).val().length > 0 && index == 2) {
+            $("#AccordionSocialTitleLabel2").html($(this).val());
+            $("#preLink2").html($($('.socialLink')[index]).val());
+            $('.preSocialSub2').show();
+            $('.socialDiv').show();
+        } else {
+            $('.preSocialSub2').hide();
+        }
+        if ($('.preSocialSub2').is(":hidden") && $('.preSocialSub1').is(":hidden") && $('.preSocialSub0').is(":hidden")) {
+            $('.socialDiv').hide();
+        }
+    });
+    var preSocialLink = $('.socialLink');
+
+    for (const i of preSocialLink) {
+        i.addEventListener('change', preSocialLinkChange);
     }
-    var socialCounter = 0;
-    $("#addSocial").click(function () {
-        $(".socialDiv").show();
-        if (socialCounter < 3) {
-            // <span class="subContent">
-            //   www.github.com/Ddollz <br>
-            //   www.facebook.com/D.dollzs
-            // </span>.
+    preSocialLinkChange()
 
-            if (accorSocTemp) {
-                updateProgressBar("11.864", $(".progress__percent").text(), 1);
-                accorSocTemp = false;
-                accorSocTemp1 = false;
-
-            }
-            var addPreLink = '<p class="subContent preSocialSub' + socialCounter + '">\
-                            <span id="preLink'+ socialCounter + '"></span>\
-                          </p>';
-
-            var preSocialLink = $('.socialLink');
-            $('#preSocialLink').append(addPreLink);
-
-            for (const i of preSocialLink) {
-                i.addEventListener('change', preSocialLinkChange);
-            }
-            socialCounter++;
-        }
-    });
-
-    $("#removeSocial").click(function () {
-
-        if ($(".accordionSocial0").length == 0) {
-            $(".socialDiv").hide();
-
-            if (!accorSocTemp) {
-                updateProgressBar("11.864", $(".progress__percent").text(), 0);
-                accorSocTemp = true;
-                accorSocTemp1 = true;
-
-            }
-        }
-        if (socialCounter != 0) {
-            temp = socialCounter - 1;
-            $(".preSocialSub" + temp).remove();
-            socialCounter--;
-        }
-    });
     function preSocialLinkChange() {
         var cordionSelector = $("#social").children().find(".show").attr('id');
         if (cordionSelector == "socialcollapse0") {
@@ -1099,6 +1082,27 @@ $(document).ready(function () {
             $("#preLink2").html($(this).val());
             $("#AccordionSocialTitleLabel2").html($(this).val());
         }
+        if ($('#AccordionSocialTitleLabel0').text().length > 0 && $('#AccordionSocialTitleLabel0').text() != "(Not Specified)") {
+            $('.preSocialSub0').show();
+            $('.socialDiv').show();
+        } else {
+            $('.preSocialSub0').hide();
+        }
+        if ($('#AccordionSocialTitleLabel1').text().length > 0 && $('#AccordionSocialTitleLabel1').text() != "(Not Specified)") {
+            $('.preSocialSub1').show();
+            $('.socialDiv').show();
+        } else {
+            $('.preSocialSub1').hide();
+        } if ($('#AccordionSocialTitleLabel2').text().length > 0 && $('#AccordionSocialTitleLabel2').text() != "(Not Specified)") {
+            $('.preSocialSub2').show();
+            $('.socialDiv').show();
+        } else {
+            $('.preSocialSub2').hide();
+        }
+        if ($('.preSocialSub2').is(":hidden") && $('.preSocialSub1').is(":hidden") && $('.preSocialSub0').is(":hidden")) {
+            $('.socialDiv').hide();
+
+        }
     }
 
     //refname
@@ -1107,13 +1111,6 @@ $(document).ready(function () {
     //refEmail
     //AccordionReferenceTitleLabel
     //refDiv
-
-    //      <p class="subtitle">
-    //     Renato, Vendor<br>
-    //     <span class="subContent">
-    //       Email.Com 09286120906
-    //     </span>
-    //   </p> 
 
     accorRefTemp = true;
     accorRefTemp1 = true;

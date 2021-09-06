@@ -48,9 +48,18 @@ class educationAdmin(admin.ModelAdmin):
     list_filter = ("school", 'city', 'start_date', 'end_date',)
 
 
+class linkAdmin(admin.ModelAdmin):
+    list_display = ('id', 'link')
+    readonly_fields = ('id',)
+    fieldsets = (
+    )
+    add_fieldsets = (
+    )
+
+
 admin.site.register(personalDetails, personalDetailsAdmin)
 admin.site.register(employmentHistory, employmentHistoryAdmin)
 admin.site.register(education, educationAdmin)
 admin.site.register(skill)
-admin.site.register(link)
+admin.site.register(link, linkAdmin)
 admin.site.register(reference)

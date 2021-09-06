@@ -321,15 +321,34 @@
 
                   <div class="row mb-3">
                     <div class="col d-grid gap-2">
-                      <div class="accordion" id="social"></div>
+                      <div class="accordion" id="social">
 
-                      <button type="button" class="btn text-start" id="addSocial">
-                        + Add Link
-                      </button>
+                        {{formset2.management_form}}
+                        {%for form in formset2%}
+                        {{form.non_field_errors}}
+                        {{form.id}}
+                        <div class="accordion-item accordionSocial{{ forloop.counter0 }}">
+                          <h2 class="accordion-header" id="socialheading{{ forloop.counter0 }}">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#socialcollapse{{ forloop.counter0 }}" aria-expanded="false" aria-controls="socialcollapse{{ forloop.counter0 }}">
+                              <span id="AccordionSocialTitleLabel{{ forloop.counter0 }}" style="text-transform: uppercase;">(Not Specified)</span>
+                            </button>
+                          </h2>
+                          <div id="socialcollapse{{ forloop.counter0 }}" class="accordion-collapse collapse" aria-labelledby="socialheading{{ forloop.counter0 }}" data-bs-parent="#social">
+                            <div class="accordion-body">
+                              <div class="row mb-2">
+                                <div class="col">
+                                  <label class="form-label ">Link</label>
+                                  {{form.link}}
+                                  <div class="invalid-feedback">
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        {%endfor%}
 
-                      <button type="button" class="btn text-start" id="removeSocial">
-                        - Remove Employement
-                      </button>
+                      </div>
                     </div>
                   </div>
                 </form>
@@ -384,7 +403,7 @@
 
               <div class="row">
                 <div class="col-6">
-                  <button class="btn btn-outline-secondary text-center back" type="button ">
+                  <button class="btn btn-outline-secondary text-center back" type="button">
                     Back
                   </button>
                 </div>
@@ -428,6 +447,15 @@
             <hr class="skillDiv">
             <p class="title socialDiv">Links <br>
             <div id="preSocialLink">
+              <p class="subContent preSocialSub0">
+                <span id="preLink0"></span>
+              </p>
+              <p class="subContent preSocialSub1">
+                <span id="preLink1"></span>
+              </p>
+              <p class="subContent preSocialSub2">
+                <span id="preLink2"></span>
+              </p>
             </div>
             <hr class="socialDiv">
             </p>

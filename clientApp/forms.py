@@ -75,3 +75,13 @@ class educationForm(ModelForm):
         model = education
         fields = '__all__'
         exclude = ['personal']
+
+
+class linkForm(ModelForm):
+    link = forms.CharField(label="", required=False, widget=forms.TextInput(
+        attrs={'type': 'text', 'class': 'form-control socialLink'}))
+
+    class Meta:
+        model = link
+        fields = '__all__'
+        exclude = ['personal']

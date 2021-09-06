@@ -5,35 +5,11 @@ $(document).ready(function () {
     var label1 = "collapse";
 
 
-    var employeeIdLabel = "jobExp";
-    var educIdLabel = "education";
-    var socialIdLabel = "social";
     var skillIdLabel = "skill";
     var referenceIdLabel = "reference";
 
-    var employeeHistoryCounterId = 0;
-    var educationCounter = 0;
-    var socialCounter = 0;
     var skillCounter = 0;
     var referenceCounter = 0;
-    $("#addEmploy").click(function () {
-        if ($("#employeeHistoryAccordion").children().length < 3) {
-            appendEmpHistory(employeeIdLabel, label, label1, employeeHistoryCounterId);
-        }
-    });
-
-    $("#addEduc").click(function () {
-
-        if ($("#education").children().length < 3) {
-            appendEducation(educIdLabel, label, label1, educationCounter);
-        }
-    });
-
-    $("#addSocial").click(function () {
-        if ($("#social").children().length < 3) {
-            appendSocial(label, label1, socialIdLabel, socialCounter);
-        }
-    });
 
     $("#addSkill").click(function () {
         if ($("#skill").children().length < 10) {
@@ -47,38 +23,6 @@ $(document).ready(function () {
         }
     });
 
-
-    $("#removeEmploy").click(function () {
-        if (employeeHistoryCounterId > 0) {
-            employeeHistoryCounterId--;
-            if ($("#employeeHistoryAccordion").children().length == 3) {
-                $(".jobAccodionItem" + employeeHistoryCounterId).remove();
-            }
-            if ($("#employeeHistoryAccordion").children().length == 2) {
-                $(".jobAccodionItem" + employeeHistoryCounterId).remove();
-            }
-            if ($("#employeeHistoryAccordion").children().length == 1) {
-                $(".jobAccodionItem" + employeeHistoryCounterId).remove();
-            }
-
-        }
-    });
-
-    $("#removeEduc").click(function () {
-        if (educationCounter > 0) {
-            educationCounter--;
-            if ($("#education").children().length == 3) {
-                $(".accordionEduc" + educationCounter).remove();
-            }
-            if ($("#education").children().length == 2) {
-                $(".accordionEduc" + educationCounter).remove();
-            }
-            if ($("#education").children().length == 1) {
-                $(".accordionEduc" + educationCounter).remove();
-            }
-
-        }
-    });
 
     $("#removeSocial").click(function () {
         if (socialCounter > 0) {
@@ -151,91 +95,6 @@ $(document).ready(function () {
         }
     });
 
-
-    function appendEducation(titleid, label, label1, counter) {
-        var education =
-            '<div class="accordion-item accordionEduc' + educationCounter + '"> \
-<h2 class="accordion-header" id="' + titleid + label + counter + '"> \
-    <button class="accordion-button collapsed AccordionEducTitleLabel" type="button" data-bs-toggle="collapse" data-bs-target="#' + titleid + label1 + counter + '" aria-expanded="false" aria-controls="' + titleid + label1 + counter + '"> \
-        <span id = "AccordionEducTitleLabel'+ counter + '"style = "text-transform: uppercase;" >(Not Specified)</span>\
-    </button> \
-</h2> \
-<div id="' + titleid + label1 + counter + '" class="accordion-collapse collapse" aria-labelledby="' + titleid + label + counter + '" data-bs-parent="#education"> \
-    <div class="accordion-body">\
-        <div class="row mb-2">\
-            <div class="col">\
-                <label class="form-label ">School</label>\
-                <input type="text" class="form-control school" id="school' + counter + '">\
-                <div class="invalid-feedback">\
-                </div>\
-            </div>\
-            <div class="col">\
-                <label class="form-label ">Degree</label>\
-                <input type="text" class="form-control degree" id="degree ' + counter + ' ">\
-                <div class="invalid-feedback">\
-                </div>\
-            </div>\
-        </div>\
-        <div class="row mb-4">\
-            <div class="col-3">\
-                <label class="form-label ">Start Date</label>\
-                <input type="text" class="form-control educStartDate" id = "educStartDate' + counter + '">\
-                <div class="invalid-feedback">\
-                </div>\
-            </div>\
-            <div class="col-3">\
-                <label class="form-label ">End Date</label>\
-                <input type="text" class="form-control educEndDate" id = "educEndDate' + counter + '">\
-                <div class="invalid-feedback">\
-                </div>\
-            </div>\
-            <div class="col-6">\
-                <label class="form-label ">City</label>\
-                <input type="text" class="form-control educCity" id = "educCity' + counter + '">\
-                <div class="invalid-feedback">\
-                </div>\
-            </div>\
-        </div>\
-    </div>\
-</div>\
-</div>';
-        //Add kapag lagay description
-        /* <div class="row mb-5">\
-        <div class="col">\
-            <label class="form-label ">Description</label>\
-            <div id="educationEditor' + counter + '" class ="educationEditor">\
-            </div>\
-        </div>\
-        </div>\
-        <div class="row mb-4"></div>\ */
-        $('#education').append(education);
-        educationCounter++;
-    }
-
-    function appendSocial(label, label1, titleid, counter) {
-        var social = '<div class="accordion-item accordionSocial' + socialCounter + '"> \
-        <h2 class="accordion-header" id="' + titleid + label + counter + '"> \
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#' + titleid + label1 + counter + '" aria-expanded="false" aria-controls="' + titleid + label1 + counter + '"> \
-            <span id = "AccordionSocialTitleLabel'+ counter + '"style = "text-transform: uppercase;" >(Not Specified)</span>\
-            </button> \
-        </h2> \
-        <div id="' + titleid + label1 + counter + '" class="accordion-collapse collapse" aria-labelledby="' + titleid + label + counter + '" data-bs-parent="#social"> \
-            <div class="accordion-body">\
-                <div class="row mb-2">\
-                    <div class="col">\
-                        <label class="form-label ">Link</label>\
-                        <input type="text" class="form-control socialLink" id="socialLink' + counter + ' ">\
-                        <div class="invalid-feedback">\
-                        </div>\
-                    </div>\
-                </div>\
-            </div>\
-        </div>\
-        </div>';
-        $('#social').append(social);
-
-        socialCounter++;
-    }
 
     function appendSkill(label, label1, titleid, counter) {
         var skill = '<div class="accordion-item accordionSkill' + skillCounter + '"> \
