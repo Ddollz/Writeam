@@ -1,251 +1,159 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'main/Client/include/base.html' %}
+{% block navigationBase %}
+{% include 'main/Client/include/navigationBase.html' %}
+{% endblock %}
 
-<head>
-    <meta charset="utf-8" />
-    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+{% load static%}
+{% block content%}
 
-    <title>Day Bootstrap Template - Index</title>
-    <meta content="" name="description" />
-    <meta content="" name="keywords" />
 
-    <!-- Favicons -->
-    <link href="../assets/img/favicon.png" rel="icon" />
-    <link href="../assets/img/apple-touch-icon.png" rel="apple-touch-icon" />
-
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet" />
-
-    <!-- Vendor CSS Files -->
-    <link href="../assets/vendor/aos/aos.css" rel="stylesheet" />
-    <link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet" />
-    <link href="../assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet" />
-    <link href="../assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet" />
-    <link href="../assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet" />
-
-    <!-- Template Main CSS File -->
-    <link href="../assets/css/style.css" rel="stylesheet" />
-    <link href="../assets/css/client/style.css" rel="stylesheet" />
-
-    <!-- =======================================================
-  * Template Name: Day - v4.3.0
-  * Template URL: https://bootstrapmade.com/day-multipurpose-html-template-for-free/
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
-</head>
-
-<body>
-    <!-- ======= Header ======= -->
-    <header id="header" class="d-flex align-items-center">
-        <div class="container d-flex align-items-center justify-content-between">
-            <h1 class="logo"><a href="index.html">Writeam</a></h1>
-            <!-- Uncomment below if you prefer to use an image logo -->
-            <!-- <a href="index.html" class="logo"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
-
-            <nav id="navbar" class="navbar">
-                <ul>
-                    <li><a class="nav-link scrollto" href="index.html">Home</a></li>
-                    <li>
-                        <a class="nav-link" href="Resume.html">Resume Writing</a>
-                    </li>
-                    <li><a class="nav-link scrollto" href="index.html">Blog</a></li>
-                    <li><a class="nav-link" href="index.html">FAQ</a></li>
-                    <li>|</li>
-                    <li><a class="nav-link scrollto active" href="#">Profile</a></li>
-                </ul>
-                <i class="bi bi-list mobile-nav-toggle"></i>
-            </nav>
-            <!-- .navbar -->
-        </div>
-    </header>
-    <!-- End Header -->
-
-    <!-- ======= Hero Section ======= -->
-    <section id="hero" class="hero d-flex align-items-center">
-        <div class="container glass shadow">
-            <div class="row h-100">
-                <div class="col-4 column1">
-                    <div class="dashboard mt-5">
-                        <div class="prof text-center ">
-                            <img src="../assets/img/team/erol-2.png" class="rounded" alt="" />
-                            <h3 class="fw-bolder mt-3">Karl Erol C Pasion</h3>
-                            <p class="fw-bold mt-2">Content Writer</p>
-
-                        </div>
-                        <div class="progressApplicant mt-5">
-                            <h5 class="fw-bolder mt-3">Progress:</h5>
-                            <p>Admins are reviewing your application.</p>
-                        </div>
-                        <div class="remarks mt-5">
-                            <h5 class="fw-bolder mt-3">Remarks:</h5>
-                            <p>Please wait to be notified.</p>
-                        </div>
+<!-- ======= Hero Section ======= -->
+<section id="hero" class="hero d-flex align-items-center">
+    <div class="container glass shadow">
+        <div class="row h-100">
+            <div class="col-4 column1">
+                <div class="dashboard mt-5">
+                    <div class="prof text-center ">
+                        <img src="{{request.user.profile_image.url}}" class="rounded" alt="" />
+                        <h3 class="fw-bolder mt-3">{{request.user.first_name}} {{request.user.last_name}}</h3>
+                        {% if group|stringformat:'s' == 'Clients' %}
+                        <p class="fw-bold mt-2">Content Writer</p>
+                        {% else %}
+                        <p class="fw-bold mt-2">{{group}}</p>
+                        {% endif %}
+                    </div>
+                    <div class="progressApplicant mt-5">
+                        <h5 class="fw-bolder mt-3">Progress:</h5>
+                        <p>Admins are reviewing your application.</p>
+                    </div>
+                    <div class="remarks mt-5">
+                        <h5 class="fw-bolder mt-3">Remarks:</h5>
+                        <p>Please wait to be notified.</p>
                     </div>
                 </div>
-                <div class="col-8 column2">
-                    <div class="userInfo">
-                        <div class="page-modal active">
-                            <div class="info mt-3 mb-5">
-                                <h3 class="fw-bold">INFORMATION <button class="editButton"><i class="bi bi-pencil-square"></i></button></h3>
-                                <hr>
-                                <div class="row">
-                                    <div class="col">
-                                        <h4>Email</h4>
-                                        <p>pasionkarlerol@gmail.com</p>
-
-                                        <h4>Birthday</h4>
-                                        <p>Feb, 7, 2000</p>
-
-                                        <h4>Date Applied</h4>
-                                        <p>August 27, 2021</p>
-                                    </div>
-
-                                    <div class="col">
-                                        <h4>Phone</h4>
-                                        <p>09673987112</p>
-
-                                        <h4>Address</h4>
-                                        <p>307D Lakandula Tulip St</p>
-
-                                        <h4>Applicant No.</h4>
-                                        <p>12</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="proj mt-5">
-                                <h3 class="fw-bold">FILES</h3>
-                                <hr>
-                                <div class="row">
-                                    <div class="col">
-                                        <h4>Article</h4>
-                                        <button class="view">Download</button>
-                                    </div>
-                                    <div class="col">
-                                        <h4>Resume <a href=""><i class="bi bi-pencil-square"></i></a></h4>
-                                        <button class="view">Download</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <form action="" class="page-modal">
-                            <div class="row ">
-
+            </div>
+            <div class="col-8 column2">
+                <div class="userInfo">
+                    <div class="page-modal active">
+                        <div class="info mt-3 mb-5">
+                            <h3 class="fw-bold">INFORMATION <button class="editButton"><i class="bi bi-pencil-square"></i></button></h3>
+                            <hr>
+                            <div class="row">
                                 <div class="col">
                                     <h4>Email</h4>
-                                    <div class="mb-3">
-                                        <input type="email" class="form-control" id="email">
-                                    </div>
-
+                                    <p>{{request.user.email}}</p>
+                                    {%if request.user.personaldetails.birthdate|length > 0 %}
                                     <h4>Birthday</h4>
-                                    <div class="mb-3">
-                                        <input type="date" class="form-control" id="date">
-                                    </div>
-
-                                    <h4>Password</h4>
-                                    <div class="mb-3">
-                                        <input type="password" class="form-control" id="password">
-                                    </div>
+                                    <p>{{request.user.personaldetails.birthdate}}</p>
+                                    {% endif %}
+                                    <h4>Date Joined</h4>
+                                    <p>{{request.user.date_joined}}</p>
                                 </div>
 
                                 <div class="col">
-                                    <h4>Phone</h4>
+                                    {%if request.user.personaldetails.phone|length > 0 %}
 
-                                    <div class="mb-3">
-                                        <input type="text" class="form-control" id="phone">
-                                    </div>
+                                    <h4>Phone</h4>
+                                    <p>{{request.user.personaldetails.phone}}</p>
+                                    {% endif %}
+                                    {%if request.user.personaldetails.address|length > 0 %}
 
                                     <h4>Address</h4>
+                                    <p>{{request.user.personaldetails.address}}</p>
+                                    {% endif %}
 
-                                    <div class="mb-3">
-                                        <input type="text" class="form-control" id="address">
-                                    </div>
-
-                                    <h4>Confirm Password</h4>
-                                    <div class="mb-3">
-                                        <input type="password" class="form-control" id="confpassword">
-                                    </div>
+                                    <h4>Applicant No.</h4>
+                                    <p>{{request.user.id}}</p>
                                 </div>
                             </div>
-                        </form>
+                        </div>
+                        <div class="proj mt-5">
+                            <h3 class="fw-bold">FILES</h3>
+                            <hr>
+                            <div class="row">
+                                <div class="col">
+                                    <h4>Article</h4>
+                                    <button class="view"><a href="{{request.user.article.article.url}}" style="color:white;">Download</a></button>
+                                </div>
+                                <div class="col">
+                                    <h4>Resume</h4>
+                                    <button class="view"><a href="#" style="color:white;">Update</a></button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+                    <form action="" class="page-modal">
+                        <div class="row ">
+
+                            <div class="col">
+                                <h4>Email</h4>
+                                <div class="mb-3">
+                                    <input type="email" class="form-control" id="email">
+                                </div>
+
+                                <h4>Birthday</h4>
+                                <div class="mb-3">
+                                    <input type="date" class="form-control" id="date">
+                                </div>
+
+                                <h4>Password</h4>
+                                <div class="mb-3">
+                                    <input type="password" class="form-control" id="password">
+                                </div>
+                            </div>
+
+                            <div class="col">
+                                <h4>Phone</h4>
+
+                                <div class="mb-3">
+                                    <input type="text" class="form-control" id="phone">
+                                </div>
+
+                                <h4>Address</h4>
+
+                                <div class="mb-3">
+                                    <input type="text" class="form-control" id="address">
+                                </div>
+
+                                <h4>Confirm Password</h4>
+                                <div class="mb-3">
+                                    <input type="password" class="form-control" id="confpassword">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
-    </section>
-    <!-- End Hero -->
+    </div>
+</section>
+<!-- End Hero -->
 
-    <!-- ======= Footer ======= -->
-    <footer id="footer">
+{% endblock %}
 
-        <div class="container">
-            <div class="copyright">
-                &copy; Copyright
-                <strong><span>HumanAnalytics</span></strong>
-                . All Rights Reserved
-            </div>
-            <div class="credits">
-                <!-- All the links in the footer should remain intact. -->
-                <!-- You can delete the links only if you purchased the pro version. -->
-                <!-- Licensing information: https://bootstrapmade.com/license/ -->
-                <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/day-multipurpose-html-template-for-free/ -->
-                Designed by
-                <a href="https://bootstrapmade.com/">SamSanTech</a>
-            </div>
+{% block footerContent %}
+<!-- ======= Footer ======= -->
+<footer id="footer">
+    <div class="container">
+        <div class="copyright">
+            &copy; Copyright
+            <strong><span>HumanAnalytics</span></strong>
+            . All Rights Reserved
         </div>
-    </footer>
-    <!-- End Footer -->
+        <div class="credits">
+            <!-- All the links in the footer should remain intact. -->
+            <!-- You can delete the links only if you purchased the pro version. -->
+            <!-- Licensing information: https://bootstrapmade.com/license/ -->
+            <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/day-multipurpose-html-template-for-free/ -->
+            Designed by
+            <a href="https://bootstrapmade.com/">SamSanTech</a>
+        </div>
+    </div>
+</footer>
+<!-- End Footer -->
 
-    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
-    <div id="preloader"></div>
-
-    <!-- Vendor JS Files -->
-    <script src="../assets/vendor/aos/aos.js"></script>
-    <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="../assets/vendor/glightbox/js/glightbox.min.js"></script>
-    <script src="../assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-    <script src="../assets/vendor/php-email-form/validate.js"></script>
-    <script src="../assets/vendor/swiper/swiper-bundle.min.js"></script>
-    <script src="../assets/js/jquery-3.6.0.min.js"></script>
-
-    <!-- Template Main JS File -->
-    <script src="../assets/js/main.js"></script>
-
-    <script>
-
-        const editButton = document.querySelectorAll('.editButton');
-        const pages = document.querySelectorAll('.page-modal');
-
-        var pageNo = 0;
-
-        for (const i of editButton) {
-            i.addEventListener('click', nextPage);
-        }
-
-        function nextPage() {
-            if (pageNo < pages.length - 1) {
-                $(".userInfo").find(".page-modal.active").removeClass("active");
-                console.log($(".userInfo").find(".page-modal.active"));
-                pageNo++;
-                $(pages[pageNo]).fadeIn("slow");
-            }
-        }
-
-    </script>
-    <!-- <script>
-      $(function () {
-        $(window).on("scroll", function () {
-        console.log("hello");
-          if ($(window).scrollTop() > 50) {
-            $("#header").addClass("active");
-          } else {
-            //remove the background property so it comes transparent again (defined in your css)
-            $("#header").removeClass("active");
-          }
-        });
-      });
-    </script> -->
-</body>
-
-</html>
+<a href="#" class="back-to-top d-flex align-items-center justify-content-center">
+    <i class="bi bi-arrow-up-short"></i>
+</a>
+<div id="preloader"></div>
+{% endblock %}

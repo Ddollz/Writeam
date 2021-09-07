@@ -58,8 +58,14 @@
 
 
         {% if request.user.is_authenticated%}
-        <li>
-          <a class="nav-link" href="{% url 'logout'%}">Log Out</a>
+
+        <li class="dropdown"><a href="{% url 'userprofile'%}"><span><img src="{{request.user.profile_image.url}}" alt="" width="25" height="25" class="rounded-circle"></span><i class="bi bi-chevron-down"></i></a>
+          <ul>
+            <li><a href="{% url 'userprofile'%}">Profile</a></li>
+            <li>
+              <a href="{% url 'logout'%}">Log Out</a>
+            </li>
+          </ul>
         </li>
         {% else %}
         <li>
@@ -72,6 +78,7 @@
         {% endif %}
 
       </ul>
+
       <i class="bi bi-list mobile-nav-toggle"></i>
     </nav>
     <!-- .navbar -->
