@@ -1,12 +1,29 @@
 $(document).ready(function () {
 
+    //Variables
+    var summaryEditor = $("#summaryEditor");
+
+    const next = document.querySelectorAll('.next');
+    const back = document.querySelectorAll('.back');
+    const pages = document.querySelectorAll('.page');
+    var pageNo = 0;
+
+
     //for progress bar
     nameTemp = true;
     contactTemp = true;
     addressTemp = true;
     birthTemp = true;
+    jobTemp = true;
+    summaryTemp = true;
 
-
+    //functions {Progress}
+    checkcontact();
+    checkaddress();
+    checkbirth();
+    checkjob()
+    checkname();
+    checkprofileDesc()
     function updateProgressBar(value, curVal, type) {
         if (type == 1) {
             curVal = parseFloat(curVal.replace(/[^0-9.]/g, ""));
@@ -144,11 +161,6 @@ $(document).ready(function () {
             }
         });
 
-    const next = document.querySelectorAll('.next');
-    const back = document.querySelectorAll('.back');
-    const pages = document.querySelectorAll('.page');
-
-    var pageNo = 0;
 
     for (const i of next) {
         i.addEventListener('click', nextPage);
@@ -181,7 +193,6 @@ $(document).ready(function () {
 
     //Profile Picture
 
-    pictureTemp = true;
     $(function () {
         $('#profile').addClass('dragging').removeClass('dragging');
     });
@@ -234,20 +245,10 @@ $(document).ready(function () {
                 $(".profile").attr('src', reader.result);
             }
         }
+        checkprofilePic()
 
-        if ($(this).val() != '' && pictureTemp) {
-            updateProgressBar("8", $(".progress__percent").text(), 1);
-        }
-        if ($(this).val() == '') {
-            updateProgressBar("8", $(".progress__percent").text(), 0);
-            pictureTemp = true;
-        } else
-            pictureTemp = false;
 
     })
-
-    //jobTitle = jobWant
-    jobTemp = true;
 
     // ! Update
     $("#jobWant").html($('#jobTitle').val());
@@ -261,17 +262,20 @@ $(document).ready(function () {
 
     $('#jobTitle').change(function (e) {
         $("#jobWant").html($('#jobTitle').val());
+        checkjob();
 
-        if ($(this).val() != '' && jobTemp) {
+    })
+    function checkjob() {
+
+        if ($('#jobTitle').val() != '' && jobTemp) {
             updateProgressBar("8", $(".progress__percent").text(), 1);
         }
-        if ($(this).val() == '') {
+        if ($('#jobTitle').val() == '') {
             updateProgressBar("8", $(".progress__percent").text(), 0);
             jobTemp = true;
         } else
             jobTemp = false;
-    })
-
+    }
     //name
     $('#fname').change(function (e) {
         $("#fullname").html($('#fname').val() + " " + $('#lname').val());
@@ -294,16 +298,6 @@ $(document).ready(function () {
             nameTemp = false;
     }
 
-    //Details
-
-    // preAddress = address
-    // preCityPC = city, postal
-    // preCountry = country
-    // preEmail = email
-    // preNumber = phone
-    // pdate bdate = preBirthday
-    //national = preNationality
-    //license = preDriLicense
     emptyPreEmail();
     emptyPreAddress();
     emptyPrePhone();
@@ -383,22 +377,9 @@ $(document).ready(function () {
             $("#preNationality").html($('#national').val());
         }
     }
-    // $('#license').change(function (e) {
-    //     if ($('#license').val() == "") {
-    //         $("#licenseDivider").hide();
-    //     } else {
-    //         $("#licenseDivider").show();
-    //         $("#preDriLicense").html($('#license').val());
-    //     }
-    // })
-
-
 
     //Summary
-    var summaryEditor = $("#summaryEditor");
 
-    //profileDesc
-    summaryTemp = true;
     if (summaryEditor.val().length <= 0) {
         $(".profileDiv").hide();
     }
@@ -407,7 +388,7 @@ $(document).ready(function () {
         if (summaryEditor.val().length > 1) {
             $(".profileDiv").show();
             if (summaryTemp) {
-                updateProgressBar("16", $(".progress__percent").text(), 1);
+                updateProgressBar("24", $(".progress__percent").text(), 1);
                 summaryTemp = false;
             }
             summaryTemp = false;
@@ -415,26 +396,31 @@ $(document).ready(function () {
             $(".profileDiv").hide();
 
             if (!summaryTemp) {
-                updateProgressBar("16", $(".progress__percent").text(), 0);
+                updateProgressBar("24", $(".progress__percent").text(), 0);
                 summaryTemp = true;
             }
         }
         $("#profileDesc").html(summaryEditor.val());
+        checkprofileDesc()
     });
 
+    function checkprofileDesc() {
+        if (summaryEditor.val() != '' && summaryTemp) {
+            updateProgressBar("24", $(".progress__percent").text(), 1);
+        }
+        if (summaryEditor.val() == '') {
+            updateProgressBar("24", $(".progress__percent").text(), 0);
+            summaryTemp = true;
+        } else
+            summaryTemp = false;
+    }
 
-    //jobTitle
-    //employerName
-    //startDate
-    //endDate
-    //employeeCity
-    //AccordionTitleLabel
-    //experienceDiv
     var preJobTitle = $('.jobTitle');
     var workStartdate = $('.startDate');
     var workEnddate = $('.endDate');
     var employerName = $('.employerName');
     var employerCity = $('.employerCity');
+    var jobtempBar = true;
 
     $(".jobTitle").each(function (index) {
         // console.log(index + ": " + $(this).val());
@@ -659,6 +645,20 @@ $(document).ready(function () {
             $('.experienceDiv').hide();
 
         }
+
+        if (($('#AccordionWorkTitleLabel0').text().length > 0 && $('#AccordionWorkTitleLabel0').text() != "(Not Specified)" ||
+            $('#AccordionWorkTitleLabel1').text().length > 0 && $('#AccordionWorkTitleLabel1').text() != "(Not Specified)" ||
+            $('#AccordionWorkTitleLabel2').text().length > 0 && $('#AccordionWorkTitleLabel2').text() != "(Not Specified)") && jobtempBar) {
+            updateProgressBar("12.264", $(".progress__percent").text(), 1);
+        }
+        if (!($('#AccordionWorkTitleLabel0').text().length > 0 && $('#AccordionWorkTitleLabel0').text() != "(Not Specified)" ||
+            $('#AccordionWorkTitleLabel1').text().length > 0 && $('#AccordionWorkTitleLabel1').text() != "(Not Specified)" ||
+            $('#AccordionWorkTitleLabel2').text().length > 0 && $('#AccordionWorkTitleLabel2').text() != "(Not Specified)")) {
+            updateProgressBar("12.264", $(".progress__percent").text(), 0);
+            jobtempBar = true;
+        } else
+            jobtempBar = false;
+
     }
 
     function preEmployerNameChange() {
@@ -745,6 +745,7 @@ $(document).ready(function () {
     var educEnddate = $('.educEndDate');
     var educCity = $('.educCity');
     var educDegree = $('.degree');
+    var eductempbar = true;
     $(".school").each(function (index) {
         if ($($('.school')[index]).val().length > 0 && index == 0) {
             $("#AccordionEducTitleLabel0").html($(this).val());
@@ -951,6 +952,19 @@ $(document).ready(function () {
             $('.educDiv').hide();
 
         }
+
+        if (($('#AccordionEducTitleLabel0').text().length > 0 && $('#AccordionEducTitleLabel0').text() != "(Not Specified)" ||
+            $('#AccordionEducTitleLabel1').text().length > 0 && $('#AccordionEducTitleLabel1').text() != "(Not Specified)" ||
+            $('#AccordionEducTitleLabel2').text().length > 0 && $('#AccordionEducTitleLabel2').text() != "(Not Specified)") && eductempbar) {
+            updateProgressBar("12.264", $(".progress__percent").text(), 1);
+        }
+        if (!($('#AccordionEducTitleLabel0').text().length > 0 && $('#AccordionEducTitleLabel0').text() != "(Not Specified)" ||
+            $('#AccordionEducTitleLabel1').text().length > 0 && $('#AccordionEducTitleLabel1').text() != "(Not Specified)" ||
+            $('#AccordionEducTitleLabel2').text().length > 0 && $('#AccordionEducTitleLabel2').text() != "(Not Specified)")) {
+            updateProgressBar("12.264", $(".progress__percent").text(), 0);
+            eductempbar = true;
+        } else
+            eductempbar = false;
     }
 
     function preEducDegreeChange() {
@@ -1062,6 +1076,7 @@ $(document).ready(function () {
         }
     });
     var preSocialLink = $('.socialLink');
+    var socialtempBar = true;
 
     for (const i of preSocialLink) {
         i.addEventListener('change', preSocialLinkChange);
@@ -1103,6 +1118,20 @@ $(document).ready(function () {
             $('.socialDiv').hide();
 
         }
+
+
+        if (($('#AccordionSocialTitleLabel0').text().length > 0 && $('#AccordionSocialTitleLabel0').text() != "(Not Specified)" ||
+            $('#AccordionSocialTitleLabel1').text().length > 0 && $('#AccordionSocialTitleLabel1').text() != "(Not Specified)" ||
+            $('#AccordionSocialTitleLabel2').text().length > 0 && $('#AccordionSocialTitleLabel2').text() != "(Not Specified)") && socialtempBar) {
+            updateProgressBar("12.264", $(".progress__percent").text(), 1);
+        }
+        if (!($('#AccordionSocialTitleLabel0').text().length > 0 && $('#AccordionSocialTitleLabel0').text() != "(Not Specified)" ||
+            $('#AccordionSocialTitleLabel1').text().length > 0 && $('#AccordionSocialTitleLabel1').text() != "(Not Specified)" ||
+            $('#AccordionSocialTitleLabel2').text().length > 0 && $('#AccordionSocialTitleLabel2').text() != "(Not Specified)")) {
+            updateProgressBar("12.264", $(".progress__percent").text(), 0);
+            socialtempBar = true;
+        } else
+            socialtempBar = false;
     }
 
     //refname
@@ -1116,6 +1145,7 @@ $(document).ready(function () {
     var preRefCompany = $('.refcompany');
     var preRefEmail = $('.refPhone');
     var preRefPhone = $('.refEmail');
+    var reftempBar = true
     $(".refname").each(function (index) {
         if ($($('.refname')[index]).val().length > 0 && index == 0) {
             $("#AccordionReferenceTitleLabel0").html($(this).val());
@@ -1228,6 +1258,19 @@ $(document).ready(function () {
             $('.refDiv').hide();
 
         }
+
+        if (($('#AccordionReferenceTitleLabel0').text().length > 0 && $('#AccordionReferenceTitleLabel0').text() != "(Not Specified)" ||
+            $('#AccordionReferenceTitleLabel1').text().length > 0 && $('#AccordionReferenceTitleLabel1').text() != "(Not Specified)" ||
+            $('#AccordionReferenceTitleLabel2').text().length > 0 && $('#AccordionReferenceTitleLabel2').text() != "(Not Specified)") && reftempBar) {
+            updateProgressBar("12.264", $(".progress__percent").text(), 1);
+        }
+        if (!($('#AccordionReferenceTitleLabel0').text().length > 0 && $('#AccordionReferenceTitleLabel0').text() != "(Not Specified)" ||
+            $('#AccordionReferenceTitleLabel1').text().length > 0 && $('#AccordionReferenceTitleLabel1').text() != "(Not Specified)" ||
+            $('#AccordionReferenceTitleLabel2').text().length > 0 && $('#AccordionReferenceTitleLabel2').text() != "(Not Specified)")) {
+            updateProgressBar("12.264", $(".progress__percent").text(), 0);
+            reftempBar = true;
+        } else
+            reftempBar = false;
     }
 
     function preRefCompChange() {
@@ -1273,7 +1316,8 @@ $(document).ready(function () {
     //id_skill_set-0-skill
     //preSkillName0
     //skilltitle
-
+    var skilltempBar = true
+    $('.skillDiv').hide()
     $('.skilltitle').each(function (index) {
         if ($(this).val().length > 0) {
             $('#preSkillName' + index).html($(this).val() + '<br>')
@@ -1291,13 +1335,15 @@ $(document).ready(function () {
                 $('#preSkillName6').is(':empty') &&
                 $('#preSkillName7').is(':empty') &&
                 $('#preSkillName8').is(':empty') &&
-                $('#preSkillName9').is(':empty')
+                $('#preSkillName9').is(':empty') && $('.skillDiv').is(":visible")
             ) {
+                updateProgressBar("12.264", $(".progress__percent").text(), 0);
                 console.log("itsempty")
                 $('.skillDiv').hide()
-            } else {
+            } else if ($('.skillDiv').is(":hidden") && skilltempBar) {
                 console.log("itnotsempty")
-
+                updateProgressBar("12.264", $(".progress__percent").text(), 1);
+                skilltempBar = false
                 $('.skillDiv').show()
             }
         }
@@ -1327,8 +1373,18 @@ $(document).ready(function () {
                 $('#preSkillName9').is(':empty')
             ) {
                 console.log("itsempty")
+                if (!skilltempBar) {
+                    updateProgressBar("12.264", $(".progress__percent").text(), 0);
+                    skilltempBar = true
+                }
+
                 $('.skillDiv').hide()
             } else {
+
+                if (skilltempBar) {
+                    updateProgressBar("12.264", $(".progress__percent").text(), 1);
+                    skilltempBar = false
+                }
                 console.log("itnotsempty")
 
                 $('.skillDiv').show()

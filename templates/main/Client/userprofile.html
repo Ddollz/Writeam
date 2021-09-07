@@ -72,8 +72,16 @@
                             <hr>
                             <div class="row">
                                 <div class="col">
+                                    {%if request.user.article.article.url != None %}
                                     <h4>Article</h4>
                                     <a class="view" href="{{request.user.article.article.url}}" style="color:white;">Download</a>
+                                    {%else%}
+
+                                    <h4>Article</h4>
+                                    <a class="view" href="{% url 'resume'%}" style="color:white;">Download</a>
+
+                                    {% endif %}
+
                                 </div>
                                 <div class="col">
                                     <h4>Resume</h4>
