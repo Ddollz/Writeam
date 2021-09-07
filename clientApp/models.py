@@ -39,7 +39,7 @@ class personalDetails(models.Model):
     jobTitle = models.CharField(max_length=200, null=True)
     fname = models.CharField(max_length=200, null=True)
     lname = models.CharField(max_length=200, null=True)
-    email = models.EmailField(max_length=200, null=True)
+    email = models.CharField(max_length=200, null=True)
     phone = models.CharField(max_length=200, null=True)
     country = models.CharField(max_length=200, null=True)
     city = models.CharField(max_length=200, null=True)
@@ -109,7 +109,7 @@ class reference(models.Model):
     name = models.CharField(max_length=200, null=True)
     company = models.CharField(max_length=200, null=True)
     phone = models.CharField(max_length=200, null=True)
-    email = models.EmailField(max_length=200, null=True)
+    email = models.CharField(max_length=200, null=True)
 
     def __str__(self):
         return self.name or ' '

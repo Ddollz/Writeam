@@ -12,7 +12,7 @@ class personalDetailsForm(ModelForm):
         attrs={'type': 'text', 'class': 'form-control', 'id': 'fname'}))
     lname = forms.CharField(label="", required=False, widget=forms.TextInput(
         attrs={'type': 'text', 'class': 'form-control', 'id': 'lname'}))
-    email = forms.EmailField(label="", required=False, widget=forms.TextInput(
+    email = forms.CharField(label="", required=False, widget=forms.TextInput(
         attrs={'type': 'email', 'class': 'form-control', 'id': 'email'}))
     phone = forms.CharField(label="", required=False, widget=forms.TextInput(
         attrs={'type': 'text', 'class': 'form-control', 'id': 'phone'}))
@@ -104,7 +104,7 @@ class referenceForm(ModelForm):
 
     name = forms.CharField(label="", required=False, widget=forms.TextInput(
         attrs={'type': 'text', 'class': 'form-control refname'}))
-    email = forms.EmailField(label="", required=False, widget=forms.TextInput(
+    email = forms.CharField(label="", required=False, widget=forms.TextInput(
         attrs={'type': 'email', 'class': 'form-control refEmail'}))
     company = forms.CharField(label="", required=False, widget=forms.TextInput(
         attrs={'type': 'text', 'class': 'form-control refcompany'}))

@@ -68,39 +68,22 @@ def resume(request):
         formset3 = referenceFormSet(request.POST, instance=user)
         formset4 = skillFormSet(request.POST, instance=user)
 
-        print(formfile)
         # employmentHistory.objects.filter(personaldetails=user).delete()
-        if form1.is_valid():
-            form1.save()
-
-        if formset.is_valid():
+        if form1.is_valid() and formset.is_valid() and formset1.is_valid() and formset2.is_valid() and formset3.is_valid() and formset4.is_valid() and formfile.is_valid():
             formset.save()
-        else:
-            print(formset.errors)
-
-        if formset1.is_valid():
             formset1.save()
+            formset2.save()
+            formset3.save()
+            formset4.save()
+            formfile.save()
+            form1.save()
         else:
             print(formset1.errors)
-
-        if formset2.is_valid():
-            formset2.save()
-        else:
             print(formset2.errors)
-
-        if formset3.is_valid():
-            formset3.save()
-        else:
-            print(formset3)
-
-        if formset4.is_valid():
-            formset4.save()
-        else:
-            print(formset4)
-
-        if formfile.is_valid():
-            formfile.save()
-        else:
+            print(formset3.errors)
+            print(formset4.errors)
+            print(formset.errors)
+            print(form1.errors)
             print(formfile.errors)
 
     context = {'form1': form1, 'formfile': formfile,

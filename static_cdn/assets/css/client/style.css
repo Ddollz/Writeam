@@ -689,9 +689,23 @@ h2 {
   color: rgba(231, 76, 60, 1);
   cursor: pointer;
 }
+
+.form-group input {
+  height: 45px;
+  width: 45px;
+  content: "\f2bb";
+}
+
+.form-group input:checked {
+  display: block;
+  border: solid #0079bf;
+  background-color: black;
+}
+
 .ui-datepicker-calendar {
   display: none;
 }
+
 #profile {
   border-radius: 5px;
   width: 80px;
