@@ -36,7 +36,9 @@
                 <div class="userInfo">
                     <div class="page-modal active">
                         <div class="info mt-3 mb-5">
-                            <h3 class="fw-bold">INFORMATION <button class="editButton"><i class="bi bi-pencil-square"></i></button></h3>
+                            <h3 class="fw-bold">INFORMATION <button class="editButton"><i class="bi bi-pencil-square"></i></button>
+                                <a href="{% url 'password_change' %}"><i class="bi bi-shield-lock float-end"></i></a>
+                            </h3>
                             <hr>
                             <div class="row">
                                 <div class="col">
@@ -123,10 +125,6 @@
                                     <input type="text" class="form-control" id="address">
                                 </div>
 
-                                <h4>Confirm Password</h4>
-                                <div class="mb-3">
-                                    <input type="password" class="form-control" id="confpassword">
-                                </div>
                             </div>
                         </div>
                     </form>
