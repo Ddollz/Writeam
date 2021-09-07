@@ -333,8 +333,8 @@ $(document).ready(function () {
     })
 
     function emptyPreAddress() {
-        if ($('#preAddress').text().length == 0 && $('#preCountry').text().length == 0 && $('#preCityPC').text().length == 0 &&
-            $('#postal').text().length == 0) {
+        if ($('#preAddress').text().length == 0 && $('#preCountry').text().length == 0) {
+            $('#preCityPC').empty()
             $('.mailboxDiv').hide();
         } else {
             $('.mailboxDiv').show();
@@ -1281,6 +1281,25 @@ $(document).ready(function () {
         } else {
             $('#preSkillName' + index).empty();
             $('#preSkillName' + index).hide();
+
+            if ($('#preSkillName0').is(':empty') &&
+                $('#preSkillName1').is(':empty') &&
+                $('#preSkillName2').is(':empty') &&
+                $('#preSkillName3').is(':empty') &&
+                $('#preSkillName4').is(':empty') &&
+                $('#preSkillName5').is(':empty') &&
+                $('#preSkillName6').is(':empty') &&
+                $('#preSkillName7').is(':empty') &&
+                $('#preSkillName8').is(':empty') &&
+                $('#preSkillName9').is(':empty')
+            ) {
+                console.log("itsempty")
+                $('.skillDiv').hide()
+            } else {
+                console.log("itnotsempty")
+
+                $('.skillDiv').show()
+            }
         }
         $(this).on('change', function () {
             if ($('#preSkillName' + index).html() == '' && !$(this).val()) {
@@ -1307,8 +1326,11 @@ $(document).ready(function () {
                 $('#preSkillName8').is(':empty') &&
                 $('#preSkillName9').is(':empty')
             ) {
+                console.log("itsempty")
                 $('.skillDiv').hide()
             } else {
+                console.log("itnotsempty")
+
                 $('.skillDiv').show()
             }
         });
