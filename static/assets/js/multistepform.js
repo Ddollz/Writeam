@@ -1275,7 +1275,6 @@ $(document).ready(function () {
     //skilltitle
 
     $('.skilltitle').each(function (index) {
-
         if ($(this).val().length > 0) {
             $('#preSkillName' + index).html($(this).val() + '<br>')
             $('#preSkillName' + index).show();
@@ -1284,7 +1283,6 @@ $(document).ready(function () {
             $('#preSkillName' + index).hide();
         }
         $(this).on('change', function () {
-
             if ($('#preSkillName' + index).html() == '' && !$(this).val()) {
                 console.log($('#preSkillName' + index).html() + '1')
                 $('#preSkillName' + index).empty();
@@ -1298,7 +1296,6 @@ $(document).ready(function () {
                 }
                 $('#preSkillName' + index).show();
             }
-
             if ($('#preSkillName0').is(':empty') &&
                 $('#preSkillName1').is(':empty') &&
                 $('#preSkillName2').is(':empty') &&
@@ -1313,7 +1310,6 @@ $(document).ready(function () {
                 $('.skillDiv').hide()
             } else {
                 $('.skillDiv').show()
-
             }
         });
     });
