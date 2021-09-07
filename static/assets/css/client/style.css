@@ -1224,6 +1224,10 @@ page .page-container {
 .glass .view {
   border-radius: 10px;
 }
+.glass a {
+  padding: 10px;
+  color: white;
+}
 
 .editButton {
   background: none;

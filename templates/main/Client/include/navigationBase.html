@@ -5,10 +5,12 @@
     <!-- Uncomment below if you prefer to use an image logo -->
     <!-- <a href="index.html" class="logo"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
 
+    {% url 'faq' as the_url %}
+    {% url 'userprofile' as the_urls %}
     <nav id="navbar" class="navbar">
       <ul>
         <li>
-          {% url 'faq' as the_url %} {% if request.path == the_url %}
+          {% if request.path == the_url or request.path == the_urls %}
           <a class="nav-link scrollto" href="{% url 'index'%}">Home</a>
           {% else %}
           <a class="nav-link scrollto" href="#hero">Home</a>
@@ -19,7 +21,7 @@
         </li>
 
         <li>
-          {% url 'faq' as the_url %} {% if request.path == the_url %}
+          {% if request.path == the_url or request.path == the_urls %}
           <a class="nav-link scrollto" href="{% url 'index'%}">About</a>
           {% else %}
           <a class="nav-link scrollto" href="#about">About</a>
@@ -27,7 +29,7 @@
         </li>
 
         <li>
-          {% url 'faq' as the_url %} {% if request.path == the_url %}
+          {% if request.path == the_url or request.path == the_urls %}
           <a class="nav-link scrollto" href="{% url 'index'%}">
             Qualifications
           </a>
@@ -37,15 +39,19 @@
         </li>
 
         <li>
-          {% url 'faq' as the_url %} {% if request.path == the_url %}
+          {% if request.path == the_url or request.path == the_urls %}
           <a class="nav-link scrollto" href="{% url 'index'%}">Threads</a>
           {% else %}
           <a class="nav-link scrollto" href="#portfolio">Threads</a>
           {% endif %}
         </li>
         <li>
-          {% url 'faq' as the_url %} {% if request.path == the_url %}
+          {% if request.path == the_url or request.path == the_urls %}
+          {% if request.path == the_url %}
           <a class="nav-link active" href="{% url 'faq'%}">FAQ</a>
+          {% else %}
+          <a class="nav-link" href="{% url 'faq'%}">FAQ</a>
+          {% endif %}
           {% else %}
           <a class="nav-link" href="{% url 'faq'%}">FAQ</a>
           {% endif %}
