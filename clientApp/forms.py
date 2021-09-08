@@ -118,9 +118,9 @@ class referenceForm(ModelForm):
 
 
 class articleform(ModelForm):
-    headline = forms.CharField(label="", required=False, widget=forms.TextInput(
+    headline = forms.CharField(label="", required=True, widget=forms.TextInput(
         attrs={'type': 'text', 'class': 'form-control'}))
-    article = forms.FileField(required=False, widget=forms.FileInput(
+    article = forms.FileField(required=True, widget=forms.FileInput(
         attrs={'type': 'file', 'class': 'form-control', 'id': 'formFile'}))
 
     class Meta:

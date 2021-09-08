@@ -27,7 +27,8 @@ def applicantManagement(request):
 
 @allowed_users(allowed_roles=['HR Staff', 'HR Manager'])
 def applicantStatus(request):
-    context = {}
+    users = accounts.objects.all()
+    context = {'applicantList': users}
     return render(request, 'main/Admin/applicantstatus.html', context)
 
 

@@ -87,6 +87,7 @@ def resume(request):
             formset4.save()
             formfile.save()
             form1.save()
+            return redirect('/')
         else:
             print(formset1.errors)
             print(formset2.errors)
@@ -96,9 +97,20 @@ def resume(request):
             print(form1.errors)
             print(formfile.errors)
 
+            context = {'form1': form1, 'formfile': formfile,
+                       'formset': formset, 'formset1': formset1,
+                       'formset2': formset2, 'formset3': formset3,
+                       'formset4': formset4,
+                       'error1': form1.errors, 'error2': formfile.errors,
+                       'error3': formset.errors, 'error4': formset1.errors,
+                       'error5': formset2.errors, 'error6': formset3.errors,
+                       'error7': formset4.errors,
+                       }
+            return render(request, 'main/Client/resume.html', context)
+
     context = {'form1': form1, 'formfile': formfile,
                'formset': formset, 'formset1': formset1,
                'formset2': formset2, 'formset3': formset3,
-               'formset4': formset4
+               'formset4': formset4,
                }
     return render(request, 'main/Client/resume.html', context)

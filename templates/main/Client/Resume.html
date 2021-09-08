@@ -49,7 +49,7 @@
                 <span class="progress__percent">0%</span>
                 Profile completeness
                 <span class="float-end progress__add">
-                  10+ <span class="progress__addlabel">Add Personal Details</span>
+                  80+ <span class="progress__addlabel">Is a Good Resume</span>
                 </span>
               </div>
               <div class="progress mb-3">
@@ -470,6 +470,16 @@
             </div>
 
             <div class="page">
+              {% if error2 != None%}
+              <div class="card mb-3" id="infobox">
+                <div class="card-body text-center">
+                  <i class="bi bi-exclamation-circle-fill" style="color:rgb(231, 76, 60)"></i>
+                  <p>
+                    Please make sure this FORM is filled up properly and only use DOC or PDF File Only
+                  </p>
+                </div>
+              </div>
+              {% endif %}
               <h4>Sample Article</h4>
               {{formfile.non_field_errors}}
 

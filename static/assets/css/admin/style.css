@@ -150,6 +150,10 @@ ul {
 .sidebar li a:hover {
   background: #fff;
 }
+
+.sidebar li .active {
+  background: #fff;
+}
 .sidebar li a .links_name {
   color: #fff;
   font-size: 15px;
@@ -159,6 +163,7 @@ ul {
   pointer-events: none;
   transition: 0.4s;
 }
+
 .sidebar.open li a .links_name {
   opacity: 1;
   pointer-events: auto;
@@ -174,6 +179,12 @@ ul {
   font-size: 18px;
   border-radius: 12px;
 }
+
+.sidebar li .active .links_name,
+.sidebar li .active i {
+  color: black;
+}
+
 .sidebar li.profile {
   position: fixed;
   height: 60px;

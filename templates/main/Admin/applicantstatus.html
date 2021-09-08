@@ -15,186 +15,53 @@
                     <table id="datatablesSimple">
                         <thead>
                             <tr>
+                                <th>ID</th>
                                 <th>Name</th>
-                                <th>Position</th>
-                                <th>Address</th>
-                                <th>Age</th>
-                                <th>Status</th>
+                                <th>Date Joined</th>
+                                <th>Last Login</th>
+                                <th>Article</th>
                                 <th>Resume</th>
                             </tr>
                         </thead>
                         <tfoot>
                             <tr>
+                                <th>ID</th>
                                 <th>Name</th>
-                                <th>Position</th>
-                                <th>Address</th>
-                                <th>Age</th>
-                                <th>Status</th>
+                                <th>Date Joined</th>
+                                <th>Last Login</th>
+                                <th>Article</th>
                                 <th>Resume</th>
                             </tr>
                         </tfoot>
                         <tbody>
 
+
+                            {% for user in applicantList%}
+                            {% for group in user.groups.all %}
+                            {% if group|stringformat:'s' != 'HR Manager' and group|stringformat:'s' != 'HR Staff'%}
+
                             <tr>
-                                <td>Herrod Chandler</td>
-                                <td>Sales Assistant</td>
-                                <td>San Francisco</td>
-                                <td>59</td>
-                                <td><button type="button" class="btn btn-primary">View</button></td>
-                                <td><button type="button" class="btn btn-primary">View</button></td>
+                                <td>{{ user.id }}</td>
+                                <td>{{user.first_name}} {{user.last_name}}</td>
+                                <td>{{ user.date_joined }}</td>
+                                <td>{{ user.last_login }}</td>
+                                {%if user.article.article.url != None %}
+                                <td><a type="button" class="btn btn-primary" href="{{user.article.article.url}}">View</a></td>
+                                {%else%}
+                                <td><a type="button" class="btn btn-secondary" href="#">None</a></td>
+                                {% endif %}
+
+                                {%if user.personaldetails.fname != None %}
+                                <td><a type="button" class="btn btn-primary" href="{{user.article.article.url}}">View</a></td>
+                                {%else%}
+                                <td><a type="button" class="btn btn-secondary" href="#">None</a></td>
+                                {% endif %}
+                                <!-- <td><button type=" button" class="btn btn-primary">View</button></td> -->
                             </tr>
-                            <tr>
-                                <td>Rhona Davidson</td>
-                                <td>Integration Specialist</td>
-                                <td>Tokyo</td>
-                                <td>55</td>
-                                <td><button type="button" class="btn btn-primary">View</button></td>
-                                <td><button type="button" class="btn btn-primary">View</button></td>
-                            </tr>
-                            <tr>
-                                <td>Colleen Hurst</td>
-                                <td>Javascript Developer</td>
-                                <td>San Francisco</td>
-                                <td>39</td>
-                                <td><button type="button" class="btn btn-primary">View</button></td>
-                                <td><button type="button" class="btn btn-primary">View</button></td>
-                            </tr>
-                            <tr>
-                                <td>Sonya Frost</td>
-                                <td>Software Engineer</td>
-                                <td>Edinburgh</td>
-                                <td>23</td>
-                                <td><button type="button" class="btn btn-primary">View</button></td>
-                                <td><button type="button" class="btn btn-primary">View</button></td>
-                            </tr>
-                            <tr>
-                                <td>Jena Gaines</td>
-                                <td>Office Manager</td>
-                                <td>London</td>
-                                <td>30</td>
-                                <td><button type="button" class="btn btn-primary">View</button></td>
-                                <td><button type="button" class="btn btn-primary">View</button></td>
-                            </tr>
-                            <tr>
-                                <td>Quinn Flynn</td>
-                                <td>Support Lead</td>
-                                <td>Edinburgh</td>
-                                <td>22</td>
-                                <td><button type="button" class="btn btn-primary">View</button></td>
-                                <td><button type="button" class="btn btn-primary">View</button></td>
-                            </tr>
-                            <tr>
-                                <td>Charde Marshall</td>
-                                <td>Regional Director</td>
-                                <td>San Francisco</td>
-                                <td>36</td>
-                                <td><button type="button" class="btn btn-primary">View</button></td>
-                                <td><button type="button" class="btn btn-primary">View</button></td>
-                            </tr>
-                            <tr>
-                                <td>Haley Kennedy</td>
-                                <td>Senior Marketing Designer</td>
-                                <td>London</td>
-                                <td>43</td>
-                                <td><button type="button" class="btn btn-primary">View</button></td>
-                                <td><button type="button" class="btn btn-primary">View</button></td>
-                            </tr>
-                            <tr>
-                                <td>Tatyana Fitzpatrick</td>
-                                <td>Regional Director</td>
-                                <td>London</td>
-                                <td>19</td>
-                                <td><button type="button" class="btn btn-primary">View</button></td>
-                                <td><button type="button" class="btn btn-primary">View</button></td>
-                            </tr>
-                            <tr>
-                                <td>Michael Silva</td>
-                                <td>Marketing Designer</td>
-                                <td>London</td>
-                                <td>66</td>
-                                <td><button type="button" class="btn btn-primary">View</button></td>
-                                <td><button type="button" class="btn btn-primary">View</button></td>
-                            </tr>
-                            <tr>
-                                <td>Paul Byrd</td>
-                                <td>Chief Financial Officer (CFO)</td>
-                                <td>New York</td>
-                                <td>64</td>
-                                <td><button type="button" class="btn btn-primary">View</button></td>
-                                <td><button type="button" class="btn btn-primary">View</button></td>
-                            </tr>
-                            <tr>
-                                <td>Gloria Little</td>
-                                <td>Systems Administrator</td>
-                                <td>New York</td>
-                                <td>59</td>
-                                <td><button type="button" class="btn btn-primary">View</button></td>
-                                <td><button type="button" class="btn btn-primary">View</button></td>
-                            </tr>
-                            <tr>
-                                <td>Bradley Greer</td>
-                                <td>Software Engineer</td>
-                                <td>London</td>
-                                <td>41</td>
-                                <td><button type="button" class="btn btn-primary">View</button></td>
-                                <td><button type="button" class="btn btn-primary">View</button></td>
-                            </tr>
-                            <tr>
-                                <td>Dai Rios</td>
-                                <td>Personnel Lead</td>
-                                <td>Edinburgh</td>
-                                <td>35</td>
-                                <td><button type="button" class="btn btn-primary">View</button></td>
-                                <td><button type="button" class="btn btn-primary">View</button></td>
-                            </tr>
-                            <tr>
-                                <td>Jenette Caldwell</td>
-                                <td>Development Lead</td>
-                                <td>New York</td>
-                                <td>30</td>
-                                <td><button type="button" class="btn btn-primary">View</button></td>
-                                <td><button type="button" class="btn btn-primary">View</button></td>
-                            </tr>
-                            <tr>
-                                <td>Yuri Berry</td>
-                                <td>Chief Marketing Officer (CMO)</td>
-                                <td>New York</td>
-                                <td>40</td>
-                                <td><button type="button" class="btn btn-primary">View</button></td>
-                                <td><button type="button" class="btn btn-primary">View</button></td>
-                            </tr>
-                            <tr>
-                                <td>Caesar Vance</td>
-                                <td>Pre-Sales Support</td>
-                                <td>New York</td>
-                                <td>21</td>
-                                <td><button type="button" class="btn btn-primary">View</button></td>
-                                <td><button type="button" class="btn btn-primary">View</button></td>
-                            </tr>
-                            <tr>
-                                <td>Doris Wilder</td>
-                                <td>Sales Assistant</td>
-                                <td>Sidney</td>
-                                <td>23</td>
-                                <td><button type="button" class="btn btn-primary">View</button></td>
-                                <td><button type="button" class="btn btn-primary">View</button></td>
-                            </tr>
-                            <tr>
-                                <td>Angelica Ramos</td>
-                                <td>Chief Executive Officer (CEO)</td>
-                                <td>London</td>
-                                <td>47</td>
-                                <td><button type="button" class="btn btn-primary">View</button></td>
-                                <td><button type="button" class="btn btn-primary">View</button></td>
-                            </tr>
-                            <tr>
-                                <td>Gavin Joyce</td>
-                                <td>Developer</td>
-                                <td>Edinburgh</td>
-                                <td>42</td>
-                                <td><button type="button" class="btn btn-primary">View</button></td>
-                                <td><button type="button" class="btn btn-primary">View</button></td>
-                            </tr>
+
+                            {% endif %}
+                            {% endfor %}
+                            {% endfor %}
                         </tbody>
                     </table>
                 </div>

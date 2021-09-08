@@ -131,6 +131,7 @@ $(document).ready(function () {
             changeMonth: true,
             changeYear: true,
             showButtonPanel: true,
+            yearRange: '1950:2011',
             onClose: function (dateText, inst) {
 
 
@@ -145,19 +146,6 @@ $(document).ready(function () {
 
                     $('.date-picker').focusout()//Added to remove focus from datepicker input box on selecting date
                 }
-            },
-            beforeShow: function (input, inst) {
-
-                inst.dpDiv.addClass('month_year_datepicker')
-
-                if ((datestr = $(this).val()).length > 0) {
-                    year = datestr.substring(datestr.length - 4, datestr.length);
-                    month = datestr.substring(0, 2);
-                    $(this).datepicker('option', 'defaultDate', new Date(year, month - 1, 1));
-                    $(this).datepicker('setDate', new Date(year, month - 1, 1));
-                    $(".ui-datepicker-calendar").hide();
-                }
-                $(".ui-datepicker-calendar").hide();
             }
         });
 
