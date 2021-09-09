@@ -33,17 +33,17 @@
             <h6 class="card-subtitle mb-4 text-center text-muted">
               Enter your resume details.
             </h6>
-            <div class="card mb-3 infobox" id="infobox">
+            {% if error1 %}
+            <div class="card mb-3" id="">
               <div class="card-body text-center">
                 <i class="bi bi-exclamation-circle-fill"></i>
                 <p>
-                  We found some errors.
-                  Please review the form
-                  and make
-                  corrections.
+                  User MUST atleast fill up Personal Details and Professional Summary
                 </p>
               </div>
             </div>
+            {% endif %}
+
             <div class="progress_bar sticky-top">
               <div class="progress__label mb-2">
                 <span class="progress__percent">0%</span>
