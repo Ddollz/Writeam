@@ -72,45 +72,80 @@
                 </a>
                 {% endif %}
             </li>
-            <li>
-                {% if request.path == the_url2%}
-                <a href="{% url 'applicantmanagement'%}" class="active">
-                    <i class="bi bi-person-lines-fill"></i>
-                    <span class="links_name">Applicant Management</span>
-                </a>
-                <span class="tooltip">Files</span>
-                {% else %}
-                <a href="{% url 'applicantmanagement'%}">
-                    <i class="bi bi-person-lines-fill"></i>
-                    <span class="links_name">Applicant Management</span>
-                </a>
-                <span class="tooltip">Files</span>
-                {% endif %}
 
-            </li>
             <li>
                 {% if request.path == the_url3%}
                 <a href="{% url 'applicantstatus'%}" class="active">
                     <i class="bx bx-folder"></i>
-                    <span class="links_name">Applicant Status</span>
+                    <span class="links_name">Applicant Management</span>
                 </a>
                 <span class="tooltip">Files</span>
                 {% else %}
                 <a href="{% url 'applicantstatus'%}">
                     <i class="bx bx-folder"></i>
-                    <span class="links_name">Applicant Status</span>
+                    <span class="links_name">Applicant Management</span>
                 </a>
                 <span class="tooltip">Files</span>
                 {% endif %}
 
             </li>
+            <!-- <li>
+                    {% if request.path == the_url2%}
+                    <a href="{% url 'applicantmanagement'%}" class="active">
+                        <i class="bi bi-person-lines-fill"></i>
+                        <span class="links_name">Applicant Management</span>
+                    </a>
+                    <span class="tooltip">Files</span>
+                    {% else %}
+                    <a href="{% url 'applicantmanagement'%}">
+                        <i class="bi bi-person-lines-fill"></i>
+                        <span class="links_name">Applicant Management</span>
+                    </a>
+                    <span class="tooltip">Files</span>
+                    {% endif %}
+
+                </li> -->
+
             <li>
+                {% if request.path == the_url2%}
+                <a href="{% url 'applicantmanagement'%}" class="active">
+                    <i class="bi bi-person-lines-fill"></i>
+                    <span class="links_name">Onboarding</span>
+                </a>
+                <span class="tooltip">Onboarding</span>
+                {% else %}
+                <a href="{% url 'applicantmanagement'%}">
+                    <i class="bi bi-person-lines-fill"></i>
+                    <span class="links_name">Onboarding</span>
+                </a>
+                <span class="tooltip">Onboarding</span>
+                {% endif %}
+
+            </li>
+
+            <li>
+                {% if request.path == the_url2%}
+                <a href="{% url 'applicantmanagement'%}" class="active">
+                    <i class="bi bi-clipboard-x"></i>
+                    <span class="links_name">Rejected Applicants</span>
+                </a>
+                <span class="tooltip">Files</span>
+                {% else %}
+                <a href="{% url 'applicantmanagement'%}">
+                    <i class="bi bi-clipboard-x"></i>
+                    <span class="links_name">Rejected Applicants</span>
+                </a>
+                <span class="tooltip">Files</span>
+                {% endif %}
+
+            </li>
+            <!-- <li>
                 <a href="{% url 'calendar'%}">
                     <i class="bx bx-chat"></i>
                     <span class="links_name">Calendar</span>
                 </a>
                 <span class="tooltip">Calendar</span>
-            </li>
+            </li> -->
             {% if request.user.groups.all.0|stringformat:'s' == 'HR Manager'%}
 
             <li>
@@ -132,13 +167,13 @@
             </li>
             {% endif %}
 
-            <li>
+            <!-- <li>
                 <a href="#">
                     <i class="bx bx-pie-chart-alt-2"></i>
                     <span class="links_name">Analytics</span>
                 </a>
                 <span class="tooltip">Analytics</span>
-            </li>
+            </li> -->
             <li>
                 <a href="#">
                     <i class="bx bx-cog"></i>

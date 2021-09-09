@@ -16,9 +16,11 @@
                         <thead>
                             <tr>
                                 <th>ID</th>
+                                <th>Avatar</th>
                                 <th>Name</th>
                                 <th>Date Joined</th>
                                 <th>Last Login</th>
+                                <th>Score</th>
                                 <th>Article</th>
                                 <th>Resume</th>
                             </tr>
@@ -26,9 +28,11 @@
                         <tfoot>
                             <tr>
                                 <th>ID</th>
+                                <th>Avatar</th>
                                 <th>Name</th>
                                 <th>Date Joined</th>
                                 <th>Last Login</th>
+                                <th>Score</th>
                                 <th>Article</th>
                                 <th>Resume</th>
                             </tr>
@@ -42,15 +46,16 @@
 
                             <tr>
                                 <td>{{ user.id }}</td>
+                                <td><img class="img-circle" src="{{user.personaldetails.profile_image.url}}" draggable="false" /></td>
                                 <td>{{user.first_name}} {{user.last_name}}</td>
                                 <td>{{ user.date_joined }}</td>
                                 <td>{{ user.last_login }}</td>
+                                <td><a type="button" class="btn btn-primary" href="">Add</a></td>
                                 {%if user.article.article.url != None %}
                                 <td><a type="button" class="btn btn-primary" href="{{user.article.article.url}}">View</a></td>
                                 {%else%}
                                 <td><a type="button" class="btn btn-secondary" href="#">None</a></td>
                                 {% endif %}
-
                                 {%if user.personaldetails.fname != None %}
                                 <td><a type="button" class="btn btn-primary" href="{% url 'resumePrev' user.id %}">View</a></td>
                                 {%else%}

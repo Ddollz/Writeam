@@ -38,7 +38,7 @@
             {% if group|stringformat:'s' == 'HR Manager' or group|stringformat:'s' == 'HR Staff'%}
 
             <tr>
-              <td><img class="picturetable" src="{{user.profile_image.url}}" alt="profileImg" /></td>
+              <td><img class="img-circle" src="{{user.profile_image.url}}" alt="profileImg" /></td>
               <td>{{user.first_name}} {{user.last_name}}</td>
               <td>{{ group }}</td>
               <td>{{ user.email }}</td>
