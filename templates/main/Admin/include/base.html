@@ -42,8 +42,10 @@
 
     {% url 'dashboard' as the_url1 %}
     {% url 'applicantmanagement' as the_url2 %}
-    {% url 'applicantstatus' as the_url3 %}
-    {% url 'adminUsers' as the_url4 %}
+    {% url 'onboarding' as the_url3 %}
+    {% url 'rejectedapp' as the_url4 %}
+    {% url 'adminUsers' as the_url5 %}
+    {% url 'setting' as the_url6 %}
     <div class="sidebar .open open">
         <div class="logo-details">
             <i class="bx bxl-c-plus-plus icon"></i>
@@ -74,20 +76,19 @@
             </li>
 
             <li>
-                {% if request.path == the_url3%}
-                <a href="{% url 'applicantstatus'%}" class="active">
+                {% if request.path == the_url2%}
+                <a href="{% url 'applicantmanagement'%}" class="active">
                     <i class="bx bx-folder"></i>
                     <span class="links_name">Applicant Management</span>
                 </a>
                 <span class="tooltip">Files</span>
                 {% else %}
-                <a href="{% url 'applicantstatus'%}">
+                <a href="{% url 'applicantmanagement'%}">
                     <i class="bx bx-folder"></i>
                     <span class="links_name">Applicant Management</span>
                 </a>
                 <span class="tooltip">Files</span>
                 {% endif %}
-
             </li>
             <!-- <li>
                     {% if request.path == the_url2%}
@@ -107,49 +108,42 @@
                 </li> -->
 
             <li>
-                {% if request.path == the_url2%}
-                <a href="{% url 'applicantmanagement'%}" class="active">
+                {% if request.path == the_url3%}
+                <a href="{% url 'onboarding'%}" class="active">
                     <i class="bi bi-person-lines-fill"></i>
-                    <span class="links_name">Onboarding</span>
+                    <span class="links_name">Onboarding Applicants</span>
                 </a>
-                <span class="tooltip">Onboarding</span>
+                <span class="tooltip">Onboarding Applicants</span>
                 {% else %}
-                <a href="{% url 'applicantmanagement'%}">
+                <a href="{% url 'onboarding'%}">
                     <i class="bi bi-person-lines-fill"></i>
-                    <span class="links_name">Onboarding</span>
+                    <span class="links_name">Onboarding Applicants</span>
                 </a>
-                <span class="tooltip">Onboarding</span>
+                <span class="tooltip">Onboarding Applicants</span>
                 {% endif %}
 
             </li>
-
-            <li>
-                {% if request.path == the_url2%}
-                <a href="{% url 'applicantmanagement'%}" class="active">
-                    <i class="bi bi-clipboard-x"></i>
-                    <span class="links_name">Rejected Applicants</span>
-                </a>
-                <span class="tooltip">Files</span>
-                {% else %}
-                <a href="{% url 'applicantmanagement'%}">
-                    <i class="bi bi-clipboard-x"></i>
-                    <span class="links_name">Rejected Applicants</span>
-                </a>
-                <span class="tooltip">Files</span>
-                {% endif %}
-
-            </li>
-            <!-- <li>
-                <a href="{% url 'calendar'%}">
-                    <i class="bx bx-chat"></i>
-                    <span class="links_name">Calendar</span>
-                </a>
-                <span class="tooltip">Calendar</span>
-            </li> -->
-            {% if request.user.groups.all.0|stringformat:'s' == 'HR Manager'%}
 
             <li>
                 {% if request.path == the_url4%}
+                <a href="{% url 'rejectedapp'%}" class="active">
+                    <i class="bi bi-clipboard-x"></i>
+                    <span class="links_name">Rejected Applicants</span>
+                </a>
+                <span class="tooltip">Files</span>
+                {% else %}
+                <a href="{% url 'rejectedapp'%}">
+                    <i class="bi bi-clipboard-x"></i>
+                    <span class="links_name">Rejected Applicants</span>
+                </a>
+                <span class="tooltip">Files</span>
+                {% endif %}
+
+            </li>
+            {% if request.user.groups.all.0|stringformat:'s' == 'HR Manager'%}
+
+            <li>
+                {% if request.path == the_url5%}
                 <a href="{% url 'adminUsers'%}" class="active">
                     <i class="bx bx-user"></i>
                     <span class="links_name">User Staff</span>
@@ -175,11 +169,20 @@
                 <span class="tooltip">Analytics</span>
             </li> -->
             <li>
-                <a href="#">
+                {% if request.path == the_url5%}
+                <a href="{% url 'setting'%}" class="active">
+                    <i class="bx bx-user"></i>
+                    <span class="links_name">Setting</span>
+                </a>
+                <span class="tooltip">Setting</span>
+                {%else%}
+                <a href="{% url 'setting'%}">
                     <i class="bx bx-cog"></i>
                     <span class="links_name">Setting</span>
                 </a>
                 <span class="tooltip">Setting</span>
+                {% endif %}
+
             </li>
             <li class="profile">
                 <a href="{% url 'updateProfile' request.user.id %}" style="border:none; background-color:transparent;">

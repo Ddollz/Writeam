@@ -22,21 +22,21 @@ def adminUsers(request):
 
 @allowed_users(allowed_roles=['HR Staff', 'HR Manager'])
 def applicantManagement(request):
-    context = {}
-    return render(request, 'main/Admin/applicantmanagement.html', context)
-
-
-@allowed_users(allowed_roles=['HR Staff', 'HR Manager'])
-def applicantStatus(request):
     users = accounts.objects.all()
     context = {'applicantList': users}
     return render(request, 'main/Admin/applicantstatus.html', context)
 
 
 @allowed_users(allowed_roles=['HR Staff', 'HR Manager'])
-def Calendar(request):
+def onboarding(request):
     context = {}
-    return render(request, 'main/Admin/calendar.html', context)
+    return render(request, 'main/Admin/onboarding.html', context)
+
+
+@allowed_users(allowed_roles=['HR Staff', 'HR Manager'])
+def rejectedapp(request):
+    context = {}
+    return render(request, 'main/Admin/rejectedapp.html', context)
 
 
 @allowed_users(allowed_roles=['HR Staff', 'HR Manager'])
@@ -61,3 +61,9 @@ def ResumePreview(request, pk):
                'link': linkdata,
                }
     return render(request, 'main/Admin/include/resumePrev.html', context)
+
+
+@allowed_users(allowed_roles=['HR Staff', 'HR Manager'])
+def setting(request):
+    context = {}
+    return render(request, 'main/Admin/setting.html', context)

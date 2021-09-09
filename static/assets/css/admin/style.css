@@ -347,3 +347,14 @@ img.img-circle {
 .active {
   display: block;
 }
+
+.table-card a[type="button"] {
+  background-color: #11101d;
+  color: white;
+  border: none;
+  box-shadow: none;
+}
+
+.table-card a[type="button"]:hover {
+  box-shadow: 0 0 8px #888888;
+}
