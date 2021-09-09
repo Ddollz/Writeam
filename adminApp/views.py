@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from accounts.decorators import unauthenticated_user, allowed_users
 from django.contrib.auth.decorators import login_required
 from accounts.models import accounts
+from clientApp.models import personalDetails, employmentHistory, education, skill, link, reference
 # Create your views here.
 
 
@@ -36,3 +37,27 @@ def applicantStatus(request):
 def Calendar(request):
     context = {}
     return render(request, 'main/Admin/calendar.html', context)
+
+
+@allowed_users(allowed_roles=['HR Staff', 'HR Manager'])
+def ResumePreview(request, pk):
+    user = accounts.objects.get(id=pk)
+    experiencedata = employmentHistory.objects.filter(
+        personaldetails_id=user.personaldetails)
+    educationdata = education.objects.filter(
+        personaldetails_id=user.personaldetails)
+    referencedata = reference.objects.filter(
+        personaldetails_id=user.personaldetails)
+    skilldata = skill.objects.filter(
+        personaldetails_id=user.personaldetails)
+    linkdata = link.objects.filter(
+        personaldetails_id=user.personaldetails)
+    print(linkdata)
+    context = {'user': user,
+               'experience': experiencedata,
+               'education': educationdata,
+               'reference': referencedata,
+               'skill': skilldata,
+               'link': linkdata,
+               }
+    return render(request, 'main/Admin/include/resumePrev.html', context)

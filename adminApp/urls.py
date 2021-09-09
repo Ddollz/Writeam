@@ -8,5 +8,6 @@ urlpatterns = [
          name="applicantmanagement"),
     path("applicantstatus", views.applicantStatus, name="applicantstatus"),
     path("calendar", views.Calendar, name="calendar"),
+    path("resumePrev/<str:pk>", views.ResumePreview, name="resumePrev"),
 
 ]

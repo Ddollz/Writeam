@@ -4,7 +4,7 @@ from django.contrib.auth.models import Group
 from .forms import clientFormReg, clientFormLogin, adminFormReg
 from .models import accounts
 from .decorators import unauthenticated_user
-from clientApp.models import personalDetails, employmentHistory, article
+from clientApp.models import personalDetails, article
 
 # from django.core.mail import EmailMessage
 # from django.conf import settings
@@ -99,7 +99,7 @@ def signupadmin(request):
             personalDetails.objects.create(
                 accounts=user,
             )
-            employmentHistory.objects.create(
+            article.objects.create(
                 accounts=user,
             )
             return redirect('signin')
