@@ -197,7 +197,7 @@ ul {
   overflow: hidden;
 }
 .sidebar.open li.profile {
-  width: 250px;
+  width: 260px;
 }
 .sidebar li .profile-details {
   display: flex;
@@ -357,4 +357,28 @@ img.img-circle {
 
 .table-card a[type="button"]:hover {
   box-shadow: 0 0 8px #888888;
+}
+.score,
+.modal-content,
+.modal-header,
+.modal-footer {
+  border-radius: 0;
+}
+.score .modal-header {
+  background-color: #222222;
+  color: white;
+  height: 50px;
+}
+
+.score .modal-header button {
+  color: white;
+}
+
+.score .modal-footer .save {
+  background-color: #80beef;
+  border: none;
+}
+
+.score .modal-footer .close {
+  color: white;
 }

@@ -24,6 +24,9 @@ class article(models.Model):
     article = models.FileField(
         max_length=255, upload_to=get_profile_article_filepath, null=True, blank=True)
 
+    class Meta:
+        verbose_name = "Article"
+
     def __str__(self):
         return self.headline or ' '
 
@@ -37,8 +40,10 @@ class personalDetails(models.Model):
     profile_image = models.ImageField(
         max_length=255, upload_to=get_profile_image_filepath, null=True, blank=True, default=get_default_profile)
     jobTitle = models.CharField(max_length=200, null=True)
-    fname = models.CharField(max_length=200, null=True)
-    lname = models.CharField(max_length=200, null=True)
+    fname = models.CharField(verbose_name="First Name",
+                             max_length=200, null=True)
+    lname = models.CharField(verbose_name="Last Name",
+                             max_length=200, null=True)
     email = models.CharField(max_length=200, null=True)
     phone = models.CharField(max_length=200, null=True)
     country = models.CharField(max_length=200, null=True)
@@ -54,6 +59,9 @@ class personalDetails(models.Model):
     def __str__(self):
         return self.jobTitle or ' '
 
+    class Meta:
+        verbose_name = "Personal Detail"
+
     def get_profile_image_filename(self):
         return str(self.profile_image)[str(self.profile_image).index(f'profile_image/{self.pk}/'):]
 
@@ -68,6 +76,9 @@ class employmentHistory(models.Model):
     personaldetails = models.ForeignKey(
         personalDetails, null=True, on_delete=models.CASCADE)
 
+    class Meta:
+        verbose_name = "Employment History"
+
     def __str__(self):
         return self.JobTitle or ' '
 
@@ -81,6 +92,9 @@ class education(models.Model):
     end_date = models.CharField(max_length=200, null=True)
     city = models.CharField(max_length=200, null=True)
 
+    class Meta:
+        verbose_name = "Eduction"
+
     def __str__(self):
         return self.school or ' '
 
@@ -90,6 +104,9 @@ class skill(models.Model):
         personalDetails, null=True, on_delete=models.CASCADE)
     skill = models.TextField(max_length=300, null=True)
 
+    class Meta:
+        verbose_name = "Skill"
+
     def __str__(self):
         return self.skill or ' '
 
@@ -98,6 +115,9 @@ class link(models.Model):
     personaldetails = models.ForeignKey(
         personalDetails, null=True, on_delete=models.CASCADE)
     link = models.TextField(max_length=300, null=True)
+
+    class Meta:
+        verbose_name = "Social Link"
 
     def __str__(self):
         return self.link or ' '
@@ -110,6 +130,9 @@ class reference(models.Model):
     company = models.CharField(max_length=200, null=True)
     phone = models.CharField(max_length=200, null=True)
     email = models.CharField(max_length=200, null=True)
+
+    class Meta:
+        verbose_name = "Reference"
 
     def __str__(self):
         return self.name or ' '

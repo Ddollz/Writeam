@@ -50,7 +50,7 @@
                                 <td>{{user.first_name}} {{user.last_name}}</td>
                                 <td>{{ user.date_joined }}</td>
                                 <td>{{ user.last_login }}</td>
-                                <td><a type="button" class="btn btn-primary" href="">Add</a></td>
+                                <td><a type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Add</a></td>
                                 {%if user.article.article.url != None %}
                                 <td><a type="button" class="btn btn-primary" href="{{user.article.article.url}}">View</a></td>
                                 {%else%}
@@ -73,4 +73,49 @@
             </div>
         </div>
 </section>
+<!-- Modal -->
+<div class="modal fade score" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+
+                <h5 class="modal-title" id="exampleModalLabel"><img src="{% static 'assets/img/logos.png' %}" alt="" srcset="" width="50px" height="50px"> Applicant Score & Remarks</h5>
+                <a type="button" data-bs-dismiss="modal" aria-label="Close"><i class="bi bi-x-diamond"></i></a>
+            </div>
+            <div class="modal-body">
+                <form action="" method="post">
+                    <div class="mb-3">
+                        <div class="row">
+                            <div class="col">
+                                <label for="score" class="form-label">Job Title</label>
+                                <select class="form-select" aria-label="Default select example">
+                                    <option selected>Select Job Title</option>
+                                    <option value="1">Copy Writer</option>
+                                    <option value="2">Translator</option>
+                                    <option value="3">Editor</option>
+                                </select>
+                            </div>
+                            <div class="col">
+                                <label for="score" class="form-label">Score</label>
+                                <input type="number" class="form-control" id="score" min='0' max="100">
+
+                                <div id="emailHelp" class="form-text">80% Is the passing point</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="form-floating">
+                            <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea" style="height: 100px"></textarea>
+                            <label for="floatingTextarea">Remarks:</label>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary save">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

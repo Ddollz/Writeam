@@ -48,7 +48,8 @@
     {% url 'setting' as the_url6 %}
     <div class="sidebar .open open">
         <div class="logo-details">
-            <i class="bx bxl-c-plus-plus icon"></i>
+            <!-- <i class="bx bxl-c-plus-plus icon"></i> -->
+            <img src="{% static 'assets/img/logos.png' %}" alt="" srcset="" class="icon" width="50px" height="50px">
             <div class="logo_name">HumanAlytics</div>
             <i class="bx bx-menu-alt-right" id="btn"></i>
         </div>
@@ -146,16 +147,16 @@
                 {% if request.path == the_url5%}
                 <a href="{% url 'adminUsers'%}" class="active">
                     <i class="bx bx-user"></i>
-                    <span class="links_name">User Staff</span>
+                    <span class="links_name">Human Resource</span>
                 </a>
-                <span class="tooltip">User Staff</span>
+                <span class="tooltip">Human Resource</span>
                 {% else %}
 
                 <a href="{% url 'adminUsers'%}">
                     <i class="bx bx-user"></i>
-                    <span class="links_name">User Staff</span>
+                    <span class="links_name">Human Resource</span>
                 </a>
-                <span class="tooltip">User Staff</span>
+                <span class="tooltip">Human Resource</span>
                 {% endif %}
 
             </li>
