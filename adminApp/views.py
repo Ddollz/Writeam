@@ -43,6 +43,12 @@ def applicantManagement(request, pk=None):
         modalform = applicantScoreForm(request.POST)
         # print(modalform)
         if modalform.is_valid():
+            score = modalform.cleaned_data['score']
+            modalform = modalform.save(commit=False)
+            if int(score) > 80:
+                modalform.status = 'PASSED'
+            else:
+                modalform.status = 'FAILED'
             modalform.save()
             return redirect('applicantmanagement')
 
