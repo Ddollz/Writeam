@@ -40,6 +40,12 @@ $(document).ready(function () {
                 getAddButtons[index].style.display = "None";
                 getViewButtons[index].style.display = "Block";
             }
+        } else if (container.classList.contains("repreview") && getViewButtons && getAddButtons) {
+            var index = 0, length = getAddButtons.length;
+            for (; index < length; index++) {
+                getAddButtons[index].style.display = "None";
+                getViewButtons[index].style.display = "Block";
+            }
         }
     })
 
@@ -50,6 +56,12 @@ $(document).ready(function () {
 
         draggable.addEventListener('dragend', () => {
             if (draggable.parentElement.classList.contains('onboarding')) {
+                console.log(draggable)
+                var url = draggable.getAttribute("data-url");
+                // console.log(draggable.parentElement)
+                location.replace(url)
+            }
+            else if (draggable.parentElement.classList.contains('repreview')) {
                 console.log(draggable)
                 var url = draggable.getAttribute("data-url");
                 // console.log(draggable.parentElement)
@@ -73,6 +85,12 @@ $(document).ready(function () {
                         getViewButtons[index].style.display = "None";
                     }
                 } else if (container.classList.contains("onboarding") && getViewButtons && getAddButtons) {
+                    var index = 0, length = getAddButtons.length;
+                    for (; index < length; index++) {
+                        getAddButtons[index].style.display = "None";
+                        getViewButtons[index].style.display = "Block";
+                    }
+                } else if (container.classList.contains("repreview") && getViewButtons && getAddButtons) {
                     var index = 0, length = getAddButtons.length;
                     for (; index < length; index++) {
                         getAddButtons[index].style.display = "None";

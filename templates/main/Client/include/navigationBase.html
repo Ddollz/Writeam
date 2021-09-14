@@ -65,7 +65,7 @@
 
         {% if request.user.is_authenticated%}
 
-        <li class="dropdown"><a href="{% url 'userprofile'%}"><span><img src="{{request.user.profile_image.url}}" alt="" width="25" height="25" class="rounded-circle"></span><i class="bi bi-chevron-down"></i></a>
+        <li class="dropdown"><a href="{% url 'userprofile'%}"><span><img src="{{request.user.personaldetails.profile_image.url}}" alt="" width="25" height="25" class="rounded-circle"></span><i class="bi bi-chevron-down"></i></a>
           <ul>
             <li><a href="{% url 'userprofile'%}">Profile</a></li>
             <li>

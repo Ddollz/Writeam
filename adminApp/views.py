@@ -37,10 +37,19 @@ def applicantManagement(request, pk=None):
     random_items = random.sample(userList, counterList)
     # ?/end/
 
+    # user = request.user.personaldetails
+    # articleuser = request.user.article
+
+    # form1 = personalDetailsForm(instance=user)
+    # formfile = articleform(instance=articleuser)
+
     modalform = applicantScoreForm()
     if request.method == 'POST':
 
-        modalform = applicantScoreForm(request.POST)
+        instance = accounts.objects.get(id=pk)
+        user = onboardingApplicant.objects.filter(
+            accounts=instance).first()
+        modalform = applicantScoreForm(request.POST, instance=user)
         # print(modalform)
         if modalform.is_valid():
             score = modalform.cleaned_data['score']
@@ -51,14 +60,23 @@ def applicantManagement(request, pk=None):
                 modalform.status = 'FAILED'
             modalform.save()
             return redirect('applicantmanagement')
+        else:
+            print(modalform.errors)
 
     if pk is None:
         context = {'applicantList': users, 'randomApplicants': random_items}
         return render(request, 'main/Admin/applicantstatus.html', context)
     else:
+
         instance = accounts.objects.get(id=pk)
-        modalform = applicantScoreForm(
-            initial={'accounts': pk, 'status': 'NONE'})
+        if onboardingApplicant.objects.filter(accounts=instance).exists():
+            user = onboardingApplicant.objects.filter(
+                accounts=instance).first()
+            print(user)
+            modalform = applicantScoreForm(instance=user)
+        else:
+            modalform = applicantScoreForm(
+                initial={'accounts': pk, 'status': 'NONE'})
         context = {'applicantList': users,
                    'randomApplicants': random_items, 'instance': instance, 'modalform': modalform}
         return render(request, 'main/Admin/applicantstatus.html', context)

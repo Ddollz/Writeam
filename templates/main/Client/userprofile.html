@@ -14,7 +14,7 @@
             <div class="col-4 column1">
                 <div class="dashboard mt-5">
                     <div class="prof text-center ">
-                        <img src="{{request.user.profile_image.url}}" class="rounded" alt="" />
+                        <img src="{{request.user.personaldetails.profile_image.url}}" class="rounded" alt="" />
                         <h3 class="fw-bolder mt-3">{{request.user.first_name}} {{request.user.last_name}}</h3>
                         {% if group|stringformat:'s' == 'Clients' %}
                         <p class="fw-bold mt-2">Content Writer</p>
