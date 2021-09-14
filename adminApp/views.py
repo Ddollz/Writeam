@@ -4,6 +4,8 @@ from accounts.decorators import unauthenticated_user, allowed_users
 from django.contrib.auth.decorators import login_required
 from accounts.models import accounts
 from clientApp.models import personalDetails, employmentHistory, education, skill, link, reference
+from .models import onboardingApplicant
+from .forms import *
 import random
 # Create your views here.
 
@@ -22,20 +24,38 @@ def adminUsers(request):
 
 
 @allowed_users(allowed_roles=['HR Staff', 'HR Manager'])
-def applicantManagement(request):
+def applicantManagement(request, pk=None):
+
     users = accounts.objects.all()
+
+    # ? generating random number for the userlist
     userList = list(accounts.objects.filter(
         groups__name='Clients'))
     counterList = 10
     if len(userList) < 10:
         counterList = len(userList)
-    # change 3 to how many random items you want
     random_items = random.sample(userList, counterList)
-    # ?if you want only a single random item
-    # !random_item = random.choice(userList)
+    # ?/end/
 
-    context = {'applicantList': users, 'randomApplicants': random_items}
-    return render(request, 'main/Admin/applicantstatus.html', context)
+    modalform = applicantScoreForm()
+    if request.method == 'POST':
+
+        modalform = applicantScoreForm(request.POST)
+        # print(modalform)
+        if modalform.is_valid():
+            modalform.save()
+            return redirect('applicantmanagement')
+
+    if pk is None:
+        context = {'applicantList': users, 'randomApplicants': random_items}
+        return render(request, 'main/Admin/applicantstatus.html', context)
+    else:
+        instance = accounts.objects.get(id=pk)
+        modalform = applicantScoreForm(
+            initial={'accounts': pk, 'status': 'NONE'})
+        context = {'applicantList': users,
+                   'randomApplicants': random_items, 'instance': instance, 'modalform': modalform}
+        return render(request, 'main/Admin/applicantstatus.html', context)
 
 # ! for tommorow
 # if some_queryset.filter(pk=entity_id).exists():
@@ -68,7 +88,6 @@ def ResumePreview(request, pk):
         personaldetails_id=user.personaldetails)
     linkdata = link.objects.filter(
         personaldetails_id=user.personaldetails)
-    print(linkdata)
     context = {'user': user,
                'experience': experiencedata,
                'education': educationdata,
@@ -83,3 +102,13 @@ def ResumePreview(request, pk):
 def setting(request):
     context = {}
     return render(request, 'main/Admin/setting.html', context)
+
+
+# def addScore(request, pk):
+
+#     instance = get_object_or_404(onboardingApplicant, id=id)
+#     print(instance)
+#     context = {
+#         'instance': instance
+#     }
+#     return render(request, 'main/Admin/include/scoremodal.html', context)

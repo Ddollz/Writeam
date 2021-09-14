@@ -11,7 +11,6 @@ $(document).ready(function () {
     function nextPage() {
         if (pageNo < pages.length - 1) {
             $(".userInfo").find(".page-modal.active").removeClass("active");
-            console.log($(".userInfo").find(".page-modal.active"));
             pageNo++;
             $(pages[pageNo]).fadeIn("slow");
         }
@@ -35,7 +34,6 @@ $(document).ready(function () {
                 getAddButtons[index].style.display = "Block";
                 getViewButtons[index].style.display = "None";
             }
-            console.log('hello')
         } else if (container.classList.contains("onboarding") && getViewButtons && getAddButtons) {
             var index = 0, length = getAddButtons.length;
             for (; index < length; index++) {
@@ -51,6 +49,13 @@ $(document).ready(function () {
         })
 
         draggable.addEventListener('dragend', () => {
+            if (draggable.parentElement.classList.contains('onboarding')) {
+                console.log(draggable)
+                var url = draggable.getAttribute("data-url");
+                // console.log(draggable.parentElement)
+                location.replace(url)
+            }
+
             draggable.classList.remove('dragging')
 
             containers.forEach((container, index) => {
@@ -67,7 +72,6 @@ $(document).ready(function () {
                         getAddButtons[index].style.display = "Block";
                         getViewButtons[index].style.display = "None";
                     }
-                    console.log('hello')
                 } else if (container.classList.contains("onboarding") && getViewButtons && getAddButtons) {
                     var index = 0, length = getAddButtons.length;
                     for (; index < length; index++) {

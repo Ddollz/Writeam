@@ -382,6 +382,9 @@ img.img-circle {
 .score .modal-footer .close {
   color: white;
 }
+.score .profile a:hover {
+  color: #80beef;
+}
 
 .draggable-row-container .drag-body {
   background-color: #212529;

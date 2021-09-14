@@ -6,12 +6,11 @@ urlpatterns = [
     path("adminUsers", views.adminUsers, name="adminUsers"),
     path("applicantmanagement", views.applicantManagement,
          name="applicantmanagement"),
-    # path("applicantstatus", views.applicantStatus, name="applicantstatus"),
-    # path("calendar", views.Calendar, name="calendar"),
-    path("resumePrev/<str:pk>", views.ResumePreview, name="resumePrev"),
 
-    path("applicantmanagement", views.applicantManagement,
+    path("applicantmanagement/<int:pk>", views.applicantManagement,
          name="applicantmanagement"),
+
+    path("resumePrev/<str:pk>", views.ResumePreview, name="resumePrev"),
 
     path("onboarding", views.onboarding,
          name="onboarding"),
@@ -20,5 +19,7 @@ urlpatterns = [
 
     path("setting", views.setting,
          name="setting"),
+
+    #     path("addscore/<int:pk>", views.addScore, name="addscore"),
 
 ]

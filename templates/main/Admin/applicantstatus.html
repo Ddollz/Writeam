@@ -16,10 +16,10 @@
                         <hr>
                         {% for user in randomApplicants%}
                         {% if user.onboardingapplicant.jobTitle == ''%}
-                        <p class="draggable" draggable="true">
+                        <p class="draggable" draggable="true" data-url="{% url 'applicantmanagement' user.id %}">
                             <img class="img-circle" src="{{user.personaldetails.profile_image.url}}" alt="profileImg" />
                             {{user}}
-                            <button type="button" class="btn btn-dark float-end addScore" data-bs-toggle="modal" data-bs-target="#exampleModal" style="display:none;">Add Score</button>
+                            <a type="button" class="btn btn-dark float-end addScore" href="{%url 'applicantmanagement' user.id %}" style="display:none;">Add Score</a>
                             <button type="button" class="btn btn-dark float-end viewScore" data-bs-toggle="modal" data-bs-target="#exampleModal" style="display:none;">View Score</button>
                         </p>
                         {% endif%}
@@ -127,49 +127,71 @@
             </div>
         </div>
 </section>
+{% if instance%}
 <!-- Modal -->
 <div class="modal fade score" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
-            <div class="modal-header">
+            <form action="" method="post">
+                {% csrf_token %}
+                {{modalform.non_field_errors}}
 
-                <h5 class="modal-title" id="exampleModalLabel"><img src="{% static 'assets/img/logos.png' %}" alt="" srcset="" width="50px" height="50px"> Applicant Score & Remarks</h5>
-                <a type="button" data-bs-dismiss="modal" aria-label="Close"><i class="bi bi-x-diamond"></i></a>
-            </div>
-            <div class="modal-body">
-                <form action="" method="post">
+                {{modalform.accounts}}
+                {{modalform.status}}
+                <div class="modal-header">
+
+                    <h5 class="modal-title" id="exampleModalLabel"><img src="{% static 'assets/img/logos.png' %}" alt="" srcset="" width="50px" height="50px"> Applicant Score & Remarks</h5>
+                    <a type="button" data-bs-dismiss="modal" aria-label="Close"><i class="bi bi-x-diamond"></i></a>
+                </div>
+                <div class="modal-body">
                     <div class="mb-3">
+                        <div class="mb-3 profile">
+                            <img class="img-circle" src="{{instance.personaldetails.profile_image.url}}" />
+                            {{instance.personaldetails.fname}}
+                            {{instance.personaldetails.lname}}
+                            <a href="{{instance.article.article.url}}"><i class="bi bi-bookmark-star-fill"></i></a>
+                            <a href="{% url 'resumePrev' instance.id %}"><i class="bi bi-file-earmark-person-fill"></i></a>
+                        </div>
                         <div class="row">
                             <div class="col">
                                 <label for="score" class="form-label">Job Title</label>
-                                <select class="form-select" aria-label="Default select example">
-                                    <option selected>Select Job Title</option>
-                                    <option value="1">Copy Writer</option>
-                                    <option value="2">Translator</option>
-                                    <option value="3">Editor</option>
-                                </select>
+
+                                {{modalform.jobTitle}}
                             </div>
                             <div class="col">
                                 <label for="score" class="form-label">Score</label>
-                                <input type="number" class="form-control" id="score" min='0' max="100">
-
+                                {{modalform.score}}
                                 <div id="emailHelp" class="form-text">80% Is the passing point</div>
                             </div>
                         </div>
                     </div>
                     <div class="mb-3">
                         <div class="form-floating">
-                            <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea" style="height: 100px"></textarea>
+                            {{modalform.remarks}}
                             <label for="floatingTextarea">Remarks:</label>
                         </div>
                     </div>
 
-                </form>
-            </div>
-            <div class="modal-footer">
-                <a type="button" class="btn btn-primary save">Save</button>
-            </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary save">Save</button>
+                </div>
+            </form>
+
         </div>
     </div>
 </div>
+{% endif %}
+
 {% endblock %}
+{% block scriptContent%}
+<script>
+    $(document).ready(function () {
+        var modaledit = '{{instance}}'
+        if (modaledit) {
+            console.log(modaledit)
+            $('#exampleModal').modal('show');
+        }
+    });
+</script>
+{% endblock%}
