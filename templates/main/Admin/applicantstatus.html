@@ -119,12 +119,12 @@
                                 {%if user.article.article.url != None %}
                                 <td><a type="button" class="btn btn-primary" href="{{user.article.article.url}}">View</a></td>
                                 {%else%}
-                                <td><a type="button" class="btn btn-secondary" href="#">None</a></td>
+                                <td><a type="button" class="btn btn-secondary disabled" href="#">None</a></td>
                                 {% endif %}
                                 {%if user.personaldetails.fname != None %}
                                 <td><a type="button" class="btn btn-primary" href="{% url 'resumePrev' user.id %}">View</a></td>
                                 {%else%}
-                                <td><a type="button" class="btn btn-secondary" href="#">None</a></td>
+                                <td><a type="button" class="btn btn-secondary disabled" href="#">None</a></td>
                                 {% endif %}
                                 <!-- <td><button type=" button" class="btn btn-primary">View</button></td> -->
                             </tr>
