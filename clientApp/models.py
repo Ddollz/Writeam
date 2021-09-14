@@ -24,6 +24,9 @@ class article(models.Model):
     article = models.FileField(
         max_length=255, upload_to=get_profile_article_filepath, null=True, blank=True)
 
+    dateSubmit = models.DateTimeField(
+        verbose_name="Date Submit", auto_now_add=True)
+
     class Meta:
         verbose_name = "Article"
 

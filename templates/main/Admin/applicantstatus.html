@@ -8,7 +8,61 @@
         <ol class="breadcrumb mb-4">
             <li class="breadcrumb-item active">Welcome Recruiters!</li>
         </ol>
-        <div class="row p-5">
+        <div class="row draggable-row-container">
+            <div class="col">
+                <div class="card">
+                    <div class="card-body drag-body screening">
+                        <div class="card-title text-start text-uppercase fw-bold">Screening<span class="float-end count" id="span1">0/10</span></div>
+                        <hr>
+                        {% for user in randomApplicants%}
+                        {% if user.onboardingapplicant.jobTitle == ''%}
+                        <p class="draggable" draggable="true">
+                            <img class="img-circle" src="{{user.personaldetails.profile_image.url}}" alt="profileImg" />
+                            {{user}}
+                            <button type="button" class="btn btn-dark float-end addScore" data-bs-toggle="modal" data-bs-target="#exampleModal" style="display:none;">Add Score</button>
+                            <button type="button" class="btn btn-dark float-end viewScore" data-bs-toggle="modal" data-bs-target="#exampleModal" style="display:none;">View Score</button>
+                        </p>
+                        {% endif%}
+                        {%endfor%}
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card">
+                    <div class="card-body drag-body onboarding">
+                        <div class="card-title text-start text-uppercase fw-bold">Onboarding<span class="float-end count" id="span2">0/10</span></div>
+                        <hr>
+
+                        {% for user in randomApplicants%}
+                        {% if user.onboardingapplicant.jobTitle != '' and user.onboardingapplicant.score > 80 %}
+
+                        <p class="draggable" draggable="true">
+                            <img class="img-circle" src="{{user.personaldetails.profile_image.url}}" alt="profileImg" />
+                            {{user}}
+                            <button type="button" class="btn btn-dark float-end addScore" data-bs-toggle="modal" data-bs-target="#exampleModal">Add Score</button>
+                            <button type="button" class="btn btn-dark float-end viewScore" data-bs-toggle="modal" data-bs-target="#exampleModal" style="display:none;">View Score</button>
+                        </p>
+
+
+                        {% endif%}
+                        {%endfor%}
+                    </div>
+                    <a href="#" class="btn btn-dark float-end">Submit All</a>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="card">
+                    <div class="card-body drag-body repreview">
+                        <div class="card-title text-start text-uppercase fw-bold">Re-preview<span class="float-end count" id="span3">1/10</span></div>
+                        <hr>
+
+                    </div>
+                    <a href="#" class="btn btn-dark float-end">Submit All</a>
+                </div>
+            </div>
+        </div>
+        <div class="row p-2">
             <div class="card mb-4 table-card">
                 <div class="card-body">
 
@@ -20,7 +74,7 @@
                                 <th>Name</th>
                                 <th>Date Joined</th>
                                 <th>Last Login</th>
-                                <th>Score</th>
+                                <!-- <th>Score</th> -->
                                 <th>Article</th>
                                 <th>Resume</th>
                             </tr>
@@ -32,7 +86,7 @@
                                 <th>Name</th>
                                 <th>Date Joined</th>
                                 <th>Last Login</th>
-                                <th>Score</th>
+                                <!-- <th>Score</th> -->
                                 <th>Article</th>
                                 <th>Resume</th>
                             </tr>
@@ -50,7 +104,7 @@
                                 <td>{{user.first_name}} {{user.last_name}}</td>
                                 <td>{{ user.date_joined }}</td>
                                 <td>{{ user.last_login }}</td>
-                                <td><a type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Add</a></td>
+                                <!-- <td><a type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Add</a></td> -->
                                 {%if user.article.article.url != None %}
                                 <td><a type="button" class="btn btn-primary" href="{{user.article.article.url}}">View</a></td>
                                 {%else%}
@@ -113,7 +167,7 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary save">Save</button>
+                <a type="button" class="btn btn-primary save">Save</button>
             </div>
         </div>
     </div>

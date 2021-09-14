@@ -365,7 +365,7 @@ img.img-circle {
   border-radius: 0;
 }
 .score .modal-header {
-  background-color: #222222;
+  background-color: #212529;
   color: white;
   height: 50px;
 }
@@ -381,4 +381,21 @@ img.img-circle {
 
 .score .modal-footer .close {
   color: white;
+}
+
+.draggable-row-container .drag-body {
+  background-color: #212529;
+  color: white;
+}
+.draggable-row-container .draggable {
+  padding: 1rem;
+  cursor: move;
+}
+.draggable-row-container .card {
+  background-color: #212529;
+}
+.draggable.dragging {
+  border-color: white;
+  border-style: dashed;
+  opacity: 0.5;
 }

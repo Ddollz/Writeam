@@ -79,8 +79,8 @@ class skillAdmin(admin.ModelAdmin):
 
 
 class articleAdmin(admin.ModelAdmin):
-    list_display = ('id', 'headline', 'article')
-    readonly_fields = ('id',)
+    list_display = ('id', 'headline', 'article', 'dateSubmit')
+    readonly_fields = ('id', 'dateSubmit')
     search_fields = ('headline',)
     fieldsets = (
     )
