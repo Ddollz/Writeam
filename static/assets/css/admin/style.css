@@ -399,6 +399,10 @@ img.img-circle {
   padding: 1rem;
   cursor: move;
 }
+.draggable-row-container .draggable:hover {
+  border-color: white;
+  border-style: dashed;
+}
 .draggable-row-container .card {
   background-color: #212529;
 }
