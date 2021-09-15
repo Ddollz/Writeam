@@ -1,5 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
+from django.db.models.functions import Lower
+from django.db.models import Count
 from accounts.decorators import unauthenticated_user, allowed_users
 from django.contrib.auth.decorators import login_required
 from accounts.models import accounts
@@ -79,23 +81,97 @@ def applicantManagement(request, pk=None):
 
 # ! for tommorow
 # if some_queryset.filter(pk=entity_id).exists():
-    #print("Entry contained in queryset")
+    # print("Entry contained in queryset")
     # filter(A).filter(B)
 
 
 @allowed_users(allowed_roles=['HR Staff', 'HR Manager'])
-def onboarding(request):
-    context = {}
-    return render(request, 'main/Admin/onboarding.html', context)
+def onboarding(request, pk=None):
+
+    users = accounts.objects.all()
+    clients = accounts.objects.filter(groups__name='Clients')
+    # ? Getting all the onboarding applicant
+    getIDOnboarding = list(onboardingApplicant.objects.filter(
+        accounts__id__in=clients).values_list('accounts', flat=True))
+
+    # ? Get the city data from resume
+    cities = personalDetails.objects.filter(
+        accounts__id__in=getIDOnboarding).filter(city__isnull=False).annotate(handle_lower=Lower("city")).values('handle_lower').annotate(the_count=Count('city')).values_list('handle_lower', 'the_count')
+    maxPerCity = 0
+    # ? GET THE MAX VALUE FOR CHARTS
+    for name, value in cities:
+        maxPerCity += value
+
+    # ? Countclients
+    countClient = len(getIDOnboarding)
+    countWriter = onboardingApplicant.objects.filter(
+        jobTitle='Copy Writer').count()
+    countTrans = onboardingApplicant.objects.filter(
+        jobTitle='Editor').count()
+    countEditor = onboardingApplicant.objects.filter(
+        jobTitle='Translator').count()
+
+    # ? generating random number for the userlist
+    userList = list(clients)
+    counterList = 10
+    if len(userList) < 10:
+        counterList = len(userList)
+    random_items = random.sample(userList, counterList)
+    # ?/end/
+
+    modalform = applicantScoreForm()
+    if request.method == 'POST':
+
+        instance = accounts.objects.get(id=pk)
+        user = onboardingApplicant.objects.filter(
+            accounts=instance).first()
+        modalform = applicantScoreForm(request.POST, instance=user)
+        # print(modalform)
+        if modalform.is_valid():
+            score = modalform.cleaned_data['score']
+            modalform = modalform.save(commit=False)
+            if int(score) > 80:
+                modalform.status = 'PASSED'
+            else:
+                modalform.status = 'FAILED'
+            modalform.save()
+            return redirect('applicantmanagement')
+        else:
+            print(modalform.errors)
+
+    if pk is None:
+        context = {'applicantList': users,
+                   'randomApplicants': random_items,
+                   'countclient': countClient, 'countWriter': countWriter,
+                   'countTrans': countTrans, 'countEditor': countEditor,
+                   'cities': cities, 'maxPerCity': maxPerCity}
+        return render(request, 'main/Admin/onboarding.html', context,)
+    else:
+
+        instance = accounts.objects.get(id=pk)
+        if onboardingApplicant.objects.filter(accounts=instance).exists():
+            user = onboardingApplicant.objects.filter(
+                accounts=instance).first()
+            print(user)
+            modalform = applicantScoreForm(instance=user)
+        else:
+            modalform = applicantScoreForm(
+                initial={'accounts': pk, 'status': 'NONE'})
+        context = {'applicantList': users,
+                   'randomApplicants': random_items, 'instance': instance, 'modalform': modalform,
+                   'countclient': countClient, 'countWriter': countWriter,
+                   'countTrans': countTrans, 'countEditor': countEditor,
+                   'cities': cities, 'maxPerCity': maxPerCity}
+        return render(request, 'main/Admin/onboarding.html', context)
 
 
-@allowed_users(allowed_roles=['HR Staff', 'HR Manager'])
+@ allowed_users(allowed_roles=['HR Staff', 'HR Manager'])
 def rejectedapp(request):
     context = {}
     return render(request, 'main/Admin/rejectedapp.html', context)
 
 
-@allowed_users(allowed_roles=['HR Staff', 'HR Manager'])
+@ allowed_users(allowed_roles=['HR Staff', 'HR Manager'])
 def ResumePreview(request, pk):
     user = accounts.objects.get(id=pk)
     experiencedata = employmentHistory.objects.filter(
@@ -118,7 +194,7 @@ def ResumePreview(request, pk):
     return render(request, 'main/Admin/include/resumePrev.html', context)
 
 
-@allowed_users(allowed_roles=['HR Staff', 'HR Manager'])
+@ allowed_users(allowed_roles=['HR Staff', 'HR Manager'])
 def setting(request):
     context = {}
     return render(request, 'main/Admin/setting.html', context)
