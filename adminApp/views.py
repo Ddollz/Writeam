@@ -12,7 +12,9 @@ import random
 
 @allowed_users(allowed_roles=['HR Staff', 'HR Manager'])
 def dashboard(request):
-    context = {}
+
+    users = accounts.objects.all()
+    context = {'applicantList': users}
     return render(request, 'main/Admin/Dashboard.html', context)
 
 
@@ -36,12 +38,6 @@ def applicantManagement(request, pk=None):
         counterList = len(userList)
     random_items = random.sample(userList, counterList)
     # ?/end/
-
-    # user = request.user.personaldetails
-    # articleuser = request.user.article
-
-    # form1 = personalDetailsForm(instance=user)
-    # formfile = articleform(instance=articleuser)
 
     modalform = applicantScoreForm()
     if request.method == 'POST':

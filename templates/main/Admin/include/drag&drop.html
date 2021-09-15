@@ -1,0 +1,65 @@
+<div class="row draggable-row-container">
+    <div class="col">
+        <div class="card">
+            <div class="card-body drag-body screening">
+                <div class="card-title text-start text-uppercase fw-bold">Screening<span class="float-end count" id="span1">0/10</span></div>
+                <hr>
+                {% for user in randomApplicants%}
+                {% if user.onboardingapplicant.jobTitle == '' and user.article.article.url != None %}
+                <p class="draggable" draggable="true" data-url="{% url 'applicantmanagement' user.id %}">
+                    <img class="img-circle" src="{{user.personaldetails.profile_image.url}}" alt="profileImg" />
+                    {{user}}
+                    <a type="button" class="btn btn-dark float-end addScore" href="{%url 'applicantmanagement' user.id %}" style="display:none;">Add Score</a>
+                    <a type="button" class="btn btn-dark float-end viewScore" href="{%url 'applicantmanagement' user.id %}" style="display:none;">View Score</a>
+                </p>
+                {% endif%}
+                {%endfor%}
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="card">
+            <div class="card-body drag-body onboarding">
+                <div class="card-title text-start text-uppercase fw-bold">Onboarding<span class="float-end count" id="span2">0/10</span></div>
+                <hr>
+
+                {% for user in randomApplicants%}
+                {% if user.onboardingapplicant.jobTitle != '' and user.onboardingapplicant.score >= 80 %}
+
+                <p class="draggable" draggable="true" data-url="{% url 'applicantmanagement' user.id %}">
+                    <img class="img-circle" src="{{user.personaldetails.profile_image.url}}" alt="profileImg" />
+                    {{user}} {{user.onboardingapplicant.score}}/100
+                    <a type="button" class="btn btn-dark float-end addScore" href="{%url 'applicantmanagement' user.id %}" style="display:none;">Add Score</a>
+                    <a type="button" class="btn btn-dark float-end viewScore" href="{%url 'applicantmanagement' user.id %}" style="display:none;">View Score</a>
+                </p>
+
+
+                {% endif%}
+                {%endfor%}
+            </div>
+            <a href="#" class="btn btn-dark float-end">Submit All</a>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card">
+            <div class="card-body drag-body repreview">
+                <div class="card-title text-start text-uppercase fw-bold">Rejected Applicants<span class="float-end count" id="span3">1/10</span></div>
+                <hr>
+
+                {% for user in randomApplicants%}
+                {% if user.onboardingapplicant.jobTitle != '' and user.onboardingapplicant.score <= 79 %} <!-- Failing applicant -->
+                    <p class="draggable" draggable="true" data-url="{% url 'applicantmanagement' user.id %}">
+                        <img class="img-circle" src="{{user.personaldetails.profile_image.url}}" alt="profileImg" />
+                        {{user}} {{user.onboardingapplicant.score}}/100
+                        <a type="button" class="btn btn-dark float-end addScore" href="{%url 'applicantmanagement' user.id %}" style="display:none;">Add Score</a>
+                        <a type="button" class="btn btn-dark float-end viewScore" href="{%url 'applicantmanagement' user.id %}" style="display:none;">View Score</a>
+                    </p>
+
+                    {% endif%}
+                    {%endfor%}
+            </div>
+            <a href="#" class="btn btn-dark float-end">Submit All</a>
+        </div>
+    </div>
+</div>

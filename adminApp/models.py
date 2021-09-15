@@ -32,6 +32,8 @@ class onboardingApplicant(models.Model):
         verbose_name="Date Validate", auto_now_add=True)
     remarks = models.TextField(max_length=255, null=True, blank=True)
 
+    is_active = models.BooleanField(default=False)
+
     class Meta:
         verbose_name = "Onboarding Applicant"
 
