@@ -4,6 +4,13 @@ from django.core.validators import MaxValueValidator
 
 # Create your models here.
 
+JOB_CHOICES = (
+    ('Copy Writer', 'Copy Writer'),
+    ('Translator', 'Translator'),
+    ('Editor', 'Editor'),
+    ('None', 'None'),
+)
+
 
 def get_profile_image_filepath(self, filename):
     return f'profile_images/{self.pk}/{"profile_image.png"}'
@@ -17,15 +24,28 @@ def get_profile_article_filepath(self, filename):
     return f'article/{self.accounts.pk}/{filename}'
 
 
+class jobapplication(models.Model):
+    accounts = models.OneToOneField(
+        accounts, null=True, on_delete=models.CASCADE)
+
+    is_copywriter = models.BooleanField(default=False)
+    is_editor = models.BooleanField(default=False)
+    is_translator = models.BooleanField(default=False)
+
+    submitApplication = models.BooleanField(default=False)
+    dateSubmit = models.DateTimeField(
+        verbose_name="Date Submit", auto_now=True)
+
+    class Meta:
+        verbose_name = "Job Application"
+
+
 class article(models.Model):
     accounts = models.OneToOneField(
         accounts, null=True, on_delete=models.CASCADE)
     headline = models.CharField(max_length=255, null=True)
     article = models.FileField(
         max_length=255, upload_to=get_profile_article_filepath, null=True, blank=True)
-
-    dateSubmit = models.DateTimeField(
-        verbose_name="Date Submit", auto_now_add=True)
 
     class Meta:
         verbose_name = "Article"

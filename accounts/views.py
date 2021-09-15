@@ -4,7 +4,7 @@ from django.contrib.auth.models import Group
 from .forms import clientFormReg, clientFormLogin, adminFormReg
 from .models import accounts
 from .decorators import unauthenticated_user
-from clientApp.models import personalDetails, article
+from clientApp.models import personalDetails, article, jobapplication
 
 # from django.core.mail import EmailMessage
 # from django.conf import settings
@@ -41,8 +41,10 @@ def signup(request):
             personalDetails.objects.create(
                 accounts=user,
             )
-
             article.objects.create(
+                accounts=user,
+            )
+            jobapplication.objects.create(
                 accounts=user,
             )
             # remove group This is temporary
@@ -100,6 +102,9 @@ def signupadmin(request):
                 accounts=user,
             )
             article.objects.create(
+                accounts=user,
+            )
+            jobapplication.objects.create(
                 accounts=user,
             )
             return redirect('signin')

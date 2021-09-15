@@ -488,10 +488,57 @@
                 {{formfile.headline}}
                 <!-- <input class="form-control" type="text"> -->
               </div>
-              <div class="mb-3">
+              <div class="mb-5">
                 <label for="formFile" class="form-label">Please Upload 1 Sample Article</label>
                 {{formfile.article}}
                 <!-- <input class="form-control" type="file" id="formFile"> -->
+              </div>
+              {{formapp.non_field_errors}}
+              {{formapp.submitApplication}}
+              <h4>Job Selection</h4>
+              <label class="form-label">Please Select The Job Title your applying for!</label>
+              <div class="row job-select mb-3">
+                <div class="col">
+                  <div class="card-body border">
+                    <div style="text-align: center;">
+                      {{formapp.is_copywriter}}
+                    </div>
+                    <div class="card-title fw-bold fs-5 text-center">
+                      Copy Writer
+                    </div>
+                    <label for="id_is_copywriter">
+                      Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptates esse dignissimos odio repellat illum ea architecto. Et, iste, ad corrupti aut aliquid provident tenetur libero quibusdam doloribus quo commodi perspiciatis!
+                    </label>
+                  </div>
+                </div>
+
+                <div class="col">
+                  <div class="card-body border">
+                    <div style="text-align: center;">
+                      {{formapp.is_editor}}
+                    </div>
+                    <div class="card-title fw-bold fs-5 text-center">
+                      Editor
+                    </div>
+                    <label for="id_is_editor">
+                      Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptates esse dignissimos odio repellat illum ea architecto. Et, iste, ad corrupti aut aliquid provident tenetur libero quibusdam doloribus quo commodi perspiciatis!
+                    </label>
+                  </div>
+                </div>
+
+                <div class="col">
+                  <div class="card-body border">
+                    <div style="text-align: center;">
+                      {{formapp.is_translator}}
+                    </div>
+                    <div class="card-title fw-bold fs-5 text-center">
+                      Translator
+                    </div>
+                    <label for="id_is_translator">
+                      Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptates esse dignissimos odio repellat illum ea architecto. Et, iste, ad corrupti aut aliquid provident tenetur libero quibusdam doloribus quo commodi perspiciatis!
+                    </label>
+                  </div>
+                </div>
               </div>
 
               <div class="row">

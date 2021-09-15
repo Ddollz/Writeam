@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from accounts.models import accounts
 from django.forms import inlineformset_factory
 from .models import employmentHistory, personalDetails, education, link, reference, skill, article
-from .forms import personalDetailsForm, employmentHistoryForm, educationForm, linkForm, referenceForm, skillForm, articleform
+from .forms import *
 # Create your views here.
 
 
@@ -44,9 +44,11 @@ def profile(request):
 def resume(request):
     user = request.user.personaldetails
     articleuser = request.user.article
+    jobappuser = request.user.jobapplication
 
     form1 = personalDetailsForm(instance=user)
     formfile = articleform(instance=articleuser)
+    formapp = jobAppForm(instance=jobappuser)
 
     workExpFormSet = inlineformset_factory(
         personalDetails, employmentHistory, form=employmentHistoryForm, extra=3, max_num=3)
@@ -70,6 +72,7 @@ def resume(request):
 
     if request.method == 'POST':
         form1 = personalDetailsForm(request.POST, request.FILES, instance=user)
+        formapp = jobAppForm(request.POST, instance=jobappuser)
         formfile = articleform(
             request.POST, request.FILES, instance=articleuser)
         formset = workExpFormSet(request.POST, instance=user)
@@ -79,7 +82,7 @@ def resume(request):
         formset4 = skillFormSet(request.POST, instance=user)
 
         # employmentHistory.objects.filter(personaldetails=user).delete()
-        if form1.is_valid() and formset.is_valid() and formset1.is_valid() and formset2.is_valid() and formset3.is_valid() and formset4.is_valid() and formfile.is_valid():
+        if form1.is_valid() and formapp.is_valid() and formset.is_valid() and formset1.is_valid() and formset2.is_valid() and formset3.is_valid() and formset4.is_valid() and formfile.is_valid():
             formset.save()
             formset1.save()
             formset2.save()
@@ -87,6 +90,10 @@ def resume(request):
             formset4.save()
             formfile.save()
             form1.save()
+
+            formapp = formapp.save(commit=False)
+            formapp.submitApplication = True
+            formapp.save()
             return redirect('/')
         else:
             print(formset1.errors)
@@ -96,8 +103,9 @@ def resume(request):
             print(formset.errors)
             print(form1.errors)
             print(formfile.errors)
+            print(formapp.errors)
 
-            context = {'form1': form1, 'formfile': formfile,
+            context = {'form1': form1, 'formfile': formfile, 'formapp': formapp,
                        'formset': formset, 'formset1': formset1,
                        'formset2': formset2, 'formset3': formset3,
                        'formset4': formset4,
@@ -108,7 +116,7 @@ def resume(request):
                        }
             return render(request, 'main/Client/resume.html', context)
 
-    context = {'form1': form1, 'formfile': formfile,
+    context = {'form1': form1, 'formfile': formfile, 'formapp': formapp,
                'formset': formset, 'formset1': formset1,
                'formset2': formset2, 'formset3': formset3,
                'formset4': formset4,

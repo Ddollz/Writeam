@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import ModelForm
-from .models import personalDetails, employmentHistory, education, skill, link, reference, article
+from .models import *
 
 
 class personalDetailsForm(ModelForm):
@@ -126,4 +126,22 @@ class articleform(ModelForm):
     class Meta:
         model = article
         fields = '__all__'
+        exclude = ['accounts']
+
+
+class jobAppForm(ModelForm):
+    is_copywriter = forms.BooleanField(
+        label='Copy Writer', required=False,
+        widget=forms.CheckboxInput(attrs={'class': 'form-check-input', 'type': 'checkbox'}))
+    is_editor = forms.BooleanField(
+        label='Editor', required=False,
+        widget=forms.CheckboxInput(attrs={'class': 'form-check-input', 'type': 'checkbox'}))
+    is_translator = forms.BooleanField(
+        label='Translator', required=False,
+        widget=forms.CheckboxInput(attrs={'class': 'form-check-input', 'type': 'checkbox'}))
+
+    class Meta:
+        model = jobapplication
+        fields = '__all__'
+        widgets = {'submitApplication': forms.HiddenInput()}
         exclude = ['accounts']
