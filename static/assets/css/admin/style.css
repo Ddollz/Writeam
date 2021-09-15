@@ -411,3 +411,7 @@ img.img-circle {
   border-style: dashed;
   opacity: 0.5;
 }
+.card-header {
+  background-color: white;
+  border: none;
+}

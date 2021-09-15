@@ -1,9 +1,8 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.db.models.functions import Lower
-from django.db.models import Count
+from django.db.models import Count, Sum, Avg
 from accounts.decorators import unauthenticated_user, allowed_users
-from django.contrib.auth.decorators import login_required
 from accounts.models import accounts
 from clientApp.models import personalDetails, employmentHistory, education, skill, link, reference
 from .models import onboardingApplicant
@@ -91,8 +90,14 @@ def onboarding(request, pk=None):
     users = accounts.objects.all()
     clients = accounts.objects.filter(groups__name='Clients')
     # ? Getting all the onboarding applicant
-    getIDOnboarding = list(onboardingApplicant.objects.filter(
-        accounts__id__in=clients).values_list('accounts', flat=True))
+    onboardApplicants = onboardingApplicant.objects.filter(
+        accounts__id__in=clients).values_list('accounts', flat=True)
+    getIDOnboarding = list(onboardApplicants)
+
+    # ? Get avarage onboarding Applicants
+    avgScore = onboardingApplicant.objects.filter(
+        accounts__id__in=getIDOnboarding).aggregate(Avg('score'))
+    print(getIDOnboarding)
 
     # ? Get the city data from resume
     cities = personalDetails.objects.filter(
