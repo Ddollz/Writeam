@@ -91,13 +91,15 @@ def onboarding(request, pk=None):
     clients = accounts.objects.filter(groups__name='Clients')
     # ? Getting all the onboarding applicant
     onboardApplicants = onboardingApplicant.objects.filter(
-        accounts__id__in=clients).values_list('accounts', flat=True)
+        accounts__id__in=clients).filter(
+        status='PASSED').values_list('accounts', flat=True)
     getIDOnboarding = list(onboardApplicants)
 
     # ? Get avarage onboarding Applicants
     avgScore = onboardingApplicant.objects.filter(
-        accounts__id__in=getIDOnboarding).aggregate(Avg('score'))
-    print(getIDOnboarding)
+        accounts__id__in=getIDOnboarding).filter(
+        status='PASSED').aggregate(Avg('score'))
+    print(avgScore)
 
     # ? Get the city data from resume
     cities = personalDetails.objects.filter(
@@ -110,11 +112,11 @@ def onboarding(request, pk=None):
     # ? Countclients
     countClient = len(getIDOnboarding)
     countWriter = onboardingApplicant.objects.filter(
-        jobTitle='Copy Writer').count()
+        jobTitle='Copy Writer').filter(status='PASSED').count()
     countTrans = onboardingApplicant.objects.filter(
-        jobTitle='Editor').count()
+        jobTitle='Editor').filter(status='PASSED').count()
     countEditor = onboardingApplicant.objects.filter(
-        jobTitle='Translator').count()
+        jobTitle='Translator').filter(status='PASSED').count()
 
     # ? generating random number for the userlist
     userList = list(clients)
@@ -149,7 +151,9 @@ def onboarding(request, pk=None):
                    'randomApplicants': random_items,
                    'countclient': countClient, 'countWriter': countWriter,
                    'countTrans': countTrans, 'countEditor': countEditor,
-                   'cities': cities, 'maxPerCity': maxPerCity}
+                   'cities': cities, 'maxPerCity': maxPerCity,
+                   'avgScore': avgScore
+                   }
         return render(request, 'main/Admin/onboarding.html', context,)
     else:
 
