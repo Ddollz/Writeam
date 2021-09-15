@@ -12,7 +12,7 @@
     <div class="row">
       <div class="col-lg-6 d-flex flex-column justify-content-center">
         {%if request.user.jobapplication.submitApplication%}
-        <div class="card shadow">
+        <div class="card shadow" style="height: auto;">
           <div class="card-body">
             <div class="profilehero fw-bold fs-2">
               <img class="img-circle" src="{{request.user.personaldetails.profile_image.url}}" draggable="false" />
@@ -65,7 +65,7 @@
             </div>
             <div class="fw-bold">
               Remarks:</div>
-            <div class="border" style="min-height: 100px; padding: 10px; background-color: rgb(241, 241, 241);">
+            <div class="border" style=" padding: 10px; background-color: rgb(241, 241, 241);">
               wala kapa remarks!
             </div>
           </div>

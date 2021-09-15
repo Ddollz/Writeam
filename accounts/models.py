@@ -22,6 +22,7 @@ class myAccountManager(BaseUserManager):
         user.is_admin = True
         user.is_staff = True
         user.is_superuser = True
+        user.is_email_verified = True
         user.save(using=self._db)
         return user
 
@@ -46,6 +47,7 @@ class accounts(AbstractBaseUser, PermissionsMixin):
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
+    is_email_verified = models.BooleanField(default=False)
     profile_image = models.ImageField(
         max_length=255, upload_to=get_profile_image_filepath, null=True, blank=True, default=get_default_profile)
     address = models.TextField(

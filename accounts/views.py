@@ -1,34 +1,36 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import Group
+from django.contrib.sites.shortcuts import get_current_site
+from django.template.loader import render_to_string
+from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
+from django.utils.encoding import force_bytes, force_str, force_text, DjangoUnicodeDecodeError
+
 from .forms import clientFormReg, clientFormLogin, adminFormReg
 from .models import accounts
 from .decorators import unauthenticated_user
+from .utils import generate_token
 from clientApp.models import personalDetails, article, jobapplication
-
-# from django.core.mail import EmailMessage
-# from django.conf import settings
-# from django.template.loader import render_to_string
+from django.core.mail import EmailMessage
+from django.conf import settings
 
 # Create your views here.
 
 
-# def success(request, pk):
-#     project = accounts.objects.get(id=pk)
-#     template = render_to_string(
-#         'main/Client/include/emailMsg.html', {'name': project.first_name})
-#     email = EmailMessage(
-#         'Thank you for registering Writeam!',
-#         template,
-#         settings.EMAIL_HOST_USER,
-#         [project.email],
-#     )
-#     email.fail_silently = False
-#     email.send()
-#     return render(request, 'main/Client/Success.html', {})
+def set_activation_email(user, request):
+    current_site = get_current_site(request)
+    email_subject = 'Writeam: Activate your account'
+    email_body = render_to_string('authentication/activate.html', {
+        'user': user, 'domain': current_site, 'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+        'token': generate_token.make_token(user)})
+
+    email = EmailMessage(subject=email_subject, body=email_body,
+                         from_email=settings.EMAIL_HOST_USER,
+                         to=[user.email])
+    email.send()
 
 
-@unauthenticated_user
+@ unauthenticated_user
 def signup(request):
     if request.method == 'POST':
         form = clientFormReg(request.POST)
@@ -47,32 +49,32 @@ def signup(request):
             jobapplication.objects.create(
                 accounts=user,
             )
+            set_activation_email(user, request)
             # remove group This is temporary
             # group.user_set.remove(user)
             # return redirect('success/'+str(user.id))
-            return redirect('signin')
+            return render(request, 'authentication/activate-notif.html', {})
     else:
         form = clientFormReg()
     return render(request, 'main/Client/Signup.html', {'form': form, 'errors': form.errors})
 
 
-@unauthenticated_user
+@ unauthenticated_user
 def signin(request):
     if request.method == 'POST':
         form = clientFormLogin(request.POST)
         if form.is_valid():
             email = form.cleaned_data.get('email')
             password = form.cleaned_data.get('password')
-            print(password)
-            print(email)
             user = authenticate(request, email=email,
                                 password=password)
-            if user is None:
-                print("test")
-                return render(request, 'main/Client/Signin.html', {'form': form, 'errors': "Invalid Username or Password"})
-            else:
+            if not user.is_email_verified:
+                print("not verified")
+                return render(request, 'main/Client/Signin.html', {'form': form, 'errors': "Email is not verified, Please check your email inbox"})
 
-                print("test")
+            if user is None:
+                return render(request, 'main/Client/Signin.html', {'form': form, 'errors': "Invalid Username or Password"})
+
             # client = User.objects.get(username=username)  # get Some User.
             # print(client.groups.all())
 
@@ -89,7 +91,7 @@ def logoutUser(request):
     return redirect('signin')
 
 
-@unauthenticated_user
+@ unauthenticated_user
 def signupadmin(request):
     if request.method == 'POST':
         form = adminFormReg(request.POST)
@@ -130,3 +132,37 @@ def updateProfile(request, pk):
 
     context = {'user': user}
     return render(request, 'main/Admin/include/updateUser.html', context)
+
+
+def activate_email_page(request):
+    if request.method == 'POST':
+        try:
+            user = accounts.objects.get(email=request.POST.get("email"))
+        except accounts.DoesNotExist:
+            user = None
+
+        if user != None:
+            set_activation_email(user, request)
+            return render(request, 'authentication/activate-notif.html', {})
+        else:
+            return render(request, 'authentication/activate-resend.html', {'errors': 'Email does not exist!'})
+    return render(request, 'authentication/activate-resend.html', {})
+
+
+def activate_sucess(request):
+    return render(request, 'authentication/activate-sucess.html', {})
+
+
+def activate_user(request, uidb64, token):
+    try:
+        uid = force_text(urlsafe_base64_decode(uidb64))
+        user = accounts.objects.get(pk=uid)
+    except Exception as e:
+        user = None
+
+    if user and generate_token.check_token(user, token):
+        user.is_email_verified = True
+        user.save()
+        return redirect('activate-sucess')
+
+    return render(request, 'authentication/activate-fail.html', {'user': user})

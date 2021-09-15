@@ -54,12 +54,12 @@
                 <button type="submit " class="btn btn-dark col-12 ">Log in to HumanAlytics</button>
                 <div class="separator mb-3 mt-3 "> OR </div>
             </form>
-            <button class="btn btn-outline-secondary col-12 text-start " type="button " id="button-addon1 ">
-                <i class="ms-2 bi bi-google "></i>
-                <span class="ms-3 "> Sign in with Google</span>
-            </button>
+            <a class="btn btn-outline-secondary col-12 text-start " type="button" id="button-addon1 " href='{%url "activate_email_page"%}'>
+                <i class="bi bi-envelope-fill"></i>
+                <span class="ms-3 "> Resend Email Verification</span>
+            </a>
 
-            <a class="btn btn-outline-secondary col-12 text-center mt-3" type="button " href='{%url "password_reset"%}' id="button-addon1 ">
+            <a class="btn btn-outline-secondary col-12 text-center mt-3" type="button" href='{%url "password_reset"%}' id="button-addon1 ">
                 <span class="ms-3 "> Reset Password</span>
             </a>
         </div>

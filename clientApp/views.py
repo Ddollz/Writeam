@@ -11,7 +11,6 @@ from .forms import *
 
 def index(request):
     context = {}
-    print(request.user.jobapplication.submitApplication)
     if request.user.is_authenticated:
         client = accounts.objects.get(username=request.user)  # get Some User.
         # print(client.groups.all()[0])
