@@ -2,19 +2,24 @@ from django import forms
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
-from accounts.models import accounts
 from django.forms import inlineformset_factory
+
+from accounts.models import accounts
+from system.models import *
 from .models import employmentHistory, personalDetails, education, link, reference, skill, article
 from .forms import *
 # Create your views here.
 
 
 def index(request):
-    context = {}
+    jobs = jobList.objects.all()
+
+    context = {'jobList': jobs}
     if request.user.is_authenticated:
         client = accounts.objects.get(username=request.user)  # get Some User.
         # print(client.groups.all()[0])
-        context = {'group': client.groups.all()[0]}
+        context = {'group': client.groups.all(
+        )[0], 'jobList': jobs}
 
     return render(request, 'main/Client/index.html', context)
 
