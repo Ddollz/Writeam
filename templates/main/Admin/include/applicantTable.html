@@ -2,6 +2,8 @@
     <div class="card mb-4 table-card">
         <div class="card-body">
 
+            {% url 'dashboard' as current_url %}
+            {% url 'onboarding' as current_url2 %}
             <table id="datatablesSimple">
                 <thead>
                     <tr>
@@ -10,7 +12,9 @@
                         <th>Name</th>
                         <th>Date Joined</th>
                         <th>Last Login</th>
-                        <!-- <th>Score</th> -->
+                        {% if request.path == current_url2 %}
+                        <th>Score</th>
+                        {% endif %}
                         <th>Article</th>
                         <th>Resume</th>
                     </tr>
@@ -22,7 +26,10 @@
                         <th>Name</th>
                         <th>Date Joined</th>
                         <th>Last Login</th>
-                        <!-- <th>Score</th> -->
+                        {% if request.path == current_url2 %}
+                        <th>Score</th>
+                        {% endif %}
+
                         <th>Article</th>
                         <th>Resume</th>
                     </tr>
@@ -30,12 +37,35 @@
                 <tbody>
 
 
-                    {% url 'dashboard' as current_url %}
 
                     {% for user in applicantList%}
                     {% for group in user.groups.all %}
 
-                    {% if request.path == current_url %}
+                    {% if request.path == current_url2 %}
+                    {% if user.onboardingapplicant.status == 'PASSED'%}
+                    <tr>
+                        <td>{{ user.id }}</td>
+                        <td><img class="img-circle" src="{{user.personaldetails.profile_image.url}}" draggable="false" /></td>
+                        <td>{{user.first_name}} {{user.last_name}}</td>
+                        <td>{{ user.date_joined }}</td>
+                        <td>{{ user.last_login }}</td>
+                        <td>{{ user.onboardingapplicant.score }}</td>
+                        <!-- <td><a type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Add</a></td> -->
+                        {%if user.article.article.url != None %}
+                        <td><a type="button" class="btn btn-primary" href="{{user.article.article.url}}">View</a></td>
+                        {%else%}
+                        <td><a type="button" class="btn btn-secondary disabled" href="#">None</a></td>
+                        {% endif %}
+                        {%if user.personaldetails.fname != None %}
+                        <td><a type="button" class="btn btn-primary" href="{% url 'resumePrev' user.id %}">View</a></td>
+                        {%else%}
+                        <td><a type="button" class="btn btn-secondary disabled" href="#">None</a></td>
+                        {% endif %}
+                        <!-- <td><button type=" button" class="btn btn-primary">View</button></td> -->
+                    </tr>
+                    {% endif %}
+
+                    {% elif request.path == current_url %}
                     <tr>
                         <td>{{ user.id }}</td>
                         <td><img class="img-circle" src="{{user.personaldetails.profile_image.url}}" draggable="false" /></td>
@@ -56,7 +86,6 @@
                         <!-- <td><button type=" button" class="btn btn-primary">View</button></td> -->
                     </tr>
                     {% elif group|stringformat:'s' != 'HR Manager' and group|stringformat:'s' != 'HR Staff'%}
-
                     <tr>
                         <td>{{ user.id }}</td>
                         <td><img class="img-circle" src="{{user.personaldetails.profile_image.url}}" draggable="false" /></td>

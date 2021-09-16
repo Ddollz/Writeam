@@ -46,10 +46,7 @@
         <div class="card mb-4 border-0 shadow">
           <div class="card-body">
             <div class="analytics-logo">
-              <i
-                class="bi bi-file-earmark-zip-fill fs-1"
-                style="color: #34495e"
-              ></i>
+              <i class="bi bi-file-earmark-zip-fill fs-1" style="color: #34495e"></i>
               <span class="fs-3 fw-bold ms-2 align-text-bottom">
                 {{countEditor}}
               </span>
@@ -95,17 +92,13 @@
     </div>
 
     {% include 'main/Admin/include/drag&drop.html' %}
+    {% include 'main/Admin/include/applicantTable.html' %}
+
   </div>
 </section>
 {% if instance%}
 <!-- Modal -->
-<div
-  class="modal fade score"
-  id="exampleModal"
-  tabindex="-1"
-  aria-labelledby="exampleModalLabel"
-  aria-hidden="true"
->
+<div class="modal fade score" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <form action="" method="post">
@@ -113,13 +106,7 @@
         {{modalform.status}}
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">
-            <img
-              src="{% static 'assets/img/logos.png' %}"
-              alt=""
-              srcset=""
-              width="50px"
-              height="50px"
-            />
+            <img src="{% static 'assets/img/logos.png' %}" alt="" srcset="" width="50px" height="50px" />
             Applicant Score & Remarks
           </h5>
           <a type="button" data-bs-dismiss="modal" aria-label="Close">
@@ -129,10 +116,7 @@
         <div class="modal-body">
           <div class="mb-3">
             <div class="mb-3 profile">
-              <img
-                class="img-circle"
-                src="{{instance.personaldetails.profile_image.url}}"
-              />
+              <img class="img-circle" src="{{instance.personaldetails.profile_image.url}}" />
               {{instance.personaldetails.fname}}
               {{instance.personaldetails.lname}}
               <a href="{{instance.article.article.url}}">
@@ -185,45 +169,45 @@
 <script>
 
   // Bar Chart Example
-    var ctx = document.getElementById("myBarChart");
-    var myLineChart = new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: [{% for citynames, value in cities %}'{{citynames|title}}',{% endfor %}],
-    datasets: [{
-        label: "Count",
-        backgroundColor: ["#e74c3c", "#3498db", "#2ecc71", "#f1c40f", "#3498db", "#2ecc71"],
-        borderColor: "rgba(2,117,216,1)",
-        data: [{% for citynames, value in cities %}'{{value}}',{% endfor %}],
+  var ctx = document.getElementById("myBarChart");
+  var myLineChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: [{% for citynames, value in cities %}'{{citynames|title}}',{% endfor %}],
+  datasets: [{
+    label: "Count",
+    backgroundColor: ["#e74c3c", "#3498db", "#2ecc71", "#f1c40f", "#3498db", "#2ecc71"],
+    borderColor: "rgba(2,117,216,1)",
+    data: [{% for citynames, value in cities %}'{{value}}', {% endfor %}],
     }],
         },
-    options: {
-        scales: {
-            xAxes: [{
-                time: {
-                    unit: 'month'
-                },
-                gridLines: {
-                    display: false
-                },
-                ticks: {
-                    maxTicksLimit: 6
-                }
-            }],
-                yAxes: [{
-                    ticks: {
-                        min: 0,
-                        max: {{maxPerCity}},
-                        maxTicksLimit: 5
-                    },
-                    gridLines: {
-                        display: true
-                    }
+  options: {
+    scales: {
+      xAxes: [{
+        time: {
+          unit: 'month'
+        },
+        gridLines: {
+          display: false
+        },
+        ticks: {
+          maxTicksLimit: 6
+        }
+      }],
+        yAxes: [{
+          ticks: {
+            min: 0,
+            max: {{ maxPerCity }},
+    maxTicksLimit: 5
+  },
+  gridLines: {
+    display: true
+  }
                 }],
             },
-        legend: {
-            display: false
-        }
+  legend: {
+    display: false
+  }
     }
     });
 
@@ -233,9 +217,9 @@
     type: 'pie',
     data: {
       labels: [{% for citynames, value in cities %}'{{citynames|title}}',{% endfor %}],
-      datasets: [{
-        data: [{% for citynames, value in cities %}'{{value}}',{% endfor %}],
-        backgroundColor: ["#e74c3c", "#3498db", "#2ecc71", "#f1c40f", "#3498db", "#2ecc71"],
+  datasets: [{
+    data: [{% for citynames, value in cities %}'{{value}}', {% endfor %}],
+    backgroundColor: ["#e74c3c", "#3498db", "#2ecc71", "#f1c40f", "#3498db", "#2ecc71"],
       }],
     },
   });
