@@ -78,6 +78,7 @@ class adminFormReg(UserCreationForm):
     def save(self, commit=True):
         user = super(adminFormReg, self).save(commit=False)
         user.is_staff = True
+        user.is_active = False
         if commit:
             user.save()
 

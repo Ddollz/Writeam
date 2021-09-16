@@ -209,11 +209,17 @@ def setting(request):
     return render(request, 'main/Admin/setting.html', context)
 
 
-# def addScore(request, pk):
+@ allowed_users(allowed_roles=['HR Manager'])
+def staffActivate(request, pk):
+    user = accounts.objects.get(id=pk)
+    user.is_active = True
+    user.save()
+    return redirect('adminUsers')
 
-#     instance = get_object_or_404(onboardingApplicant, id=id)
-#     print(instance)
-#     context = {
-#         'instance': instance
-#     }
-#     return render(request, 'main/Admin/include/scoremodal.html', context)
+
+@ allowed_users(allowed_roles=['HR Manager'])
+def staffDeactivate(request, pk):
+    user = accounts.objects.get(id=pk)
+    user.is_active = False
+    user.save()
+    return redirect('adminUsers')

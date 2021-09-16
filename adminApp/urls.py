@@ -3,7 +3,13 @@ from . import views
 
 urlpatterns = [
     path("dashboard/", views.dashboard, name="dashboard"),
+
     path("adminUsers/", views.adminUsers, name="adminUsers"),
+    path("adminUsers/activate/<int:pk>/",
+         views.staffActivate, name="adminUsersActivate"),
+    path("adminUsers/deactivate/<int:pk>/",
+         views.staffDeactivate, name="adminUsersDeactivate"),
+
     path("applicantmanagement/", views.applicantManagement,
          name="applicantmanagement"),
 

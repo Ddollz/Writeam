@@ -169,8 +169,10 @@
                 </a>
                 <span class="tooltip">Analytics</span>
             </li> -->
+            {% if request.user.groups.all.0|stringformat:'s' == 'HR Manager'%}
+
             <li>
-                {% if request.path == the_url5%}
+                {% if request.path == the_url6%}
                 <a href="{% url 'setting'%}" class="active">
                     <i class="bx bx-user"></i>
                     <span class="links_name">Setting</span>
@@ -183,8 +185,9 @@
                 </a>
                 <span class="tooltip">Setting</span>
                 {% endif %}
-
             </li>
+            {% endif %}
+
             <li class="profile">
                 <a href="{% url 'updateProfile' request.user.id %}" style="border:none; background-color:transparent;">
                     <div class="profile-details">

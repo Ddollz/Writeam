@@ -50,9 +50,6 @@ def signup(request):
                 accounts=user,
             )
             set_activation_email(user, request)
-            # remove group This is temporary
-            # group.user_set.remove(user)
-            # return redirect('success/'+str(user.id))
             return render(request, 'authentication/activate-notif.html', {})
     else:
         form = clientFormReg()
@@ -69,14 +66,13 @@ def signin(request):
             user = authenticate(request, email=email,
                                 password=password)
             if not user.is_email_verified:
-                print("not verified")
                 return render(request, 'main/Client/Signin.html', {'form': form, 'errors': "Email is not verified, Please check your email inbox"})
+
+            if not user.is_active:
+                return render(request, 'main/Client/Signin.html', {'form': form, 'errors': "Account is not active, Please contact your Administrator"})
 
             if user is None:
                 return render(request, 'main/Client/Signin.html', {'form': form, 'errors': "Invalid Username or Password"})
-
-            # client = User.objects.get(username=username)  # get Some User.
-            # print(client.groups.all())
 
             login(request, user)
             return redirect('/')
@@ -109,7 +105,9 @@ def signupadmin(request):
             jobapplication.objects.create(
                 accounts=user,
             )
-            return redirect('signin')
+
+            set_activation_email(user, request)
+            return render(request, 'authentication/activate-notif.html', {})
     else:
         form = adminFormReg()
     return render(request, 'main/Admin/Signup.html', {'form': form, 'errors': form.errors})

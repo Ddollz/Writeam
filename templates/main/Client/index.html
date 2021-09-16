@@ -32,9 +32,9 @@
                 </a>
                 {% endif %}
                 {% if request.user.jobapplication.is_editor %}
-                <a href="" data-bs-toggle="modal" data-bs-target="#editorModal"><i class="bi bi-pencil-square" style="color: #3498db"></i> Editor </a>-
+                <a href="" data-bs-toggle="modal" data-bs-target="#editorModal"><i class="bi bi-pencil-square" style="color: #3498db"></i> Editor </a> -
                 {% endif %}
-                {% if request.user.jobapplication.is_editor %}
+                {% if request.user.jobapplication.is_translator %}
                 <a href="" data-bs-toggle="modal" data-bs-target="#translatorModal">
                   <i class="bi bi-translate" style="color: #3498db"></i> Translator
                 </a>
