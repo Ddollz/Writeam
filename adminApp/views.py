@@ -213,7 +213,8 @@ def staffActivate(request, pk):
 
 @ allowed_users(allowed_roles=['HR Manager'])
 def staffDeactivate(request, pk):
-    user = accounts.objects.get(id=pk)
-    user.is_active = False
-    user.save()
+    if pk != 1:
+        user = accounts.objects.get(id=pk)
+        user.is_active = False
+        user.save()
     return redirect('adminUsers')

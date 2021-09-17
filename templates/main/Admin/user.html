@@ -14,7 +14,7 @@
           <div class="card-body">
 
             <div class="card-title print">
-              <h3 class="fw-bold" style="text-shadow: 2px 2px 1px rgba(0, 0, 0, 0.246); cursor: pointer;">Pending Staff <i class="bi bi-printer-fill"></i></h3>
+              <h3 class="fw-bold" style="text-shadow: 2px 2px 1px rgba(0, 0, 0, 0.246); cursor: pointer;">Staff List<i class="bi bi-printer-fill"></i></h3>
             </div>
             <table id="table1">
               <thead>
@@ -44,77 +44,26 @@
                 {% for user in userList%}
                 {% for group in user.groups.all %}
                 {% if group|stringformat:'s' == 'HR Manager' or group|stringformat:'s' == 'HR Staff'%}
-                {% if not user.is_active %}
                 <tr>
                   <td><img class="img-circle" src="{{user.profile_image.url}}" alt="profileImg" /></td>
                   <td>{{user.first_name}} {{user.last_name}}</td>
                   <td>{{ group }}</td>
                   <td>{{ user.email }}</td>
                   <td>{{ user.last_login }}</td>
-                  <td><a href="{% url 'adminUsersActivate' user.id %}"><i class="bi bi-x-circle fs-2" style="color: #e74c3c;"></i></a></td>
-                  <td><a href="{% url 'updateProfile' user.id %}" type="button" class="btn btn-primary">View</a></td>
-                </tr>
-
-                {% endif %}
-                {% endif %}
-                {% endfor %}
-                {% endfor %}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="row p-5">
-
-      <div class="shadow p-0">
-        <div class="card table-card">
-          <div class="card-body">
-
-            <div class="card-title print" s>
-              <h3 class="fw-bold" style="text-shadow: 2px 2px 1px rgba(0, 0, 0, 0.246); cursor: pointer;">Active Staff <i class="bi bi-printer-fill"></i></h3>
-            </div>
-            <table id="datatablesSimple">
-              <thead>
-                <tr>
-                  <th>Avatar</th>
-                  <th>Name</th>
-                  <th>Position</th>
-                  <th>Address</th>
-                  <th>Last Login</th>
-                  <th>Status</th>
-                  <th>More Details</th>
-                </tr>
-              </thead>
-              <tfoot>
-                <tr>
-                  <th>Avatar</th>
-                  <th>Name</th>
-                  <th>Position</th>
-                  <th>Address</th>
-                  <th>Last Login</th>
-                  <th>Status</th>
-                  <th>More Details</th>
-                </tr>
-              </tfoot>
-              <tbody>
-
-                {% for user in userList%}
-                {% for group in user.groups.all %}
-                {% if group|stringformat:'s' == 'HR Manager' or group|stringformat:'s' == 'HR Staff'%}
-                {% if user.is_active %}
-
-                <tr>
-                  <td><img class="img-circle" src="{{user.profile_image.url}}" alt="profileImg" /></td>
-                  <td>{{user.first_name}} {{user.last_name}}</td>
-                  <td>{{ group }}</td>
-                  <td>{{ user.email }}</td>
-                  <td>{{ user.last_login }}</td>
+                  {% if not user.is_active %}
+                  <td>
+                    <a href="{% url 'adminUsersActivate' user.id %}">
+                      <i class="bi bi-x-circle fs-2" style="color: #e74c3c;"></i>
+                    </a>
+                  </td>
+                  {% else %}
                   <td><a href="{% url 'adminUsersDeactivate' user.id %}"><i class="bi bi-check-circle fs-2" style="color: #2ecc71;"></i></a></td>
+
+                  {% endif %}
+
                   <td><a href="{% url 'updateProfile' user.id %}" type="button" class="btn btn-primary">View</a></td>
                 </tr>
 
-                {% endif %}
                 {% endif %}
                 {% endfor %}
                 {% endfor %}
@@ -124,6 +73,7 @@
         </div>
       </div>
     </div>
+
 </section>
 {% endblock %}
 {% block scriptContent %}
