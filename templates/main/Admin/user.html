@@ -9,103 +9,115 @@
       <li class="breadcrumb-item active">Welcome Recruiters!</li>
     </ol>
     <div class="row p-5">
-      <div class="card mb-4 shadow table-card">
-        <table id="table1">
-          <thead>
-            <tr>
-              <th>Avatar</th>
-              <th>Name</th>
-              <th>Position</th>
-              <th>Address</th>
-              <th>Last Login</th>
-              <th>Status</th>
-              <th>More Details</th>
-            </tr>
-          </thead>
-          <tfoot>
-            <tr>
-              <th>Avatar</th>
-              <th>Name</th>
-              <th>Position</th>
-              <th>Address</th>
-              <th>Last Login</th>
-              <th>Status</th>
-              <th>More Details</th>
-            </tr>
-          </tfoot>
-          <tbody>
+      <div class="card shadow table-card">
+        <div class="card-body">
 
-            {% for user in userList%}
-            {% for group in user.groups.all %}
-            {% if group|stringformat:'s' == 'HR Manager' or group|stringformat:'s' == 'HR Staff'%}
-            {% if not user.is_active %}
-            <tr>
-              <td><img class="img-circle" src="{{user.profile_image.url}}" alt="profileImg" /></td>
-              <td>{{user.first_name}} {{user.last_name}}</td>
-              <td>{{ group }}</td>
-              <td>{{ user.email }}</td>
-              <td>{{ user.last_login }}</td>
-              <td><a href="{% url 'adminUsersActivate' user.id %}"><i class="bi bi-x-circle fs-2"></i></a></td>
-              <td><a href="{% url 'updateProfile' user.id %}" type="button" class="btn btn-primary">View</a></td>
-            </tr>
+          <div class="card-title">
+            <h3 class="fw-bold" style="text-shadow: 2px 2px 1px rgba(0, 0, 0, 0.246);">Pending Staff <i class="bi bi-printer-fill"></i></h3>
+          </div>
+          <table id="table1">
+            <thead>
+              <tr>
+                <th>Avatar</th>
+                <th>Name</th>
+                <th>Position</th>
+                <th>Address</th>
+                <th>Last Login</th>
+                <th>Status</th>
+                <th>More Details</th>
+              </tr>
+            </thead>
+            <tfoot>
+              <tr>
+                <th>Avatar</th>
+                <th>Name</th>
+                <th>Position</th>
+                <th>Address</th>
+                <th>Last Login</th>
+                <th>Status</th>
+                <th>More Details</th>
+              </tr>
+            </tfoot>
+            <tbody>
 
-            {% endif %}
-            {% endif %}
-            {% endfor %}
-            {% endfor %}
-          </tbody>
-        </table>
+              {% for user in userList%}
+              {% for group in user.groups.all %}
+              {% if group|stringformat:'s' == 'HR Manager' or group|stringformat:'s' == 'HR Staff'%}
+              {% if not user.is_active %}
+              <tr>
+                <td><img class="img-circle" src="{{user.profile_image.url}}" alt="profileImg" /></td>
+                <td>{{user.first_name}} {{user.last_name}}</td>
+                <td>{{ group }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.last_login }}</td>
+                <td><a href="{% url 'adminUsersActivate' user.id %}"><i class="bi bi-x-circle fs-2" style="color: #e74c3c;"></i></a></td>
+                <td><a href="{% url 'updateProfile' user.id %}" type="button" class="btn btn-primary">View</a></td>
+              </tr>
+
+              {% endif %}
+              {% endif %}
+              {% endfor %}
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
 
     <div class="row p-5">
       <div class="card mb-4 shadow table-card">
-        <table id="datatablesSimple">
-          <thead>
-            <tr>
-              <th>Avatar</th>
-              <th>Name</th>
-              <th>Position</th>
-              <th>Address</th>
-              <th>Last Login</th>
-              <th>Status</th>
-              <th>More Details</th>
-            </tr>
-          </thead>
-          <tfoot>
-            <tr>
-              <th>Avatar</th>
-              <th>Name</th>
-              <th>Position</th>
-              <th>Address</th>
-              <th>Last Login</th>
-              <th>Status</th>
-              <th>More Details</th>
-            </tr>
-          </tfoot>
-          <tbody>
+        <div class="card-body">
 
-            {% for user in userList%}
-            {% for group in user.groups.all %}
-            {% if group|stringformat:'s' == 'HR Manager' or group|stringformat:'s' == 'HR Staff'%}
-            {% if user.is_active %}
+          <div class="card-title">
+            <h3 class="fw-bold" style="text-shadow: 2px 2px 1px rgba(0, 0, 0, 0.246);">Active Staff <i class="bi bi-printer-fill"></i></h3>
+          </div>
+          <table id="datatablesSimple">
+            <thead>
+              <tr>
+                <th>Avatar</th>
+                <th>Name</th>
+                <th>Position</th>
+                <th>Address</th>
+                <th>Last Login</th>
+                <th>Status</th>
+                <th>More Details</th>
+              </tr>
+            </thead>
+            <tfoot>
+              <tr>
+                <th>Avatar</th>
+                <th>Name</th>
+                <th>Position</th>
+                <th>Address</th>
+                <th>Last Login</th>
+                <th>Status</th>
+                <th>More Details</th>
+              </tr>
+            </tfoot>
+            <tbody>
 
-            <tr>
-              <td><img class="img-circle" src="{{user.profile_image.url}}" alt="profileImg" /></td>
-              <td>{{user.first_name}} {{user.last_name}}</td>
-              <td>{{ group }}</td>
-              <td>{{ user.email }}</td>
-              <td>{{ user.last_login }}</td>
-              <td><a href="{% url 'adminUsersDeactivate' user.id %}"><i class="bi bi-check-circle fs-2"></i></a></td>
-              <td><a href="{% url 'updateProfile' user.id %}" type="button" class="btn btn-primary">View</a></td>
-            </tr>
+              {% for user in userList%}
+              {% for group in user.groups.all %}
+              {% if group|stringformat:'s' == 'HR Manager' or group|stringformat:'s' == 'HR Staff'%}
+              {% if user.is_active %}
 
-            {% endif %}
-            {% endif %}
-            {% endfor %}
-            {% endfor %}
-          </tbody>
-        </table>
+              <tr>
+                <td><img class="img-circle" src="{{user.profile_image.url}}" alt="profileImg" /></td>
+                <td>{{user.first_name}} {{user.last_name}}</td>
+                <td>{{ group }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.last_login }}</td>
+                <td><a href="{% url 'adminUsersDeactivate' user.id %}"><i class="bi bi-check-circle fs-2" style="color: #2ecc71;"></i></a></td>
+                <td><a href="{% url 'updateProfile' user.id %}" type="button" class="btn btn-primary">View</a></td>
+              </tr>
+
+              {% endif %}
+              {% endif %}
+              {% endfor %}
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
 </section>
