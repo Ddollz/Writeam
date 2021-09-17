@@ -1,132 +1,138 @@
-<div class="row p-2">
-    <div class="card mb-4 table-card">
-        {% url 'dashboard' as current_url %}
-        {% url 'onboarding' as current_url2 %}
-        <div class="card-body">
-            {% if request.path == current_url2 %}
+<div class="row p-2 mt-5">
+    <div class="shadow p-0 mb-4">
 
-            <div class="card-title">
-                <h3 class="fw-bold" style="text-shadow: 2px 2px 1px rgba(0, 0, 0, 0.246);">Onboarding Applicant List <i class="bi bi-printer-fill"></i></h3>
-            </div>
-            {% elif request.path == current_url %}
+        <div class="card  table-card">
+            {% url 'dashboard' as current_url %}
+            {% url 'onboarding' as current_url2 %}
+            <div class="card-body">
+                {% if request.path == current_url2 %}
 
-            <div class="card-title">
-                <h3 class="fw-bold" style="text-shadow: 2px 2px 1px rgba(0, 0, 0, 0.246);">User List <i class="bi bi-printer-fill"></i></h3>
-            </div>
-            {% else %}
+                <div class="card-title print" id="">
+                    <h3 class="fw-bold" style="text-shadow: 2px 2px 1px rgba(0, 0, 0, 0.246);">Onboarding Applicant List <i class="bi bi-printer-fill"></i></h3>
 
-            <div class="card-title">
-                <h3 class="fw-bold" style="text-shadow: 2px 2px 1px rgba(0, 0, 0, 0.246);">Applicant List <i class="bi bi-printer-fill"></i></h3>
-            </div>
+                </div>
+                {% elif request.path == current_url %}
 
-            {% endif %}
+                <div class="card-title print" id="">
+                    <h3 class="fw-bold" style="text-shadow: 2px 2px 1px rgba(0, 0, 0, 0.246);">User List <i class="bi bi-printer-fill"></i></h3>
 
-            <table id="datatablesSimple">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Avatar</th>
-                        <th>Name</th>
-                        <th>Date Joined</th>
-                        <th>Last Login</th>
+                </div>
+                {% else %}
+
+                <div class="card-title print" id="">
+                    <h3 class="fw-bold" style="text-shadow: 2px 2px 1px rgba(0, 0, 0, 0.246);">Applicant List <i class="bi bi-printer-fill"></i></h3>
+
+                </div>
+
+                {% endif %}
+
+                <table id="datatablesSimple">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Avatar</th>
+                            <th>Name</th>
+                            <th>Date Joined</th>
+                            <th>Last Login</th>
+                            {% if request.path == current_url2 %}
+                            <th>Score</th>
+                            {% endif %}
+                            <th>Article</th>
+                            <th>Resume</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th>ID</th>
+                            <th>Avatar</th>
+                            <th>Name</th>
+                            <th>Date Joined</th>
+                            <th>Last Login</th>
+                            {% if request.path == current_url2 %}
+                            <th>Score</th>
+                            {% endif %}
+
+                            <th>Article</th>
+                            <th>Resume</th>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+
+
+
+                        {% for user in applicantList%}
+                        {% for group in user.groups.all %}
+
                         {% if request.path == current_url2 %}
-                        <th>Score</th>
-                        {% endif %}
-                        <th>Article</th>
-                        <th>Resume</th>
-                    </tr>
-                </thead>
-                <tfoot>
-                    <tr>
-                        <th>ID</th>
-                        <th>Avatar</th>
-                        <th>Name</th>
-                        <th>Date Joined</th>
-                        <th>Last Login</th>
-                        {% if request.path == current_url2 %}
-                        <th>Score</th>
+                        {% if user.onboardingapplicant.status == 'PASSED'%}
+                        <tr>
+                            <td>{{ user.id }}</td>
+                            <td><img class="img-circle" src="{{user.personaldetails.profile_image.url}}" draggable="false" /></td>
+                            <td>{{user.first_name}} {{user.last_name}}</td>
+                            <td>{{ user.date_joined }}</td>
+                            <td>{{ user.last_login }}</td>
+                            <td>{{ user.onboardingapplicant.score }}</td>
+                            <!-- <td><a type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Add</a></td> -->
+                            {%if user.article.article.url != None %}
+                            <td><a type="button" class="btn btn-primary" href="{{user.article.article.url}}">View</a></td>
+                            {%else%}
+                            <td><a type="button" class="btn btn-secondary disabled" href="#">None</a></td>
+                            {% endif %}
+                            {%if user.personaldetails.fname != None %}
+                            <td><a type="button" class="btn btn-primary" href="{% url 'resumePrev' user.id %}">View</a></td>
+                            {%else%}
+                            <td><a type="button" class="btn btn-secondary disabled" href="#">None</a></td>
+                            {% endif %}
+                            <!-- <td><button type=" button" class="btn btn-primary">View</button></td> -->
+                        </tr>
                         {% endif %}
 
-                        <th>Article</th>
-                        <th>Resume</th>
-                    </tr>
-                </tfoot>
-                <tbody>
-
-
-
-                    {% for user in applicantList%}
-                    {% for group in user.groups.all %}
-
-                    {% if request.path == current_url2 %}
-                    {% if user.onboardingapplicant.status == 'PASSED'%}
-                    <tr>
-                        <td>{{ user.id }}</td>
-                        <td><img class="img-circle" src="{{user.personaldetails.profile_image.url}}" draggable="false" /></td>
-                        <td>{{user.first_name}} {{user.last_name}}</td>
-                        <td>{{ user.date_joined }}</td>
-                        <td>{{ user.last_login }}</td>
-                        <td>{{ user.onboardingapplicant.score }}</td>
-                        <!-- <td><a type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Add</a></td> -->
-                        {%if user.article.article.url != None %}
-                        <td><a type="button" class="btn btn-primary" href="{{user.article.article.url}}">View</a></td>
-                        {%else%}
-                        <td><a type="button" class="btn btn-secondary disabled" href="#">None</a></td>
+                        {% elif request.path == current_url %}
+                        <tr>
+                            <td>{{ user.id }}</td>
+                            <td><img class="img-circle" src="{{user.personaldetails.profile_image.url}}" draggable="false" /></td>
+                            <td>{{user.first_name}} {{user.last_name}}</td>
+                            <td>{{ user.date_joined }}</td>
+                            <td>{{ user.last_login }}</td>
+                            <!-- <td><a type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Add</a></td> -->
+                            {%if user.article.article.url != None %}
+                            <td><a type="button" class="btn btn-primary" href="{{user.article.article.url}}">View</a></td>
+                            {%else%}
+                            <td><a type="button" class="btn btn-secondary disabled" href="#">None</a></td>
+                            {% endif %}
+                            {%if user.personaldetails.fname != None %}
+                            <td><a type="button" class="btn btn-primary" href="{% url 'resumePrev' user.id %}">View</a></td>
+                            {%else%}
+                            <td><a type="button" class="btn btn-secondary disabled" href="#">None</a></td>
+                            {% endif %}
+                            <!-- <td><button type=" button" class="btn btn-primary">View</button></td> -->
+                        </tr>
+                        {% elif group|stringformat:'s' != 'HR Manager' and group|stringformat:'s' != 'HR Staff'%}
+                        <tr>
+                            <td>{{ user.id }}</td>
+                            <td><img class="img-circle" src="{{user.personaldetails.profile_image.url}}" draggable="false" /></td>
+                            <td>{{user.first_name}} {{user.last_name}}</td>
+                            <td>{{ user.date_joined }}</td>
+                            <td>{{ user.last_login }}</td>
+                            <!-- <td><a type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Add</a></td> -->
+                            {%if user.article.article.url != None %}
+                            <td><a type="button" class="btn btn-primary" href="{{user.article.article.url}}">View</a></td>
+                            {%else%}
+                            <td><a type="button" class="btn btn-secondary disabled" href="#">None</a></td>
+                            {% endif %}
+                            {%if user.personaldetails.fname != None %}
+                            <td><a type="button" class="btn btn-primary" href="{% url 'resumePrev' user.id %}">View</a></td>
+                            {%else%}
+                            <td><a type="button" class="btn btn-secondary disabled" href="#">None</a></td>
+                            {% endif %}
+                            <!-- <td><button type=" button" class="btn btn-primary">View</button></td> -->
+                        </tr>
                         {% endif %}
-                        {%if user.personaldetails.fname != None %}
-                        <td><a type="button" class="btn btn-primary" href="{% url 'resumePrev' user.id %}">View</a></td>
-                        {%else%}
-                        <td><a type="button" class="btn btn-secondary disabled" href="#">None</a></td>
-                        {% endif %}
-                        <!-- <td><button type=" button" class="btn btn-primary">View</button></td> -->
-                    </tr>
-                    {% endif %}
-
-                    {% elif request.path == current_url %}
-                    <tr>
-                        <td>{{ user.id }}</td>
-                        <td><img class="img-circle" src="{{user.personaldetails.profile_image.url}}" draggable="false" /></td>
-                        <td>{{user.first_name}} {{user.last_name}}</td>
-                        <td>{{ user.date_joined }}</td>
-                        <td>{{ user.last_login }}</td>
-                        <!-- <td><a type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Add</a></td> -->
-                        {%if user.article.article.url != None %}
-                        <td><a type="button" class="btn btn-primary" href="{{user.article.article.url}}">View</a></td>
-                        {%else%}
-                        <td><a type="button" class="btn btn-secondary disabled" href="#">None</a></td>
-                        {% endif %}
-                        {%if user.personaldetails.fname != None %}
-                        <td><a type="button" class="btn btn-primary" href="{% url 'resumePrev' user.id %}">View</a></td>
-                        {%else%}
-                        <td><a type="button" class="btn btn-secondary disabled" href="#">None</a></td>
-                        {% endif %}
-                        <!-- <td><button type=" button" class="btn btn-primary">View</button></td> -->
-                    </tr>
-                    {% elif group|stringformat:'s' != 'HR Manager' and group|stringformat:'s' != 'HR Staff'%}
-                    <tr>
-                        <td>{{ user.id }}</td>
-                        <td><img class="img-circle" src="{{user.personaldetails.profile_image.url}}" draggable="false" /></td>
-                        <td>{{user.first_name}} {{user.last_name}}</td>
-                        <td>{{ user.date_joined }}</td>
-                        <td>{{ user.last_login }}</td>
-                        <!-- <td><a type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Add</a></td> -->
-                        {%if user.article.article.url != None %}
-                        <td><a type="button" class="btn btn-primary" href="{{user.article.article.url}}">View</a></td>
-                        {%else%}
-                        <td><a type="button" class="btn btn-secondary disabled" href="#">None</a></td>
-                        {% endif %}
-                        {%if user.personaldetails.fname != None %}
-                        <td><a type="button" class="btn btn-primary" href="{% url 'resumePrev' user.id %}">View</a></td>
-                        {%else%}
-                        <td><a type="button" class="btn btn-secondary disabled" href="#">None</a></td>
-                        {% endif %}
-                        <!-- <td><button type=" button" class="btn btn-primary">View</button></td> -->
-                    </tr>
-                    {% endif %}
-                    {% endfor %}
-                    {% endfor %}
-                </tbody>
-            </table>
+                        {% endfor %}
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>
