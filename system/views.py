@@ -37,11 +37,12 @@ def websetting(request, pk=None):
                     jobSkill.objects.filter(job_Title=temp).delete()
                     tempword = request.POST.get("job_skill")
                     print(tempword.split())
-                    for word in tempword.split():
-                        newSkill = jobSkill()
-                        newSkill.job_Title = temp
-                        newSkill.skill_name = word
-                        newSkill.save()
+                    for word in tempword.split(' - '):
+                        if not word == ' ':
+                            newSkill = jobSkill()
+                            newSkill.job_Title = temp
+                            newSkill.skill_name = word.strip()
+                            newSkill.save()
                     form.save()
                     return redirect('websetting')
 

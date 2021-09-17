@@ -415,3 +415,11 @@ img.img-circle {
   background-color: white;
   border: none;
 }
+
+.print {
+  cursor: pointer;
+  opacity: 0.8;
+}
+.print:hover {
+  opacity: 1;
+}

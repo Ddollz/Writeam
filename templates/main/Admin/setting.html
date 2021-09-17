@@ -8,7 +8,7 @@
         <ol class="breadcrumb mb-4">
             <li class="breadcrumb-item active">Welcome Recruiters!</li>
         </ol>
-        <div class="row p-1">
+        <div class="row p-5">
             <div class="col">
                 <div class="card mb-4 shadow">
                     <div class="card-body">
@@ -20,6 +20,7 @@
                                 <tr>
                                     <th>ID</th>
                                     <th>Job Name</th>
+                                    <th>Description</th>
                                     <th>Skill set</th>
                                     <th>On Hiring</th>
                                     <th>Edit</th>
@@ -29,6 +30,7 @@
                                 <tr>
                                     <th>ID</th>
                                     <th>Job Name</th>
+                                    <th>Description</th>
                                     <th>Skill set</th>
                                     <th>On Hiring</th>
                                     <th>Edit</th>
@@ -41,6 +43,7 @@
                                 <tr>
                                     <td>{{job.id}}</td>
                                     <td>{{ job }}</td>
+                                    <td>{{ job.job_Description }}</td>
                                     <td>
                                         {% for skill in job.jobskill_set.all%}
                                         {% if forloop.last %}
@@ -68,7 +71,6 @@
                     </div>
                 </div>
             </div>
-            <div class="col"></div>
         </div>
     </div>
 </section>
@@ -93,9 +95,11 @@
                     {{form.job_Title}}
 
 
-                    <label for="job_skill" class="form-label  mt-3">Job Skill Set</label>
-                    <input type="text" name="job_skill" class='form-control' id="job_skill" value="{% for skill in skillinstance%} {{skill}} {% endfor %}">
-                    <div class="form-text">Enter the each skill by Spaces (E.g English Tagalog Japanese)</div>
+                    <div class="form-floating mt-3">
+                        <textarea name="job_skill" class='form-control' cols='40' row='10' id="job_skill" style="height: 150px;">{% for skill in skillinstance%}{{skill}} - {% endfor %}</textarea>
+                        <div class="form-text">Enter the each skill by Dashes (E.g English - Tagalog - Japanese)</div>
+                        <label for="job_skill">Job Skill Set:</label>
+                    </div>
 
                     <div class="form-floating mt-3">
                         {{form.job_Description}}
@@ -115,6 +119,10 @@
 <script>
     $(document).ready(function () {
         $('#exampleModal').modal('show');
+        function textAreaAdjust(element) {
+            element.style.height = "1px";
+            element.style.height = (25 + element.scrollHeight) + "px";
+        }
     });
 
 </script>
