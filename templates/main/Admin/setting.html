@@ -4,12 +4,118 @@
 {% block content%}
 <section class="home-section">
     <div class="container-fluid px-4">
-        <h1 class="mt-4">Human Resources Staff</h1>
+        <h1 class="mt-4">Website Setting</h1>
         <ol class="breadcrumb mb-4">
             <li class="breadcrumb-item active">Welcome Recruiters!</li>
         </ol>
-        <div class="row p-5">
+        <div class="row p-1">
+            <div class="col">
+                <div class="card mb-4 shadow">
+                    <div class="card-body">
+                        <div class="card-title">
+                            <h3 class="fw-bold" style="text-shadow: 2px 2px 1px rgba(0, 0, 0, 0.246);">Job Table List <i class="bi bi-printer-fill"></i></h3>
+                        </div>
+                        <table id="datatablesSimple">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Job Name</th>
+                                    <th>Skill set</th>
+                                    <th>On Hiring</th>
+                                    <th>Edit</th>
+                                </tr>
+                            </thead>
+                            <tfoot>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Job Name</th>
+                                    <th>Skill set</th>
+                                    <th>On Hiring</th>
+                                    <th>Edit</th>
+                                </tr>
+                            </tfoot>
+                            <tbody>
 
+                                {% for job in jobs%}
+
+                                <tr>
+                                    <td>{{job.id}}</td>
+                                    <td>{{ job }}</td>
+                                    <td>
+                                        {% for skill in job.jobskill_set.all%}
+                                        {% if forloop.last %}
+                                        {{ skill }}
+                                        {% else %}
+                                        {{ skill }} -
+                                        {% endif %}
+                                        {%endfor%}
+                                    </td>
+                                    <td>{% if job.is_onHire%}
+                                        <a href="{% url 'websetting/job' job.id%}"><i class="bi bi-check-circle" style="color: #2ecc71;"></i></a>
+                                        {%else%}
+                                        <a href="{% url 'websetting/job' job.id%}"><i class="bi bi-x-circle" style="color: #e74c3c;"></i></a>
+                                        {%endif%}
+                                    </td>
+                                    <td>
+                                        <a href="{% url 'websetting/job/edit' job.id%}">Edit</a>
+                                    </td>
+                                </tr>
+
+                                {% endfor %}
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col"></div>
         </div>
+    </div>
 </section>
+{% if instance %}
+<div class="modal fade score" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <form action="{%url 'websetting/job/update' instance.id%}" method="post">
+                {% csrf_token %}
+                {{form.non_field_errors}}
+
+                <div class="modal-header">
+
+                    <h5 class="modal-title" id="exampleModalLabel"><img src="{% static 'assets/img/logos.png' %}" alt="" srcset="" width="50px" height="50px">
+                        Job Details
+                    </h5>
+                    <a type="button" data-bs-dismiss="modal" aria-label="Close"><i class="bi bi-x-diamond"></i></a>
+                </div>
+                <div class="modal-body">
+
+                    <label for="id_job_Title" class="form-label">Job Title</label>
+                    {{form.job_Title}}
+
+
+                    <label for="job_skill" class="form-label  mt-3">Job Skill Set</label>
+                    <input type="text" name="job_skill" class='form-control' id="job_skill" value="{% for skill in skillinstance%} {{skill}} {% endfor %}">
+                    <div class="form-text">Enter the each skill by Spaces (E.g English Tagalog Japanese)</div>
+
+                    <div class="form-floating mt-3">
+                        {{form.job_Description}}
+                        <label for="id_job_Description">Job Description:</label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary save">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endblock %}
+{% block scriptContent%}
+<script>
+    $(document).ready(function () {
+        $('#exampleModal').modal('show');
+    });
+
+</script>
 {% endblock %}

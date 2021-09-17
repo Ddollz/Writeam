@@ -46,7 +46,7 @@
     {% url 'rejectedapp' as the_url4 %}
     {% url 'adminUsers' as the_url5 %}
     {% url 'setting' as the_url6 %}
-    <div class="sidebar .open open">
+    <div class="sidebar open">
         <div class="logo-details">
             <!-- <i class="bx bxl-c-plus-plus icon"></i> -->
             <img src="{% static 'assets/img/logos.png' %}" alt="" srcset="" class="icon" width="50px" height="50px">
@@ -67,12 +67,14 @@
                     <i class="bx bx-grid-alt"></i>
                     <span class="links_name">Dashboard</span>
                 </a>
+                <span class="tooltip">Dashboard</span>
 
                 {% else %}
                 <a href="{% url 'dashboard'%}">
                     <i class="bx bx-grid-alt"></i>
                     <span class="links_name">Dashboard</span>
                 </a>
+                <span class="tooltip">Dashboard</span>
                 {% endif %}
             </li>
 
@@ -171,19 +173,20 @@
             </li> -->
             {% if request.user.groups.all.0|stringformat:'s' == 'HR Manager'%}
 
-            <li>
+            <li class="dropdown">
                 {% if request.path == the_url6%}
-                <a href="{% url 'setting'%}" class="active">
-                    <i class="bx bx-user"></i>
-                    <span class="links_name">Setting</span>
-                </a>
-                <span class="tooltip">Setting</span>
-                {%else%}
-                <a href="{% url 'setting'%}">
+                <a href="{% url 'websetting'%}" class="active">
                     <i class="bx bx-cog"></i>
-                    <span class="links_name">Setting</span>
+                    <span class="links_name">Website Setting</span>
                 </a>
-                <span class="tooltip">Setting</span>
+
+                <span class="tooltip">Website Setting</span>
+                {%else%}
+                <a href="{% url 'websetting'%}">
+                    <i class="bx bx-cog"></i>
+                    <span class="links_name">Website Setting</span>
+                </a>
+                <span class="tooltip">Website Setting</span>
                 {% endif %}
             </li>
             {% endif %}

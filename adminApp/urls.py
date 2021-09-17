@@ -26,8 +26,6 @@ urlpatterns = [
     path("rejectedapp/", views.rejectedapp,
          name="rejectedapp"),
 
-    path("setting/", views.setting,
-         name="setting"),
 
     #     path("addscore/<int:pk>", views.addScore, name="addscore"),
 

@@ -23,6 +23,7 @@ urlpatterns = [
     path('', include("accounts.urls")),
     path('', include("clientApp.urls")),
     path('', include("adminApp.urls")),
+    path('', include("system.urls")),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL,

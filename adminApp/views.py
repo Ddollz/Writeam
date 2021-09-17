@@ -203,12 +203,6 @@ def ResumePreview(request, pk):
     return render(request, 'main/Admin/include/resumePrev.html', context)
 
 
-@ allowed_users(allowed_roles=['HR Staff', 'HR Manager'])
-def setting(request):
-    context = {}
-    return render(request, 'main/Admin/setting.html', context)
-
-
 @ allowed_users(allowed_roles=['HR Manager'])
 def staffActivate(request, pk):
     user = accounts.objects.get(id=pk)
