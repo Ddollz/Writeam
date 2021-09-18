@@ -5,15 +5,14 @@ from django.contrib.sites.shortcuts import get_current_site
 from django.template.loader import render_to_string
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 from django.utils.encoding import force_bytes, force_str, force_text, DjangoUnicodeDecodeError
+from django.core.mail import EmailMessage
+from django.conf import settings
 
 from .forms import clientFormReg, clientFormLogin, adminFormReg
 from .models import accounts
 from .decorators import unauthenticated_user
 from .utils import generate_token
 from clientApp.models import personalDetails, article, jobapplication
-from django.core.mail import EmailMessage
-from django.conf import settings
-
 # Create your views here.
 
 
