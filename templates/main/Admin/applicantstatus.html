@@ -4,13 +4,19 @@
 {% block content%}
 <section class="home-section">
     <div class="container-fluid px-4">
-        <h1 class="mt-4">Applicants Status</h1>
-        <ol class="breadcrumb mb-4">
-            <li class="breadcrumb-item active">Welcome Recruiters!</li>
-        </ol>
+
+        <div class="card mb-3" style="background-color:transparent; border:none">
+            <div class="card-body text-center">
+                <h1 class="fw-bold">Applicants Management</h1>
+                <p class="fs-4">
+                    Welcome Recruiters!
+                </p>
+            </div>
+        </div>
 
 
         {% include 'main/Admin/include/drag&drop.html' %}
+        <hr class="mt-5">
         {% include 'main/Admin/include/applicantTable.html' %}
     </div>
 </section>
@@ -28,7 +34,7 @@
                 <div class="modal-header">
 
                     <h5 class="modal-title" id="exampleModalLabel"><img src="{% static 'assets/img/logos.png' %}" alt="" srcset="" width="50px" height="50px"> Applicant Score & Remarks</h5>
-                    <a type="button" data-bs-dismiss="modal" aria-label="Close"><i class="bi bi-x-diamond"></i></a>
+                    <a type="button" href="{% url 'applicantmanagement'%}"><i class="bi bi-x-diamond text-white"></i></a>
                 </div>
                 <div class="modal-body">
                     <div class="mb-3">

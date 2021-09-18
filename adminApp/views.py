@@ -118,14 +118,6 @@ def onboarding(request, pk=None):
     countEditor = onboardingApplicant.objects.filter(
         jobTitle='Translator').filter(status='PASSED').count()
 
-    # ? generating random number for the userlist
-    userList = list(clients)
-    counterList = 10
-    if len(userList) < 10:
-        counterList = len(userList)
-    random_items = random.sample(userList, counterList)
-    # ?/end/
-
     modalform = applicantScoreForm()
     if request.method == 'POST':
 
@@ -148,7 +140,6 @@ def onboarding(request, pk=None):
 
     if pk is None:
         context = {'applicantList': users,
-                   'randomApplicants': random_items,
                    'countclient': countClient, 'countWriter': countWriter,
                    'countTrans': countTrans, 'countEditor': countEditor,
                    'cities': cities, 'maxPerCity': maxPerCity,
@@ -167,7 +158,7 @@ def onboarding(request, pk=None):
             modalform = applicantScoreForm(
                 initial={'accounts': pk, 'status': 'NONE'})
         context = {'applicantList': users,
-                   'randomApplicants': random_items, 'instance': instance, 'modalform': modalform,
+                   'instance': instance, 'modalform': modalform,
                    'countclient': countClient, 'countWriter': countWriter,
                    'countTrans': countTrans, 'countEditor': countEditor,
                    'cities': cities, 'maxPerCity': maxPerCity}

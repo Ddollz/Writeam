@@ -32,6 +32,15 @@ class jobapplication(models.Model):
     is_editor = models.BooleanField(default=False)
     is_translator = models.BooleanField(default=False)
 
+    copywriter = models.PositiveIntegerField(verbose_name="Copywriter Score",
+                                             validators=[MaxValueValidator(100)], default=0, null=True, blank=True)
+
+    editor = models.PositiveIntegerField(verbose_name="Editor Score",
+                                         validators=[MaxValueValidator(100)], default=0, null=True, blank=True)
+
+    translator = models.PositiveIntegerField(verbose_name="Translator Score",
+                                             validators=[MaxValueValidator(100)], default=0, null=True, blank=True)
+
     submitApplication = models.BooleanField(default=False)
     dateSubmit = models.DateTimeField(
         verbose_name="Date Submit", auto_now=True)

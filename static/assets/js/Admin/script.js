@@ -31,8 +31,7 @@ $(document).ready(function () {
         if (container.classList.contains("screening") && getViewButtons && getAddButtons) {
             var index = 0, length = getAddButtons.length;
             for (; index < length; index++) {
-                getAddButtons[index].style.display = "Block";
-                getViewButtons[index].style.display = "None";
+                getViewButtons[index].style.display = "Block";
             }
         } else if (container.classList.contains("onboarding") && getViewButtons && getAddButtons) {
             var index = 0, length = getAddButtons.length;
@@ -75,14 +74,13 @@ $(document).ready(function () {
                 const getSpanCounter = container.querySelector('.count');
                 getSpanCounter.innerHTML = countDraggableInContainer.length + "/10";
 
-                const getAddButtons = container.querySelectorAll('.addScore');
                 const getViewButtons = container.querySelectorAll('.viewScore');
 
                 if (container.classList.contains("screening") && getViewButtons && getAddButtons) {
                     var index = 0, length = getAddButtons.length;
                     for (; index < length; index++) {
                         getAddButtons[index].style.display = "Block";
-                        getViewButtons[index].style.display = "None";
+                        getViewButtons[index].style.display = "Block";
                     }
                 } else if (container.classList.contains("onboarding") && getViewButtons && getAddButtons) {
                     var index = 0, length = getAddButtons.length;
@@ -106,7 +104,6 @@ $(document).ready(function () {
             e.preventDefault()
             const afterElement = getDragAfterElement(container, e.clientY)
             const draggable = document.querySelector('.dragging')
-
             if (afterElement == null) {
                 container.appendChild(draggable)
             } else {

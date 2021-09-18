@@ -1,22 +1,81 @@
-<div class="row draggable-row-container">
-    <div class="col">
-        <div class="card shadow">
-            <div class="card-body drag-body screening">
-                <div class="card-title text-start text-uppercase fw-bold">Screening<span class="float-end count" id="span1">0/10</span></div>
-                <hr>
-                {% for user in randomApplicants%}
-                {% if user.onboardingapplicant.jobTitle == '' and user.article.article.url != None %}
-                <p class="draggable" draggable="true" data-url="{% url 'applicantmanagement' user.id %}">
-                    <img class="img-circle" src="{{user.personaldetails.profile_image.url}}" alt="profileImg" />
-                    {{user}}
-                    <a type="button" class="btn btn-dark float-end addScore" href="{%url 'applicantmanagement' user.id %}" style="display:none;">Add Score</a>
-                    <a type="button" class="btn btn-dark float-end viewScore" href="{%url 'applicantmanagement' user.id %}" style="display:none;">View Score</a>
-                </p>
-                {% endif%}
-                {%endfor%}
+<div class="row draggable-row-container mb-5">
+    <div class="col mb-1">
+        <div class="card">
+            <div class="card-body text-white text-center">
+                <h3 class="card-title fw-bold">Job Matching</h3>
             </div>
         </div>
     </div>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="card shadow">
+                    <div class="card-body drag-body screening Writer">
+                        <div class="card-title text-start text-uppercase fw-bold">Copy Writer<span class="float-end count" id="span1">0/10</span></div>
+                        <hr>
+                        {% for user in randomApplicants%}
+                        {% if user.onboardingapplicant.jobTitle == '' and user.article.article.url != None and user.jobapplication.is_copywriter%}
+                        <p class="draggable" draggable="true" data-url="{% url 'applicantmanagement' user.id %}">
+                            <img class="img-circle" src="{{user.personaldetails.profile_image.url}}" alt="profileImg" />
+                            {{user}} {{user.onboardingapplicant.score}}
+                            <a type="button" class="btn btn-dark float-end addScore" href="{%url 'applicantmanagement' user.id %}" style="display:none;">Edit Score</a>
+                            <a type="button" class="btn btn-dark float-end viewScore" href="{%url 'applicantmanagement' user.id %}" style="display:none;">View Score</a>
+                        </p>
+                        {% endif%}
+                        {%endfor%}
+                    </div>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="card shadow">
+                    <div class="card-body drag-body screening Translator">
+                        <div class="card-title text-start text-uppercase fw-bold">Translator<span class="float-end count" id="span3">1/10</span></div>
+                        <hr>
+
+                        {% for user in randomApplicants%}
+                        {% if user.onboardingapplicant.jobTitle == '' and user.article.article.url != None and user.jobapplication.is_translator %}
+                        <p class="draggable" draggable="true" data-url="{% url 'applicantmanagement' user.id %}">
+                            <img class="img-circle" src="{{user.personaldetails.profile_image.url}}" alt="profileImg" />
+                            {{user}} {{user.onboardingapplicant.score}}
+                            <a type="button" class="btn btn-dark float-end addScore" href="{%url 'applicantmanagement' user.id %}" style="display:none;">Edit Score</a>
+                            <a type="button" class="btn btn-dark float-end viewScore" href="{%url 'applicantmanagement' user.id %}" style="display:none;">View Score</a>
+                        </p>
+
+                        {% endif%}
+                        {%endfor%}
+                    </div>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="card shadow">
+                    <div class="card-body drag-body screening Editor">
+                        <div class="card-title text-start text-uppercase fw-bold">Editor<span class="float-end count" id="span3">1/10</span></div>
+                        <hr>
+
+                        {% for user in randomApplicants%}
+                        {% if user.onboardingapplicant.jobTitle == '' and user.article.article.url != None and user.jobapplication.is_editor %}
+                        <p class="draggable" draggable="true" data-url="{% url 'applicantmanagement' user.id %}">
+                            <img class="img-circle" src="{{user.personaldetails.profile_image.url}}" alt="profileImg" />
+                            {{user}} {{user.onboardingapplicant.score}}
+                            <a type="button" class="btn btn-dark float-end addScore" href="{%url 'applicantmanagement' user.id %}" style="display:none;">Edit Score</a>
+                            <a type="button" class="btn btn-dark float-end viewScore" href="{%url 'applicantmanagement' user.id %}" style="display:none;">View Score</a>
+                        </p>
+
+                        {% endif%}
+                        {%endfor%}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+<div class="row draggable-row-container">
     <div class="col">
         <div class="card shadow">
             <div class="card-body drag-body onboarding">

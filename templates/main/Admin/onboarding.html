@@ -90,72 +90,10 @@
         </div>
       </div>
     </div>
-
-    {% include 'main/Admin/include/drag&drop.html' %}
     {% include 'main/Admin/include/applicantTable.html' %}
 
   </div>
-</section>
-{% if instance%}
-<!-- Modal -->
-<div class="modal fade score" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <form action="" method="post">
-        {% csrf_token %} {{modalform.non_field_errors}} {{modalform.accounts}}
-        {{modalform.status}}
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">
-            <img src="{% static 'assets/img/logos.png' %}" alt="" srcset="" width="50px" height="50px" />
-            Applicant Score & Remarks
-          </h5>
-          <a type="button" data-bs-dismiss="modal" aria-label="Close">
-            <i class="bi bi-x-diamond"></i>
-          </a>
-        </div>
-        <div class="modal-body">
-          <div class="mb-3">
-            <div class="mb-3 profile">
-              <img class="img-circle" src="{{instance.personaldetails.profile_image.url}}" />
-              {{instance.personaldetails.fname}}
-              {{instance.personaldetails.lname}}
-              <a href="{{instance.article.article.url}}">
-                <i class="bi bi-bookmark-star-fill"></i>
-              </a>
-              <a href="{% url 'resumePrev' instance.id %}">
-                <i class="bi bi-file-earmark-person-fill"></i>
-              </a>
-            </div>
-            <div class="row">
-              <div class="col">
-                <label for="score" class="form-label">Job Title</label>
-
-                {{modalform.jobTitle}}
-              </div>
-              <div class="col">
-                <label for="score" class="form-label">Score</label>
-                {{modalform.score}}
-                <div id="emailHelp" class="form-text">
-                  80% Is the passing point
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="mb-3">
-            <div class="form-floating">
-              {{modalform.remarks}}
-              <label for="floatingTextarea">Remarks:</label>
-            </div>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="submit" class="btn btn-primary save">Save</button>
-        </div>
-      </form>
-    </div>
-  </div>
-</div>
-{% endif %} {% endblock %} {% block scriptContent%}
+</section> {% endblock %} {% block scriptContent%}
 <script>
   $(document).ready(function () {
     var modaledit = "{{instance}}";
