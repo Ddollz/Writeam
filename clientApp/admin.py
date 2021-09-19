@@ -89,7 +89,7 @@ class articleAdmin(admin.ModelAdmin):
 
 
 class jobAppAdmin(admin.ModelAdmin):
-    list_display = ('id', 'accounts', 'is_copywriter', 'is_editor', 'is_translator',
+    list_display = ('id', 'accounts', 'is_copywriter', 'copywriter', 'is_editor', 'editor', 'is_translator', 'translator',
                     'dateSubmit', 'submitApplication')
     readonly_fields = ('id', 'dateSubmit',)
     search_fields = ('jobTitle', 'submitApplication')

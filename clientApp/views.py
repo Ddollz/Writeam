@@ -3,11 +3,15 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.forms import inlineformset_factory
+from numpy.lib.function_base import append
 
 from accounts.models import accounts
 from system.models import *
 from .models import employmentHistory, personalDetails, education, link, reference, skill, article
 from .forms import *
+
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
 # Create your views here.
 
 
@@ -94,10 +98,87 @@ def resume(request):
             formset3.save()
             formset4.save()
             formfile.save()
-            form1.save()
-
+            perDetails = form1.save()
             formapp = formapp.save(commit=False)
             formapp.submitApplication = True
+            jobsDetails = jobList.objects.all()
+
+            copywriterskills = ""
+            editorskills = ""
+            translatorskills = ""
+
+            for each in jobsDetails:
+                temp = jobSkill.objects.filter(job_Title=each)
+                if each.job_Title == "Copy Writer":
+                    for i in temp:
+                        copywriterskills = copywriterskills + " "+i.skill_name
+
+                if each.job_Title == "Editor":
+                    for i in temp:
+                        editorskills = editorskills + " "+i.skill_name
+
+                if each.job_Title == "Translator":
+                    for i in temp:
+                        translatorskills = translatorskills + " "+i.skill_name
+
+            # get formset workExp input
+            tempstringexp = ''
+            for f in formset:
+                cd = f.cleaned_data
+                test = cd.get("description")
+                if test != None:
+                    tempstringexp = tempstringexp+" "+test
+                    # print(test)
+
+            # get formset skill input
+            tempstringskill = ''
+            for f in formset4:
+                cd = f.cleaned_data
+                test = cd.get("skill")
+                if test != None:
+                    tempstringskill = tempstringskill+" "+test
+                    # print(test)
+
+            summaryTextArray = [
+                perDetails.profSummary,
+            ]
+
+            for job in jobsDetails:
+                summaryTextArray.append(job.job_Description)
+
+            workExpTextArray1 = [
+                tempstringexp.strip(),
+            ]
+
+            for job in jobsDetails:
+                workExpTextArray1.append(job.job_Description)
+
+            workExpTextArray2 = [
+                tempstringexp.strip(),
+                copywriterskills.strip(),
+                editorskills.strip(),
+                translatorskills.strip(),
+            ]
+
+            skillTextArray = [
+                tempstringskill.strip(),
+                copywriterskills.strip(),
+                editorskills.strip(),
+                translatorskills.strip(),
+
+            ]
+
+            summarySimmilarity = checksimilarity(summaryTextArray)
+            expSimmilarity1 = checksimilarity(workExpTextArray1)
+            expSimmilarity2 = checksimilarity(workExpTextArray2)
+            skillSimmilarity = checksimilarity(skillTextArray)
+
+            formapp.copywriter = calculatorScore(
+                summarySimmilarity[0], skillSimmilarity[0], expSimmilarity1[0], expSimmilarity2[0])
+            formapp.editor = calculatorScore(
+                summarySimmilarity[1], skillSimmilarity[1], expSimmilarity1[1], expSimmilarity2[1])
+            formapp.translator = calculatorScore(
+                summarySimmilarity[2], skillSimmilarity[2], expSimmilarity1[2], expSimmilarity2[2])
             formapp.save()
             return redirect('/')
         else:
@@ -127,3 +208,23 @@ def resume(request):
                'formset4': formset4,
                }
     return render(request, 'main/Client/resume.html', context)
+
+
+def checksimilarity(textarray):
+    array = []
+    vectorizer = CountVectorizer()
+    features = vectorizer.fit_transform(textarray)
+    for f in features[1:]:
+        simmilarities = cosine_similarity(features[0], f) * 100
+        simmilarities = simmilarities.flatten()
+        for sim in simmilarities:
+            matchPer = round(sim, 2)
+            array.append(matchPer)
+    print(array)
+    return array
+
+
+def calculatorScore(prof, skill, exp1, exp2):
+    score = (exp1 + exp2) / 2
+    score += (prof+skill)/2
+    return score
