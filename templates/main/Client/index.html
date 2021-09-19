@@ -786,7 +786,11 @@
           <h5 class="modal-title fw-bold" id="editorLabel"><i class="bi bi-pencil-square"></i> Editor</h5>
         </div>
         <div class="modal-body">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum officia magnam asperiores dicta minus quibusdam necessitatibus, enim hic perferendis, deserunt rerum amet. Aut voluptate accusantium eius quo incidunt quam ut.
+          {% for job in jobList%}
+          {% if job.job_Title == "Editor"%}
+          {{job.job_Description}}
+          {% endif%}
+          {% endfor %}
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -802,7 +806,11 @@
           <h5 class="modal-title fw-bold" id="copywriterLabel"><i class="bi bi-pencil-square"></i> Copy Writer</h5>
         </div>
         <div class="modal-body">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse, voluptatibus voluptas sunt dolore inventore, laboriosam odit dolorem ducimus quae at ipsum architecto suscipit atque sapiente nisi totam, amet tenetur. Provident!
+          {% for job in jobList%}
+          {% if job.job_Title == "Copy Writer"%}
+          {{job.job_Description}}
+          {% endif%}
+          {% endfor %}
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -818,7 +826,11 @@
           <h5 class="modal-title fw-bold" id="translatorLabel"><i class="bi bi-pencil-square"></i> Translator</h5>
         </div>
         <div class="modal-body">
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Corporis debitis, maxime optio similique dignissimos est quibusdam maiores. Officia dolores maxime ipsa. Doloribus, eos nam! Accusamus unde possimus consequatur impedit est.
+          {% for job in jobList%}
+          {% if job.job_Title == "Translator"%}
+          {{job.job_Description}}
+          {% endif%}
+          {% endfor %}
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
