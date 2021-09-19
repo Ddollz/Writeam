@@ -65,23 +65,9 @@
 
         {% if request.user.is_authenticated%}
 
-        {% if group|stringformat:'s' == 'Clients'%}
-        <li class="dropdown"><a href="{% url 'userprofile'%}"><span><img src="{{request.user.personaldetails.profile_image.url}}" alt="" width="25" height="25" class="rounded-circle"></span>
-            <i class="bi bi-chevron-down"></i></a>
-          <ul>
-
-            <li><a href="{% url 'userprofile'%}">Profile</a></li>
-
-            <li>
-              <a href="{% url 'logout'%}">Log Out</a>
-            </li>
-          </ul>
-        </li>
-        {%else%}
         <li class="nav-link"><a href="{% url 'logout'%}"><span><img src="{{request.user.personaldetails.profile_image.url}}" alt="" width="25" height="25" class="rounded-circle"></span>
             <i class="bi bi-box-arrow-in-right fs-4"></i></a>
         </li>
-        {% endif %}
         {% else %}
         <li>
           <a class="nav-link" href="{% url 'signin'%}">Log In</a>

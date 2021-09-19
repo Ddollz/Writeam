@@ -74,7 +74,12 @@ def signin(request):
                 return render(request, 'main/Client/Signin.html', {'form': form, 'errors': "Invalid Username or Password"})
 
             login(request, user)
-            return redirect('/')
+            group = user.groups.all()
+            print(group[0])
+            if(str(group[0]) == "Clients"):
+                return redirect('/')
+            else:
+                return redirect('dashboard')
 
     else:
         form = clientFormLogin()

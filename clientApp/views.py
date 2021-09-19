@@ -37,15 +37,6 @@ def faq(request):
 
     return render(request, 'main/Client/faq.html', context)
 
-
-def profile(request):
-    context = {}
-    if request.user.is_authenticated:
-        client = accounts.objects.get(username=request.user)  # get Some User.
-        # print(client.groups.all()[0])
-        context = {'group': client.groups.all()[0]}
-    return render(request, 'main/Client/userprofile.html', context)
-
 # @allowed_users(allowed_roles=['Clients', 'HR Staff', 'HR Manager'])
 
 

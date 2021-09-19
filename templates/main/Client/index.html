@@ -22,6 +22,7 @@
           <div class="fw-bold fs-5 mt-3 mb-1">INFORMATION
             <a href="{% url 'resume'%}"><i class="bi bi-file-earmark-person-fill"></i></a>
             <a href="{{request.user.article.article.url}}"><i class="bi bi-file-code-fill"></i></a>
+            <a href="{% url 'password_change' %}"><i class="bi bi-lock-fill"></i></a>
           </div>
           <div class="row">
             <div class="col">

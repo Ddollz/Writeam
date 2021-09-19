@@ -177,6 +177,14 @@
                 </a>
                 <span class="tooltip">Analytics</span>
             </li> -->
+
+            <li>
+                <a href="{% url 'index'%}">
+                    <i class="bi bi-aspect-ratio"></i>
+                    <span class="links_name">Website Preview</span>
+                </a>
+                <span class="tooltip">Website Preview</span>
+            </li>
             {% if request.user.groups.all.0|stringformat:'s' == 'HR Manager'%}
 
             <li class="dropdown">

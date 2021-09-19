@@ -32,6 +32,18 @@
 </head>
 
 <body>
+
+  {% if group|stringformat:'s' == 'HR Manager' or group|stringformat:'s' == 'HR Staff'%}
+  <!-- ======= Top Bar ======= -->
+  <section id="topbar" class="d-flex align-items-center">
+    <div class="container d-flex justify-content-center justify-content-md-between">
+      <div class="contact-info d-flex align-items-center">
+        This is only a preview of what applicants will able to see
+      </div>
+    </div>
+  </section>
+  {% endif %}
+
   {% block navigationBase %} {%endblock %} {% block content %} {% endblock %}
   {% block footerContent %} {%endblock %}
   <!-- Vendor JS Files -->
