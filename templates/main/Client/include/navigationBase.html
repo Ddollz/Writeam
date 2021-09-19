@@ -64,10 +64,17 @@
 
 
         {% if request.user.is_authenticated%}
+        {% if group|stringformat:'s' == 'HR Manager' or group|stringformat:'s' == 'HR Staff'%}
 
+        <li class="nav-link"><a href="{% url 'dashboard'%}"><span><img src="{{request.user.personaldetails.profile_image.url}}" alt="" width="25" height="25" class="rounded-circle"></span>
+            <i class="bi bi-box-arrow-in-right fs-4"></i></a>
+        </li>
+        {%else%}
         <li class="nav-link"><a href="{% url 'logout'%}"><span><img src="{{request.user.personaldetails.profile_image.url}}" alt="" width="25" height="25" class="rounded-circle"></span>
             <i class="bi bi-box-arrow-in-right fs-4"></i></a>
         </li>
+        {% endif %}
+
         {% else %}
         <li>
           <a class="nav-link" href="{% url 'signin'%}">Log In</a>
