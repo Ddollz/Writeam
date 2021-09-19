@@ -37,3 +37,10 @@ https://www.youtube.com/watch?v=Ae7nc1EGv-A
 
 File uploads
 https://www.youtube.com/watch?v=hKIbCUcvnxw
+
+>New terminal
+>cd scripts
+>activate
+>cd../
+py manage.py runserver
+click link
