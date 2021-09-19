@@ -1,11 +1,4 @@
 <div class="row draggable-row-container mb-5">
-    <div class="col mb-1">
-        <div class="card">
-            <div class="card-body text-white text-center">
-                <h3 class="card-title fw-bold">Job Matching</h3>
-            </div>
-        </div>
-    </div>
     <div class="container">
         <div class="row">
             <div class="col">
@@ -18,8 +11,8 @@
                         <p class="draggable" draggable="true" data-url="{% url 'applicantmanagement' user.id %}">
                             <img class="img-circle" src="{{user.personaldetails.profile_image.url}}" alt="profileImg" />
                             {{user}} {{user.onboardingapplicant.score}}
-                            <a type="button" class="btn btn-dark float-end addScore" href="{%url 'applicantmanagement' user.id %}" style="display:none;">Edit Score</a>
-                            <a type="button" class="btn btn-dark float-end viewScore" href="{%url 'applicantmanagement' user.id %}" style="display:none;">View Score</a>
+                            <a type="button" class="btn float-end addScore" href="{%url 'applicantmanagement' user.id %}" style="display:none;">Edit Score</a>
+                            <a type="button" class="btn float-end viewScore" href="{%url 'applicantmanagement' user.id %}" style="display:none;">View Score</a>
                         </p>
                         {% endif%}
                         {%endfor%}
@@ -38,8 +31,8 @@
                         <p class="draggable" draggable="true" data-url="{% url 'applicantmanagement' user.id %}">
                             <img class="img-circle" src="{{user.personaldetails.profile_image.url}}" alt="profileImg" />
                             {{user}} {{user.onboardingapplicant.score}}
-                            <a type="button" class="btn btn-dark float-end addScore" href="{%url 'applicantmanagement' user.id %}" style="display:none;">Edit Score</a>
-                            <a type="button" class="btn btn-dark float-end viewScore" href="{%url 'applicantmanagement' user.id %}" style="display:none;">View Score</a>
+                            <a type="button" class="btn float-end addScore" href="{%url 'applicantmanagement' user.id %}" style="display:none;">Edit Score</a>
+                            <a type="button" class="btn float-end viewScore" href="{%url 'applicantmanagement' user.id %}" style="display:none;">View Score</a>
                         </p>
 
                         {% endif%}
@@ -59,8 +52,8 @@
                         <p class="draggable" draggable="true" data-url="{% url 'applicantmanagement' user.id %}">
                             <img class="img-circle" src="{{user.personaldetails.profile_image.url}}" alt="profileImg" />
                             {{user}} {{user.onboardingapplicant.score}}
-                            <a type="button" class="btn btn-dark float-end addScore" href="{%url 'applicantmanagement' user.id %}" style="display:none;">Edit Score</a>
-                            <a type="button" class="btn btn-dark float-end viewScore" href="{%url 'applicantmanagement' user.id %}" style="display:none;">View Score</a>
+                            <a type="button" class="btn float-end addScore" href="{%url 'applicantmanagement' user.id %}" style="display:none;">Edit Score</a>
+                            <a type="button" class="btn float-end viewScore" href="{%url 'applicantmanagement' user.id %}" style="display:none;">View Score</a>
                         </p>
 
                         {% endif%}
@@ -88,15 +81,15 @@
                 <p class="draggable" draggable="true" data-url="{% url 'applicantmanagement' user.id %}">
                     <img class="img-circle" src="{{user.personaldetails.profile_image.url}}" alt="profileImg" />
                     {{user}} {{user.onboardingapplicant.score}}/100
-                    <a type="button" class="btn btn-dark float-end addScore" href="{%url 'applicantmanagement' user.id %}" style="display:none;">Add Score</a>
-                    <a type="button" class="btn btn-dark float-end viewScore" href="{%url 'applicantmanagement' user.id %}" style="display:none;">View Score</a>
+                    <a type="button" class="btn float-end addScore" href="{%url 'applicantmanagement' user.id %}" style="display:none;">Add Score</a>
+                    <a type="button" class="btn float-end viewScore" href="{%url 'applicantmanagement' user.id %}" style="display:none;">View Score</a>
                 </p>
 
 
                 {% endif%}
                 {%endfor%}
             </div>
-            <a href="#" class="btn btn-dark float-end">Submit All</a>
+            <a href="#" class="btn float-end border-top">Submit All</a>
         </div>
     </div>
 
@@ -118,7 +111,7 @@
                     {% endif%}
                     {%endfor%}
             </div>
-            <a href="#" class="btn btn-dark float-end">Submit All</a>
+            <a href="#" class="btn float-end border-top">Submit All</a>
         </div>
     </div>
 </div>

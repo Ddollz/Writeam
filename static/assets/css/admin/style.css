@@ -15,14 +15,14 @@ ul {
   top: 0;
   height: 100%;
   width: 78px;
-  background: #11101d;
+  background: #f8f9fa;
   padding: 6px 14px;
   padding-left: 6px 14px;
   z-index: 99;
   transition: all 0.5s ease;
 }
 .sidebar.open {
-  width: 260px;
+  width: 270px;
 }
 .sidebar .logo-details {
   height: 60px;
@@ -35,7 +35,7 @@ ul {
   transition: all 0.5s ease;
 }
 .sidebar .logo-details .logo_name {
-  color: #fff;
+  color: #344767;
   font-size: 20px;
   font-weight: 600;
   opacity: 0;
@@ -61,7 +61,7 @@ ul {
   text-align: right;
 }
 .sidebar i {
-  color: #fff;
+  color: #344767;
   height: 60px;
   min-width: 50px;
   font-size: 28px;
@@ -120,23 +120,6 @@ ul {
   padding: 0 20px 0 50px;
   width: 100%;
 }
-.sidebar .bx-search {
-  position: absolute;
-  top: 50%;
-  left: 0;
-  transform: translateY(-50%);
-  font-size: 22px;
-  background: #1d1b31;
-  color: #fff;
-}
-.sidebar.open .bx-search:hover {
-  background: #1d1b31;
-  color: #fff;
-}
-.sidebar .bx-search:hover {
-  background: #fff;
-  color: #11101d;
-}
 .sidebar li a {
   display: flex;
   height: 100%;
@@ -145,7 +128,7 @@ ul {
   align-items: center;
   text-decoration: none;
   transition: all 0.4s ease;
-  background: #11101d;
+  background: transparent;
 }
 .sidebar li a:hover {
   background: #fff;
@@ -153,9 +136,12 @@ ul {
 
 .sidebar li .active {
   background: #fff;
+  box-shadow: 0 0 10px #8888882a;
+  font-weight: bold;
 }
+
 .sidebar li a .links_name {
-  color: #fff;
+  color: #344767;
   font-size: 15px;
   font-weight: 400;
   white-space: nowrap;
@@ -171,7 +157,6 @@ ul {
 .sidebar li a:hover .links_name,
 .sidebar li a:hover i {
   transition: all 0.5s ease;
-  color: #11101d;
 }
 .sidebar li i {
   height: 50px;
@@ -180,24 +165,28 @@ ul {
   border-radius: 12px;
 }
 
-.sidebar li .active .links_name,
 .sidebar li .active i {
-  color: black;
+  color: #80beef;
+  font-weight: 500;
 }
+.sidebar li .active .links_name {
+  color: #344767;
 
+  font-weight: 500;
+}
 .sidebar li.profile {
   position: fixed;
   height: 60px;
-  width: 78px;
+  width: 80px;
   left: 0;
   bottom: -8px;
   padding: 10px 14px;
-  background: #1d1b31;
+  background: #f8f9fa;
   transition: all 0.5s ease;
   overflow: hidden;
 }
 .sidebar.open li.profile {
-  width: 260px;
+  width: 270px;
 }
 .sidebar li .profile-details {
   display: flex;
@@ -215,7 +204,7 @@ ul {
 .sidebar li.profile .job {
   font-size: 15px;
   font-weight: 400;
-  color: #fff;
+  color: #344767;
   white-space: nowrap;
 }
 .sidebar li.profile .job {
@@ -242,17 +231,17 @@ section {
 }
 .home-section {
   position: relative;
-  background: #e4e9f7;
+  background: #f8f9fa;
   min-height: 100vh;
   top: 0;
-  left: 78px;
-  width: calc(100% - 78px);
+  left: 80px;
+  width: calc(100% - 80px);
   transition: all 0.5s ease;
   z-index: 2;
 }
 .sidebar.open ~ .home-section {
-  left: 250px;
-  width: calc(100% - 250px);
+  left: 270px;
+  width: calc(100% - 270px);
 }
 .home-section .text {
   display: inline-block;
@@ -392,19 +381,20 @@ img.img-circle {
 }
 
 .draggable-row-container .drag-body {
-  background-color: #212529;
-  color: white;
+  background-color: #fff;
+  color: #344767;
 }
 .draggable-row-container .draggable {
   padding: 1rem;
   cursor: move;
 }
 .draggable-row-container .draggable:hover {
-  border-color: white;
+  border-color: #344767;
   border-style: dashed;
 }
 .draggable-row-container .card {
-  background-color: #212529;
+  background-color: #fff;
+  color: #344767;
 }
 .draggable.dragging {
   border-color: white;

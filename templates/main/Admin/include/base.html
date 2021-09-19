@@ -51,8 +51,8 @@
     {% url 'onboarding' as the_url3 %}
     {% url 'rejectedapp' as the_url4 %}
     {% url 'adminUsers' as the_url5 %}
-    {% url 'setting' as the_url6 %}
-    <div class="sidebar open">
+    {% url 'websetting' as the_url6 %}
+    <div class="sidebar open border-end">
         <div class="logo-details">
             <!-- <i class="bx bxl-c-plus-plus icon"></i> -->
             <img src="{% static 'assets/img/logos.png' %}" alt="" srcset="" class="icon" width="50px" height="50px">
@@ -60,11 +60,6 @@
             <i class="bx bx-menu-alt-right" id="btn"></i>
         </div>
         <ul class="nav-list">
-            <li>
-                <i class="bx bx-search"></i>
-                <input type="text" placeholder="Search..." />
-                <span class="tooltip">Search</span>
-            </li>
             <li>
 
                 {% if request.path == the_url1%}
@@ -87,6 +82,7 @@
             <li>
                 {% if request.path == the_url2%}
                 <a href="{% url 'applicantmanagement'%}" class="active">
+
                     <i class="bx bx-folder"></i>
                     <span class="links_name">Applicant Management</span>
                 </a>
@@ -118,14 +114,13 @@
 
             <li>
                 {% if request.path == the_url3%}
-                <a href="{% url 'onboarding'%}" class="active">
-                    <i class="bi bi-person-lines-fill"></i>
+                <a href="{% url 'onboarding'%}" class="active"><i class="bi bi-person-check"></i>
                     <span class="links_name">Onboarding Applicants</span>
                 </a>
                 <span class="tooltip">Onboarding Applicants</span>
                 {% else %}
                 <a href="{% url 'onboarding'%}">
-                    <i class="bi bi-person-lines-fill"></i>
+                    <i class="bi bi-person-check"></i>
                     <span class="links_name">Onboarding Applicants</span>
                 </a>
                 <span class="tooltip">Onboarding Applicants</span>
@@ -205,7 +200,7 @@
             </li>
             {% endif %}
 
-            <li class="profile">
+            <li class="profile border-end border-top">
                 <a href="{% url 'updateProfile' request.user.id %}" style="border:none; background-color:transparent;">
                     <div class="profile-details">
                         <img src="{{request.user.profile_image.url}}" alt="profileImg" />
@@ -217,7 +212,7 @@
                         </div>
                     </div>
                 </a>
-                <a class="bx bx-log-out" id="log_out" href="{% url 'logout'%}" style="color:white; padding-left: 10px;"></a>
+                <a class="bx bx-log-out" id="log_out" href="{% url 'logout'%}" style="color:#344767; padding-left: 10px;"></a>
             </li>
         </ul>
     </div>
