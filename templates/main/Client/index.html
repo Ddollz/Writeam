@@ -15,6 +15,14 @@
       <div class="card shadow" style="height: auto;">
         <div class="card-body">
           <div class="profilehero fw-bold fs-2">
+            {% if not request.user.jobapplication.jobAccepted == 'None' %}
+
+
+            <h2 class="text-center"><span class="fw-bold"> Congratulations!</span> <br> Welcome our newest member in WriTeam!</h2>
+
+            {% endif %}
+
+
             <img class="img-circle" src="{{request.user.personaldetails.profile_image.url}}" draggable="false" />
             {{request.user.personaldetails.fname}}
             {{request.user.personaldetails.lname}}
@@ -58,8 +66,10 @@
               {{request.user.last_login}}
             </div>
           </div>
+          {% if request.user.jobapplication.jobAccepted == 'None' %}
           <div class="row mt-2">
             <div class="col">
+
               <div class="fw-bold">Progress</div>
               {{request.user.jobapplication.progress}}
               {% if request.user.jobapplication.is_validated %}
@@ -86,6 +96,8 @@
           <div class="border" style=" padding: 10px; background-color: rgb(241, 241, 241);">
             {{request.user.jobapplication.remarks}}
           </div>
+          {% endif %}
+
         </div>
       </div>
     </div>
