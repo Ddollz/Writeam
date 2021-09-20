@@ -4,6 +4,10 @@ from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.forms import inlineformset_factory
 from numpy.lib.function_base import append
+from django.core.mail import EmailMessage
+from django.conf import settings
+from django.template.loader import render_to_string
+from django.contrib.sites.shortcuts import get_current_site
 
 from accounts.models import accounts
 from system.models import *
@@ -171,6 +175,19 @@ def resume(request):
             formapp.translator = calculatorScore(
                 summarySimmilarity[2], skillSimmilarity[2], expSimmilarity1[2], expSimmilarity2[2])
             formapp.save()
+
+            current_site = get_current_site(request)
+            template = render_to_string(
+                'main/Emails/ResumeSuccess.html', {'name':  request.user.username, 'domain': current_site})
+            email = EmailMessage(
+                'WriTeam: Thank you for Applying the Writeam!',
+                template,
+                settings.EMAIL_HOST_USER,
+                [request.user.email]
+            )
+            email.fail_silently = False
+            email.send()
+
             return redirect('/')
         else:
             print(formset1.errors)
