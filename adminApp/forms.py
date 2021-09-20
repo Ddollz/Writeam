@@ -32,5 +32,6 @@ class applicantScoreForm(ModelForm):
             'copywriter': forms.HiddenInput(),
             'editor': forms.HiddenInput(),
             'translator': forms.HiddenInput(),
+            'jobAccepted': forms.HiddenInput(),
         }
         fields = '__all__'

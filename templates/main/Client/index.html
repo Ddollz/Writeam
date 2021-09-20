@@ -62,6 +62,23 @@
             <div class="col">
               <div class="fw-bold">Progress</div>
               {{request.user.jobapplication.progress}}
+              {% if request.user.jobapplication.is_validated %}
+
+              {% if user.jobapplication.copywriterfinal >= 80 %}
+              <a href="{% url 'jobaccept' 1%}">
+                <i class="bi bi-people-fill" style="color: #3498db"></i> Copy Writer
+              </a>
+              {% endif %}
+              {% if user.jobapplication.editorfinal >= 80 %}
+              <a href="{% url 'jobaccept' 2%}"><i class="bi bi-pencil-square" style="color: #3498db"></i> Editor </a>
+              {% endif %}
+              {% if user.jobapplication.translatorfinal >= 80 %}
+              <a href="{% url 'jobaccept' 3%}">
+                <i class="bi bi-translate" style="color: #3498db"></i> Translator
+              </a>
+              {% endif %}
+              {% endif %}
+
             </div>
           </div>
           <div class="fw-bold">

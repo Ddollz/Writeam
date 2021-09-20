@@ -94,9 +94,9 @@ class jobAppAdmin(admin.ModelAdmin):
                     'is_editor', 'editor', 'editorfinal',
                     'is_translator', 'translator', 'translatorfinal',
                     'article',
-                    'dateSubmit', 'submitApplication')
+                    'dateSubmit', 'submitApplication', 'jobAccepted')
     readonly_fields = ('id', 'dateSubmit',)
-    search_fields = ('jobTitle', 'submitApplication')
+    search_fields = ('jobTitle', 'submitApplication', 'jobAccepted')
     fieldsets = (
     )
     add_fieldsets = (

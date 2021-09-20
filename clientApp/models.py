@@ -62,6 +62,9 @@ class jobapplication(models.Model):
     progress = models.CharField(
         max_length=255, default='Writeam Staff\'s are reviewing your applications', null=True, blank=True)
 
+    jobAccepted = models.CharField(verbose_name="Accepted Job",
+                                   max_length=255, default='None', null=True, blank=True)
+
     submitApplication = models.BooleanField(default=False)
     dateSubmit = models.DateTimeField(
         verbose_name="Date Submit", auto_now=True)

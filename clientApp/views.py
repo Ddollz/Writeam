@@ -219,6 +219,16 @@ def resume(request):
     return render(request, 'main/Client/resume.html', context)
 
 
+def jobaccept(request, pk1):
+    user = jobapplication.objects.get(accounts=request.user)
+    if user.jobAccepted == 'None':
+        if pk1 == 2:
+            user.jobAccepted = "Editor"
+            user.save()
+            print("test")
+    return redirect('/')
+
+
 def checksimilarity(textarray):
     array = []
     vectorizer = CountVectorizer()

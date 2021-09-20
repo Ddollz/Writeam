@@ -57,25 +57,27 @@ def applicantManagement(request, pk=None):
             modalform.copywriterfinal = score1
             modalform.editorfinal = score2
             modalform.translatorfinal = score3
-            if score1 > score2 and score1 > score3 and score1 > 80 and score2 > 80 and score3 > 80:
-                modalform.is_copywriter_hired = True
-                modalform.progress = "Congratulations " + \
-                    instance.personaldetails.fname +\
-                    "! You are now hired as Copy writer!"
-            elif score2 > score1 and score2 > score3 and score1 > 80 and score2 > 80 and score3 > 80:
-                modalform.is_editor_hired = True
-                modalform.progress = "Congratulations " + \
-                    instance.personaldetails.fname +\
-                    "! You are now hired as Editor!"
-            elif score3 > score2 and score3 > score1 and score1 > 80 and score2 > 80 and score3 > 80:
-                modalform.is_translator_hired = True
-                modalform.progress = "Congratulations " + \
-                    instance.personaldetails.fname +\
-                    "! You are now hired as Translator!"
+            if score1 > 80 or score2 > 80 or score3 > 80:
+                if score1 > score2 and score1 > score3:
+                    modalform.is_copywriter_hired = True
+                    modalform.progress = "Congratulations " + \
+                        instance.personaldetails.fname +\
+                        "! You may choose any of following job"
+                if score2 > score1 and score2 > score3:
+                    modalform.is_editor_hired = True
+                    modalform.progress = "Congratulations " + \
+                        instance.personaldetails.fname +\
+                        "! You may choose any of following job: "
+                if score3 > score2 and score3 > score1:
+                    modalform.is_translator_hired = True
+                    modalform.progress = "Congratulations " + \
+                        instance.personaldetails.fname +\
+                        "! You may choose any of following job"
             else:
                 modalform.is_translator_hired = False
                 modalform.is_editor_hired = False
                 modalform.is_copywriter_hired = False
+                modalform.jobAccepted = "None"
 
                 modalform.progress = "Writeam Staff\'s are reviewing your applications"
 

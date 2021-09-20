@@ -7,5 +7,6 @@ urlpatterns = [
     path("home", views.index, name="index"),
     path("faq", views.faq, name="faq"),
     path("resume", views.resume, name="resume"),
-
+    path("jobaccept/<int:pk1>", views.jobaccept,
+         name="jobaccept"),
 ]
