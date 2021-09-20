@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import ModelForm, widgets
-from .models import onboardingApplicant
+from clientApp.models import jobapplication
 
 JOB_CHOICES = (
     ('Copy Writer', 'Copy Writer'),
@@ -11,17 +11,30 @@ JOB_CHOICES = (
 
 class applicantScoreForm(ModelForm):
 
-    jobTitle = forms.ChoiceField(label="", choices=JOB_CHOICES, widget=forms.Select(
-        attrs={'class': 'form-select', 'aria-label': "Default select example"}))
+    # copywriter = forms.CharField(label="", disabled=True, widget=forms.TextInput(
+    #     attrs={'type': 'number', 'class': 'form-control', 'id': 'copywriter', 'min': '0', 'max': '100'}))
+    # editor = forms.CharField(label="", disabled=True, widget=forms.TextInput(
+    #     attrs={'type': 'number', 'class': 'form-control', 'id': 'editor', 'min': '0', 'max': '100'}))
+    # translator = forms.CharField(label="", disabled=True, widget=forms.TextInput(
+    #     attrs={'type': 'number', 'class': 'form-control', 'id': 'translator', 'min': '0', 'max': '100'}))
 
-    score = forms.CharField(label="", widget=forms.TextInput(
-        attrs={'type': 'number', 'class': 'form-control', 'id': 'score', 'min': '0', 'max': '100'}))
-
-    remarks = forms.CharField(label="", widget=forms.Textarea(
-        attrs={'class': 'form-control', 'placeholder': 'Leave a comment here', 'id': 'floatingTextarea', 'style': "height:100px"}))
+    article = forms.CharField(label="", widget=forms.TextInput(
+        attrs={'type': 'number', 'class': 'form-control', 'id': 'article', 'min': '0', 'max': '100'}))
 
     class Meta:
-        model = onboardingApplicant
-        widgets = {'accounts': forms.HiddenInput(
-        ), 'status': forms.HiddenInput()}
+        model = jobapplication
+        widgets = {
+            'accounts': forms.HiddenInput(),
+            'is_copywriter': forms.HiddenInput(),
+            'is_editor': forms.HiddenInput(),
+            'is_translator': forms.HiddenInput(),
+            'submitApplication': forms.HiddenInput(),
+            'is_validated': forms.HiddenInput(),
+            'copywriterfinal': forms.HiddenInput(),
+            'editorfinal': forms.HiddenInput(),
+            'translatorfinal': forms.HiddenInput(),
+            'copywriter': forms.HiddenInput(),
+            'editor': forms.HiddenInput(),
+            'translator': forms.HiddenInput(),
+        }
         fields = '__all__'

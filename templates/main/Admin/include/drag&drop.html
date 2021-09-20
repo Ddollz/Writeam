@@ -1,65 +1,62 @@
-<div class="row draggable-row-container mb-5">
-    <div class="container">
-        <div class="row">
-            <div class="col">
-                <div class="card shadow">
-                    <div class="card-body drag-body screening Writer">
-                        <div class="card-title text-start text-uppercase fw-bold">Copy Writer<span class="float-end count" id="span1">0/10</span></div>
-                        <hr>
-                        {% for user in randomApplicants%}
-                        {% if user.onboardingapplicant.jobTitle == '' and user.article.article.url != None and user.jobapplication.is_copywriter%}
-                        <p class="draggable" draggable="true" data-url="{% url 'applicantmanagement' user.id %}">
+<div class="row draggable-row-container mb-5" style="background-color: transparent;">
+    <div class="col" style="background-color: transparent;">
+        <div class="card shadow">
+            <div class="card-body drag-body screening">
+                <div class="card-title text-start text-uppercase fw-bold">Job Matching<span class="float-end count" id="span1">0/10</span></div>
+
+                <hr>
+                {% for user in randomApplicants%}
+                {% if not user.jobapplication.is_validated%}
+
+                {% if user.onboardingapplicant.jobTitle == '' and user.article.article.url != None %}
+
+                <div class="draggable " draggable="true" data-url="{% url 'applicantmanagement' user.id %}">
+                    <div class="row">
+                        <div class="col-1">
                             <img class="img-circle" src="{{user.personaldetails.profile_image.url}}" alt="profileImg" />
-                            {{user}} {{user.onboardingapplicant.score}}
-                            <a type="button" class="btn float-end addScore" href="{%url 'applicantmanagement' user.id %}" style="display:none;">Edit Score</a>
-                            <a type="button" class="btn float-end viewScore" href="{%url 'applicantmanagement' user.id %}" style="display:none;">View Score</a>
-                        </p>
-                        {% endif%}
-                        {%endfor%}
+                        </div>
+                        <div class="col">
+                            <p class="mb-0" style="font-weight:600">{{user}}</p>
+                            <p class="mb-0 text-secondary " style="font-size: 12px;">{{user.email}}</p>
+                        </div>
+
+                        <div class="col">
+                            <p class="mb-0 " style="font-weight:600;">Copy Writer</p>
+                            <p class="mb-0 text-secondary " style="font-size: 12px;">
+                                {% if user.jobapplication.copywriter < 40 %} <span style="color: #e74c3c;">{{user.jobapplication.copywriter}}/100</span>
+                                    {% elif user.jobapplication.copywriter >= 40%}
+                                    <span style="color: #f1c40f;">{{user.jobapplication.copywriter}}/100</span>
+                                    {% endif %}
+                            </p>
+                        </div>
+                        <div class="col">
+                            <p class="mb-0 " style="font-weight:600;">Editor</p>
+                            <p class="mb-0 text-secondary " style="font-size: 12px;">
+                                {% if user.jobapplication.editor < 40 %} <span style="color: #e74c3c;">{{user.jobapplication.editor}}/100</span>
+                                    {% elif user.jobapplication.editor >= 40%}
+                                    <span style="color: #f1c40f;">{{user.jobapplication.editor}}/100</span>
+                                    {% endif %}
+                            </p>
+                        </div>
+                        <div class="col">
+                            <p class="mb-0 " style="font-weight:600;">Translator</p>
+                            <p class="mb-0 text-secondary " style="font-size: 12px;">
+                                {% if user.jobapplication.translator < 40 %} <span style="color: #e74c3c;">{{user.jobapplication.translator}}/100</span>
+                                    {% elif user.jobapplication.translator >= 40%}
+                                    <span style="color: #f1c40f;">{{user.jobapplication.translator}}/100</span>
+                                    {% endif %}
+                            </p>
+                        </div>
+                        <div class="col align-self-center">
+                            <a type="button" class="btn addScore" href="{%url 'applicantmanagement' user.id %}" style="display:none;">Edit Score</a>
+                            <a type="button" class="btn viewScore" href="{%url 'applicantmanagement' user.id %}" style="display:none;">View Score</a>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="col">
-                <div class="card shadow">
-                    <div class="card-body drag-body screening Translator">
-                        <div class="card-title text-start text-uppercase fw-bold">Translator<span class="float-end count" id="span3">1/10</span></div>
-                        <hr>
-
-                        {% for user in randomApplicants%}
-                        {% if user.onboardingapplicant.jobTitle == '' and user.article.article.url != None and user.jobapplication.is_translator %}
-                        <p class="draggable" draggable="true" data-url="{% url 'applicantmanagement' user.id %}">
-                            <img class="img-circle" src="{{user.personaldetails.profile_image.url}}" alt="profileImg" />
-                            {{user}} {{user.onboardingapplicant.score}}
-                            <a type="button" class="btn float-end addScore" href="{%url 'applicantmanagement' user.id %}" style="display:none;">Edit Score</a>
-                            <a type="button" class="btn float-end viewScore" href="{%url 'applicantmanagement' user.id %}" style="display:none;">View Score</a>
-                        </p>
-
-                        {% endif%}
-                        {%endfor%}
-                    </div>
-                </div>
-            </div>
-
-            <div class="col">
-                <div class="card shadow">
-                    <div class="card-body drag-body screening Editor">
-                        <div class="card-title text-start text-uppercase fw-bold">Editor<span class="float-end count" id="span3">1/10</span></div>
-                        <hr>
-
-                        {% for user in randomApplicants%}
-                        {% if user.onboardingapplicant.jobTitle == '' and user.article.article.url != None and user.jobapplication.is_editor %}
-                        <p class="draggable" draggable="true" data-url="{% url 'applicantmanagement' user.id %}">
-                            <img class="img-circle" src="{{user.personaldetails.profile_image.url}}" alt="profileImg" />
-                            {{user}} {{user.onboardingapplicant.score}}
-                            <a type="button" class="btn float-end addScore" href="{%url 'applicantmanagement' user.id %}" style="display:none;">Edit Score</a>
-                            <a type="button" class="btn float-end viewScore" href="{%url 'applicantmanagement' user.id %}" style="display:none;">View Score</a>
-                        </p>
-
-                        {% endif%}
-                        {%endfor%}
-                    </div>
-                </div>
+                {% endif%}
+                {% endif%}
+                {%endfor%}
             </div>
         </div>
     </div>
@@ -76,16 +73,52 @@
                 <hr>
 
                 {% for user in randomApplicants%}
-                {% if user.onboardingapplicant.jobTitle != '' and user.onboardingapplicant.score >= 80 %}
+                {% if user.jobapplication.is_validated%}
 
-                <p class="draggable" draggable="true" data-url="{% url 'applicantmanagement' user.id %}">
-                    <img class="img-circle" src="{{user.personaldetails.profile_image.url}}" alt="profileImg" />
-                    {{user}} {{user.onboardingapplicant.score}}/100
-                    <a type="button" class="btn float-end addScore" href="{%url 'applicantmanagement' user.id %}" style="display:none;">Add Score</a>
-                    <a type="button" class="btn float-end viewScore" href="{%url 'applicantmanagement' user.id %}" style="display:none;">View Score</a>
-                </p>
+                {% if user.jobapplication.copywriterfinal >= 80 or user.jobapplication.editorfinal >= 80 or user.jobapplication.translatorfinal >= 80 %}
 
+                <div class="draggable " draggable="true" data-url="{% url 'applicantmanagement' user.id %}">
+                    <div class="row">
+                        <div class="col-1">
+                            <img class="img-circle" src="{{user.personaldetails.profile_image.url}}" alt="profileImg" />
+                        </div>
+                        <div class="col align-self-center">
+                            {{user}}
 
+                        </div>
+
+                        <div class="col align-self-center">
+
+                            {%if user.jobapplication.copywriterfinal >= 80%}
+                            <p class="mb-0 " style="font-weight:600;">Copy Writer</p>
+                            <p class="mb-0 text-secondary " style="font-size: 12px;"><span style="color: #2ecc71;">{{user.jobapplication.copywriterfinal}}/100</span></p>
+
+                            {% endif %}
+                        </div>
+
+                        <div class="col align-self-center">
+
+                            {%if user.jobapplication.editorfinal >= 80%}
+                            <p class="mb-0 " style="font-weight:600;">Editor</p>
+                            <p class="mb-0 text-secondary " style="font-size: 12px;"><span style="color: #2ecc71">{{user.jobapplication.editorfinal}}/100</span></p>
+                            {% endif %}
+                        </div>
+
+                        <div class="col align-self-center">
+                            {%if user.jobapplication.translatorfinal >= 80%}
+                            <p class="mb-0 " style="font-weight:600;">Translator</p>
+                            <p class="mb-0 text-secondary " style="font-size: 12px;"><span style="color: #2ecc71;">{{user.jobapplication.translatorfinal}}/100</span></p>
+                            {% endif %}
+                        </div>
+
+                        <div class="col align-self-center">
+                            <a type="button" class="btn viewScore" href="{%url 'applicantmanagement' user.id %}">Edit</a>
+                        </div>
+
+                    </div>
+                </div>
+
+                {% endif%}
                 {% endif%}
                 {%endfor%}
             </div>
@@ -98,20 +131,70 @@
             <div class="card-body drag-body repreview">
                 <div class="card-title text-start text-uppercase fw-bold">Rejected Applicants<span class="float-end count" id="span3">1/10</span></div>
                 <hr>
-
                 {% for user in randomApplicants%}
-                {% if user.onboardingapplicant.jobTitle != '' and user.onboardingapplicant.score <= 79 %} <!-- Failing applicant -->
-                    <p class="draggable" draggable="true" data-url="{% url 'applicantmanagement' user.id %}">
-                        <img class="img-circle" src="{{user.personaldetails.profile_image.url}}" alt="profileImg" />
-                        {{user}} {{user.onboardingapplicant.score}}/100
-                        <a type="button" class="btn btn-dark float-end addScore" href="{%url 'applicantmanagement' user.id %}" style="display:none;">Add Score</a>
-                        <a type="button" class="btn btn-dark float-end viewScore" href="{%url 'applicantmanagement' user.id %}" style="display:none;">View Score</a>
-                    </p>
+                {% if user.jobapplication.is_validated%}
+                {% if user.jobapplication.copywriterfinal < 80 and user.jobapplication.editorfinal < 80 and user.jobapplication.translatorfinal < 80%} <div class="draggable " draggable="true" data-url="{% url 'applicantmanagement' user.id %}">
+                    <div class="row">
+                        <div class="col-1">
+                            <img class="img-circle" src="{{user.personaldetails.profile_image.url}}" alt="profileImg" />
+                        </div>
+                        <div class="col align-self-center">
+                            {{user}}
 
-                    {% endif%}
-                    {%endfor%}
+                        </div>
+
+                        <div class="col align-self-center">
+
+                            {%if user.jobapplication.copywriterfinal < 80%} <p class="mb-0 " style="font-weight:600;">Copy Writer</p>
+                                <p class="mb-0 text-secondary " style="font-size: 12px;">
+
+                                    {% if user.jobapplication.copywriterfinal < 40 %} <span style="color: #e74c3c;">{{user.jobapplication.copywriterfinal}}/100</span>
+                                        {% elif user.jobapplication.copywriterfinal >= 40%}
+                                        <span style="color: #f1c40f;">{{user.jobapplication.copywriterfinal}}/100</span>
+                                        {% endif %}
+
+                                </p>
+                                {% endif %}
+                        </div>
+
+                        <div class="col align-self-center">
+
+                            {%if user.jobapplication.editorfinal < 80%} <p class="mb-0 " style="font-weight:600;">Editor</p>
+                                <p class="mb-0 text-secondary " style="font-size: 12px;">
+
+                                    {% if user.jobapplication.editorfinal < 40 %} <span style="color: #e74c3c;">{{user.jobapplication.editorfinal}}/100</span>
+                                        {% elif user.jobapplication.editorfinal >= 40%}
+                                        <span style="color: #f1c40f;">{{user.jobapplication.editorfinal}}/100</span>
+                                        {% endif %}
+                                </p>
+
+                                {% endif %}
+                        </div>
+
+                        <div class="col align-self-center">
+                            {%if user.jobapplication.translatorfinal < 80%} <p class="mb-0 " style="font-weight:600;">Translator</p>
+                                <p class="mb-0 text-secondary " style="font-size: 12px;">
+                                    {% if user.jobapplication.translatorfinal < 40 %} <span style="color: #e74c3c;">{{user.jobapplication.translatorfinal}}/100</span>
+                                        {% elif user.jobapplication.translatorfinal >= 40%}
+                                        <span style="color: #f1c40f;">{{user.jobapplication.translatorfinal}}/100</span>
+                                        {% endif %}
+                                </p>
+                                {% endif %}
+                        </div>
+
+                        <div class="col align-self-center">
+                            <a type="button" class="btn viewScore" href="{%url 'applicantmanagement' user.id %}">Edit</a>
+                        </div>
+
+                    </div>
             </div>
-            <a href="#" class="btn float-end border-top">Submit All</a>
+
+            {% endif%}
+            {% endif%}
+            {%endfor%}
+
         </div>
+        <a href="#" class="btn float-end border-top">Submit All</a>
     </div>
+</div>
 </div>

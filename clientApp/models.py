@@ -31,6 +31,7 @@ class jobapplication(models.Model):
     is_copywriter = models.BooleanField(default=False)
     is_editor = models.BooleanField(default=False)
     is_translator = models.BooleanField(default=False)
+    is_validated = models.BooleanField(default=False)
 
     copywriter = models.PositiveIntegerField(verbose_name="Copywriter Score",
                                              validators=[MaxValueValidator(100)], default=0, null=True, blank=True)
@@ -41,6 +42,16 @@ class jobapplication(models.Model):
     translator = models.PositiveIntegerField(verbose_name="Translator Score",
                                              validators=[MaxValueValidator(100)], default=0, null=True, blank=True)
 
+    article = models.PositiveIntegerField(verbose_name="Article Score",
+                                          validators=[MaxValueValidator(100)], default=0, null=True, blank=True)
+    copywriterfinal = models.PositiveIntegerField(verbose_name="Copywriter final Score",
+                                                  validators=[MaxValueValidator(100)], default=0, null=True, blank=True)
+
+    editorfinal = models.PositiveIntegerField(verbose_name="Editor final Score",
+                                              validators=[MaxValueValidator(100)], default=0, null=True, blank=True)
+
+    translatorfinal = models.PositiveIntegerField(verbose_name="Translator final Score",
+                                                  validators=[MaxValueValidator(100)], default=0, null=True, blank=True)
     submitApplication = models.BooleanField(default=False)
     dateSubmit = models.DateTimeField(
         verbose_name="Date Submit", auto_now=True)

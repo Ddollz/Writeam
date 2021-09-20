@@ -4,7 +4,7 @@ from django.db.models.functions import Lower
 from django.db.models import Count, Sum, Avg
 from accounts.decorators import unauthenticated_user, allowed_users
 from accounts.models import accounts
-from clientApp.models import personalDetails, employmentHistory, education, skill, link, reference
+from clientApp.models import personalDetails, employmentHistory, education, skill, link, reference, jobapplication
 from .models import onboardingApplicant
 from .forms import *
 import random
@@ -39,22 +39,23 @@ def applicantManagement(request, pk=None):
         counterList = len(userList)
     random_items = random.sample(userList, counterList)
     # ?/end/
-
-    modalform = applicantScoreForm()
     if request.method == 'POST':
 
         instance = accounts.objects.get(id=pk)
-        user = onboardingApplicant.objects.filter(
-            accounts=instance).first()
+        user = jobapplication.objects.get(accounts=instance)
         modalform = applicantScoreForm(request.POST, instance=user)
         # print(modalform)
         if modalform.is_valid():
-            score = modalform.cleaned_data['score']
+            score4 = modalform.cleaned_data['article']
+            tempscore = int(score4)/10*3
+            score1 = int(user.copywriter) + tempscore
+            score2 = int(user.editor) + tempscore
+            score3 = int(user.translator) + tempscore
             modalform = modalform.save(commit=False)
-            if int(score) > 80:
-                modalform.status = 'PASSED'
-            else:
-                modalform.status = 'FAILED'
+            modalform.copywriterfinal = score1
+            modalform.editorfinal = score2
+            modalform.translatorfinal = score3
+            modalform.is_validated = True
             modalform.save()
             return redirect('applicantmanagement')
         else:
@@ -66,16 +67,13 @@ def applicantManagement(request, pk=None):
     else:
 
         instance = accounts.objects.get(id=pk)
-        if onboardingApplicant.objects.filter(accounts=instance).exists():
-            user = onboardingApplicant.objects.filter(
-                accounts=instance).first()
-            print(user)
-            modalform = applicantScoreForm(instance=user)
-        else:
-            modalform = applicantScoreForm(
-                initial={'accounts': pk, 'status': 'NONE'})
+        jobappInstance = jobapplication.objects.get(accounts=instance)
+        modalform = applicantScoreForm(instance=jobappInstance)
+
         context = {'applicantList': users,
-                   'randomApplicants': random_items, 'instance': instance, 'modalform': modalform}
+                   'randomApplicants': random_items,
+                   'instance': instance, 'jobappInstance': jobappInstance,
+                   'modalform': modalform}
         return render(request, 'main/Admin/applicantstatus.html', context)
 
 # ! for tommorow
@@ -88,80 +86,10 @@ def applicantManagement(request, pk=None):
 def onboarding(request, pk=None):
 
     users = accounts.objects.all()
-    clients = accounts.objects.filter(groups__name='Clients')
-    # ? Getting all the onboarding applicant
-    onboardApplicants = onboardingApplicant.objects.filter(
-        accounts__id__in=clients).filter(
-        status='PASSED').values_list('accounts', flat=True)
-    getIDOnboarding = list(onboardApplicants)
-
-    # ? Get avarage onboarding Applicants
-    avgScore = onboardingApplicant.objects.filter(
-        accounts__id__in=getIDOnboarding).filter(
-        status='PASSED').aggregate(Avg('score'))
-    print(avgScore)
-
-    # ? Get the city data from resume
-    cities = personalDetails.objects.filter(
-        accounts__id__in=getIDOnboarding).filter(city__isnull=False).annotate(handle_lower=Lower("city")).values('handle_lower').annotate(the_count=Count('city')).values_list('handle_lower', 'the_count')
-    maxPerCity = 0
-    # ? GET THE MAX VALUE FOR CHARTS
-    for name, value in cities:
-        maxPerCity += value
-
-    # ? Countclients
-    countClient = len(getIDOnboarding)
-    countWriter = onboardingApplicant.objects.filter(
-        jobTitle='Copy Writer').filter(status='PASSED').count()
-    countTrans = onboardingApplicant.objects.filter(
-        jobTitle='Editor').filter(status='PASSED').count()
-    countEditor = onboardingApplicant.objects.filter(
-        jobTitle='Translator').filter(status='PASSED').count()
-
-    modalform = applicantScoreForm()
-    if request.method == 'POST':
-
-        instance = accounts.objects.get(id=pk)
-        user = onboardingApplicant.objects.filter(
-            accounts=instance).first()
-        modalform = applicantScoreForm(request.POST, instance=user)
-        # print(modalform)
-        if modalform.is_valid():
-            score = modalform.cleaned_data['score']
-            modalform = modalform.save(commit=False)
-            if int(score) > 80:
-                modalform.status = 'PASSED'
-            else:
-                modalform.status = 'FAILED'
-            modalform.save()
-            return redirect('applicantmanagement')
-        else:
-            print(modalform.errors)
 
     if pk is None:
         context = {'applicantList': users,
-                   'countclient': countClient, 'countWriter': countWriter,
-                   'countTrans': countTrans, 'countEditor': countEditor,
-                   'cities': cities, 'maxPerCity': maxPerCity,
-                   'avgScore': avgScore
                    }
-        return render(request, 'main/Admin/onboarding.html', context,)
-    else:
-
-        instance = accounts.objects.get(id=pk)
-        if onboardingApplicant.objects.filter(accounts=instance).exists():
-            user = onboardingApplicant.objects.filter(
-                accounts=instance).first()
-            print(user)
-            modalform = applicantScoreForm(instance=user)
-        else:
-            modalform = applicantScoreForm(
-                initial={'accounts': pk, 'status': 'NONE'})
-        context = {'applicantList': users,
-                   'instance': instance, 'modalform': modalform,
-                   'countclient': countClient, 'countWriter': countWriter,
-                   'countTrans': countTrans, 'countEditor': countEditor,
-                   'cities': cities, 'maxPerCity': maxPerCity}
         return render(request, 'main/Admin/onboarding.html', context)
 
 

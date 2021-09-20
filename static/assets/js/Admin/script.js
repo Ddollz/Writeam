@@ -31,19 +31,8 @@ $(document).ready(function () {
         if (container.classList.contains("screening") && getViewButtons && getAddButtons) {
             var index = 0, length = getAddButtons.length;
             for (; index < length; index++) {
-                getViewButtons[index].style.display = "Block";
-            }
-        } else if (container.classList.contains("onboarding") && getViewButtons && getAddButtons) {
-            var index = 0, length = getAddButtons.length;
-            for (; index < length; index++) {
-                getAddButtons[index].style.display = "None";
-                getViewButtons[index].style.display = "Block";
-            }
-        } else if (container.classList.contains("repreview") && getViewButtons && getAddButtons) {
-            var index = 0, length = getAddButtons.length;
-            for (; index < length; index++) {
-                getAddButtons[index].style.display = "None";
-                getViewButtons[index].style.display = "Block";
+                getAddButtons[index].style.display = "Block";
+                getViewButtons[index].style.display = "None";
             }
         }
     })
@@ -61,9 +50,10 @@ $(document).ready(function () {
                 location.replace(url)
             }
             else if (draggable.parentElement.classList.contains('repreview')) {
-                console.log(draggable)
                 var url = draggable.getAttribute("data-url");
-                // console.log(draggable.parentElement)
+                location.replace(url)
+            } else if (draggable.parentElement.classList.contains('screening')) {
+                var url = draggable.getAttribute("data-url");
                 location.replace(url)
             }
 
@@ -74,13 +64,14 @@ $(document).ready(function () {
                 const getSpanCounter = container.querySelector('.count');
                 getSpanCounter.innerHTML = countDraggableInContainer.length + "/10";
 
+                const getAddButtons = container.querySelectorAll('.addScore');
                 const getViewButtons = container.querySelectorAll('.viewScore');
 
                 if (container.classList.contains("screening") && getViewButtons && getAddButtons) {
                     var index = 0, length = getAddButtons.length;
                     for (; index < length; index++) {
                         getAddButtons[index].style.display = "Block";
-                        getViewButtons[index].style.display = "Block";
+                        getViewButtons[index].style.display = "None";
                     }
                 } else if (container.classList.contains("onboarding") && getViewButtons && getAddButtons) {
                     var index = 0, length = getAddButtons.length;

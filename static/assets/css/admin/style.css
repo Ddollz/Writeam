@@ -381,7 +381,7 @@ img.img-circle {
 }
 
 .draggable-row-container .drag-body {
-  background-color: #fff;
+  /* background-color: #fff; */
   color: #344767;
 }
 .draggable-row-container .draggable {
@@ -394,6 +394,7 @@ img.img-circle {
 }
 .draggable-row-container .card {
   background-color: #fff;
+  border-radius: 30px;
   color: #344767;
 }
 .draggable.dragging {
@@ -401,9 +402,12 @@ img.img-circle {
   border-style: dashed;
   opacity: 0.5;
 }
-.card-header {
-  background-color: white;
-  border: none;
+.shadow {
+  box-shadow: 0 0.5rem 2rem rgba(0, 0, 0, 0.15) !important;
+}
+
+.charts .card {
+  border-radius: 30px;
 }
 
 .print {
