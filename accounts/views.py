@@ -64,14 +64,14 @@ def signin(request):
             password = form.cleaned_data.get('password')
             user = authenticate(request, email=email,
                                 password=password)
+            if user is None:
+                return render(request, 'main/Client/Signin.html', {'form': form, 'errors': "Invalid Username or Password"})
+
             if not user.is_email_verified:
                 return render(request, 'main/Client/Signin.html', {'form': form, 'errors': "Email is not verified, Please check your email inbox"})
 
             if not user.is_active:
                 return render(request, 'main/Client/Signin.html', {'form': form, 'errors': "Account is not active, Please contact your Administrator"})
-
-            if user is None:
-                return render(request, 'main/Client/Signin.html', {'form': form, 'errors': "Invalid Username or Password"})
 
             login(request, user)
             group = user.groups.all()
