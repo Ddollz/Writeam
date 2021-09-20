@@ -3,11 +3,10 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.forms import inlineformset_factory
-from numpy.lib.function_base import append
-from django.core.mail import EmailMessage
 from django.conf import settings
 from django.template.loader import render_to_string
 from django.contrib.sites.shortcuts import get_current_site
+from .utils import send_html_mail
 
 from accounts.models import accounts
 from system.models import *
@@ -179,14 +178,16 @@ def resume(request):
             current_site = get_current_site(request)
             template = render_to_string(
                 'main/Emails/ResumeSuccess.html', {'name':  request.user.username, 'domain': current_site})
-            email = EmailMessage(
-                'WriTeam: Thank you for Applying the Writeam!',
-                template,
-                settings.EMAIL_HOST_USER,
-                [request.user.email]
-            )
-            email.fail_silently = False
-            email.send()
+            send_html_mail('WriTeam: Thank you for Applying the Writeam!', template, [
+                           request.user.email], settings.EMAIL_HOST_USER)
+            # email = EmailMessage(
+            #     'WriTeam: Thank you for Applying the Writeam!',
+            #     template,
+            #     settings.EMAIL_HOST_USER,
+            #     [request.user.email]
+            # )
+            # email.fail_silently = False
+            # email.send()
 
             return redirect('/')
         else:

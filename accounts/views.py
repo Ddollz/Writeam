@@ -4,29 +4,24 @@ from django.contrib.auth.models import Group
 from django.contrib.sites.shortcuts import get_current_site
 from django.template.loader import render_to_string
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
-from django.utils.encoding import force_bytes, force_str, force_text, DjangoUnicodeDecodeError
-from django.core.mail import EmailMessage
+from django.utils.encoding import force_bytes, force_text
 from django.conf import settings
 
 from .forms import clientFormReg, clientFormLogin, adminFormReg
 from .models import accounts
 from .decorators import unauthenticated_user
-from .utils import generate_token
+from .utils import generate_token, send_html_mail
 from clientApp.models import personalDetails, article, jobapplication
 # Create your views here.
 
 
 def set_activation_email(user, request):
     current_site = get_current_site(request)
-    email_subject = 'Writeam: Activate your account'
     email_body = render_to_string('authentication/activate.html', {
         'user': user, 'domain': current_site, 'uid': urlsafe_base64_encode(force_bytes(user.pk)),
         'token': generate_token.make_token(user)})
-
-    email = EmailMessage(subject=email_subject, body=email_body,
-                         from_email=settings.EMAIL_HOST_USER,
-                         to=[user.email])
-    email.send()
+    send_html_mail('Writeam: Activate your account', email_body, [
+        user.email], settings.EMAIL_HOST_USER)
 
 
 @ unauthenticated_user
