@@ -1,13 +1,10 @@
 {% extends 'main/Admin/include/base.html' %} {% load static%} {% block content%}
 <section class="home-section">
   <div class="container-fluid px-4">
-
-    <div class="card mb-3" style="background-color:transparent; border:none">
+    <div class="card mb-3" style="background-color: transparent; border: none">
       <div class="card-body text-center">
         <h1 class="fw-bold">Onboarding Applicants</h1>
-        <p class="fs-4">
-          Welcome Recruiters!
-        </p>
+        <p class="fs-4">Welcome Recruiters!</p>
       </div>
     </div>
     <div class="row charts">
@@ -54,7 +51,10 @@
         <div class="card mb-4 border-0 shadow">
           <div class="card-body">
             <div class="analytics-logo">
-              <i class="bi bi-file-earmark-zip-fill fs-1" style="color: #34495e"></i>
+              <i
+                class="bi bi-file-earmark-zip-fill fs-1"
+                style="color: #34495e"
+              ></i>
               <span class="fs-3 fw-bold ms-2 align-text-bottom">
                 {{countEditor}}
               </span>
@@ -99,9 +99,9 @@
       </div>
     </div>
     {% include 'main/Admin/include/applicantTable.html' %}
-
   </div>
-</section> {% endblock %} {% block scriptContent%}
+</section>
+{% endblock %} {% block scriptContent%}
 <script>
   $(document).ready(function () {
     var modaledit = "{{instance}}";

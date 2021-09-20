@@ -61,13 +61,13 @@
           <div class="row mt-2">
             <div class="col">
               <div class="fw-bold">Progress</div>
-              Writeam Staff's are reviewing your applications
+              {{request.user.jobapplication.progress}}
             </div>
           </div>
           <div class="fw-bold">
             Remarks:</div>
           <div class="border" style=" padding: 10px; background-color: rgb(241, 241, 241);">
-            wala kapa remarks!
+            {{request.user.jobapplication.remarks}}
           </div>
         </div>
       </div>
