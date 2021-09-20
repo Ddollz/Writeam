@@ -11,13 +11,6 @@ JOB_CHOICES = (
 
 class applicantScoreForm(ModelForm):
 
-    # copywriter = forms.CharField(label="", disabled=True, widget=forms.TextInput(
-    #     attrs={'type': 'number', 'class': 'form-control', 'id': 'copywriter', 'min': '0', 'max': '100'}))
-    # editor = forms.CharField(label="", disabled=True, widget=forms.TextInput(
-    #     attrs={'type': 'number', 'class': 'form-control', 'id': 'editor', 'min': '0', 'max': '100'}))
-    # translator = forms.CharField(label="", disabled=True, widget=forms.TextInput(
-    #     attrs={'type': 'number', 'class': 'form-control', 'id': 'translator', 'min': '0', 'max': '100'}))
-
     article = forms.CharField(label="", widget=forms.TextInput(
         attrs={'type': 'number', 'class': 'form-control', 'id': 'article', 'min': '0', 'max': '100'}))
 

@@ -44,13 +44,13 @@ class jobapplication(models.Model):
 
     article = models.PositiveIntegerField(verbose_name="Article Score",
                                           validators=[MaxValueValidator(100)], default=0, null=True, blank=True)
-    copywriterfinal = models.PositiveIntegerField(verbose_name="Copywriter final Score",
+    copywriterfinal = models.PositiveIntegerField(verbose_name="Copywriter FS",
                                                   validators=[MaxValueValidator(100)], default=0, null=True, blank=True)
 
-    editorfinal = models.PositiveIntegerField(verbose_name="Editor final Score",
+    editorfinal = models.PositiveIntegerField(verbose_name="Editor FS",
                                               validators=[MaxValueValidator(100)], default=0, null=True, blank=True)
 
-    translatorfinal = models.PositiveIntegerField(verbose_name="Translator final Score",
+    translatorfinal = models.PositiveIntegerField(verbose_name="Translator FS",
                                                   validators=[MaxValueValidator(100)], default=0, null=True, blank=True)
     submitApplication = models.BooleanField(default=False)
     dateSubmit = models.DateTimeField(
