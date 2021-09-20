@@ -2,6 +2,11 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.db.models.functions import Lower
 from django.db.models import Count, Sum, Avg
+from django.conf import settings
+from django.contrib.sites.shortcuts import get_current_site
+from django.template.loader import render_to_string
+
+from .utils import send_html_mail
 from accounts.decorators import unauthenticated_user, allowed_users
 from accounts.models import accounts
 from clientApp.models import personalDetails, employmentHistory, education, skill, link, reference, jobapplication
@@ -32,12 +37,9 @@ def applicantManagement(request, pk=None):
     users = accounts.objects.all()
 
     # ? generating random number for the userlist
-    userList = list(accounts.objects.filter(
-        groups__name='Clients'))
-    counterList = 10
-    if len(userList) < 10:
-        counterList = len(userList)
-    random_items = random.sample(userList, counterList)
+    userList = accounts.objects.filter(
+        groups__name='Clients').order_by('-id')[:10]
+
     # ?/end/
     if request.method == 'POST':
 
@@ -78,13 +80,19 @@ def applicantManagement(request, pk=None):
                 modalform.progress = "Writeam Staff\'s are reviewing your applications"
 
             modalform.is_validated = True
+
+            current_site = get_current_site(request)
+            template = render_to_string(
+                'main/Emails/ResumeSuccess.html', {'name':  instance.username, 'domain': current_site})
+            send_html_mail('WriTeam: The are changes your application progress', template, [
+                           instance.email], settings.EMAIL_HOST_USER)
             modalform.save()
             return redirect('applicantmanagement')
         else:
             print(modalform.errors)
 
     if pk is None:
-        context = {'applicantList': users, 'randomApplicants': random_items}
+        context = {'applicantList': users, 'randomApplicants': userList}
         return render(request, 'main/Admin/applicantstatus.html', context)
     else:
 
@@ -93,7 +101,7 @@ def applicantManagement(request, pk=None):
         modalform = applicantScoreForm(instance=jobappInstance)
 
         context = {'applicantList': users,
-                   'randomApplicants': random_items,
+                   'randomApplicants': userList,
                    'instance': instance, 'jobappInstance': jobappInstance,
                    'modalform': modalform}
         return render(request, 'main/Admin/applicantstatus.html', context)
