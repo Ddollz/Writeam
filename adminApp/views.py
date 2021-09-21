@@ -35,8 +35,6 @@ def adminUsers(request):
 def applicantManagement(request, pk=None):
 
     users = accounts.objects.all()
-
-    # ? generating random number for the userlist
     userList = accounts.objects.filter(
         groups__name='Clients').order_by('-id')[:10]
 
@@ -127,7 +125,9 @@ def onboarding(request, pk=None):
 
 @ allowed_users(allowed_roles=['HR Staff', 'HR Manager'])
 def rejectedapp(request):
-    context = {}
+
+    users = accounts.objects.all()
+    context = {'applicantList': users}
     return render(request, 'main/Admin/rejectedapp.html', context)
 
 
