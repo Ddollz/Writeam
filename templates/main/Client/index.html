@@ -58,16 +58,18 @@
             <div class="col">
               <div class="fw-bold">Job Application</div>
               {% if request.user.jobapplication.is_copywriter %}
-              <a href="" data-bs-toggle="modal" data-bs-target="#copywriterModal">
-                <i class="bi bi-people-fill" style="color: #3498db"></i> Copy Writer -
+              <a href="" class="btn" data-bs-toggle="modal" data-bs-target="#copywriterModal">
+                <i class="bi bi-people-fill" style="color: #3498db"></i>
               </a>
               {% endif %}
               {% if request.user.jobapplication.is_editor %}
-              <a href="" data-bs-toggle="modal" data-bs-target="#editorModal"><i class="bi bi-pencil-square" style="color: #3498db"></i> Editor </a> -
+              <a href="" class="btn" data-bs-toggle="modal" data-bs-target="#editorModal">
+                <i class="bi bi-pencil-square" style="color: #3498db"></i>
+              </a>
               {% endif %}
               {% if request.user.jobapplication.is_translator %}
-              <a href="" data-bs-toggle="modal" data-bs-target="#translatorModal">
-                <i class="bi bi-translate" style="color: #3498db"></i> Translator
+              <a href="" class="btn" data-bs-toggle="modal" data-bs-target="#translatorModal">
+                <i class="bi bi-translate" style="color: #3498db"></i>
               </a>
               {% endif %}
             </div>
@@ -94,18 +96,19 @@
 
               <div class="fw-bold">Progress</div>
               {{request.user.jobapplication.progress}}
+              <br>
               {% if request.user.jobapplication.is_validated %}
 
               {% if user.jobapplication.copywriterfinal >= 80 %}
-              <a href="{% url 'jobaccept' 1%}">
+              <a href="{% url 'jobaccept' 1%}" class="btn">
                 <i class="bi bi-people-fill" style="color: #3498db"></i> Copy Writer
               </a>
               {% endif %}
               {% if user.jobapplication.editorfinal >= 80 %}
-              <a href="{% url 'jobaccept' 2%}"><i class="bi bi-pencil-square" style="color: #3498db"></i> Editor </a>
+              <a href="{% url 'jobaccept' 2%}" class="btn"><i class="bi bi-pencil-square" style="color: #3498db"></i> Editor </a>
               {% endif %}
               {% if user.jobapplication.translatorfinal >= 80 %}
-              <a href="{% url 'jobaccept' 3%}">
+              <a href="{% url 'jobaccept' 3%}" class="btn">
                 <i class="bi bi-translate" style="color: #3498db"></i> Translator
               </a>
               {% endif %}
@@ -876,7 +879,7 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header" style="text-align:center">
-          <h5 class="modal-title fw-bold" id="copywriterLabel"><i class="bi bi-pencil-square"></i> Copy Writer</h5>
+          <h5 class="modal-title fw-bold" id="copywriterLabel"><i class="bi bi-translate"></i> Copy Writer</h5>
         </div>
         <div class="modal-body">
           {% for job in jobList%}

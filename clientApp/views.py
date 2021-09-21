@@ -222,10 +222,15 @@ def resume(request):
 def jobaccept(request, pk1):
     user = jobapplication.objects.get(accounts=request.user)
     if user.jobAccepted == 'None':
-        if pk1 == 2:
+        if pk1 == 1:
+            user.jobAccepted = "Copy Writer"
+            user.save()
+        elif pk1 == 2:
             user.jobAccepted = "Editor"
             user.save()
-            print("test")
+        elif pk1 == 3:
+            user.jobAccepted = "Translator"
+            user.save()
     return redirect('/')
 
 

@@ -65,7 +65,7 @@ def applicantManagement(request, pk=None):
                     modalform.is_editor_hired = True
                     modalform.progress = "Congratulations " + \
                         instance.personaldetails.fname +\
-                        "! You may choose any of following job: "
+                        "! You may choose any of following job"
                 if score3 > score2 and score3 > score1:
                     modalform.is_translator_hired = True
                     modalform.progress = "Congratulations " + \
@@ -77,7 +77,7 @@ def applicantManagement(request, pk=None):
                 modalform.is_copywriter_hired = False
                 modalform.jobAccepted = "None"
 
-                modalform.progress = "Writeam Staff\'s are reviewing your applications"
+                modalform.progress = "There is something WRONG. Please read the remarks"
 
             modalform.is_validated = True
 
