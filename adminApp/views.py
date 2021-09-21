@@ -6,6 +6,7 @@ from django.conf import settings
 from django.contrib.sites.shortcuts import get_current_site
 from django.template.loader import render_to_string
 from django.db.models import Q
+from datetime import date
 
 from .utils import send_html_mail
 from accounts.decorators import unauthenticated_user, allowed_users
@@ -115,6 +116,7 @@ def applicantManagement(request, pk=None):
 
 @allowed_users(allowed_roles=['HR Staff', 'HR Manager'])
 def onboarding(request, pk=None):
+    today = date.today()
 
     users = accounts.objects.all()
     jobapps = jobapplication.objects.all()
@@ -123,12 +125,11 @@ def onboarding(request, pk=None):
 
     # ? Onboarding
     countOnboarding = jobOnboarding.count()
-    test = jobOnboarding.values_list(
+    getOnboardID = jobOnboarding.values_list(
         'accounts', flat=True)
-    cities = personalDet.filter(accounts__id__in=test).filter(city__isnull=False).annotate(handle_lower=Lower(
+    cities = personalDet.filter(accounts__id__in=getOnboardID).filter(city__isnull=False).annotate(handle_lower=Lower(
         "city")).values('handle_lower').annotate(the_count=Count('city')).values_list('handle_lower', 'the_count')
 
-    print(cities)
     # maxPerCity = 0
     # # ? GET THE MAX VALUE FOR CHARTS
     # for name, value in cities:
@@ -137,24 +138,35 @@ def onboarding(request, pk=None):
     # ? Copy writer
     countwriter = jobapps.filter(
         is_validated=True).filter(jobAccepted='Copy Writer').count()
+    # ? Get count accepted today
+    countwritertoday = jobOnboarding.filter(jobAccepted='Copy Writer').filter(
+        dateAccepted__date=date.today()).count()
     avgScoreWriter = jobapps.filter(
         jobAccepted='Copy Writer').aggregate(Avg('copywriterfinal'))
 
     # ? Editor
     counteditor = jobapps.filter(
         is_validated=True).filter(jobAccepted='Editor').count()
+    # ? Get count accepted today
+    counteditortoday = jobOnboarding.filter(jobAccepted='Editor').filter(
+        dateAccepted__date=date.today()).count()
     avgScoreEditor = jobapps.filter(
         jobAccepted='Editor').aggregate(Avg('editorfinal'))
 
     # ? Copy Writer
     counttranslator = jobapps.filter(
         is_validated=True).filter(jobAccepted='Translator').count()
+    # ? Get count accepted today
+    counttranslatortoday = jobOnboarding.filter(jobAccepted='Translator').filter(
+        dateAccepted__date=date.today()).count()
+
     avgScoreTrans = jobapps.filter(
         jobAccepted='Translator').aggregate(Avg('translatorfinal'))
 
     if pk is None:
         context = {'applicantList': users, 'countclient': countOnboarding,
                    'countWriter': countwriter, 'countEditor': counteditor, 'countTrans': counttranslator,
+                   'countwritertoday': countwritertoday, 'counteditortoday': counteditortoday, 'counttranslatortoday': counttranslatortoday,
                    'avgScoreWriter': avgScoreWriter, 'avgScoreEditor': avgScoreEditor, 'avgScoreTrans': avgScoreTrans,
                    'cities': cities
                    }
