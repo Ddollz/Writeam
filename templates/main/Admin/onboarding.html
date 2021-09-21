@@ -83,17 +83,17 @@
               <div class="row">
                 <div class="col text-center">
 
-                  <div class="p-2" style="font-size: 32px;"><i class="bi bi-people"></i> {{countwritertoday}}</div>
+                  <div class="p-2" style="font-size: 32px;"><i class="bi bi-people" style="color: #e74c3c"></i> {{countwritertoday}}</div>
                 </div>
 
                 <div class="col text-center">
 
-                  <div class="p-2" style="font-size: 32px;"><i class="bi bi-pencil-square"></i> {{counteditortoday}}</div>
+                  <div class="p-2" style="font-size: 32px;"><i class="bi bi-pencil-square" style="color: #34495e"></i> {{counteditortoday}}</div>
                 </div>
 
                 <div class="col text-center">
 
-                  <div class="p-2" style="font-size: 32px;"><i class="bi bi-translate"></i> {{counttranslatortoday}}</div>
+                  <div class="p-2" style="font-size: 32px;"><i class="bi bi-translate" style="color: #2ecc71"></i> {{counttranslatortoday}}</div>
                 </div>
               </div>
             </div>
@@ -115,7 +115,7 @@
       <div class="col-xl-8">
         <div class="card border-0 shadow mb-4 ">
           <div class="card-header text-center fw-bold fs-5">
-            Monthly Job Acceptance
+            Monthly Job Acceptance {% now 'Y'%}
           </div>
           <div class="card-body">
             <canvas id="myBarChart" width="100%"></canvas>
@@ -159,17 +159,17 @@
       label: 'Copy Writers',
       backgroundColor: 'transparent',
       borderColor: '#e74c3c',
-      data: [1, 15, 12, 15, 16, 18, 24, 26, 28, 30, 34, 35],
+      data: [{% for copywriterdata in countsCopywriterMonth %}'{{copywriterdata}}', {% endfor %}],
     }, {
-      label: 'Translators',
+    label: 'Translators',
       backgroundColor: 'transparent',
-      borderColor: '#3498db',
-      data: [1, 10, 15, 18, 20, 24, 25, 28, 31, 32, 35, 38],
+        borderColor: '#3498db',
+          data: [{% for editordata in countsEditorMonth %} '{{editordata}}', {% endfor %}],
     }, {
-      label: 'Editors',
+    label: 'Editors',
       backgroundColor: 'transparent',
-      borderColor: '#f1c40f',
-      data: [1, 13, 16, 23, 25, 23, 21, 25, 23, 27, 33, 40,],
+        borderColor: '#f1c40f',
+          data: [{% for transdata in countsTranslatorMonth %} '{{transdata}}', {% endfor %}],
     },
     ]
   };

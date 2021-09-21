@@ -143,5 +143,6 @@ class jobAppForm(ModelForm):
     class Meta:
         model = jobapplication
         fields = '__all__'
-        widgets = {'submitApplication': forms.HiddenInput()}
+        widgets = {'submitApplication': forms.HiddenInput(
+        ), 'jobAccepted': forms.HiddenInput()}
         exclude = ['accounts']

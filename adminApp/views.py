@@ -116,11 +116,10 @@ def applicantManagement(request, pk=None):
 
 @allowed_users(allowed_roles=['HR Staff', 'HR Manager'])
 def onboarding(request, pk=None):
-    today = date.today()
-
     users = accounts.objects.all()
     jobapps = jobapplication.objects.all()
     jobOnboarding = jobapps.filter(~Q(jobAccepted='None'))
+
     personalDet = personalDetails.objects.all()
 
     # ? Onboarding
@@ -159,16 +158,29 @@ def onboarding(request, pk=None):
     # ? Get count accepted today
     counttranslatortoday = jobOnboarding.filter(jobAccepted='Translator').filter(
         dateAccepted__date=date.today()).count()
-
     avgScoreTrans = jobapps.filter(
         jobAccepted='Translator').aggregate(Avg('translatorfinal'))
+
+    # ? Area chart
+    todays_date = date.today()
+    countsEditorMonth = []
+    countsCopywriterMonth = []
+    countsTranslatorMonth = []
+    for x in range(1, 13):
+        countsEditorMonth.append(jobapplication.objects.filter(dateAccepted__year=todays_date.year,
+                                                               dateAccepted__month='0'+str(x)).filter(jobAccepted='Editor').count())
+        countsCopywriterMonth.append(jobapplication.objects.filter(dateAccepted__year=todays_date.year,
+                                                                   dateAccepted__month='0'+str(x)).filter(jobAccepted='Copy Writer').count())
+        countsTranslatorMonth.append(jobapplication.objects.filter(dateAccepted__year=todays_date.year,
+                                                                   dateAccepted__month='0'+str(x)).filter(jobAccepted='Translator').count())
 
     if pk is None:
         context = {'applicantList': users, 'countclient': countOnboarding,
                    'countWriter': countwriter, 'countEditor': counteditor, 'countTrans': counttranslator,
                    'countwritertoday': countwritertoday, 'counteditortoday': counteditortoday, 'counttranslatortoday': counttranslatortoday,
                    'avgScoreWriter': avgScoreWriter, 'avgScoreEditor': avgScoreEditor, 'avgScoreTrans': avgScoreTrans,
-                   'cities': cities
+                   'cities': cities,
+                   'countsEditorMonth': countsEditorMonth, 'countsCopywriterMonth': countsCopywriterMonth, 'countsTranslatorMonth': countsTranslatorMonth
                    }
         return render(request, 'main/Admin/onboarding.html', context)
 
