@@ -352,11 +352,18 @@ img.img-circle {
 .table-card a[type="button"]:hover {
   box-shadow: 0 0 8px #888888;
 }
+.table-card .card {
+  border: none;
+}
+
 .score,
-.modal-content,
-.modal-header,
-.modal-footer {
-  border-radius: 0;
+.modal-header {
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+}
+.score,
+.modal-content {
+  border-radius: 15px;
 }
 .score .modal-header {
   background-color: #212529;
@@ -408,6 +415,11 @@ img.img-circle {
 
 .charts .card {
   border-radius: 30px;
+}
+
+.charts .card-header {
+  background-color: transparent;
+  color: #344767;
 }
 
 .print {

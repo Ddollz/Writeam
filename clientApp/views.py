@@ -6,8 +6,9 @@ from django.forms import inlineformset_factory
 from django.conf import settings
 from django.template.loader import render_to_string
 from django.contrib.sites.shortcuts import get_current_site
-from .utils import send_html_mail
+import datetime
 
+from .utils import send_html_mail
 from accounts.models import accounts
 from system.models import *
 from .models import employmentHistory, personalDetails, education, link, reference, skill, article
@@ -223,12 +224,15 @@ def jobaccept(request, pk1):
     user = jobapplication.objects.get(accounts=request.user)
     if user.jobAccepted == 'None':
         if pk1 == 1:
+            user.dateAccepted = datetime.datetime.now()
             user.jobAccepted = "Copy Writer"
             user.save()
         elif pk1 == 2:
+            user.dateAccepted = datetime.datetime.now()
             user.jobAccepted = "Editor"
             user.save()
         elif pk1 == 3:
+            user.dateAccepted = datetime.datetime.now()
             user.jobAccepted = "Translator"
             user.save()
     return redirect('/')

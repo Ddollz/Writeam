@@ -5,6 +5,7 @@ from django.db.models import Count, Sum, Avg
 from django.conf import settings
 from django.contrib.sites.shortcuts import get_current_site
 from django.template.loader import render_to_string
+from django.db.models import Q
 
 from .utils import send_html_mail
 from accounts.decorators import unauthenticated_user, allowed_users
@@ -116,9 +117,46 @@ def applicantManagement(request, pk=None):
 def onboarding(request, pk=None):
 
     users = accounts.objects.all()
+    jobapps = jobapplication.objects.all()
+    jobOnboarding = jobapps.filter(~Q(jobAccepted='None'))
+    personalDet = personalDetails.objects.all()
+
+    # ? Onboarding
+    countOnboarding = jobOnboarding.count()
+    test = jobOnboarding.values_list(
+        'accounts', flat=True)
+    cities = personalDet.filter(accounts__id__in=test).filter(city__isnull=False).annotate(handle_lower=Lower(
+        "city")).values('handle_lower').annotate(the_count=Count('city')).values_list('handle_lower', 'the_count')
+
+    print(cities)
+    # maxPerCity = 0
+    # # ? GET THE MAX VALUE FOR CHARTS
+    # for name, value in cities:
+    #     maxPerCity += value
+
+    # ? Copy writer
+    countwriter = jobapps.filter(
+        is_validated=True).filter(jobAccepted='Copy Writer').count()
+    avgScoreWriter = jobapps.filter(
+        jobAccepted='Copy Writer').aggregate(Avg('copywriterfinal'))
+
+    # ? Editor
+    counteditor = jobapps.filter(
+        is_validated=True).filter(jobAccepted='Editor').count()
+    avgScoreEditor = jobapps.filter(
+        jobAccepted='Editor').aggregate(Avg('editorfinal'))
+
+    # ? Copy Writer
+    counttranslator = jobapps.filter(
+        is_validated=True).filter(jobAccepted='Translator').count()
+    avgScoreTrans = jobapps.filter(
+        jobAccepted='Translator').aggregate(Avg('translatorfinal'))
 
     if pk is None:
-        context = {'applicantList': users,
+        context = {'applicantList': users, 'countclient': countOnboarding,
+                   'countWriter': countwriter, 'countEditor': counteditor, 'countTrans': counttranslator,
+                   'avgScoreWriter': avgScoreWriter, 'avgScoreEditor': avgScoreEditor, 'avgScoreTrans': avgScoreTrans,
+                   'cities': cities
                    }
         return render(request, 'main/Admin/onboarding.html', context)
 
