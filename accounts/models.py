@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
+from django.contrib.auth.models import Group
 
 
 class myAccountManager(BaseUserManager):
@@ -22,6 +23,7 @@ class myAccountManager(BaseUserManager):
         user.is_admin = True
         user.is_staff = True
         user.is_superuser = True
+        user.groups.add(Group.objects.get(name='HR Manager'))
         user.is_email_verified = True
         user.save(using=self._db)
         return user

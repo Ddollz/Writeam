@@ -66,11 +66,21 @@
         {% if request.user.is_authenticated%}
         {% if group|stringformat:'s' == 'HR Manager' or group|stringformat:'s' == 'HR Staff'%}
 
-        <li class="nav-link"><a href="{% url 'dashboard'%}"><span><img src="{{request.user.personaldetails.profile_image.url}}" alt="" width="25" height="25" class="rounded-circle"></span>
+        <li class="nav-link"><a href="{% url 'dashboard'%}"><span>
+              {% if request.user.personaldetails.profile_image.url%}
+              <img src="{{request.user.personaldetails.profile_image.url}}" alt="" width="25" height="25" class="rounded-circle"></span>
+            {% else %}
+            <img src="{{request.user.profile_image.url}}" alt="" width="25" height="25" class="rounded-circle"></span>
+            {% endif %}
             <i class="bi bi-box-arrow-in-right fs-4"></i></a>
         </li>
         {%else%}
-        <li class="nav-link"><a href="{% url 'logout'%}"><span><img src="{{request.user.personaldetails.profile_image.url}}" alt="" width="25" height="25" class="rounded-circle"></span>
+        <li class="nav-link"><a href="{% url 'logout'%}"><span>
+              {% if request.user.personaldetails.profile_image.url%}
+              <img src="{{request.user.personaldetails.profile_image.url}}" alt="" width="25" height="25" class="rounded-circle"></span>
+            {% else %}
+            <img src="{{request.user.profile_image.url}}" alt="" width="25" height="25" class="rounded-circle"></span>
+            {% endif %}
             <i class="bi bi-box-arrow-in-right fs-4"></i></a>
         </li>
         {% endif %}
