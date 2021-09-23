@@ -132,13 +132,13 @@
                 {% if request.path == the_url4%}
                 <a href="{% url 'rejectedapp'%}" class="active">
                     <i class="bi bi-clipboard-x"></i>
-                    <span class="links_name">Rejected Applicants</span>
+                    <span class="links_name">Archived Applicants</span>
                 </a>
                 <span class="tooltip">Files</span>
                 {% else %}
                 <a href="{% url 'rejectedapp'%}">
                     <i class="bi bi-clipboard-x"></i>
-                    <span class="links_name">Rejected Applicants</span>
+                    <span class="links_name">Archived Applicants</span>
                 </a>
                 <span class="tooltip">Files</span>
                 {% endif %}
@@ -186,16 +186,16 @@
                 {% if request.path == the_url6%}
                 <a href="{% url 'websetting'%}" class="active">
                     <i class="bx bx-cog"></i>
-                    <span class="links_name">Website Setting</span>
+                    <span class="links_name">Job Posting</span>
                 </a>
 
-                <span class="tooltip">Website Setting</span>
+                <span class="tooltip">Job Posting</span>
                 {%else%}
                 <a href="{% url 'websetting'%}">
                     <i class="bx bx-cog"></i>
-                    <span class="links_name">Website Setting</span>
+                    <span class="links_name">Job Posting</span>
                 </a>
-                <span class="tooltip">Website Setting</span>
+                <span class="tooltip">Job Posting</span>
                 {% endif %}
             </li>
             {% endif %}

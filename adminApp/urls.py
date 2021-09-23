@@ -10,11 +10,17 @@ urlpatterns = [
     path("adminUsers/deactivate/<int:pk>/",
          views.staffDeactivate, name="adminUsersDeactivate"),
 
+    path("adminUsers/position/<int:pk1>/",
+         views.staffPosition, name="adminUsersPosition"),
+    path("adminUsers/position/<int:pk1>/<str:pk2>/",
+         views.staffPosition, name="adminUsersPosition"),
+
     path("applicantmanagement/", views.applicantManagement,
          name="applicantmanagement"),
 
     path("applicantmanagement/<int:pk>/", views.applicantManagement,
          name="applicantmanagement"),
+
 
     path("resumePrev/<str:pk>/", views.ResumePreview, name="resumePrev"),
 

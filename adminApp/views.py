@@ -6,6 +6,7 @@ from django.conf import settings
 from django.contrib.sites.shortcuts import get_current_site
 from django.template.loader import render_to_string
 from django.db.models import Q
+from django.contrib.auth.models import Group
 from datetime import date
 
 from .utils import send_html_mail
@@ -217,6 +218,16 @@ def ResumePreview(request, pk):
 
 
 @ allowed_users(allowed_roles=['HR Manager'])
+def staffPosition(request, pk1=None, pk2=None):
+    user = accounts.objects.get(id=pk1)
+    group = Group.objects.get(name=pk2)
+    if user.id != request.user.id:
+        user.groups.clear()
+        user.groups.add(group)
+    return redirect('adminUsers')
+
+
+@ allowed_users(allowed_roles=['HR Manager'])
 def staffActivate(request, pk):
     user = accounts.objects.get(id=pk)
     user.is_active = True
@@ -226,8 +237,8 @@ def staffActivate(request, pk):
 
 @ allowed_users(allowed_roles=['HR Manager'])
 def staffDeactivate(request, pk):
-    if pk != 1:
-        user = accounts.objects.get(id=pk)
+    user = accounts.objects.get(id=pk)
+    if user.id != request.user.id:
         user.is_active = False
         user.save()
     return redirect('adminUsers')

@@ -48,11 +48,38 @@
 
                 {% for user in userList%}
                 {% for group in user.groups.all %}
-                {% if group|stringformat:'s' == 'HR Manager' or group|stringformat:'s' == 'HR Staff'%}
+                {% if group|stringformat:'s' != 'Clients'%}
                 <tr>
                   <td><img class="img-circle" src="{{user.profile_image.url}}" alt="profileImg" /></td>
                   <td>{{user.first_name}} {{user.last_name}}</td>
-                  <td>{{ group }}</td>
+                  <td><select class="form-select Position" aria-label="Default select example" data-url="{% url 'adminUsersPosition' user.id %}">
+                      {% if group|stringformat:'s' == 'HR Manager'%}
+                      <option value="HR Manager" selected>HR Manager</option>
+                      {%else%}
+                      <option value="HR Manager">HR Manager</option>
+                      {%endif%}
+                      {% if group|stringformat:'s' == 'HR Staff'%}
+                      <option value="HR Staff" selected>HR Staff</option>
+                      {%else%}
+                      <option value="HR Staff">HR Staff</option>
+                      {%endif%}
+                      {% if group|stringformat:'s' == 'Copy Writer Manager'%}
+                      <option value="Copy Writer Manager" selected>Copy Writer Manager</option>
+                      {%else%}
+                      <option value="Copy Writer Manager">Copy Writer Manager</option>
+                      {%endif%}
+                      {% if group|stringformat:'s' == 'Translator Manager'%}
+                      <option value="Translator Manager" selected>Translator Manager</option>
+                      {%else%}
+                      <option value="Translator Manager">Translator Manager</option>
+                      {%endif%}
+                      {% if group|stringformat:'s' == 'Editor Manager'%}
+                      <option value="Editor Manager" selected>Editor Manager</option>
+                      {%else%}
+                      <option value="Editor Manager">Editor Manager</option>
+                      {%endif%}
+                    </select>
+                  </td>
                   <td>{{ user.email }}</td>
                   <td>{{ user.last_login }}</td>
                   {% if not user.is_active %}
@@ -83,6 +110,12 @@
 {% endblock %}
 {% block scriptContent %}
 <script>
+  $(document).ready(function () {
+    $(".Position").change(function () {
+      vartest = $(this).attr('data-url') + $(this).val()
+      location.replace(vartest)
+    });
+  });
 
   window.addEventListener('DOMContentLoaded', event => {
     // Simple-DataTables
