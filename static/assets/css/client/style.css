@@ -729,6 +729,21 @@ h2 {
   display: block;
 }
 
+.hero-page {
+  display: none;
+}
+
+.hero-page.active {
+  display: block;
+}
+
+.pagi i {
+  opacity: 0.8;
+}
+
+.pagi i:hover {
+  opacity: 1;
+}
 .resume .form-control {
   height: 50px;
   border: none;
@@ -1226,46 +1241,6 @@ page .page-container {
     height: 40px;
     transition: all 0.4s;
   }
-}
-
-/* User Profile */
-.glass {
-  width: 60%;
-  height: 70vh;
-  border-radius: 30px;
-}
-.glass .column1 {
-  background: linear-gradient(
-    to right,
-    rgba(128, 190, 239, 1),
-    rgb(170, 217, 255)
-  );
-  border-radius: 15px 0 0 15px;
-}
-.glass .column2 {
-  background: white;
-  color: #2f3640;
-  border-radius: 0 15px 15px 0;
-}
-.glass .dashboard img {
-  height: 150px;
-  width: 150px;
-}
-.glass .userInfo {
-  padding: 30px;
-}
-.glass .userInfo h3 {
-  letter-spacing: 3px;
-}
-.glass .userInfo a {
-  color: #2f3640;
-}
-.glass .view {
-  border-radius: 10px;
-}
-.glass a {
-  padding: 10px;
-  color: white;
 }
 
 .editButton {

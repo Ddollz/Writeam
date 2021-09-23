@@ -49,101 +49,203 @@
             {% endif %}
 
           </div>
-          <div class="fw-bold fs-5 mt-3 mb-1">INFORMATION
-            <a href="{% url 'resume'%}"><i class="bi bi-file-earmark-person-fill"></i></a>
-            <a href="{{request.user.article.article.url}}"><i class="bi bi-file-code-fill"></i></a>
+          <div class="fw-bold fs-5 mt-3 mb-1 pagi"><span class="heroSub"> Application Details </span>
             <a href="{% url 'password_change' %}"><i class="bi bi-lock-fill"></i></a>
-          </div>
-          <div class="row">
-            <div class="col">
-              <div class="fw-bold">Job Application</div>
-              {% if request.user.jobapplication.is_copywriter %}
-              <a href="" class="btn" data-bs-toggle="modal" data-bs-target="#copywriterModal">
-                <i class="bi bi-people-fill" style="color: #3498db"></i>
-              </a>
-              {% endif %}
-              {% if request.user.jobapplication.is_editor %}
-              <a href="" class="btn" data-bs-toggle="modal" data-bs-target="#editorModal">
-                <i class="bi bi-pencil-square" style="color: #3498db"></i>
-              </a>
-              {% endif %}
-              {% if request.user.jobapplication.is_translator %}
-              <a href="" class="btn" data-bs-toggle="modal" data-bs-target="#translatorModal">
-                <i class="bi bi-translate" style="color: #3498db"></i>
-              </a>
-              {% endif %}
-            </div>
-            <div class="col">
-              <div class="fw-bold">Date Application Submitted</div>
-              <label for="">{{request.user.jobapplication.dateSubmit}}</label>
+            <div class="float-end">
+              <i class="bi bi-caret-left-fill" style="cursor: pointer;" id="back"></i>
+              <i class="bi bi-file-earmark-person-fill" style="cursor: pointer; " data-page='0' id="appDe"></i>
+              <i class="bi bi-info-circle-fill" style="cursor: pointer;" data-page='1' id="accDe"></i>
+              <!-- <a href="{{request.user.article.article.url}}"><i class="bi bi-file-code-fill"></i></a>
+            <a href="{% url 'password_change' %}"><i class="bi bi-lock-fill"></i></a> -->
+              <i class="bi bi-caret-right-fill" style="cursor: pointer;" id="next"></i>
             </div>
           </div>
+          <!-- ? Application -->
+          <div class="hero-page active">
 
-          <div class="row mt-2">
-            <div class="col">
-              <div class="fw-bold">Article Headline</div>
-              {{request.user.article.headline}}
-            </div>
-
-            <div class="col">
-              <div class="fw-bold">Last Login</div>
-              {{request.user.last_login}}
-            </div>
-          </div>
-          {% if request.user.jobapplication.jobAccepted == 'None' %}
-          <div class="row mt-2">
-            <div class="col">
-
-              <div class="fw-bold">Progress</div>
-              {{request.user.jobapplication.progress}}
-              <br>
-              {% if request.user.jobapplication.is_validated %}
-
-              {% if user.jobapplication.copywriterfinal >= 80 %}
-              <a href="{% url 'jobaccept' 1%}" class="btn">
-                <i class="bi bi-people-fill" style="color: #3498db"></i> Copy Writer
-              </a>
-              {% endif %}
-              {% if user.jobapplication.editorfinal >= 80 %}
-              <a href="{% url 'jobaccept' 2%}" class="btn"><i class="bi bi-pencil-square" style="color: #3498db"></i> Editor </a>
-              {% endif %}
-              {% if user.jobapplication.translatorfinal >= 80 %}
-              <a href="{% url 'jobaccept' 3%}" class="btn">
-                <i class="bi bi-translate" style="color: #3498db"></i> Translator
-              </a>
-              {% endif %}
-              {% endif %}
-
-            </div>
-          </div>
-          <div class="fw-bold">
-            Remarks:</div>
-          <div class="border" style=" padding: 10px; background-color: rgb(241, 241, 241);">
-            {{request.user.jobapplication.remarks}}
-          </div>
-          {% else %}
-
-          <div class="row mt-3">
-            <div class="col fw-bold fs-5">Application Results</div>
-          </div>
-          <div class="mb-3">
-            <div class="row">
+            <div class="row mt-2">
               <div class="col">
-                <label for="disabledTextInput" class="form-label">Copywriter</label>
-                <input type="text" id="disabledTextInput" class="form-control" value="{{request.user.jobapplication.copywriterfinal}}" disabled>
+                <div class="fw-bold">Article Headline <a href="{{request.user.article.article.url}}"><i class="bi bi-cloud-arrow-down-fill"></i></a></div>
+                {{request.user.article.headline}}
+              </div>
+
+              <div class="col">
+                <div class="fw-bold">Resume <a href="{{request.user.article.article.url}}"><i class="bi bi-cloud-arrow-down-fill"></i></a></div>
+                {{request.user.personaldetails.jobTitle}}
+              </div>
+
+            </div>
+            {% if request.user.jobapplication.jobAccepted == 'None' %}
+            <div class="row mt-2">
+              <div class="col">
+
+                <div class="fw-bold">Progress</div>
+                <div class="row">
+                  {% if not request.user.jobapplication.is_validated %}
+                  {% for j in jobList%}
+
+                  <div class="col">
+                    <a href="" class="btn" data-bs-toggle="modal" data-bs-target="#copywriterModal">
+                      <i class="bi bi-people-fill" style="color: #3498db"></i> {{j}}
+                    </a>
+                    {% if j.is_onHire %}
+                    <input type="text" id="disabledTextInput" class="form-control" value="On Viewing" disabled>
+                    {% else %}
+                    <input type="text" id="disabledTextInput" class="form-control" value="Unavailable" disabled>
+                    {% endif %}
+                  </div>
+
+                  {% endfor%}
+
+                  {%else%}
+                  <div class="col">
+
+                    {% if user.jobapplication.copywriterfinal >= 80 %}
+                    <a href="{% url 'jobaccept' 1%}" class="btn" id="jobAcceptCopy">
+                      <i class="bi bi-people-fill" style="color: #3498db"></i> Copy Writer
+                    </a>
+                    {% endif %}
+
+                    {% for j in jobList%}
+                    {% if j.job_Title == 'Copy Writer' and j.is_onHire%}
+                    {% if j.job_Title == 'Copy Writer' and user.jobapplication.copywriterfinal >= 80 %}
+                    <a href="{% url 'jobaccept' 1%}" class="btn" style="width: 100%; height: 50px; background-color: #e9ecef;"> Passed</a>
+                    {% elif j.job_Title == 'Copy Writer'%}
+                    <input type="text" id="disabledTextInput" class="form-control" value="Failed" disabled>
+                    {% endif %}
+                    {% elif j.job_Title == 'Copy Writer' %}
+                    <input type="text" id="disabledTextInput" class="form-control" value="Unavailable" disabled>
+                    {% endif %}
+                    {% endfor%}
+
+                  </div>
+
+                  <div class="col">
+
+                    {% if user.jobapplication.editorfinal >= 80 %}
+                    <a href="{% url 'jobaccept' 2%}" class="btn">
+                      <i class="bi bi-pencil-square" style="color: #3498db"></i>
+                      Editor
+                    </a>
+                    {% endif %}
+
+
+                    {% for j in jobList%}
+                    {% if j.job_Title == 'Editor' and j.is_onHire%}
+                    {% if j.job_Title == 'Editor' and user.jobapplication.editorfinal >= 80 %}
+                    <a href="{% url 'jobaccept' 2%}" class="btn" style="width: 100%;  height: 50px; text-align: center; background-color: #e9ecef;">Passed</a>
+                    {% elif j.job_Title == 'Editor'%}
+                    <input type="text" id="disabledTextInput" class="form-control" value="Failed" disabled>
+                    {% endif %}
+                    {% elif j.job_Title == 'Editor' %}
+                    <input type="text" id="disabledTextInput" class="form-control" value="Unavailable" disabled>
+                    {% endif %}
+                    {% endfor%}
+
+                  </div>
+
+
+                  <div class="col">
+
+
+                    {% if user.jobapplication.translatorfinal >= 80 %}
+                    <a href="{% url 'jobaccept' 3%}" class="btn">
+                      <i class="bi bi-translate" style="color: #3498db"></i> Translator
+                    </a>
+                    {% endif %}
+
+                    {% for j in jobList%}
+                    {% if j.job_Title == 'Translator' and j.is_onHire%}
+                    {% if j.job_Title == 'Translator' and user.jobapplication.translatorfinal >= 80 %}
+                    <a href="{% url 'jobaccept' 3%}" class="btn" style="width: 100%; height: 50px; background-color: #e9ecef;">Passed</a>
+                    {% elif j.job_Title == 'Translator'%}
+                    <input type="text" id="disabledTextInput" class="form-control" value="Failed" disabled>
+                    {% endif %}
+                    {% elif j.job_Title == 'Translator' %}
+                    <input type="text" id="disabledTextInput" class="form-control" value="Unavailable" disabled>
+                    {% endif %}
+                    {% endfor%}
+
+                  </div>
+
+                  {% endif %}
+
+
+                </div>
+              </div>
+            </div>
+            <div class="fw-bold">
+              Remarks:</div>
+            <div class="border" style=" padding: 10px; background-color: rgb(241, 241, 241);">
+              {{request.user.jobapplication.remarks}}
+            </div>
+            {% else %}
+
+            <div class="row mt-3">
+              <div class="col fw-bold fs-5">Application Results</div>
+
+            </div>
+            <div class="mb-3">
+              <div class="row">
+                <div class="col">
+                  <label for="disabledTextInput" class="form-label">Copywriter</label>
+                  <input type="text" id="disabledTextInput" class="form-control" value="{{request.user.jobapplication.copywriterfinal}}" disabled>
+                </div>
+                <div class="col">
+                  <label for="disabledTextInput" class="form-label">Editor</label>
+                  <input type="text" id="disabledTextInput" class="form-control" value="{{request.user.jobapplication.editorfinal}}" disabled>
+                </div>
+                <div class="col">
+                  <label for="disabledTextInput" class="form-label">Translator</label>
+                  <input type="text" id="disabledTextInput" class="form-control" value="{{request.user.jobapplication.translatorfinal}}" disabled>
+                </div>
+
+                <div class="col">
+                  <label for="disabledTextInput" class="form-label">Article</label>
+                  <input type="text" id="disabledTextInput" class="form-control" value="{{request.user.jobapplication.article}}" disabled>
+                </div>
+              </div>
+            </div>
+
+            {% endif %}
+          </div>
+          <!-- ? End Application -->
+          <!-- ? Account Details -->
+          <div class="hero-page">
+            <div class="row mb-3">
+              <div class="col">
+                <div class="fw-bold">Email</div>
+                <label for="">{{request.user.email}}</label>
               </div>
               <div class="col">
-                <label for="disabledTextInput" class="form-label">Editor</label>
-                <input type="text" id="disabledTextInput" class="form-control" value="{{request.user.jobapplication.editorfinal}}" disabled>
+
+                <div class="fw-bold">Contact</div>
+                <label for="">{{request.user.personaldetails.phone}}</label>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col">
+                <div class="fw-bold">Address</div>
+                <label for="">{{request.user.personaldetails.address}} {{request.user.personaldetails.city}}</label>
               </div>
               <div class="col">
-                <label for="disabledTextInput" class="form-label">Translator</label>
-                <input type="text" id="disabledTextInput" class="form-control" value="{{request.user.jobapplication.translatorfinal}}" disabled>
+                <div class="fw-bold">Place of Birth / Date</div>
+                <label for="">{{request.user.personaldetails.birthplace}} {{request.user.personaldetails.birthdate}}</label>
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <div class="col">
+                <div class="fw-bold">Date Joined</div>
+                <label for="">{{request.user.date_joined}}</label>
+              </div>
+              <div class="col">
+                <div class="fw-bold">Last Login</div>
+                <label for="">{{request.user.last_login}}</label>
               </div>
             </div>
           </div>
-
-          {% endif %}
+          <!-- ? End Account Details -->
 
         </div>
       </div>
@@ -922,4 +1024,52 @@
 {% endblock %}
 
 {% block scriptContent %}
+<script>
+
+  const pages = document.querySelectorAll('.hero-page');
+  var pageNo = 0
+  console.log(pages.length)
+  $("#next").click(function () {
+    nextPage()
+  });
+
+  $("#back").click(function () {
+    backPage()
+  });
+
+  $("#appDe").click(function () {
+    temp = $('#appDe').attr('data-page')
+    if (temp != pageNo) {
+      $(pages[pageNo]).removeClass('active')
+      $(pages[temp]).addClass('active')
+      pageNo = temp
+    }
+  });
+
+  $("#accDe").click(function () {
+    temp = $('#accDe').attr('data-page')
+    if (temp != pageNo) {
+      $(pages[pageNo]).removeClass('active')
+      $(pages[temp]).addClass('active')
+      pageNo = temp
+    }
+  });
+
+  function nextPage() {
+    if (pageNo < pages.length - 1) {
+      $(pages[pageNo]).removeClass('active')
+      pageNo++;
+      $(pages[pageNo]).addClass('active')
+    }
+  }
+
+  function backPage() {
+    if (pageNo > 0) {
+      console.log($(pages[pageNo]))
+      $(pages[pageNo]).removeClass("active");
+      pageNo--;
+      $(pages[pageNo]).addClass('active')
+    }
+  }
+</script>
 {% endblock %}

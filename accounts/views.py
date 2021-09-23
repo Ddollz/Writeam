@@ -74,10 +74,10 @@ def signin(request):
             login(request, user)
             group = user.groups.all()
             print(group[0])
-            if(str(group[0]) == "Clients"):
-                return redirect('/')
-            else:
+            if str(group[0]) == "HR Staff" or str(group[0]) == "HR Manager":
                 return redirect('dashboard')
+            else:
+                return redirect('/')
 
     else:
         form = clientFormLogin()
