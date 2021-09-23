@@ -26,11 +26,24 @@ class clientFormReg(UserCreationForm):
         fields = ('email', 'username', 'first_name',
                   'last_name', 'password1', 'password2')
 
-    def clean(self):
-        email = self.cleaned_data.get('The Email is already registered')
-        if accounts.objects.filter(email=email).exists():
-            raise ValidationError("Email exists")
-        return self.cleaned_data
+    def clean_email(self):
+        email = self.cleaned_data['email'].lower()
+        try:
+            account = accounts.objects.exclude(
+                pk=self.instance.pk).get(email=email)
+        except accounts.DoesNotExist:
+            return email
+        raise forms.ValidationError('Email "%s" is already in use.' % account)
+
+    def clean_username(self):
+        username = self.cleaned_data['username']
+        try:
+            account = accounts.objects.exclude(
+                pk=self.instance.pk).get(username=username)
+        except accounts.DoesNotExist:
+            return username
+        raise forms.ValidationError(
+            'Username "%s" is already in use.' % username)
 
 
 class clientFormLogin(forms.Form):
@@ -89,8 +102,21 @@ class adminFormReg(UserCreationForm):
         fields = ('email', 'username', 'first_name', 'last_name',
                   'phone', 'address', 'password1', 'password2')
 
-    def clean(self):
-        email = self.cleaned_data.get('The Email is already registered')
-        if accounts.objects.filter(email=email).exists():
-            raise ValidationError("Email exists")
-        return self.cleaned_data
+    def clean_email(self):
+        email = self.cleaned_data['email'].lower()
+        try:
+            account = accounts.objects.exclude(
+                pk=self.instance.pk).get(email=email)
+        except accounts.DoesNotExist:
+            return email
+        raise forms.ValidationError('Email "%s" is already in use.' % account)
+
+    def clean_username(self):
+        username = self.cleaned_data['username']
+        try:
+            account = accounts.objects.exclude(
+                pk=self.instance.pk).get(username=username)
+        except accounts.DoesNotExist:
+            return username
+        raise forms.ValidationError(
+            'Username "%s" is already in use.' % username)

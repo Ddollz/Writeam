@@ -188,10 +188,15 @@ def onboarding(request, pk=None):
 
 @ allowed_users(allowed_roles=['HR Staff', 'HR Manager'])
 def rejectedapp(request):
-
     users = accounts.objects.all()
     context = {'applicantList': users}
     return render(request, 'main/Admin/rejectedapp.html', context)
+
+
+@ allowed_users(allowed_roles=['HR Staff', 'HR Manager'])
+def department(request):
+    context = {}
+    return render(request, 'main/Admin/department.html', context)
 
 
 @ allowed_users(allowed_roles=['HR Staff', 'HR Manager'])

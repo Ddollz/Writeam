@@ -52,6 +52,7 @@
     {% url 'rejectedapp' as the_url4 %}
     {% url 'adminUsers' as the_url5 %}
     {% url 'websetting' as the_url6 %}
+    {% url 'department' as the_url7 %}
     <div class="sidebar open border-end">
         <div class="logo-details">
             <!-- <i class="bx bxl-c-plus-plus icon"></i> -->
@@ -131,19 +132,41 @@
             <li>
                 {% if request.path == the_url4%}
                 <a href="{% url 'rejectedapp'%}" class="active">
-                    <i class="bi bi-clipboard-x"></i>
+                    <i class="bi bi-archive"></i>
                     <span class="links_name">Archived Applicants</span>
                 </a>
                 <span class="tooltip">Files</span>
                 {% else %}
                 <a href="{% url 'rejectedapp'%}">
-                    <i class="bi bi-clipboard-x"></i>
+                    <i class="bi bi-archive"></i>
                     <span class="links_name">Archived Applicants</span>
                 </a>
                 <span class="tooltip">Files</span>
                 {% endif %}
 
             </li>
+
+            {% if request.user.groups.all.0|stringformat:'s' == 'HR Manager'%}
+
+            <li>
+                {% if request.path == the_url7%}
+                <a href="{% url 'department' %}" class="active">
+                    <i class="bi bi-diagram-3"></i>
+                    <span class="links_name">Department Mangement</span>
+                </a>
+                <span class="tooltip">Department Mangement</span>
+                {% else %}
+
+                <a href="{% url 'department'%}">
+                    <i class="bi bi-diagram-3"></i>
+                    <span class="links_name">Department Mangement</span>
+                </a>
+                <span class="tooltip">Department Mangement</span>
+                {% endif %}
+
+            </li>
+            {% endif %}
+
             {% if request.user.groups.all.0|stringformat:'s' == 'HR Manager'%}
 
             <li>

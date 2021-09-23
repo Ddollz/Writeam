@@ -29,6 +29,7 @@ def signup(request):
     if request.method == 'POST':
         form = clientFormReg(request.POST)
         if form.is_valid():
+            print(form)
             user = form.save()
             # add group
             group = Group.objects.get(name='Clients')
@@ -45,6 +46,8 @@ def signup(request):
             )
             set_activation_email(user, request)
             return render(request, 'authentication/activate-notif.html', {})
+        else:
+            print(form.errors)
     else:
         form = clientFormReg()
     return render(request, 'main/Client/Signup.html', {'form': form, 'errors': form.errors})
