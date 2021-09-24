@@ -13,6 +13,7 @@ from accounts.models import accounts
 from system.models import *
 from .models import employmentHistory, personalDetails, education, link, reference, skill, article
 from .forms import *
+from system.forms import manpowerForm
 
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
@@ -21,13 +22,20 @@ from sklearn.metrics.pairwise import cosine_similarity
 
 def index(request):
     jobs = jobList.objects.all()
-
+    client = accounts.objects.get(username=request.user)  # get Some User.
+    group = client.groups.all()[0]
     context = {'jobList': jobs}
+
+    form1 = manpowerForm()
+
     if request.user.is_authenticated:
-        client = accounts.objects.get(username=request.user)  # get Some User.
-        # print(client.groups.all()[0])
-        context = {'group': client.groups.all(
-        )[0], 'jobList': jobs}
+        if request.method == 'POST':
+            form1 = manpowerForm(request.POST)
+            if form1.is_valid():
+                form1.save()
+
+            print(form1.errors)
+        context = {'group': group, 'jobList': jobs, 'form': form1}
 
     return render(request, 'main/Client/index.html', context)
 

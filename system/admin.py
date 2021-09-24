@@ -24,5 +24,18 @@ class jobSkillAdmin(admin.ModelAdmin):
     )
 
 
+class manpowerAdmin(admin.ModelAdmin):
+    list_display = ('id', 'name', 'department', 'requestDate', 'expectedDate', 'designation', 'nosCandidate'
+                    )
+    readonly_fields = ('id',)
+    search_fields = ('id', 'name', 'department', 'requestDate',
+                     'expectedDate', 'designation')
+    fieldsets = (
+    )
+    add_fieldsets = (
+    )
+
+
 admin.site.register(jobList, jobListAdmin)
 admin.site.register(jobSkill, jobSkillAdmin)
+admin.site.register(manpower, manpowerAdmin)

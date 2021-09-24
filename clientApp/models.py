@@ -4,13 +4,6 @@ from django.core.validators import MaxValueValidator
 
 # Create your models here.
 
-JOB_CHOICES = (
-    ('Copy Writer', 'Copy Writer'),
-    ('Translator', 'Translator'),
-    ('Editor', 'Editor'),
-    ('None', 'None'),
-)
-
 
 def get_profile_image_filepath(self, filename):
     return f'profile_images/{self.pk}/{"profile_image.png"}'

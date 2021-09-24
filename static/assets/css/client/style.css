@@ -122,25 +122,31 @@ h2 {
 }
 
 #head,
-#Head {
+#Head,
+#Vector_3 {
   animation: head 2s linear infinite;
 }
 
 #body,
-#Body {
+#Body,
+#Person,
+#Vector_2 {
   animation: body 2s linear infinite;
 }
 
-#leftarm {
+#leftarm,
+#Vector_6 {
   animation: body 2s linear infinite;
 }
 
-#rightarm {
+#rightarm,
+#Vector_7 {
   animation: body 2s linear infinite;
 }
 
 #leaf1,
-#leaf1 {
+#leaf1,
+#Vector_4 {
   animation: leaf1 2s linear infinite;
 }
 
@@ -744,7 +750,8 @@ h2 {
 .pagi i:hover {
   opacity: 1;
 }
-.resume .form-control {
+.resume .form-control,
+.form-select {
   height: 50px;
   border: none;
   background-color: #f2f5fa;
