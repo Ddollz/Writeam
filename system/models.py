@@ -58,6 +58,9 @@ class manpower(models.Model):
     requirements = models.TextField(
         verbose_name="Skill", max_length=255, null=False)
 
+    lastSubmitted = models.DateTimeField(
+        auto_now_add=True, blank=True, null=True)
+
     class Meta:
         verbose_name = "Manpower Request"
 

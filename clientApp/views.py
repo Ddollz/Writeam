@@ -34,7 +34,6 @@ def index(request):
             if form1.is_valid():
                 form1.save()
 
-            print(form1.errors)
         context = {'group': group, 'jobList': jobs, 'form': form1}
 
     return render(request, 'main/Client/index.html', context)

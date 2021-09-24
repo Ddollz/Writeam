@@ -35,6 +35,8 @@ urlpatterns = [
     path("department/", views.department,
          name="department"),
 
+    path("department/<int:pk>/", views.department,
+         name="department"),
     #     path("addscore/<int:pk>", views.addScore, name="addscore"),
 
 ]

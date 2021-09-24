@@ -25,9 +25,9 @@ class jobSkillAdmin(admin.ModelAdmin):
 
 
 class manpowerAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'department', 'requestDate', 'expectedDate', 'designation', 'nosCandidate'
+    list_display = ('id', 'name', 'department', 'requestDate', 'expectedDate', 'designation', 'nosCandidate', 'lastSubmitted'
                     )
-    readonly_fields = ('id',)
+    readonly_fields = ('id', 'lastSubmitted')
     search_fields = ('id', 'name', 'department', 'requestDate',
                      'expectedDate', 'designation')
     fieldsets = (

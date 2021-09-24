@@ -30,10 +30,10 @@ class manpowerForm(ModelForm):
         attrs={'type': 'text', 'class': 'form-control', 'id': 'Requesting', 'aria-describedby': 'Requesting'}))
     department = forms.CharField(label="", required=True, widget=forms.Select(choices=JOB_CHOICES,
                                                                               attrs={'class': 'form-select', 'id': 'department'}))
-    requestDate = forms.DateTimeField(label="", required=True, widget=forms.TextInput(
+    requestDate = forms.DateTimeField(label="", required=True, widget=forms.DateInput(
         attrs={'type': 'date', 'class': 'form-control', 'id': 'datereq'}))
 
-    expectedDate = forms.DateTimeField(label="", required=True, widget=forms.TextInput(
+    expectedDate = forms.DateTimeField(label="", required=True, widget=forms.DateInput(
         attrs={'type': 'date', 'class': 'form-control', 'id': 'dateexpect'}))
 
     reason = forms.CharField(label="", required=True, widget=forms.Textarea(

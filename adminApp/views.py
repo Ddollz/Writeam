@@ -15,22 +15,32 @@ from accounts.models import accounts
 from clientApp.models import personalDetails, employmentHistory, education, skill, link, reference, jobapplication
 from .models import onboardingApplicant
 from .forms import *
+
+from system.models import manpower
+from system.forms import manpowerForm
+
 import random
 # Create your views here.
 
 
+def getLatestRecord():
+    data = manpower.objects.order_by('-lastSubmitted')[:10]
+    # print(data)
+    return data
+
+
 @allowed_users(allowed_roles=['HR Staff', 'HR Manager'])
 def dashboard(request):
-
+    getLatestRecord()
     users = accounts.objects.all()
-    context = {'applicantList': users}
+    context = {'applicantList': users, 'notifs': getLatestRecord()}
     return render(request, 'main/Admin/Dashboard.html', context)
 
 
 @allowed_users(allowed_roles=['HR Manager'])
 def adminUsers(request):
     users = accounts.objects.all()
-    context = {'userList': users}
+    context = {'userList': users, 'notifs': getLatestRecord()}
     return render(request, 'main/Admin/user.html', context)
 
 
@@ -95,7 +105,8 @@ def applicantManagement(request, pk=None):
             print(modalform.errors)
 
     if pk is None:
-        context = {'applicantList': users, 'randomApplicants': userList}
+        context = {'applicantList': users,
+                   'randomApplicants': userList, 'notifs': getLatestRecord()}
         return render(request, 'main/Admin/applicantstatus.html', context)
     else:
 
@@ -106,7 +117,7 @@ def applicantManagement(request, pk=None):
         context = {'applicantList': users,
                    'randomApplicants': userList,
                    'instance': instance, 'jobappInstance': jobappInstance,
-                   'modalform': modalform}
+                   'modalform': modalform, 'notifs': getLatestRecord()}
         return render(request, 'main/Admin/applicantstatus.html', context)
 
 # ! for tommorow
@@ -181,7 +192,8 @@ def onboarding(request, pk=None):
                    'countwritertoday': countwritertoday, 'counteditortoday': counteditortoday, 'counttranslatortoday': counttranslatortoday,
                    'avgScoreWriter': avgScoreWriter, 'avgScoreEditor': avgScoreEditor, 'avgScoreTrans': avgScoreTrans,
                    'cities': cities,
-                   'countsEditorMonth': countsEditorMonth, 'countsCopywriterMonth': countsCopywriterMonth, 'countsTranslatorMonth': countsTranslatorMonth
+                   'countsEditorMonth': countsEditorMonth, 'countsCopywriterMonth': countsCopywriterMonth, 'countsTranslatorMonth': countsTranslatorMonth,
+                   'notifs': getLatestRecord()
                    }
         return render(request, 'main/Admin/onboarding.html', context)
 
@@ -189,13 +201,32 @@ def onboarding(request, pk=None):
 @ allowed_users(allowed_roles=['HR Staff', 'HR Manager'])
 def rejectedapp(request):
     users = accounts.objects.all()
-    context = {'applicantList': users}
+    context = {'applicantList': users, 'notifs': getLatestRecord()}
     return render(request, 'main/Admin/rejectedapp.html', context)
 
 
 @ allowed_users(allowed_roles=['HR Staff', 'HR Manager'])
-def department(request):
-    context = {}
+def department(request, pk=None):
+    manpowers = manpower.objects.order_by('-requestDate')
+
+    context = {'manpowersList': manpowers,
+               'notifs': getLatestRecord()}
+
+    currentUser = accounts.objects.get(username=request.user)  # get Some User.
+    group = currentUser.groups.all()[0]
+    if pk != None:
+        instance = manpower.objects.get(id=pk)
+        form1 = manpowerForm(instance=instance)
+
+        if request.method == 'POST':
+            form1 = manpowerForm(request.POST, instance=instance)
+            if form1.is_valid():
+                form1.save()
+                return redirect('department')
+
+        context = {'manpowersList': manpowers, 'group': group,
+                   'notifs': getLatestRecord(),
+                   'instance': instance, 'form': form1, }
     return render(request, 'main/Admin/department.html', context)
 
 
@@ -218,6 +249,7 @@ def ResumePreview(request, pk):
                'reference': referencedata,
                'skill': skilldata,
                'link': linkdata,
+               'notifs': getLatestRecord()
                }
     return render(request, 'main/Admin/include/resumePrev.html', context)
 

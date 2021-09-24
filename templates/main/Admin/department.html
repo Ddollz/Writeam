@@ -3,8 +3,8 @@
 {% load static%}
 {% block content%}
 <section class="home-section">
+    {% include 'main/Admin/include/topnavbar.html' %}
     <div class="container-fluid px-4">
-
         <div class="card mb-3" style="background-color:transparent; border:none">
             <div class="card-body text-center">
                 <h1 class="fw-bold">Department Management</h1>
@@ -14,5 +14,222 @@
             </div>
         </div>
     </div>
+    <div class="row table-card p-5">
+        <div class="shadow p-0">
+            <div class="card ">
+                <div class="card-body">
+
+                    <div class="card-title">
+                        <h3 class="fw-bold" style="text-shadow: 2px 2px 1px rgba(0, 0, 0, 0.246);">Manager's Request List
+                            <i class="bi bi-printer-fill print"></i>
+                        </h3>
+                    </div>
+                    <table id="datatablesSimple">
+                        <thead>
+                            <tr>
+                                <th>Avatar</th>
+                                <th>Requester Name</th>
+                                <th>Department</th>
+                                <th>Designation</th>
+                                <th>Nos of candidate</th>
+                                <th>Request Date</th>
+                                <th>Expected Date</th>
+                                <th>Details</th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th>Avatar</th>
+                                <th>Requester Name</th>
+                                <th>Department</th>
+                                <th>Designation</th>
+                                <th>Nos of candidate</th>
+                                <th>Request Date</th>
+                                <th>Expected Date</th>
+                                <th>Details</th>
+                            </tr>
+                        </tfoot>
+                        <tbody>
+
+                            {% for manpower in manpowersList%}
+                            <tr>
+                                <td>
+                                    {% if manpower.department == 'Copy Writer'%}
+                                    <i class="bi bi-people-fill fs-3 me-3 " style="color: #3498db"></i>
+                                    {% elif manpower.department == 'Editor'%}
+                                    <i class="bi bi-pencil-square fs-3 me-3 " style="color: #3498db"></i>
+                                    {% elif manpower.department == 'Translator'%}
+                                    <i class="bi bi-translate fs-3 me-3 " style="color: #3498db"></i>
+                                    {% endif %}
+                                </td>
+                                <td>{{manpower.name}}</td>
+                                <td>{{manpower.department}}</td>
+                                <td>{{manpower.designation}}</td>
+                                <td>{{manpower.nosCandidate}}</td>
+                                <td>{{manpower.requestDate}}</td>
+                                <td>{{manpower.expectedDate}}</td>
+                                <td><a href="{% url 'department' manpower.id %}" type="button" class="btn btn-primary">View</a></td>
+                            </tr>
+
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </section>
+
+{% if instance%}
+<!-- Modal -->
+{% if group|stringformat:'s' == 'HR Manager'%}
+<div class="modal fade score" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel"><img src="{% static 'assets/img/logos.png' %}" alt="" srcset="" width="50px" height="50px">
+                    {{instance}} Manager Request
+                </h5>
+                <a type="button" href="{% url 'department'%}"><i class="bi bi-x-diamond text-white"></i></a>
+            </div>
+
+            <div class="modal-body userInfo">
+
+                <div class="page-modal active">
+                    <div class="row">
+                        <div class="col">
+                            <label for="Requesting" class="form-label">Requester Name</label>
+                            <p>{{instance.name}}</p>
+                        </div>
+                        <div class="col">
+                            <label for="department" class="form-label">Department</label>
+                            <p>{{instance.department}}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <label for="datereq" class="form-label">Date of Request</label>
+                            <p>{{instance.requestDate}}</p>
+                        </div>
+                        <div class="col">
+                            <label for="dateexpect" class="form-label">Expected of Date</label>
+                            <p>{{instance.expectedDate}}</p>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <div class="form-floating">
+                            <textarea class="form-control" readonly placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px">{{instance.reason}}
+                            </textarea>
+                            <label for="floatingTextarea2">Comments</label>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col">
+                            <label for="designation" class="form-label">For Designation</label>
+                            <p>{{instance.designation}}</p>
+                        </div>
+                        <div class="col">
+                            <label for="noCan" class="form-label">Nos of Candidate</label>
+                            <p>{{instance.nosCandidate}}</p>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <div class="form-floating">
+                            <textarea class="form-control" readonly placeholder="Leave a comment here" id="float1" style="height: 100px">{{instance.requirements}}
+                            </textarea>
+                            <label for="float1">Comments</label>
+                        </div>
+                    </div>
+                    <button class="btn btn-outline-secondary text-center float-end border editButton">Edit</button>
+
+                </div>
+
+                <div class="page-modal">
+                    <form action="{% url 'department' instance.id %}" method="POST">
+                        {% csrf_token %}
+                        {{form.non_field_errors}}
+                        <div class="row mb-3">
+                            <div class="col">
+                                <label for="Requesting" class="form-label">Requester Name</label>
+                                {{form.name}}
+                                <!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> -->
+                            </div>
+                            <div class="col">
+                                <label for="department" class="form-label">Department</label>
+                                {{form.department}}
+                                <!-- <select class="form-select">
+                                    <option selected>Open this select menu</option>
+                                    <option value="1">Copy Writer</option>
+                                    <option value="2">Editor</option>
+                                    <option value="3">Translator</option>
+                                </select> -->
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col">
+                                <label for="datereq" class="form-label">Date of Request</label>
+                                {{form.requestDate}}
+                                <!-- <input type="Date" class="form-control" id="datereq"> -->
+                                <!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> -->
+                            </div>
+                            <div class="col">
+                                <label for="dateexpect" class="form-label">Expected of Date</label>
+                                {{form.expectedDate}}
+                                <!-- <input type="Date" class="form-control" id="dateexpect"> -->
+                            </div>
+                        </div>
+                        <div class=" mb-3">
+                            <div class="form-floating">
+                                {{form.reason}}
+                                <!-- <textarea class="form-control" style="resize: none;" placeholder="Leave a comment here" id="float1"></textarea> -->
+                                <label for="float1">Reason for request</label>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col">
+                                <label for="designation" class="form-label">For Designation</label>
+                                {{form.designation}}
+                            </div>
+                            <div class="col">
+                                <label for="noCan" class="form-label">Nos of Candidate</label>
+                                {{form.nosCandidate}}
+                                <!-- <input type="number" class="form-control" id="noCan"> -->
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <div class="form-floating">
+                                {{form.requirements}}
+                                <!-- <textarea class="form-control" placeholder="Leave a comment here" id="float2" style="height: 100px;resize: none;"></textarea> -->
+                                <label for="float2">Skill / Qualifications & Experience Requirements</label>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-outline-secondary text-center float-end next">Submit</button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+{% endif %}
 {% endblock %}
+
+{% block scriptContent%}
+<script>
+    $(document).ready(function () {
+        var modaledit = '{{instance}}'
+        if (modaledit) {
+            console.log(modaledit)
+            $('#exampleModal').modal('show');
+        }
+    });
+</script>
+{% endblock%}
