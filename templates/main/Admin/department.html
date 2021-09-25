@@ -24,7 +24,13 @@
 
                         <div class="row item">
                             <div class="col-1">
-                                <img class="img-circle" src="{{user.personaldetails.profile_image.url}}" alt="profileImg" />
+                                {% if manpower.department == 'Copy Writer'%}
+                                <i class="bi bi-people-fill fs-3 me-3 " style="color: #e74c3c"></i>
+                                {% elif manpower.department == 'Editor'%}
+                                <i class="bi bi-pencil-square fs-3 me-3 " style="color: #34495e"></i>
+                                {% elif manpower.department == 'Translator'%}
+                                <i class="bi bi-translate fs-3 me-3 " style="color: #2ecc71"></i>
+                                {% endif %}
                             </div>
                             <div class="col align-self-center">
 
@@ -67,10 +73,23 @@
                         {% if manpower.is_Finished%}
                         <div class="row item">
                             <div class="col-1">
-                                <img class="img-circle" src="{{user.personaldetails.profile_image.url}}" alt="profileImg" />
+                                {% if manpower.department == 'Copy Writer'%}
+                                <i class="bi bi-people-fill fs-3 me-3 " style="color: #e74c3c"></i>
+                                {% elif manpower.department == 'Editor'%}
+                                <i class="bi bi-pencil-square fs-3 me-3 " style="color: #34495e"></i>
+                                {% elif manpower.department == 'Translator'%}
+                                <i class="bi bi-translate fs-3 me-3 " style="color: #2ecc71"></i>
+                                {% endif %}
                             </div>
                             <div class="col align-self-center">
-                                {{manpower.department}}
+
+
+                                <p class="mb-0 " style="font-weight:600;">{{manpower.department}} Department</p>
+                                <p class="mb-0 text-secondary " style="font-size: 12px;">
+
+                                    <span style="color: #e74c3c;">{{manpower.name}}</span>
+
+                                </p>
                             </div>
 
                             <div class="col align-self-center">
@@ -142,11 +161,11 @@
                             <tr>
                                 <td>
                                     {% if manpower.department == 'Copy Writer'%}
-                                    <i class="bi bi-people-fill fs-3 me-3 " style="color: #3498db"></i>
+                                    <i class="bi bi-people-fill fs-3 me-3 " style="color: #e74c3c"></i>
                                     {% elif manpower.department == 'Editor'%}
-                                    <i class="bi bi-pencil-square fs-3 me-3 " style="color: #3498db"></i>
+                                    <i class="bi bi-pencil-square fs-3 me-3 " style="color: #34495e"></i>
                                     {% elif manpower.department == 'Translator'%}
-                                    <i class="bi bi-translate fs-3 me-3 " style="color: #3498db"></i>
+                                    <i class="bi bi-translate fs-3 me-3 " style="color: #2ecc71"></i>
                                     {% endif %}
                                 </td>
                                 <td>{{manpower.name}}</td>
