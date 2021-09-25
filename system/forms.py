@@ -33,9 +33,6 @@ class manpowerForm(ModelForm):
     requestDate = forms.DateTimeField(label="", required=True, widget=forms.DateInput(
         attrs={'type': 'date', 'class': 'form-control', 'id': 'datereq'}))
 
-    expectedDate = forms.DateTimeField(label="", required=True, widget=forms.DateInput(
-        attrs={'type': 'date', 'class': 'form-control', 'id': 'dateexpect'}))
-
     reason = forms.CharField(label="", required=True, widget=forms.Textarea(
         attrs={'type': 'text', 'class': 'form-control', 'style': 'resize: none;', 'placeholder': 'Leave a comment here', 'id': 'float1'}))
 

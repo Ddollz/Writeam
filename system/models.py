@@ -44,8 +44,6 @@ class manpower(models.Model):
 
     requestDate = models.DateTimeField(blank=True, null=True)
 
-    expectedDate = models.DateTimeField(blank=True, null=True)
-
     reason = models.TextField(
         verbose_name="Reason", max_length=255, null=False)
 

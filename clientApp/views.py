@@ -260,7 +260,7 @@ def checksimilarity(textarray):
     return array
 
 
-def calculatorScore(prof, skill, exp1, exp2):
-    score = (exp1 + exp2) / 2
+def calculatorScore(prof, skill, exp1, expskill2):
+    score = (exp1 + expskill2) / 2
     score += (prof+skill)/2
     return score

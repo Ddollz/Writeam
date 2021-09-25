@@ -51,27 +51,26 @@
                             <a href="{{instance.article.article.url}}"><i class="bi bi-bookmark-star-fill"></i></a>
                             <a href="{% url 'resumePrev' instance.id %}"><i class="bi bi-file-earmark-person-fill"></i></a>
                         </div>
+                        <div class="text-center fw-bold">
+                            Resume Raw Score
+                        </div>
                         <div class="row mb-3">
                             <div class="col">
                                 <label for="score" class="form-label">Copy Writer</label>
                                 {{modalform.copywriter}}
-                                {{modalform.copywriterfinal}}
 
-                                <input type="number" class="form-control" id='copywriter' disabled value="{{jobappInstance.copywriter}}">
+                                <input type="number" class="form-control" id='copywriterR' disabled value="{{jobappInstance.copywriter}}">
                             </div>
                             <div class="col">
                                 <label for="score" class="form-label">Editor</label>
-                                <input type="number" class="form-control" id='editor' disabled value="{{jobappInstance.editor}}">
+                                <input type="number" class="form-control" id='editorR' disabled value="{{jobappInstance.editor}}">
                                 {{modalform.editor}}
-                                {{modalform.editorfinal}}
                             </div>
                             <div class="col">
                                 <label for="score" class="form-label">Translator</label>
-                                <input type="number" class="form-control" id='translator' disabled value="{{jobappInstance.translator}}">
+                                <input type="number" class="form-control" id='translatorR' disabled value="{{jobappInstance.translator}}">
                                 {{modalform.translator}}
-                                {{modalform.translatorfinal}}
                             </div>
-
                         </div>
                         <div id="emailHelp" class="form-text text-center">Best score for hiring a Applicant Is 80%</div>
                         <div class="row mb-3">
@@ -79,6 +78,28 @@
                                 <label for="score" class="form-label">Article</label>
                                 {{modalform.article}}
                                 <div id="emailHelp" class="form-text">80% Is the passing score of article</div>
+                            </div>
+                        </div>
+
+                        <div class="text-center fw-bold">
+                            Overall Final Score
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col">
+                                <label for="score" class="form-label">Copy Writer</label>
+                                {{modalform.copywriterfinal}}
+
+                                <input type="number" class="form-control" id='copywriter' disabled value="0">
+                            </div>
+                            <div class="col">
+                                <label for="score" class="form-label">Editor</label>
+                                <input type="number" class="form-control" id='editor' disabled value="0">
+                                {{modalform.editorfinal}}
+                            </div>
+                            <div class="col">
+                                <label for="score" class="form-label">Translator</label>
+                                <input type="number" class="form-control" id='translator' disabled value="0">
+                                {{modalform.translatorfinal}}
                             </div>
                         </div>
                         <div class="form-floating">
@@ -106,13 +127,11 @@
             console.log(modaledit)
             $('#exampleModal').modal('show');
         }
-        score1 = $('#copywriter').val()
-        score2 = $('#editor').val()
-        score3 = $('#translator').val()
+        score1 = $('#copywriterR').val()
+        score2 = $('#editorR').val()
+        score3 = $('#translatorR').val()
         score4 = $('#article').val()
-        is_validated = "{{jobappInstance.is_validated}}"
 
-        console.log(is_validated)
         $("#article").change(function () {
             var articlescore = parseInt($("#article").val());
             test = articlescore / 10 * 3

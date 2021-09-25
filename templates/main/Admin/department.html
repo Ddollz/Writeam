@@ -33,7 +33,6 @@
                                 <th>Designation</th>
                                 <th>Nos of candidate</th>
                                 <th>Request Date</th>
-                                <th>Expected Date</th>
                                 <th>Details</th>
                             </tr>
                         </thead>
@@ -45,7 +44,6 @@
                                 <th>Designation</th>
                                 <th>Nos of candidate</th>
                                 <th>Request Date</th>
-                                <th>Expected Date</th>
                                 <th>Details</th>
                             </tr>
                         </tfoot>
@@ -67,7 +65,6 @@
                                 <td>{{manpower.designation}}</td>
                                 <td>{{manpower.nosCandidate}}</td>
                                 <td>{{manpower.requestDate}}</td>
-                                <td>{{manpower.expectedDate}}</td>
                                 <td><a href="{% url 'department' manpower.id %}" type="button" class="btn btn-primary">View</a></td>
                             </tr>
 
@@ -98,23 +95,14 @@
 
                 <div class="page-modal active">
                     <div class="row">
-                        <div class="col">
-                            <label for="Requesting" class="form-label">Requester Name</label>
-                            <p>{{instance.name}}</p>
-                        </div>
+
                         <div class="col">
                             <label for="department" class="form-label">Department</label>
                             <p>{{instance.department}}</p>
                         </div>
-                    </div>
-                    <div class="row">
                         <div class="col">
                             <label for="datereq" class="form-label">Date of Request</label>
                             <p>{{instance.requestDate}}</p>
-                        </div>
-                        <div class="col">
-                            <label for="dateexpect" class="form-label">Expected of Date</label>
-                            <p>{{instance.expectedDate}}</p>
                         </div>
                     </div>
 
@@ -141,7 +129,7 @@
                         <div class="form-floating">
                             <textarea class="form-control" readonly placeholder="Leave a comment here" id="float1" style="height: 100px">{{instance.requirements}}
                             </textarea>
-                            <label for="float1">Comments</label>
+                            <label for="float1">Skill / Qualifications & Experience Requirements</label>
                         </div>
                     </div>
                     <button class="btn btn-outline-secondary text-center float-end border editButton">Edit</button>
@@ -175,11 +163,6 @@
                                 {{form.requestDate}}
                                 <!-- <input type="Date" class="form-control" id="datereq"> -->
                                 <!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> -->
-                            </div>
-                            <div class="col">
-                                <label for="dateexpect" class="form-label">Expected of Date</label>
-                                {{form.expectedDate}}
-                                <!-- <input type="Date" class="form-control" id="dateexpect"> -->
                             </div>
                         </div>
                         <div class=" mb-3">

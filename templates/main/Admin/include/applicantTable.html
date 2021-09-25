@@ -36,27 +36,81 @@
 
                 <table id="datatablesSimple">
                     <thead>
+                        {% if request.path == current_url3 or request.path == current_url2 %}
                         <tr>
                             <th>ID</th>
                             <th>Avatar</th>
                             <th>Name</th>
-                            <th>Date Joined</th>
+                            <th>Copy Writer FS</th>
+                            <th>Editor FS</th>
+                            <th>Translator FS</th>
+                            <th>Article Score</th>
+
+                            {% if request.path == current_url2%}
+                            <th>Job Accepted</th>
+                            <th>Date Accepted</th>
+                            {% else %}
                             <th>Last Login</th>
-                            <th>Article</th>
-                            <th>Resume</th>
-                        </tr>
-                    </thead>
-                    <tfoot>
-                        <tr>
-                            <th>ID</th>
-                            <th>Avatar</th>
-                            <th>Name</th>
-                            <th>Date Joined</th>
-                            <th>Last Login</th>
+                            <th>Date Submited</th>
+                            {% endif %}
 
                             <th>Article</th>
                             <th>Resume</th>
                         </tr>
+                        {% else %}
+                        <tr>
+                            <th>ID</th>
+                            <th>Avatar</th>
+                            <th>Name</th>
+                            <th>Copy Writer Score</th>
+                            <th>Editor Score</th>
+                            <th>Translator Score</th>
+                            <th>Article Score</th>
+                            <th>Date Submited</th>
+                            <th>Last Login</th>
+                            <th>Article</th>
+                            <th>Resume</th>
+                        </tr>
+                        {% endif %}
+                    </thead>
+                    <tfoot>
+
+                        {% if request.path == current_url3 or request.path == current_url2 %}
+                        <tr>
+                            <th>ID</th>
+                            <th>Avatar</th>
+                            <th>Name</th>
+                            <th>Copy Writer FS</th>
+                            <th>Editor FS</th>
+                            <th>Translator FS</th>
+                            <th>Article Score</th>
+
+                            {% if request.path == current_url2%}
+                            <th>Job Accepted</th>
+                            <th>Date Accepted</th>
+                            {% else %}
+                            <th>Last Login</th>
+                            <th>Date Submited</th>
+                            {% endif %}
+
+                            <th>Article</th>
+                            <th>Resume</th>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <th>ID</th>
+                            <th>Avatar</th>
+                            <th>Name</th>
+                            <th>Copy Writer Score</th>
+                            <th>Editor Score</th>
+                            <th>Translator Score</th>
+                            <th>Article Score</th>
+                            <th>Date Submited</th>
+                            <th>Last Login</th>
+                            <th>Article</th>
+                            <th>Resume</th>
+                        </tr>
+                        {% endif %}
                     </tfoot>
                     <tbody>
 
@@ -70,7 +124,11 @@
                             <td>{{ user.id }}</td>
                             <td><img class="img-circle" src="{{user.personaldetails.profile_image.url}}" draggable="false" /></td>
                             <td>{{user.first_name}} {{user.last_name}}</td>
-                            <td>{{ user.date_joined }}</td>
+                            <td>{{ user.jobapplication.copywriterfinal }}</td>
+                            <td>{{ user.jobapplication.editorfinal }}</td>
+                            <td>{{ user.jobapplication.translatorfinal }}</td>
+                            <td>{{ user.jobapplication.article }}</td>
+                            <td>{{ user.jobapplication.dateSubmit }}</td>
                             <td>{{ user.last_login }}</td>
                             <!-- <td><a type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Add</a></td> -->
                             {%if user.article.article.url != None %}
@@ -96,8 +154,12 @@
                                 <td>{{ user.id }}</td>
                                 <td><img class="img-circle" src="{{user.personaldetails.profile_image.url}}" draggable="false" /></td>
                                 <td>{{user.first_name}} {{user.last_name}}</td>
-                                <td>{{ user.date_joined }}</td>
-                                <td>{{ user.last_login }}</td>
+                                <td>{{ user.jobapplication.copywriterfinal }}</td>
+                                <td>{{ user.jobapplication.editorfinal }}</td>
+                                <td>{{ user.jobapplication.translatorfinal }}</td>
+                                <td>{{ user.jobapplication.article }}</td>
+                                <td>{{ user.jobapplication.dateAccepted }}</td>
+                                <td>{{ user.jobapplication.jobAccepted }}</td>
                                 <!-- <td><a type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Add</a></td> -->
                                 {%if user.article.article.url != None %}
                                 <td><a type="button" class="btn btn-primary" href="{{user.article.article.url}}">View</a></td>
@@ -114,12 +176,16 @@
                             {% endif %}
                             {% endif %}
                             {% else %}
-                            {% if group|stringformat:'s' != 'HR Manager' and group|stringformat:'s' != 'HR Staff'%}
+                            {% if group|stringformat:'s' == 'Clients'%}
                             <tr>
                                 <td>{{ user.id }}</td>
                                 <td><img class="img-circle" src="{{user.personaldetails.profile_image.url}}" draggable="false" /></td>
                                 <td>{{user.first_name}} {{user.last_name}}</td>
-                                <td>{{ user.date_joined }}</td>
+                                <td>{{ user.jobapplication.copywriter }}</td>
+                                <td>{{ user.jobapplication.editor }}</td>
+                                <td>{{ user.jobapplication.translator }}</td>
+                                <td>{{ user.jobapplication.article }}</td>
+                                <td>{{ user.jobapplication.dateSubmit }}</td>
                                 <td>{{ user.last_login }}</td>
                                 <!-- <td><a type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Add</a></td> -->
                                 {%if user.article.article.url != None %}

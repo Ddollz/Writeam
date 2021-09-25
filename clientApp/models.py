@@ -25,9 +25,9 @@ class jobapplication(models.Model):
     is_editor = models.BooleanField(default=False)
     is_translator = models.BooleanField(default=False)
 
-    is_copywriter_hired = models.BooleanField(default=False)
-    is_editor_hired = models.BooleanField(default=False)
-    is_translator_hired = models.BooleanField(default=False)
+    # is_copywriter_hired = models.BooleanField(default=False)
+    # is_editor_hired = models.BooleanField(default=False)
+    # is_translator_hired = models.BooleanField(default=False)
 
     is_validated = models.BooleanField(default=False)
 
