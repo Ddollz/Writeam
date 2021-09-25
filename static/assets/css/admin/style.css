@@ -395,6 +395,9 @@ img.img-circle {
   padding: 1rem;
   cursor: move;
 }
+.draggable-row-container .item {
+  padding: 1rem;
+}
 .draggable-row-container .draggable:hover {
   border-color: #344767;
   border-style: dashed;

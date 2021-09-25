@@ -13,7 +13,94 @@
                 </p>
             </div>
         </div>
+        <div class="row draggable-row-container">
+            <div class="col">
+                <div class="card shadow">
+                    <div class="card-body drag-body">
+                        <div class="card-title text-start text-uppercase fw-bold">Department Manager Request<span class="float-end count" id="span1">1/10</span></div>
+                        <hr>
+                        {% for manpower in notifs%}
+                        {% if not manpower.is_Finished%}
+
+                        <div class="row item">
+                            <div class="col-1">
+                                <img class="img-circle" src="{{user.personaldetails.profile_image.url}}" alt="profileImg" />
+                            </div>
+                            <div class="col align-self-center">
+
+
+                                <p class="mb-0 " style="font-weight:600;">{{manpower.department}} Department</p>
+                                <p class="mb-0 text-secondary " style="font-size: 12px;">
+
+                                    <span style="color: #e74c3c;">{{manpower.name}}</span>
+
+                                </p>
+                            </div>
+
+                            <div class="col align-self-center">
+
+                                <p class="mb-0 " style="font-weight:600;">{{manpower.designation}}</p>
+                                <p class="mb-0 text-secondary " style="font-size: 12px;">
+
+                                    <span style="color: #e74c3c;">{{manpower.currentCandidate}}/{{manpower.nosCandidate}}</span>
+
+                                </p>
+                            </div>
+
+                            <div class="col align-self-center">
+                                <a type="button" class="btn viewScore" href="{%url 'applicantmanagement' user.id %}">View</a>
+                            </div>
+
+                        </div>
+                        {%endif%}
+                        {%endfor%}
+                    </div>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="card shadow">
+                    <div class="card-body drag-body">
+                        <div class="card-title text-start text-uppercase fw-bold">Latest Rejected Applicants<span class="float-end count" id="span2">1/10</span></div>
+                        <hr>
+                        {% for manpower in notifs%}
+                        {% if manpower.is_Finished%}
+                        <div class="row item">
+                            <div class="col-1">
+                                <img class="img-circle" src="{{user.personaldetails.profile_image.url}}" alt="profileImg" />
+                            </div>
+                            <div class="col align-self-center">
+                                {{manpower.department}}
+                            </div>
+
+                            <div class="col align-self-center">
+
+                                <p class="mb-0 " style="font-weight:600;">{{manpower.designation}}</p>
+                                <p class="mb-0 text-secondary " style="font-size: 12px;">
+
+                                    <span style="color: #e74c3c;">{{manpower.currentCandidate}}/{{manpower.nosCandidate}}</span>
+
+                                </p>
+                            </div>
+
+                            <div class="col align-self-center">
+                                <a type="button" class="btn viewScore" href="{%url 'applicantmanagement' user.id %}">View</a>
+                            </div>
+
+                        </div>
+                        {%endif%}
+                        {%endfor%}
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
+
+
+
+
+
     <div class="row table-card p-5">
         <div class="shadow p-0">
             <div class="card ">
@@ -32,6 +119,7 @@
                                 <th>Department</th>
                                 <th>Designation</th>
                                 <th>Nos of candidate</th>
+                                <th>Accepted candidate</th>
                                 <th>Request Date</th>
                                 <th>Details</th>
                             </tr>
@@ -43,6 +131,7 @@
                                 <th>Department</th>
                                 <th>Designation</th>
                                 <th>Nos of candidate</th>
+                                <th>Accepted candidate</th>
                                 <th>Request Date</th>
                                 <th>Details</th>
                             </tr>
@@ -64,6 +153,7 @@
                                 <td>{{manpower.department}}</td>
                                 <td>{{manpower.designation}}</td>
                                 <td>{{manpower.nosCandidate}}</td>
+                                <td>{{manpower.currentCandidate}}</td>
                                 <td>{{manpower.requestDate}}</td>
                                 <td><a href="{% url 'department' manpower.id %}" type="button" class="btn btn-primary">View</a></td>
                             </tr>
@@ -213,6 +303,17 @@
             console.log(modaledit)
             $('#exampleModal').modal('show');
         }
+
+        const containers = document.querySelectorAll('.drag-body')
+        containers.forEach((container, index) => {
+            const countDraggableInContainer = container.querySelectorAll('.item')
+
+            const getSpanCounter = container.querySelector('.count');
+
+            getSpanCounter.innerHTML = countDraggableInContainer.length + "/10";
+        })
+
     });
+
 </script>
 {% endblock%}

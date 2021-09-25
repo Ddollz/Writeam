@@ -7,13 +7,14 @@ from django.conf import settings
 from django.template.loader import render_to_string
 from django.contrib.sites.shortcuts import get_current_site
 import datetime
+from django.utils import timezone
 
 from .utils import send_html_mail
 from accounts.models import accounts
 from system.models import *
+from system.forms import manpowerForm
 from .models import employmentHistory, personalDetails, education, link, reference, skill, article
 from .forms import *
-from system.forms import manpowerForm
 
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
@@ -22,13 +23,14 @@ from sklearn.metrics.pairwise import cosine_similarity
 
 def index(request):
     jobs = jobList.objects.all()
-    client = accounts.objects.get(username=request.user)  # get Some User.
-    group = client.groups.all()[0]
+
     context = {'jobList': jobs}
-
-    form1 = manpowerForm()
-
     if request.user.is_authenticated:
+
+        client = accounts.objects.get(username=request.user)  # get Some User.
+        group = client.groups.all()[0]
+
+        form1 = manpowerForm()
         if request.method == 'POST':
             form1 = manpowerForm(request.POST)
             if form1.is_valid():
@@ -232,16 +234,44 @@ def jobaccept(request, pk1):
     user = jobapplication.objects.get(accounts=request.user)
     if user.jobAccepted == 'None':
         if pk1 == 1:
-            user.dateAccepted = datetime.datetime.now()
+            user.dateAccepted = timezone.now()
             user.jobAccepted = "Copy Writer"
+            manRequest = manpower.objects.filter(
+                designation='Copy Writer').filter(is_Finished=False)
+            for man in manRequest:
+                if man.currentCandidate < man.nosCandidate:
+                    man.currentCandidate += 1
+                    man.save()
+                if man.currentCandidate >= man.nosCandidate:
+                    man.is_Finished = True
+                    man.save()
             user.save()
         elif pk1 == 2:
-            user.dateAccepted = datetime.datetime.now()
+            user.dateAccepted = timezone.now()
             user.jobAccepted = "Editor"
+            manRequest = manpower.objects.filter(
+                designation='Editor').filter(is_Finished=False)
+
+            for man in manRequest:
+                if man.currentCandidate < man.nosCandidate:
+                    man.currentCandidate += 1
+                    man.save()
+                if man.currentCandidate >= man.nosCandidate:
+                    man.is_Finished = True
+                    man.save()
             user.save()
         elif pk1 == 3:
-            user.dateAccepted = datetime.datetime.now()
+            user.dateAccepted = timezone.now()
             user.jobAccepted = "Translator"
+            manRequest = manpower.objects.filter(
+                designation='Translator').filter(is_Finished=False)
+            for man in manRequest:
+                if man.currentCandidate < man.nosCandidate:
+                    man.currentCandidate += 1
+                    man.save()
+                if man.currentCandidate >= man.nosCandidate:
+                    man.is_Finished = True
+                    man.save()
             user.save()
     return redirect('/')
 

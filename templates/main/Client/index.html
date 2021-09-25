@@ -6,10 +6,10 @@
 {% load static%}
 {% block content%}
 
-{% if group|stringformat:'s' == 'HR Manager' or group|stringformat:'s' == 'HR Staff' or group|stringformat:'s' == 'Clients'%}
-{% include 'main/Client/include/clientDashboard.html' %}
-{% else %}
+{% if group|stringformat:'s' == 'Copy Writer Manager' or group|stringformat:'s' == 'Editor Manager' or group|stringformat:'s' == 'Translator Manager'%}
 {% include 'main/Client/include/applicantManagers.html' %}
+{% else %}
+{% include 'main/Client/include/clientDashboard.html' %}
 {% endif %}
 
 <main id="main">

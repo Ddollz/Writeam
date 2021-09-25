@@ -187,7 +187,8 @@ def department(request, pk=None):
     manpowers = manpower.objects.order_by('-requestDate')
 
     context = {'manpowersList': manpowers,
-               'notifs': getLatestRecord()}
+               'notifs': getLatestRecord()
+               }
 
     currentUser = accounts.objects.get(username=request.user)  # get Some User.
     group = currentUser.groups.all()[0]
