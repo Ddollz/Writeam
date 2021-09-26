@@ -237,7 +237,7 @@ def jobaccept(request, pk1):
             user.dateAccepted = timezone.now()
             user.jobAccepted = "Copy Writer"
             manRequest = manpower.objects.filter(
-                designation='Copy Writer').filter(is_Finished=False)
+                department='Copy Writer').filter(is_Finished=False)
             for man in manRequest:
                 if man.currentCandidate < man.nosCandidate:
                     man.currentCandidate += 1
@@ -250,7 +250,7 @@ def jobaccept(request, pk1):
             user.dateAccepted = timezone.now()
             user.jobAccepted = "Editor"
             manRequest = manpower.objects.filter(
-                designation='Editor').filter(is_Finished=False)
+                department='Editor').filter(is_Finished=False)
 
             for man in manRequest:
                 if man.currentCandidate < man.nosCandidate:
@@ -264,7 +264,7 @@ def jobaccept(request, pk1):
             user.dateAccepted = timezone.now()
             user.jobAccepted = "Translator"
             manRequest = manpower.objects.filter(
-                designation='Translator').filter(is_Finished=False)
+                department='Translator').filter(is_Finished=False)
             for man in manRequest:
                 if man.currentCandidate < man.nosCandidate:
                     man.currentCandidate += 1

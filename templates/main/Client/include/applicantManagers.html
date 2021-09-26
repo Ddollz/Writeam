@@ -14,7 +14,7 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-6 d-flex flex-column justify-content-center">
-                <div class="card shadow">
+                <div class="card shadow" style="height: auto;">
                     <div class="card-body">
                         <h5 class="card-title">Welcome Managers!<span class='float-end'>Manpower Request Form</span></h5>
                         <hr>
@@ -45,6 +45,11 @@
                                     <!-- <input type="Date" class="form-control" id="datereq"> -->
                                     <!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> -->
                                 </div>
+                                <div class="col">
+                                    <label for="noCan" class="form-label">Nos of Candidate</label>
+                                    {{form.nosCandidate}}
+                                    <!-- <input type="number" class="form-control" id="noCan"> -->
+                                </div>
                             </div>
                             <div class=" mb-3">
                                 <div class="form-floating">
@@ -54,17 +59,6 @@
                                 </div>
                             </div>
 
-                            <div class="row mb-3">
-                                <div class="col">
-                                    <label for="designation" class="form-label">For Designation</label>
-                                    {{form.designation}}
-                                </div>
-                                <div class="col">
-                                    <label for="noCan" class="form-label">Nos of Candidate</label>
-                                    {{form.nosCandidate}}
-                                    <!-- <input type="number" class="form-control" id="noCan"> -->
-                                </div>
-                            </div>
 
                             <div class="mb-3">
                                 <div class="form-floating">

@@ -25,9 +25,9 @@
                         <div class="row item">
                             <div class="col-1">
                                 {% if manpower.department == 'Copy Writer'%}
-                                <i class="bi bi-people-fill fs-3 me-3 " style="color: #e74c3c"></i>
+                                <i class="bi bi-pencil-square fs-3 me-3 " style="color: #e74c3c"></i>
                                 {% elif manpower.department == 'Editor'%}
-                                <i class="bi bi-pencil-square fs-3 me-3 " style="color: #34495e"></i>
+                                <i class="bi bi-file-earmark-zip-fill fs-3 me-3 " style="color: #34495e"></i>
                                 {% elif manpower.department == 'Translator'%}
                                 <i class="bi bi-translate fs-3 me-3 " style="color: #2ecc71"></i>
                                 {% endif %}
@@ -45,7 +45,7 @@
 
                             <div class="col align-self-center">
 
-                                <p class="mb-0 " style="font-weight:600;">{{manpower.designation}}</p>
+                                <p class="mb-0 " style="font-weight:600;">{{manpower.department}}</p>
                                 <p class="mb-0 text-secondary " style="font-size: 12px;">
 
                                     <span style="color: #e74c3c;">{{manpower.currentCandidate}}/{{manpower.nosCandidate}}</span>
@@ -74,9 +74,9 @@
                         <div class="row item">
                             <div class="col-1">
                                 {% if manpower.department == 'Copy Writer'%}
-                                <i class="bi bi-people-fill fs-3 me-3 " style="color: #e74c3c"></i>
+                                <i class="bi bi-pencil-square fs-3 me-3 " style="color: #e74c3c"></i>
                                 {% elif manpower.department == 'Editor'%}
-                                <i class="bi bi-pencil-square fs-3 me-3 " style="color: #34495e"></i>
+                                <i class="bi bi-file-earmark-zip-fill fs-3 me-3 " style="color: #34495e"></i>
                                 {% elif manpower.department == 'Translator'%}
                                 <i class="bi bi-translate fs-3 me-3 " style="color: #2ecc71"></i>
                                 {% endif %}
@@ -94,7 +94,7 @@
 
                             <div class="col align-self-center">
 
-                                <p class="mb-0 " style="font-weight:600;">{{manpower.designation}}</p>
+                                <p class="mb-0 " style="font-weight:600;">{{manpower.department}}</p>
                                 <p class="mb-0 text-secondary " style="font-size: 12px;">
 
                                     <span style="color: #e74c3c;">{{manpower.currentCandidate}}/{{manpower.nosCandidate}}</span>
@@ -138,7 +138,6 @@
                                 <th>Avatar</th>
                                 <th>Requester Name</th>
                                 <th>Department</th>
-                                <th>Designation</th>
                                 <th>Nos of candidate</th>
                                 <th>Accepted candidate</th>
                                 <th>Request Date</th>
@@ -150,7 +149,6 @@
                                 <th>Avatar</th>
                                 <th>Requester Name</th>
                                 <th>Department</th>
-                                <th>Designation</th>
                                 <th>Nos of candidate</th>
                                 <th>Accepted candidate</th>
                                 <th>Request Date</th>
@@ -163,16 +161,15 @@
                             <tr>
                                 <td>
                                     {% if manpower.department == 'Copy Writer'%}
-                                    <i class="bi bi-people-fill fs-3 me-3 " style="color: #e74c3c"></i>
+                                    <i class="bi bi-pencil-square fs-3 me-3 " style="color: #e74c3c"></i>
                                     {% elif manpower.department == 'Editor'%}
-                                    <i class="bi bi-pencil-square fs-3 me-3 " style="color: #34495e"></i>
+                                    <i class="bi bi-file-earmark-zip-fill fs-3 me-3 " style="color: #34495e"></i>
                                     {% elif manpower.department == 'Translator'%}
                                     <i class="bi bi-translate fs-3 me-3 " style="color: #2ecc71"></i>
                                     {% endif %}
                                 </td>
                                 <td>{{manpower.name}}</td>
                                 <td>{{manpower.department}}</td>
-                                <td>{{manpower.designation}}</td>
                                 <td>{{manpower.nosCandidate}}</td>
                                 <td>{{manpower.currentCandidate}}</td>
                                 <td>{{manpower.requestDate}}</td>
@@ -227,10 +224,6 @@
 
                     <div class="row">
                         <div class="col">
-                            <label for="designation" class="form-label">For Designation</label>
-                            <p>{{instance.designation}}</p>
-                        </div>
-                        <div class="col">
                             <label for="noCan" class="form-label">Nos of Candidate</label>
                             <p>{{instance.nosCandidate}}</p>
                         </div>
@@ -272,8 +265,10 @@
                             <div class="col">
                                 <label for="datereq" class="form-label">Date of Request</label>
                                 {{form.requestDate}}
-                                <!-- <input type="Date" class="form-control" id="datereq"> -->
-                                <!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> -->
+                            </div>
+                            <div class="col">
+                                <label for="noCan" class="form-label">Nos of Candidate</label>
+                                {{form.nosCandidate}}
                             </div>
                         </div>
                         <div class=" mb-3">
@@ -281,18 +276,6 @@
                                 {{form.reason}}
                                 <!-- <textarea class="form-control" style="resize: none;" placeholder="Leave a comment here" id="float1"></textarea> -->
                                 <label for="float1">Reason for request</label>
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <div class="col">
-                                <label for="designation" class="form-label">For Designation</label>
-                                {{form.designation}}
-                            </div>
-                            <div class="col">
-                                <label for="noCan" class="form-label">Nos of Candidate</label>
-                                {{form.nosCandidate}}
-                                <!-- <input type="number" class="form-control" id="noCan"> -->
                             </div>
                         </div>
 

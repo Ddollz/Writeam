@@ -47,9 +47,6 @@ class manpower(models.Model):
     reason = models.TextField(
         verbose_name="Reason", max_length=255, null=False)
 
-    designation = models.CharField(
-        verbose_name="Designation", choices=JOB_CHOICES, default='None', max_length=255, null=False)
-
     nosCandidate = models.PositiveIntegerField(
         verbose_name="nos of Candidate", default=0, null=True, blank=True)
 

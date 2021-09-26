@@ -43,10 +43,10 @@ def exportStaffs(request):
 def exportRequest(request):
     response = HttpResponse(content_type='text/csv')
     writer = csv.writer(response)
-    writer.writerow(['id', 'Requester Name', 'Department', 'Position', 'Request Date',
+    writer.writerow(['id', 'Requester Name', 'Department', 'Request Date',
                     'Reason', '# Of Candidate', 'Current Candidate', 'Fullfilled', 'Requirements', 'Last Submitted'])
     for users in manpower.objects.all().order_by('-id').values_list('id', 'name', 'department',
-                                                                    'designation', 'requestDate', 'reason',
+                                                                    'requestDate', 'reason',
                                                                     'nosCandidate', 'currentCandidate', 'is_Finished',
                                                                     'requirements', 'lastSubmitted',
 

@@ -34,15 +34,12 @@ class manpowerForm(ModelForm):
         attrs={'type': 'date', 'class': 'form-control', 'id': 'datereq'}))
 
     reason = forms.CharField(label="", required=True, widget=forms.Textarea(
-        attrs={'type': 'text', 'class': 'form-control', 'style': 'resize: none;', 'placeholder': 'Leave a comment here', 'id': 'float1'}))
-
-    designation = forms.CharField(label="", required=True, widget=forms.Select(choices=JOB_CHOICES,
-                                                                               attrs={'class': 'form-select', 'id': 'designation'}))
+        attrs={'type': 'text', 'class': 'form-control', 'style': 'height: 100px; resize: none;', 'placeholder': 'Leave a comment here', 'id': 'float1'}))
 
     nosCandidate = forms.CharField(label="", required=True, widget=forms.NumberInput(
         attrs={'type': 'number', 'class': 'form-control', 'id': 'noCan', 'min': '0', 'value': '0'}))
 
-    requirements = forms.CharField(label="", required=True, widget=forms.Textarea(
+    requirements = forms.CharField(label="", required=False, widget=forms.Textarea(
         attrs={'type': 'text', 'class': 'form-control', 'style': 'height: 100px; resize: none;', 'placeholder': 'Leave a comment here', 'id': 'float2'}))
 
     class Meta:
