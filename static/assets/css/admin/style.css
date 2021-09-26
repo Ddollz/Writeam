@@ -343,6 +343,9 @@ img.img-circle {
   border: none;
   box-shadow: none;
 }
+.table-card {
+  color: #344767;
+}
 .table-card .disabled {
   background-color: gray;
   color: white;
@@ -425,11 +428,14 @@ img.img-circle {
   color: #344767;
 }
 
-.print {
+.print,
+.printcsv {
   cursor: pointer;
   opacity: 0.8;
+  color: #212529;
 }
-.print:hover {
+.print:hover,
+.printcsv:hover {
   opacity: 1;
 }
 

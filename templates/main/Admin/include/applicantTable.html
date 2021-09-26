@@ -2,7 +2,6 @@
     <div class="shadow p-0 mb-4">
 
         <div class="card">
-            {% url 'dashboard' as current_url %}
             {% url 'onboarding' as current_url2 %}
             {% url 'rejectedapp' as current_url3 %}
             <div class="card-body">
@@ -10,26 +9,31 @@
                 {% if request.path == current_url3 %}
 
                 <div class="card-title">
-                    <h3 class="fw-bold" style="text-shadow: 2px 2px 1px rgba(0, 0, 0, 0.246);">Rejected Applicant List <i class="bi bi-printer-fill print"></i></h3>
+                    <h3 class="fw-bold" style="text-shadow: 2px 2px 1px rgba(0, 0, 0, 0.246);">Rejected Applicant List
+                        <i class="bi bi-printer-fill print"></i>
+
+                        <a href="{%url 'clientExport' 1%}"><i class="bi bi-file-arrow-down-fill printcsv"></i></a>
+
+                    </h3>
 
                 </div>
                 {% elif request.path == current_url2 %}
 
                 <div class="card-title">
-                    <h3 class="fw-bold" style="text-shadow: 2px 2px 1px rgba(0, 0, 0, 0.246);">Onboarding Applicant List <i class="bi bi-printer-fill print"></i></h3>
-
-                </div>
-                {% elif request.path == current_url %}
-
-                <div class="card-title">
-                    <h3 class="fw-bold" style="text-shadow: 2px 2px 1px rgba(0, 0, 0, 0.246);">User List <i class="bi bi-printer-fill print"></i></h3>
+                    <h3 class="fw-bold" style="text-shadow: 2px 2px 1px rgba(0, 0, 0, 0.246);">Onboarding Applicant List
+                        <i class="bi bi-printer-fill print"></i>
+                        <a href="{%url 'clientExport' 2%}"><i class="bi bi-file-arrow-down-fill printcsv"></i></a>
+                    </h3>
 
                 </div>
                 {% else %}
 
                 <div class="card-title">
-                    <h3 class="fw-bold" style="text-shadow: 2px 2px 1px rgba(0, 0, 0, 0.246);">Applicant List <i class="bi bi-printer-fill print"></i></h3>
+                    <h3 class="fw-bold" style="text-shadow: 2px 2px 1px rgba(0, 0, 0, 0.246);">Applicant List
+                        <i class="bi bi-printer-fill print"></i>
+                        <a href="{%url 'clientExport' 3%}"><i class="bi bi-file-arrow-down-fill printcsv"></i></a>
 
+                    </h3>
                 </div>
 
                 {% endif %}

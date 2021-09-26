@@ -15,6 +15,9 @@ urlpatterns = [
     path("adminUsers/position/<int:pk1>/<str:pk2>/",
          views.staffPosition, name="adminUsersPosition"),
 
+    path("adminUsersExport",
+         views.exportStaffs, name="adminUsersExport"),
+
     path("applicantmanagement/", views.applicantManagement,
          name="applicantmanagement"),
 
@@ -32,11 +35,19 @@ urlpatterns = [
     path("rejectedapp/", views.rejectedapp,
          name="rejectedapp"),
 
+
+    path("clientExport/<int:pk>/",
+         views.exportClient, name="clientExport"),
+
+
     path("department/", views.department,
          name="department"),
 
     path("department/<int:pk>/", views.department,
          name="department"),
+
+    path("departmentExport/",
+         views.exportRequest, name="departmentExport"),
     #     path("addscore/<int:pk>", views.addScore, name="addscore"),
 
 ]

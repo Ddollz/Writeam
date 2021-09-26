@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
+from django.http import HttpResponse, response
 from django.db.models.functions import Lower
 from django.db.models import Count, Sum, Avg
 from django.conf import settings
@@ -12,7 +12,7 @@ from datetime import date
 from .utils import send_html_mail
 from accounts.decorators import unauthenticated_user, allowed_users
 from accounts.models import accounts
-from clientApp.models import personalDetails, employmentHistory, education, skill, link, reference, jobapplication
+from clientApp.models import article, personalDetails, employmentHistory, education, skill, link, reference, jobapplication
 from .models import onboardingApplicant
 from .forms import *
 
@@ -20,7 +20,99 @@ from system.models import manpower
 from system.forms import manpowerForm
 
 import random
+import csv
 # Create your views here.
+
+
+def exportStaffs(request):
+    response = HttpResponse(content_type='text/csv')
+    writer = csv.writer(response)
+    writer.writerow(['id', 'Email', 'Position', 'First Name', 'Last Name',
+                    'Address', 'Contact', 'Date Joined', 'Last Login'])
+    for users in accounts.objects.filter(groups__name__in=['HR Staff', 'HR Manager']).order_by('-id').values_list('id', 'email', 'groups',
+                                                                                                                  'first_name', 'last_name', 'address',
+                                                                                                                  'phone', 'date_joined', 'last_login'):
+        users = list(users)
+        convertGroupId = Group.objects.filter(id=users[2])[0]
+        users[2] = convertGroupId
+        writer.writerow(users)
+    response['Content-Disposition'] = 'attachment; filename ="AdminAccounts.csv"'
+    return response
+
+
+def exportRequest(request):
+    response = HttpResponse(content_type='text/csv')
+    writer = csv.writer(response)
+    writer.writerow(['id', 'Requester Name', 'Department', 'Position', 'Request Date',
+                    'Reason', '# Of Candidate', 'Current Candidate', 'Fullfilled', 'Requirements', 'Last Submitted'])
+    for users in manpower.objects.all().order_by('-id').values_list('id', 'name', 'department',
+                                                                    'designation', 'requestDate', 'reason',
+                                                                    'nosCandidate', 'currentCandidate', 'is_Finished',
+                                                                    'requirements', 'lastSubmitted',
+
+                                                                    ):
+        users = list(users)
+        writer.writerow(users)
+    response['Content-Disposition'] = 'attachment; filename ="Department Requests.csv"'
+    return response
+
+
+def exportClient(request, pk=None):
+    response = HttpResponse(content_type='text/csv')
+    writer = csv.writer(response)
+    writer.writerow(['id', 'Email', 'Position', 'First Name', 'Last Name',
+                    'Address', 'Contact', 'City', 'Postal Code', 'Birth Place', 'Birth Date', 'Nationality',
+                     'Copy Writer RScore', 'Editor RScore', 'Translator RScore', 'Article Score',
+                     'Copy Writer FScore', 'Editor FScore', 'Translator FScore',
+                     'Date Submitted', 'Date Accepted'])
+
+    filterUser = accounts.objects.filter(
+        groups__name='Clients').order_by('-id')
+    tempList = []
+    filename = 'client'
+    for users in filterUser:
+        job = jobapplication.objects.get(accounts=users)
+
+        if pk == 1:
+            if job.jobAccepted == 'None' and job.copywriterfinal < 80 and job.editorfinal < 80 and job.translatorfinal < 80:
+                per = personalDetails.objects.get(accounts=users)
+                tempList.append([users.id, users.email, job.jobAccepted, users.first_name, users.last_name,
+                                per.address, per.phone, per.city, per.postalcode,
+                                per.birthplace, per.birthdate, per.nationality,
+                                job.copywriter, job.editor, job.translator, job.article,
+                                job.copywriterfinal, job.editorfinal, job.translatorfinal,
+                                job.dateSubmit, job.dateAccepted
+                                 ])
+                filename = 'rejectedApplicant'
+
+        if pk == 2:
+            if job.jobAccepted != 'None':
+                per = personalDetails.objects.get(accounts=users)
+                tempList.append([users.id, users.email, job.jobAccepted, users.first_name, users.last_name,
+                                per.address, per.phone, per.city, per.postalcode,
+                                per.birthplace, per.birthdate, per.nationality,
+                                job.copywriter, job.editor, job.translator, job.article,
+                                job.copywriterfinal, job.editorfinal, job.translatorfinal,
+                                job.dateSubmit, job.dateAccepted
+                                 ])
+                filename = 'DeployedApplicant'
+
+        if pk == 3:
+            per = personalDetails.objects.get(accounts=users)
+            tempList.append([users.id, users.email, job.jobAccepted, users.first_name, users.last_name,
+                            per.address, per.phone, per.city, per.postalcode,
+                            per.birthplace, per.birthdate, per.nationality,
+                            job.copywriter, job.editor, job.translator, job.article,
+                            job.copywriterfinal, job.editorfinal, job.translatorfinal,
+                            job.dateSubmit, job.dateAccepted
+                             ])
+            filename = 'Applicants'
+
+    for ls in tempList:
+        writer.writerow(ls)
+
+    response['Content-Disposition'] = 'attachment; filename ="'+filename+'.csv"'
+    return response
 
 
 def getLatestRecord():
@@ -29,22 +121,23 @@ def getLatestRecord():
     return data
 
 
-@allowed_users(allowed_roles=['HR Staff', 'HR Manager'])
+@ allowed_users(allowed_roles=['HR Staff', 'HR Manager'])
 def dashboard(request):
     getLatestRecord()
     users = accounts.objects.all()
-    context = {'applicantList': users, 'notifs': getLatestRecord()}
+    context = {'applicantList': users,
+               'userList': users, 'notifs': getLatestRecord()}
     return render(request, 'main/Admin/Dashboard.html', context)
 
 
-@allowed_users(allowed_roles=['HR Manager'])
+@ allowed_users(allowed_roles=['HR Manager'])
 def adminUsers(request):
     users = accounts.objects.all()
     context = {'userList': users, 'notifs': getLatestRecord()}
     return render(request, 'main/Admin/user.html', context)
 
 
-@allowed_users(allowed_roles=['HR Staff', 'HR Manager'])
+@ allowed_users(allowed_roles=['HR Staff', 'HR Manager'])
 def applicantManagement(request, pk=None):
 
     users = accounts.objects.all()
@@ -103,7 +196,7 @@ def applicantManagement(request, pk=None):
     # filter(A).filter(B)
 
 
-@allowed_users(allowed_roles=['HR Staff', 'HR Manager'])
+@ allowed_users(allowed_roles=['HR Staff', 'HR Manager'])
 def onboarding(request, pk=None):
     users = accounts.objects.all()
     jobapps = jobapplication.objects.all()

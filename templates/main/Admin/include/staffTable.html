@@ -1,0 +1,95 @@
+<div class="row table-card p-2">
+    <div class="shadow p-0">
+        <div class="card ">
+            <div class="card-body">
+
+                <div class="card-title">
+                    <h3 class="fw-bold" style="text-shadow: 2px 2px 1px rgba(0, 0, 0, 0.246);">Staff List
+                        <i class="bi bi-printer-fill print"></i>
+                        <a href="{%url 'adminUsersExport'%}"><i class="bi bi-file-arrow-down-fill printcsv"></i></a>
+                    </h3>
+                </div>
+                <table id="table1">
+                    <thead>
+                        <tr>
+                            <th>Avatar</th>
+                            <th>Name</th>
+                            <th>Position</th>
+                            <th>Address</th>
+                            <th>Last Login</th>
+                            <th>Status</th>
+                            <th>More Details</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th>Avatar</th>
+                            <th>Name</th>
+                            <th>Position</th>
+                            <th>Address</th>
+                            <th>Last Login</th>
+                            <th>Status</th>
+                            <th>More Details</th>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+
+                        {% for user in userList%}
+                        {% for group in user.groups.all %}
+                        {% if group|stringformat:'s' != 'Clients'%}
+                        <tr>
+                            <td><img class="img-circle" src="{{user.profile_image.url}}" alt="profileImg" /></td>
+                            <td>{{user.first_name}} {{user.last_name}}</td>
+                            <td><select class="form-select Position" aria-label="Default select example" data-url="{% url 'adminUsersPosition' user.id %}">
+                                    {% if group|stringformat:'s' == 'HR Manager'%}
+                                    <option value="HR Manager" selected>HR Manager</option>
+                                    {%else%}
+                                    <option value="HR Manager">HR Manager</option>
+                                    {%endif%}
+                                    {% if group|stringformat:'s' == 'HR Staff'%}
+                                    <option value="HR Staff" selected>HR Staff</option>
+                                    {%else%}
+                                    <option value="HR Staff">HR Staff</option>
+                                    {%endif%}
+                                    {% if group|stringformat:'s' == 'Copy Writer Manager'%}
+                                    <option value="Copy Writer Manager" selected>Copy Writer Manager</option>
+                                    {%else%}
+                                    <option value="Copy Writer Manager">Copy Writer Manager</option>
+                                    {%endif%}
+                                    {% if group|stringformat:'s' == 'Translator Manager'%}
+                                    <option value="Translator Manager" selected>Translator Manager</option>
+                                    {%else%}
+                                    <option value="Translator Manager">Translator Manager</option>
+                                    {%endif%}
+                                    {% if group|stringformat:'s' == 'Editor Manager'%}
+                                    <option value="Editor Manager" selected>Editor Manager</option>
+                                    {%else%}
+                                    <option value="Editor Manager">Editor Manager</option>
+                                    {%endif%}
+                                </select>
+                            </td>
+                            <td>{{ user.email }}</td>
+                            <td>{{ user.last_login }}</td>
+                            {% if not user.is_active %}
+                            <td>
+                                <a href="{% url 'adminUsersActivate' user.id %}">
+                                    <i class="bi bi-x-circle fs-2" style="color: #e74c3c;"></i>
+                                </a>
+                            </td>
+                            {% else %}
+                            <td><a href="{% url 'adminUsersDeactivate' user.id %}"><i class="bi bi-check-circle fs-2" style="color: #2ecc71;"></i></a></td>
+
+                            {% endif %}
+
+                            <td><a href="{% url 'updateProfile' user.id %}" type="button" class="btn btn-primary">View</a></td>
+                        </tr>
+
+                        {% endif %}
+                        {% endfor %}
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
