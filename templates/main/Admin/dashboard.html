@@ -198,6 +198,15 @@
 {% block scriptContent%}
 <script>
   $(document).ready(function () {
+
+    const containers = document.querySelectorAll('.drag-body')
+    containers.forEach((container, index) => {
+      const countDraggableInContainer = container.querySelectorAll('.item')
+
+      const getSpanCounter = container.querySelector('.count');
+
+      getSpanCounter.innerHTML = countDraggableInContainer.length + "/10";
+    })
     $('.printpic').click(function () {
       window.html2canvas = html2canvas;
       window.jsPDF = window.jspdf.jsPDF;

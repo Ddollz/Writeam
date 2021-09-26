@@ -54,7 +54,7 @@
                             </div>
 
                             <div class="col align-self-center">
-                                <a type="button" class="btn viewScore" href="{%url 'applicantmanagement' user.id %}">View</a>
+                                <a type="button" class="btn viewScore" href="{% url 'department' manpower.id %}">View</a>
                             </div>
 
                         </div>
@@ -103,7 +103,7 @@
                             </div>
 
                             <div class="col align-self-center">
-                                <a type="button" class="btn viewScore" href="{%url 'applicantmanagement' user.id %}">View</a>
+                                <a type="button" class="btn viewScore" href="{% url 'department' manpower.id %}">View</a>
                             </div>
 
                         </div>
@@ -246,6 +246,14 @@
             console.log(modaledit)
             $('#exampleModal').modal('show');
         }
+        const containers = document.querySelectorAll('.drag-body')
+        containers.forEach((container, index) => {
+            const countDraggableInContainer = container.querySelectorAll('.item')
+
+            const getSpanCounter = container.querySelector('.count');
+
+            getSpanCounter.innerHTML = countDraggableInContainer.length + "/10";
+        })
     });
 
 </script>
