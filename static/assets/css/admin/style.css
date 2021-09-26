@@ -429,13 +429,15 @@ img.img-circle {
 }
 
 .print,
-.printcsv {
+.printcsv,
+.printpic {
   cursor: pointer;
   opacity: 0.8;
   color: #212529;
 }
 .print:hover,
-.printcsv:hover {
+.printcsv:hover,
+.printpic:hover {
   opacity: 1;
 }
 
