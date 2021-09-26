@@ -124,7 +124,7 @@ def getLatestRecord():
 @ allowed_users(allowed_roles=['HR Staff', 'HR Manager'])
 def dashboard(request):
     getLatestRecord()
-    users = accounts.objects.all()
+    users = accounts.objects.all().order_by('id')
     context = {'applicantList': users,
                'userList': users, 'notifs': getLatestRecord()}
     return render(request, 'main/Admin/Dashboard.html', context)
@@ -132,7 +132,7 @@ def dashboard(request):
 
 @ allowed_users(allowed_roles=['HR Manager'])
 def adminUsers(request):
-    users = accounts.objects.all()
+    users = accounts.objects.all().order_by('id')
     context = {'userList': users, 'notifs': getLatestRecord()}
     return render(request, 'main/Admin/user.html', context)
 

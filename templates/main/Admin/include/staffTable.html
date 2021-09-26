@@ -12,6 +12,7 @@
                 <table id="table1">
                     <thead>
                         <tr>
+                            <th>ID</th>
                             <th>Avatar</th>
                             <th>Name</th>
                             <th>Position</th>
@@ -23,6 +24,7 @@
                     </thead>
                     <tfoot>
                         <tr>
+                            <th>ID</th>
                             <th>Avatar</th>
                             <th>Name</th>
                             <th>Position</th>
@@ -38,6 +40,8 @@
                         {% for group in user.groups.all %}
                         {% if group|stringformat:'s' != 'Clients'%}
                         <tr>
+                            <td>{{user.id}}</td>
+
                             <td><img class="img-circle" src="{{user.profile_image.url}}" alt="profileImg" /></td>
                             <td>{{user.first_name}} {{user.last_name}}</td>
                             <td><select class="form-select Position" aria-label="Default select example" data-url="{% url 'adminUsersPosition' user.id %}">

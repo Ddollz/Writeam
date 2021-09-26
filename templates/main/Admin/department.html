@@ -135,6 +135,7 @@
                     <table id="datatablesSimple">
                         <thead>
                             <tr>
+                                <th>ID</th>
                                 <th>Avatar</th>
                                 <th>Requester Name</th>
                                 <th>Department</th>
@@ -146,6 +147,7 @@
                         </thead>
                         <tfoot>
                             <tr>
+                                <th>ID</th>
                                 <th>Avatar</th>
                                 <th>Requester Name</th>
                                 <th>Department</th>
@@ -159,6 +161,7 @@
 
                             {% for manpower in manpowersList%}
                             <tr>
+                                <td>{{manpower.id}}</td>
                                 <td>
                                     {% if manpower.department == 'Copy Writer'%}
                                     <i class="bi bi-pencil-square fs-3 me-3 " style="color: #e74c3c"></i>
