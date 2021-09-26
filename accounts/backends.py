@@ -1,5 +1,6 @@
 from .forms import accounts
 from django.contrib.auth.backends import ModelBackend
+from django.db.models import Q
 
 
 class CaseInsensitiveModelBackend(ModelBackend):
@@ -11,7 +12,7 @@ class CaseInsensitiveModelBackend(ModelBackend):
             case_insensitive_username_field = '{}__iexact'.format(
                 UserModel.USERNAME_FIELD)
             user = UserModel._default_manager.get(
-                **{case_insensitive_username_field: username})
+                Q(**{case_insensitive_username_field: username}) | Q(username__exact=username))
         except UserModel.DoesNotExist:
             UserModel().set_password(password)
         else:
