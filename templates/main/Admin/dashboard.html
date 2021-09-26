@@ -15,59 +15,178 @@
         </p>
       </div>
     </div>
-    <div class="row">
+    <div class="row charts">
       <div class="col-xl-3 col-md-6">
-        <div class="card bg-primary text-white mb-4 shadow">
-          <div class="card-body">Total Applicants</div>
-          <div class="card-footer d-flex align-items-center justify-content-between">
-            <a class="small text-white stretched-link" href="#">View Details</a>
-            <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+        <div class="card mb-4 border-0 shadow">
+          <div class="card-body p-3">
+            <div class="row">
+              <div class="col-9">
+                <div class="numbers">
+                  <p class="mb-0 text-secondary text-capitalize">Today's Submission</p>
+                  <h5 class=" mb-0">
+                    500
+                    <span class="text-success text-sm">+55%</span>
+                  </h5>
+                </div>
+              </div>
+              <div class="col-3 text-end">
+                <div class="icon icon-shape shadow text-center">
+                  <i class="bi bi-file-earmark-person-fill opacity-10"></i>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
       <div class="col-xl-3 col-md-6">
-        <div class="card bg-warning text-white mb-4 shadow">
-          <div class="card-body">Total Required Applicants</div>
-          <div class="card-footer d-flex align-items-center justify-content-between">
-            <a class="small text-white stretched-link" href="#">View Details</a>
-            <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+        <div class="card mb-4 border-0 shadow">
+          <div class="card-body p-3">
+            <div class="row">
+              <div class="col-9">
+                <div class="numbers">
+                  <p class="mb-0 text-secondary text-capitalize ">Today's Users</p>
+                  <h5 class=" mb-0">
+                    500
+                    <span class="text-success text-sm">+55%</span>
+                  </h5>
+                </div>
+              </div>
+              <div class="col-3 text-end">
+                <div class="icon icon-shape shadow text-center">
+                  <i class="bi bi-person-circle opacity-10"></i>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
       <div class="col-xl-3 col-md-6">
-        <div class="card bg-success text-white mb-4 shadow">
-          <div class="card-body">Total Employees</div>
-          <div class="card-footer d-flex align-items-center justify-content-between">
-            <a class="small text-white stretched-link" href="#">View Details</a>
-            <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+        <div class="card mb-4 border-0 shadow">
+          <div class="card-body p-3">
+            <div class="row">
+              <div class="col-9">
+                <div class="numbers">
+                  <p class="mb-0 text-secondary text-capitalize ">New Applicants</p>
+                  <h5 class=" mb-0">
+                    500
+                    <span class="text-success text-sm ">+55%</span>
+                  </h5>
+                </div>
+              </div>
+              <div class="col-3 text-end">
+                <div class="icon icon-shape shadow text-center">
+                  <i class="bi bi-bookmarks-fill opacity-10"></i>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
       <div class="col-xl-3 col-md-6">
-        <div class="card bg-danger text-white mb-4 shadow">
-          <div class="card-body">Total No. of Lacking Applicants</div>
-          <div class="card-footer d-flex align-items-center justify-content-between">
-            <a class="small text-white stretched-link" href="#">View Details</a>
-            <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+        <div class="card mb-4 border-0 shadow">
+          <div class="card-body p-3">
+            <div class="row">
+              <div class="col-9">
+                <div class="numbers">
+                  <p class="mb-0 text-secondary text-capitalize ">Total Applicants</p>
+                  <h5 class=" mb-0">
+                    500
+                    <span class="text-success text-sm">+55%</span>
+                  </h5>
+                </div>
+              </div>
+              <div class="col-3 text-end">
+                <div class="icon icon-shape shadow text-center">
+                  <i class="bi bi-globe opacity-10"></i>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="row">
+
+
+    <div class="row mb-4 charts">
       <div class="col-xl-6">
-        <div class="card mb-4 shadow">
-          <div class="card-header">
-            <i class="fas fa-chart-area me-1"></i> Hired Applicants
+        <div class="card border-0 shadow">
+          <div class="printable">
+            <div class="card-header text-center fw-bold fs-5">
+              Hired Applicants
+              <i class="bi bi-file-earmark-image-fill print"></i>
+              <i class="bi bi-camera-fill printpic"></i>
+            </div>
+            <div class="card-body p-3"><canvas id="myAreaChart" width="100%" height="40"></canvas></div>
           </div>
-          <div class="card-body"><canvas id="myAreaChart" width="100%" height="40"></canvas></div>
         </div>
+
       </div>
       <div class="col-xl-6">
-        <div class="card mb-4 shadow">
-          <div class="card-header">
-            <i class="fas fa-chart-bar me-1"></i> Monthly Visitors
+        <div class="card border-0 shadow">
+          <div class="printable">
+            <div class="card-header text-center fw-bold fs-5">
+              Monthly Visitors
+              <i class="bi bi-file-earmark-image-fill print"></i>
+              <i class="bi bi-camera-fill printpic"></i>
+            </div>
+            <div class="card-body"><canvas id="Line-chart" width="100%" height="40"></canvas></div>
           </div>
-          <div class="card-body"><canvas id="myBarChart" width="100%" height="40"></canvas></div>
+        </div>
+      </div>
+    </div>
+    <div class="mb-5">
+      <div class="row">
+        <div class="col-8">
+          {% include 'main/Admin/include/departmentTable.html' %}
+        </div>
+        <div class="col-4 p-2">
+          <div class="card border-0 shadow" style='height:100%;'>
+            <div class="card-body drag-body">
+              <div class="card-title text-start text-uppercase fw-bold">Department Manager Request<span class="float-end count" id="span1">1/10</span></div>
+              <hr>
+              {% for manpower in notifs%}
+              {% if not manpower.is_Finished%}
+
+              <div class="row item">
+                <div class="col-1">
+                  {% if manpower.department == 'Copy Writer'%}
+                  <i class="bi bi-pencil-square fs-3 me-3 " style="color: #e74c3c"></i>
+                  {% elif manpower.department == 'Editor'%}
+                  <i class="bi bi-file-earmark-zip-fill fs-3 me-3 " style="color: #34495e"></i>
+                  {% elif manpower.department == 'Translator'%}
+                  <i class="bi bi-translate fs-3 me-3 " style="color: #2ecc71"></i>
+                  {% endif %}
+                </div>
+                <div class="col align-self-center">
+
+
+                  <p class="mb-0 " style="font-weight:600;">{{manpower.department}} Department</p>
+                  <p class="mb-0 text-secondary " style="font-size: 12px;">
+
+                    <span style="color: #e74c3c;">{{manpower.name}}</span>
+
+                  </p>
+                </div>
+
+                <div class="col align-self-center">
+
+                  <p class="mb-0 " style="font-weight:600;">{{manpower.department}}</p>
+                  <p class="mb-0 text-secondary " style="font-size: 12px;">
+
+                    <span style="color: #e74c3c;">{{manpower.currentCandidate}}/{{manpower.nosCandidate}}</span>
+
+                  </p>
+                </div>
+
+                <div class="col align-self-center">
+                  <a type="button" class="btn viewScore" href="{%url 'applicantmanagement' user.id %}">View</a>
+                </div>
+
+              </div>
+              {%endif%}
+              {%endfor%}
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -77,7 +196,172 @@
 </section>
 {% endblock %}
 {% block scriptContent%}
+<script>
+  $(document).ready(function () {
+    $('.printpic').click(function () {
+      window.html2canvas = html2canvas;
+      window.jsPDF = window.jspdf.jsPDF;
+      // var element = document.querySelector(".table-card");
+      var element = $(this).closest('.printable');
+      html2canvas(element[0], {
+        letterRendering: 1,
+        allowTaint: true,
+        useCORS: true,
+        scale: 1,
+      }).then(canvas => {
+        const imgData = canvas.toDataURL('image/png');
+        saveAs(canvas.toDataURL(), 'Chart.png');
+      });
+    });
 
-<script src="{% static 'assets/js/Admin/demo/chart-area-demo.js' %}"></script>
-<script src="{% static 'assets/js/Admin/demo/chart-bar-demo.js' %}"></script>
+    $('.print').click(function () {
+      window.html2canvas = html2canvas;
+      window.jsPDF = window.jspdf.jsPDF;
+      // var element = document.querySelector(".table-card");
+      var element = $(this).closest('.printable');
+      html2canvas(element[0], {
+        letterRendering: 1,
+        allowTaint: true,
+        useCORS: true,
+        scale: 1,
+      }).then(canvas => {
+        const imgData = canvas.toDataURL('image/png');
+        const doc = new jsPDF({
+          orientation: 'landscape',
+        });
+        const imgProps = doc.getImageProperties(imgData);
+        const pdfWidth = doc.internal.pageSize.getWidth();
+        const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+        doc.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+        doc.save('Chart.pdf');
+      });
+    });
+
+    function saveAs(uri, filename) {
+      var link = document.createElement('a');
+      if (typeof link.download === 'string') {
+        link.href = uri;
+        link.download = filename;
+
+        //Firefox requires the link to be in the body
+        document.body.appendChild(link);
+
+        //simulate click
+        link.click();
+
+        //remove the link when done
+        document.body.removeChild(link);
+      } else {
+        window.open(uri);
+      }
+    }
+  });
+  var ctx = document.getElementById('myAreaChart').getContext('2d');
+
+  var data = {
+    datasets: [{
+      data: [11, 16, 7],
+      backgroundColor: [
+        "#FF6384",
+        "#4BC0C0",
+        "#FFCE56",
+      ],
+    }],
+    labels: [
+      "Red",
+      "Green",
+      "Yellow",
+    ]
+  };
+  var ctx = $("#myAreaChart");
+  new Chart(ctx, {
+    data: data,
+    type: 'polarArea'
+  });
+
+
+  var ctx2 = document.getElementById("Line-chart").getContext("2d");
+
+  var gradientStroke1 = ctx2.createLinearGradient(0, 230, 0, 50);
+
+  gradientStroke1.addColorStop(1, 'rgba(128, 190, 239,0.2)');
+  gradientStroke1.addColorStop(0.2, 'rgba(128, 190, 239,.1)');
+  gradientStroke1.addColorStop(0, 'rgba(128, 190, 239,0.0)'); //purple colors
+
+
+  new Chart(ctx2, {
+    type: "line",
+    data: {
+      labels: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec", 'Jan', 'Feb', 'Mar', 'Apr'],
+      datasets: [{
+        label: "Mobile apps",
+        tension: 0.4,
+        borderWidth: 0,
+        pointRadius: 0,
+        borderColor: "#80beef",
+        borderWidth: 3,
+        backgroundColor: gradientStroke1,
+        fill: true,
+        data: [50, 40, 300, 220, 500, 250, 400, 230, 500, 600, 760, 400, 500],
+        maxBarThickness: 6
+
+      },
+      ],
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: {
+          display: false,
+        }
+      },
+      interaction: {
+        intersect: false,
+        mode: 'index',
+      },
+      scales: {
+        y: {
+          grid: {
+            drawBorder: false,
+            display: true,
+            drawOnChartArea: true,
+            drawTicks: false,
+            borderDash: [5, 5]
+          },
+          ticks: {
+            display: true,
+            padding: 10,
+            color: '#80beef',
+            font: {
+              size: 11,
+              family: "Open Sans",
+              style: 'normal',
+              lineHeight: 2
+            },
+          }
+        },
+        x: {
+          grid: {
+            drawBorder: false,
+            display: false,
+            drawOnChartArea: false,
+            drawTicks: false,
+            borderDash: [5, 5]
+          },
+          ticks: {
+            display: true,
+            color: '#80beef',
+            padding: 20,
+            font: {
+              size: 11,
+              family: "Open Sans",
+              style: 'normal',
+              lineHeight: 2
+            },
+          }
+        },
+      },
+    },
+  });
+</script>
 {% endblock %}

@@ -126,7 +126,11 @@ def getLatestRecord():
 def dashboard(request):
     getLatestRecord()
     users = accounts.objects.all().order_by('id')
-    context = {'applicantList': users,
+    
+    manpowers = manpower.objects.order_by('-requestDate')
+
+    
+    context = {'manpowersList': manpowers,  'applicantList': users,
                'userList': users, 'notifs': getLatestRecord()}
     return render(request, 'main/Admin/Dashboard.html', context)
 

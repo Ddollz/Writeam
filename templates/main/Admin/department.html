@@ -119,72 +119,8 @@
 
 
 
-
-    <div class="row table-card p-5">
-        <div class="shadow p-0">
-            <div class="card ">
-                <div class="card-body">
-
-                    <div class="card-title">
-                        <h3 class="fw-bold" style="text-shadow: 2px 2px 1px rgba(0, 0, 0, 0.246);">Manager's Request List
-                            <i class="bi bi-printer-fill print"></i>
-                            <a href="{%url 'departmentExport'%}"><i class="bi bi-file-arrow-down-fill printcsv"></i></a>
-
-                        </h3>
-                    </div>
-                    <table id="datatablesSimple">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Avatar</th>
-                                <th>Requester Name</th>
-                                <th>Department</th>
-                                <th>Nos of candidate</th>
-                                <th>Accepted candidate</th>
-                                <th>Request Date</th>
-                                <th>Details</th>
-                            </tr>
-                        </thead>
-                        <tfoot>
-                            <tr>
-                                <th>ID</th>
-                                <th>Avatar</th>
-                                <th>Requester Name</th>
-                                <th>Department</th>
-                                <th>Nos of candidate</th>
-                                <th>Accepted candidate</th>
-                                <th>Request Date</th>
-                                <th>Details</th>
-                            </tr>
-                        </tfoot>
-                        <tbody>
-
-                            {% for manpower in manpowersList%}
-                            <tr>
-                                <td>{{manpower.id}}</td>
-                                <td>
-                                    {% if manpower.department == 'Copy Writer'%}
-                                    <i class="bi bi-pencil-square fs-3 me-3 " style="color: #e74c3c"></i>
-                                    {% elif manpower.department == 'Editor'%}
-                                    <i class="bi bi-file-earmark-zip-fill fs-3 me-3 " style="color: #34495e"></i>
-                                    {% elif manpower.department == 'Translator'%}
-                                    <i class="bi bi-translate fs-3 me-3 " style="color: #2ecc71"></i>
-                                    {% endif %}
-                                </td>
-                                <td>{{manpower.name}}</td>
-                                <td>{{manpower.department}}</td>
-                                <td>{{manpower.nosCandidate}}</td>
-                                <td>{{manpower.currentCandidate}}</td>
-                                <td>{{manpower.requestDate}}</td>
-                                <td><a href="{% url 'department' manpower.id %}" type="button" class="btn btn-primary">View</a></td>
-                            </tr>
-
-                            {% endfor %}
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
+    <div class="p-4">
+        {% include 'main/Admin/include/departmentTable.html' %}
     </div>
 
 </section>
@@ -310,16 +246,6 @@
             console.log(modaledit)
             $('#exampleModal').modal('show');
         }
-
-        const containers = document.querySelectorAll('.drag-body')
-        containers.forEach((container, index) => {
-            const countDraggableInContainer = container.querySelectorAll('.item')
-
-            const getSpanCounter = container.querySelector('.count');
-
-            getSpanCounter.innerHTML = countDraggableInContainer.length + "/10";
-        })
-
     });
 
 </script>
