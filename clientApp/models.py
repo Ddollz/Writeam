@@ -30,6 +30,7 @@ class jobapplication(models.Model):
     # is_translator_hired = models.BooleanField(default=False)
 
     is_validated = models.BooleanField(default=False)
+    validationDate = models.DateTimeField(blank=True, null=True)
 
     copywriter = models.PositiveIntegerField(verbose_name="Copywriter Score",
                                              validators=[MaxValueValidator(100)], default=0, null=True, blank=True)

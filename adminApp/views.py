@@ -8,6 +8,7 @@ from django.template.loader import render_to_string
 from django.db.models import Q
 from django.contrib.auth.models import Group
 from datetime import date
+from django.utils import timezone
 
 from .utils import send_html_mail
 from accounts.decorators import unauthenticated_user, allowed_users
@@ -163,6 +164,7 @@ def applicantManagement(request, pk=None):
             modalform.translatorfinal = score3
 
             modalform.is_validated = True
+            modalform.validationDate = timezone.now()
 
             current_site = get_current_site(request)
             template = render_to_string(
