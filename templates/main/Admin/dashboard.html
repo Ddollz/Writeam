@@ -112,7 +112,7 @@
               <i class="bi bi-file-earmark-image-fill print"></i>
               <i class="bi bi-camera-fill printpic"></i>
             </div>
-            <div class="card-body p-3"><canvas id="disChart" width="350" height="350"></canvas></div>
+            <div class="card-body p-3"><canvas id="polarAreaChart" width="350" height="350"></canvas></div>
           </div>
         </div>
 
@@ -278,7 +278,7 @@
       "Translator",
     ]
   };
-  var ctx = document.getElementById('disChart').getContext('2d');
+  var ctx = document.getElementById('polarAreaChart').getContext('2d');
   new Chart(ctx, {
     data: data,
     type: 'polarArea',
