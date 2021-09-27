@@ -1,3 +1,41 @@
+======================================
+Installation Instruction
+1. Download postgres
+https://www.postgresql.org/
+2. Search and open pgAdmin4
+3. Login and open Servers(1)
+4. Rightclick databases create databases
+5. Enter databases: writeamdb
+6. save
+7. rightclick writeamdb
+8. Restore
+9. in file name enter project directory
+ex. C:\Users\xgame\OneDrive\Desktop\Thesis\Web project\Writeam\writeamdb\writeamdb.sql
+
+======================================
+System Instruction
+1. Open system folder(Writeam) with vscode
+2. pip install virtualenv
+3. cd venv/scripts
+4. activate
+5. cd../../
+6. py manage.py runserver
+
+======================================
+Exporting data from databases
+1. open pgAdmin4 > servers
+2. rightclick writeamdb
+3. backup
+4. dumpoption
+5. in type of objects click only data
+6. in general filename select any directory and add \writeamdbdata.sql in the last directory link
+7. click format to plain
+8. backup
+
+
+
+
+
 reset migrate
 py manage.py showmigrations
 py manage.py migrate --fake "nametoapp" zero
