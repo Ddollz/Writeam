@@ -24,8 +24,7 @@
                 <div class="numbers">
                   <p class="mb-0 text-secondary text-capitalize">Today's Submission</p>
                   <h5 class=" mb-0">
-                    500
-                    <span class="text-success text-sm">+55%</span>
+                    {{countTodaySubmmission}}
                   </h5>
                 </div>
               </div>
@@ -46,8 +45,7 @@
                 <div class="numbers">
                   <p class="mb-0 text-secondary text-capitalize ">Today's Users</p>
                   <h5 class=" mb-0">
-                    500
-                    <span class="text-success text-sm">+55%</span>
+                    {{countTodayUser}}
                   </h5>
                 </div>
               </div>
@@ -68,8 +66,7 @@
                 <div class="numbers">
                   <p class="mb-0 text-secondary text-capitalize ">New Applicants</p>
                   <h5 class=" mb-0">
-                    500
-                    <span class="text-success text-sm ">+55%</span>
+                    {{countTodayApplicants}}
                   </h5>
                 </div>
               </div>
@@ -90,8 +87,7 @@
                 <div class="numbers">
                   <p class="mb-0 text-secondary text-capitalize ">Total Applicants</p>
                   <h5 class=" mb-0">
-                    500
-                    <span class="text-success text-sm">+55%</span>
+                    {{countAllApplicants}}
                   </h5>
                 </div>
               </div>
@@ -112,7 +108,7 @@
         <div class="card border-0 shadow">
           <div class="printable">
             <div class="card-header text-center fw-bold fs-5">
-              Hired Applicants
+              Distribution of Applicants Per Department
               <i class="bi bi-file-earmark-image-fill print"></i>
               <i class="bi bi-camera-fill printpic"></i>
             </div>
@@ -125,7 +121,7 @@
         <div class="card border-0 shadow">
           <div class="printable">
             <div class="card-header text-center fw-bold fs-5">
-              Monthly Visitors
+              Monthly Job Application Received Count {% now 'Y'%}
               <i class="bi bi-file-earmark-image-fill print"></i>
               <i class="bi bi-camera-fill printpic"></i>
             </div>
@@ -267,9 +263,10 @@
   });
   var ctx = document.getElementById('myAreaChart').getContext('2d');
 
+
   var data = {
     datasets: [{
-      data: [11, 16, 7],
+      data: ['{{countAllCopywriter}}', '{{countAllEditor}}', '{{countAllTranslator}}'],
       backgroundColor: [
         "#FF6384",
         "#4BC0C0",
@@ -277,9 +274,9 @@
       ],
     }],
     labels: [
-      "Red",
-      "Green",
-      "Yellow",
+      "Copy Writer",
+      "Editor",
+      "Translator",
     ]
   };
   var ctx = $("#myAreaChart");
@@ -298,79 +295,41 @@
   gradientStroke1.addColorStop(0, 'rgba(128, 190, 239,0.0)'); //purple colors
 
 
+  const labels = [
+    'Jan',
+    'Feb',
+    'Mar',
+    'Apr',
+    'May',
+    'Jun',
+    'Jul',
+    'Aug',
+    'Sep',
+    'Oct',
+    'Nov',
+    'Dec'
+  ];
   new Chart(ctx2, {
     type: "line",
     data: {
-      labels: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec", 'Jan', 'Feb', 'Mar', 'Apr'],
+      labels: labels,
       datasets: [{
-        label: "Mobile apps",
+        label: "Applications",
         tension: 0.4,
         borderWidth: 0,
-        pointRadius: 0,
         borderColor: "#80beef",
         borderWidth: 3,
         backgroundColor: gradientStroke1,
         fill: true,
-        data: [50, 40, 300, 220, 500, 250, 400, 230, 500, 600, 760, 400, 500],
-        maxBarThickness: 6
+        data: [{% for app in countsAllApplicant %} '{{app}}', {% endfor %}],
+    maxBarThickness: 6
 
-      },
+  },
       ],
     },
     options: {
-      responsive: true,
-      plugins: {
-        legend: {
-          display: false,
-        }
-      },
-      interaction: {
-        intersect: false,
-        mode: 'index',
-      },
-      scales: {
-        y: {
-          grid: {
-            drawBorder: false,
-            display: true,
-            drawOnChartArea: true,
-            drawTicks: false,
-            borderDash: [5, 5]
-          },
-          ticks: {
-            display: true,
-            padding: 10,
-            color: '#80beef',
-            font: {
-              size: 11,
-              family: "Open Sans",
-              style: 'normal',
-              lineHeight: 2
-            },
-          }
-        },
-        x: {
-          grid: {
-            drawBorder: false,
-            display: false,
-            drawOnChartArea: false,
-            drawTicks: false,
-            borderDash: [5, 5]
-          },
-          ticks: {
-            display: true,
-            color: '#80beef',
-            padding: 20,
-            font: {
-              size: 11,
-              family: "Open Sans",
-              style: 'normal',
-              lineHeight: 2
-            },
-          }
-        },
-      },
-    },
+  },
+
   });
 </script>
 {% endblock %}

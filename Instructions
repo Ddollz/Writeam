@@ -32,6 +32,14 @@ Exporting data from databases
 7. click format to plain
 8. backup
 
+======================================
+extra code heroku
+heroku log --tail
+
+sa pgadmin
+backup plain -> dump options -> only data
+heroku pg:psql --app writeam < writeamdb.sql
+heroku run python manage.py createsuperuser
 
 
 

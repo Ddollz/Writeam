@@ -41,14 +41,14 @@
                     {{countWriter}}
                     <span class="text-secondary">| Average Score:</span>
 
-                    {%if avgScoreTrans.copywriterfinal__avg %}
-                    {% if avgScoreTrans.copywriterfinal__avg > 70 %}
+                    {%if avgScoreWriter.copywriterfinal__avg %}
+                    {% if avgScoreWriter.copywriterfinal__avg > 70 %}
                     <span class="text-success">
-                      {{avgScoreTrans.copywriterfinal__avg}}
+                      {{avgScoreWriter.copywriterfinal__avg}}
                     </span>
                     {%else%}
                     <span class="text-warning">
-                      {{avgScoreTrans.copywriterfinal__avg}}
+                      {{avgScoreWriter.copywriterfinal__avg}}
                     </span>
                     {% endif %}
                     {%else%}
@@ -86,11 +86,14 @@
                     </span>
                     {%else%}
                     <span class="text-warning">
+
                       {{avgScoreTrans.translatorfinal__avg}}
                     </span>
                     {% endif %}
                     {%else%}
-                    0
+                    <span class="text-warning">
+                      0
+                    </span>
                     {%endif%}
                   </h5>
                 </div>
@@ -118,14 +121,14 @@
 
                     <span class="text-secondary">| Average Score:</span>
 
-                    {%if avgScoreTrans.editorfinal__avg %}
-                    {% if avgScoreTrans.editorfinal__avg > 70 %}
+                    {%if avgScoreEditor.editorfinal__avg %}
+                    {% if avgScoreEditor.editorfinal__avg > 70 %}
                     <span class="text-success">
-                      {{avgScoreTrans.editorfinal__avg}}
+                      {{avgScoreEditor.editorfinal__avg}}
                     </span>
                     {%else%}
                     <span class="text-warning">
-                      {{avgScoreTrans.editorfinal__avg}}
+                      {{avgScoreEditor.editorfinal__avg}}
                     </span>
                     {% endif %}
                     {%else%}
@@ -200,7 +203,7 @@
           <div class="printable">
 
             <div class="card-header text-center fw-bold fs-5">
-              Monthly Job Acceptance {% now 'Y'%}
+              Department's Monthly Accepted Applicant {% now 'Y'%}
               <i class="bi bi-file-earmark-image-fill print"></i>
               <i class="bi bi-camera-fill printpic"></i>
 
@@ -297,7 +300,7 @@
     'August',
     'September',
     'October',
-    'ovember',
+    'November',
     'December'
   ];
   const data = {

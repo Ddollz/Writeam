@@ -63,7 +63,7 @@ class jobapplication(models.Model):
 
     submitApplication = models.BooleanField(default=False)
     dateSubmit = models.DateTimeField(
-        verbose_name="Date Submit", auto_now=True)
+        verbose_name="Date Submit", blank=True, null=True)
 
     class Meta:
         verbose_name = "Job Application"

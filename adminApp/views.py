@@ -126,11 +126,37 @@ def getLatestRecord():
 def dashboard(request):
     getLatestRecord()
     users = accounts.objects.all().order_by('id')
-    
     manpowers = manpower.objects.order_by('-requestDate')
+    jobapps = jobapplication.objects.all()
 
-    
+    # ? get counts ===
+    countTodaySubmmission = jobapps.filter(
+        dateSubmit__date=timezone.now()).count()
+
+    countTodayUser = users.filter(last_login__date=timezone.now()).count
+
+    countTodayApplicants = users.filter(date_joined__date=timezone.now()).filter(
+        groups__name='Clients').count
+
+    countAllApplicants = users.filter(groups__name='Clients').count
+
+    countAllCopywriter = jobapps.filter(is_copywriter=True).count
+    countAllEditor = jobapps.filter(is_editor=True).count
+    countAllTranslator = jobapps.filter(is_translator=True).count
+
+    todays_date = timezone.now()
+    countsAllApplicant = []
+    for x in range(1, 13):
+        countsAllApplicant.append(jobapplication.objects.filter(dateSubmit__year=todays_date.year,
+                                                                dateSubmit__month='0'+str(x)).count())
+
+    # ? end get counts ===
+
     context = {'manpowersList': manpowers,  'applicantList': users,
+               'countTodaySubmmission': countTodaySubmmission, 'countTodayUser': countTodayUser,
+               'countTodayApplicants': countTodayApplicants, 'countAllApplicants': countAllApplicants,
+               'countAllCopywriter': countAllCopywriter, 'countAllEditor': countAllEditor,
+               'countAllTranslator': countAllTranslator, 'countsAllApplicant': countsAllApplicant,
                'userList': users, 'notifs': getLatestRecord()}
     return render(request, 'main/Admin/Dashboard.html', context)
 
@@ -196,11 +222,6 @@ def applicantManagement(request, pk=None):
                    'modalform': modalform, 'notifs': getLatestRecord()}
         return render(request, 'main/Admin/applicantstatus.html', context)
 
-# ! for tommorow
-# if some_queryset.filter(pk=entity_id).exists():
-    # print("Entry contained in queryset")
-    # filter(A).filter(B)
-
 
 @ allowed_users(allowed_roles=['HR Staff', 'HR Manager'])
 def onboarding(request, pk=None):
@@ -217,17 +238,12 @@ def onboarding(request, pk=None):
     cities = personalDet.filter(accounts__id__in=getOnboardID).filter(city__isnull=False).annotate(handle_lower=Lower(
         "city")).values('handle_lower').annotate(the_count=Count('city')).values_list('handle_lower', 'the_count')
 
-    # maxPerCity = 0
-    # # ? GET THE MAX VALUE FOR CHARTS
-    # for name, value in cities:
-    #     maxPerCity += value
-
     # ? Copy writer
     countwriter = jobapps.filter(
         is_validated=True).filter(jobAccepted='Copy Writer').count()
     # ? Get count accepted today
     countwritertoday = jobOnboarding.filter(jobAccepted='Copy Writer').filter(
-        dateAccepted__date=date.today()).count()
+        dateAccepted__date=timezone.now()).count()
     avgScoreWriter = jobapps.filter(
         jobAccepted='Copy Writer').aggregate(Avg('copywriterfinal'))
 
@@ -236,7 +252,7 @@ def onboarding(request, pk=None):
         is_validated=True).filter(jobAccepted='Editor').count()
     # ? Get count accepted today
     counteditortoday = jobOnboarding.filter(jobAccepted='Editor').filter(
-        dateAccepted__date=date.today()).count()
+        dateAccepted__date=timezone.now()).count()
     avgScoreEditor = jobapps.filter(
         jobAccepted='Editor').aggregate(Avg('editorfinal'))
 
@@ -245,12 +261,12 @@ def onboarding(request, pk=None):
         is_validated=True).filter(jobAccepted='Translator').count()
     # ? Get count accepted today
     counttranslatortoday = jobOnboarding.filter(jobAccepted='Translator').filter(
-        dateAccepted__date=date.today()).count()
+        dateAccepted__date=timezone.now()).count()
     avgScoreTrans = jobapps.filter(
         jobAccepted='Translator').aggregate(Avg('translatorfinal'))
 
     # ? Area chart
-    todays_date = date.today()
+    todays_date = timezone.now()
     countsEditorMonth = []
     countsCopywriterMonth = []
     countsTranslatorMonth = []
