@@ -15,6 +15,36 @@
   color: rgb(84, 160, 255);
 }
 
+.navbar .dropdown ul {
+  display: block;
+  position: absolute;
+  left: 0;
+  top: calc(100% + 30px);
+  margin: 0;
+  z-index: 99;
+  padding: 0px;
+  opacity: 0;
+  visibility: hidden;
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0px 0px 30px rgba(127, 137, 161, 0.25);
+  transition: 0.3s;
+}
+
+.navbar .dropdown ul li {
+  min-width: auto;
+}
+
+.navbar .dropdown ul a {
+  padding-right: 20px;
+  padding-left: 20px;
+  color: #191919;
+}
+
+.navbar .dropdown ul a i {
+  font-size: 12px;
+}
+
 #hero .btn-get-started:hover {
   background: rgb(128, 190, 239);
   border-color: rgb(128, 190, 239);
@@ -28,9 +58,12 @@
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  color: rgb(255, 255, 255);
 }
-
+#hero .card {
+  height: 80%;
+  border: none;
+  border-radius: 10px;
+}
 #hero h1 {
   margin: 0 0 10px 0;
   font-size: 48px;
@@ -44,6 +77,13 @@
   color: #2f3640;
   margin-bottom: 30px;
   font-size: 24px;
+}
+
+#hero a {
+  opacity: 0.8;
+}
+#hero a:hover {
+  opacity: 1;
 }
 
 h1,
@@ -63,7 +103,12 @@ h2 {
   border: 2px solid rgb(13, 13, 14);
   color: rgb(13, 13, 14);
 }
-
+.img-circle {
+  width: 100px;
+  height: 100px;
+  border: 2px solid #80beef;
+  border-radius: 50px;
+}
 #mainarticle {
   animation: frontArticle 2s linear infinite;
 }
@@ -76,26 +121,36 @@ h2 {
   animation: 1s ease-out 0s 1 slideInFromRight;
 }
 
-#head {
+#head,
+#Head,
+#Vector_3 {
   animation: head 2s linear infinite;
 }
 
-#body {
+#body,
+#Body,
+#Person,
+#Vector_2 {
   animation: body 2s linear infinite;
 }
 
-#leftarm {
+#leftarm,
+#Vector_6 {
   animation: body 2s linear infinite;
 }
 
-#rightarm {
+#rightarm,
+#Vector_7 {
   animation: body 2s linear infinite;
 }
 
-#leaf1 {
+#leaf1,
+#leaf1,
+#Vector_4 {
   animation: leaf1 2s linear infinite;
 }
 
+#leaf2,
 #leaf2 {
   animation: leaf2 2s linear infinite;
   transform-origin: center;
@@ -240,6 +295,26 @@ h2 {
 .was-validated .form-control:invalid,
 .form-control.is-invalid {
   background-image: none;
+}
+.job-select .card-body {
+  border-radius: 10px;
+}
+.job-select .form-check-input {
+  width: 50px;
+  height: 50px;
+  border-radius: 100px;
+}
+
+.job-select .form-check-input:focus,
+.job-select .form-check-input:checked {
+  border-color: #80beef;
+  border-radius: 100px;
+  box-shadow: none;
+  background-color: none;
+}
+
+.job-select .form-check-input:checked {
+  background-color: #80beef;
 }
 
 .form-check-input {
@@ -660,7 +735,23 @@ h2 {
   display: block;
 }
 
-.resume .form-control {
+.hero-page {
+  display: none;
+}
+
+.hero-page.active {
+  display: block;
+}
+
+.pagi i {
+  opacity: 0.8;
+}
+
+.pagi i:hover {
+  opacity: 1;
+}
+.resume .form-control,
+.form-select {
   height: 50px;
   border: none;
   background-color: #f2f5fa;
@@ -1157,42 +1248,6 @@ page .page-container {
     height: 40px;
     transition: all 0.4s;
   }
-}
-
-/* User Profile */
-.glass {
-  width: 60%;
-  height: 70vh;
-  border-radius: 30px;
-}
-.glass .column1 {
-  background: linear-gradient(
-    to right,
-    rgba(128, 190, 239, 1),
-    rgb(170, 217, 255)
-  );
-  border-radius: 15px 0 0 15px;
-}
-.glass .column2 {
-  background: white;
-  color: #2f3640;
-  border-radius: 0 15px 15px 0;
-}
-.glass .dashboard img {
-  height: 150px;
-  width: 150px;
-}
-.glass .userInfo {
-  padding: 30px;
-}
-.glass .userInfo h3 {
-  letter-spacing: 3px;
-}
-.glass .userInfo a {
-  color: #2f3640;
-}
-.glass .view {
-  border-radius: 10px;
 }
 
 .editButton {

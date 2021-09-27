@@ -1,12 +1,29 @@
 $(document).ready(function () {
 
+    //Variables
+    var summaryEditor = $("#summaryEditor");
+
+    const next = document.querySelectorAll('.next');
+    const back = document.querySelectorAll('.back');
+    const pages = document.querySelectorAll('.page');
+    var pageNo = 0;
+
+
     //for progress bar
     nameTemp = true;
     contactTemp = true;
     addressTemp = true;
     birthTemp = true;
+    jobTemp = true;
+    summaryTemp = true;
 
-
+    //functions {Progress}
+    checkcontact();
+    checkaddress();
+    checkbirth();
+    checkjob()
+    checkname();
+    checkprofileDesc()
     function updateProgressBar(value, curVal, type) {
         if (type == 1) {
             curVal = parseFloat(curVal.replace(/[^0-9.]/g, ""));
@@ -114,6 +131,7 @@ $(document).ready(function () {
             changeMonth: true,
             changeYear: true,
             showButtonPanel: true,
+            yearRange: '1950:2011',
             onClose: function (dateText, inst) {
 
 
@@ -128,27 +146,9 @@ $(document).ready(function () {
 
                     $('.date-picker').focusout()//Added to remove focus from datepicker input box on selecting date
                 }
-            },
-            beforeShow: function (input, inst) {
-
-                inst.dpDiv.addClass('month_year_datepicker')
-
-                if ((datestr = $(this).val()).length > 0) {
-                    year = datestr.substring(datestr.length - 4, datestr.length);
-                    month = datestr.substring(0, 2);
-                    $(this).datepicker('option', 'defaultDate', new Date(year, month - 1, 1));
-                    $(this).datepicker('setDate', new Date(year, month - 1, 1));
-                    $(".ui-datepicker-calendar").hide();
-                }
-                $(".ui-datepicker-calendar").hide();
             }
         });
 
-    const next = document.querySelectorAll('.next');
-    const back = document.querySelectorAll('.back');
-    const pages = document.querySelectorAll('.page');
-
-    var pageNo = 0;
 
     for (const i of next) {
         i.addEventListener('click', nextPage);
@@ -181,7 +181,6 @@ $(document).ready(function () {
 
     //Profile Picture
 
-    pictureTemp = true;
     $(function () {
         $('#profile').addClass('dragging').removeClass('dragging');
     });
@@ -234,20 +233,10 @@ $(document).ready(function () {
                 $(".profile").attr('src', reader.result);
             }
         }
+        checkprofilePic()
 
-        if ($(this).val() != '' && pictureTemp) {
-            updateProgressBar("8", $(".progress__percent").text(), 1);
-        }
-        if ($(this).val() == '') {
-            updateProgressBar("8", $(".progress__percent").text(), 0);
-            pictureTemp = true;
-        } else
-            pictureTemp = false;
 
     })
-
-    //jobTitle = jobWant
-    jobTemp = true;
 
     // ! Update
     $("#jobWant").html($('#jobTitle').val());
@@ -261,17 +250,20 @@ $(document).ready(function () {
 
     $('#jobTitle').change(function (e) {
         $("#jobWant").html($('#jobTitle').val());
+        checkjob();
 
-        if ($(this).val() != '' && jobTemp) {
+    })
+    function checkjob() {
+
+        if ($('#jobTitle').val() != '' && jobTemp) {
             updateProgressBar("8", $(".progress__percent").text(), 1);
         }
-        if ($(this).val() == '') {
+        if ($('#jobTitle').val() == '') {
             updateProgressBar("8", $(".progress__percent").text(), 0);
             jobTemp = true;
         } else
             jobTemp = false;
-    })
-
+    }
     //name
     $('#fname').change(function (e) {
         $("#fullname").html($('#fname').val() + " " + $('#lname').val());
@@ -294,16 +286,6 @@ $(document).ready(function () {
             nameTemp = false;
     }
 
-    //Details
-
-    // preAddress = address
-    // preCityPC = city, postal
-    // preCountry = country
-    // preEmail = email
-    // preNumber = phone
-    // pdate bdate = preBirthday
-    //national = preNationality
-    //license = preDriLicense
     emptyPreEmail();
     emptyPreAddress();
     emptyPrePhone();
@@ -333,8 +315,8 @@ $(document).ready(function () {
     })
 
     function emptyPreAddress() {
-        if ($('#preAddress').text().length == 0 && $('#preCountry').text().length == 0 && $('#preCityPC').text().length == 0 &&
-            $('#postal').text().length == 0) {
+        if ($('#preAddress').text().length == 0 && $('#preCountry').text().length == 0) {
+            $('#preCityPC').empty()
             $('.mailboxDiv').hide();
         } else {
             $('.mailboxDiv').show();
@@ -383,22 +365,9 @@ $(document).ready(function () {
             $("#preNationality").html($('#national').val());
         }
     }
-    // $('#license').change(function (e) {
-    //     if ($('#license').val() == "") {
-    //         $("#licenseDivider").hide();
-    //     } else {
-    //         $("#licenseDivider").show();
-    //         $("#preDriLicense").html($('#license').val());
-    //     }
-    // })
-
-
 
     //Summary
-    var summaryEditor = $("#summaryEditor");
 
-    //profileDesc
-    summaryTemp = true;
     if (summaryEditor.val().length <= 0) {
         $(".profileDiv").hide();
     }
@@ -407,7 +376,7 @@ $(document).ready(function () {
         if (summaryEditor.val().length > 1) {
             $(".profileDiv").show();
             if (summaryTemp) {
-                updateProgressBar("16", $(".progress__percent").text(), 1);
+                updateProgressBar("24", $(".progress__percent").text(), 1);
                 summaryTemp = false;
             }
             summaryTemp = false;
@@ -415,26 +384,31 @@ $(document).ready(function () {
             $(".profileDiv").hide();
 
             if (!summaryTemp) {
-                updateProgressBar("16", $(".progress__percent").text(), 0);
+                updateProgressBar("24", $(".progress__percent").text(), 0);
                 summaryTemp = true;
             }
         }
         $("#profileDesc").html(summaryEditor.val());
+        checkprofileDesc()
     });
 
+    function checkprofileDesc() {
+        if (summaryEditor.val() != '' && summaryTemp) {
+            updateProgressBar("24", $(".progress__percent").text(), 1);
+        }
+        if (summaryEditor.val() == '') {
+            updateProgressBar("24", $(".progress__percent").text(), 0);
+            summaryTemp = true;
+        } else
+            summaryTemp = false;
+    }
 
-    //jobTitle
-    //employerName
-    //startDate
-    //endDate
-    //employeeCity
-    //AccordionTitleLabel
-    //experienceDiv
     var preJobTitle = $('.jobTitle');
     var workStartdate = $('.startDate');
     var workEnddate = $('.endDate');
     var employerName = $('.employerName');
     var employerCity = $('.employerCity');
+    var jobtempBar = true;
 
     $(".jobTitle").each(function (index) {
         // console.log(index + ": " + $(this).val());
@@ -659,6 +633,20 @@ $(document).ready(function () {
             $('.experienceDiv').hide();
 
         }
+
+        if (($('#AccordionWorkTitleLabel0').text().length > 0 && $('#AccordionWorkTitleLabel0').text() != "(Not Specified)" ||
+            $('#AccordionWorkTitleLabel1').text().length > 0 && $('#AccordionWorkTitleLabel1').text() != "(Not Specified)" ||
+            $('#AccordionWorkTitleLabel2').text().length > 0 && $('#AccordionWorkTitleLabel2').text() != "(Not Specified)") && jobtempBar) {
+            updateProgressBar("12.264", $(".progress__percent").text(), 1);
+        }
+        if (!($('#AccordionWorkTitleLabel0').text().length > 0 && $('#AccordionWorkTitleLabel0').text() != "(Not Specified)" ||
+            $('#AccordionWorkTitleLabel1').text().length > 0 && $('#AccordionWorkTitleLabel1').text() != "(Not Specified)" ||
+            $('#AccordionWorkTitleLabel2').text().length > 0 && $('#AccordionWorkTitleLabel2').text() != "(Not Specified)")) {
+            updateProgressBar("12.264", $(".progress__percent").text(), 0);
+            jobtempBar = true;
+        } else
+            jobtempBar = false;
+
     }
 
     function preEmployerNameChange() {
@@ -745,6 +733,7 @@ $(document).ready(function () {
     var educEnddate = $('.educEndDate');
     var educCity = $('.educCity');
     var educDegree = $('.degree');
+    var eductempbar = true;
     $(".school").each(function (index) {
         if ($($('.school')[index]).val().length > 0 && index == 0) {
             $("#AccordionEducTitleLabel0").html($(this).val());
@@ -951,6 +940,19 @@ $(document).ready(function () {
             $('.educDiv').hide();
 
         }
+
+        if (($('#AccordionEducTitleLabel0').text().length > 0 && $('#AccordionEducTitleLabel0').text() != "(Not Specified)" ||
+            $('#AccordionEducTitleLabel1').text().length > 0 && $('#AccordionEducTitleLabel1').text() != "(Not Specified)" ||
+            $('#AccordionEducTitleLabel2').text().length > 0 && $('#AccordionEducTitleLabel2').text() != "(Not Specified)") && eductempbar) {
+            updateProgressBar("12.264", $(".progress__percent").text(), 1);
+        }
+        if (!($('#AccordionEducTitleLabel0').text().length > 0 && $('#AccordionEducTitleLabel0').text() != "(Not Specified)" ||
+            $('#AccordionEducTitleLabel1').text().length > 0 && $('#AccordionEducTitleLabel1').text() != "(Not Specified)" ||
+            $('#AccordionEducTitleLabel2').text().length > 0 && $('#AccordionEducTitleLabel2').text() != "(Not Specified)")) {
+            updateProgressBar("12.264", $(".progress__percent").text(), 0);
+            eductempbar = true;
+        } else
+            eductempbar = false;
     }
 
     function preEducDegreeChange() {
@@ -1062,6 +1064,7 @@ $(document).ready(function () {
         }
     });
     var preSocialLink = $('.socialLink');
+    var socialtempBar = true;
 
     for (const i of preSocialLink) {
         i.addEventListener('change', preSocialLinkChange);
@@ -1103,6 +1106,20 @@ $(document).ready(function () {
             $('.socialDiv').hide();
 
         }
+
+
+        if (($('#AccordionSocialTitleLabel0').text().length > 0 && $('#AccordionSocialTitleLabel0').text() != "(Not Specified)" ||
+            $('#AccordionSocialTitleLabel1').text().length > 0 && $('#AccordionSocialTitleLabel1').text() != "(Not Specified)" ||
+            $('#AccordionSocialTitleLabel2').text().length > 0 && $('#AccordionSocialTitleLabel2').text() != "(Not Specified)") && socialtempBar) {
+            updateProgressBar("12.264", $(".progress__percent").text(), 1);
+        }
+        if (!($('#AccordionSocialTitleLabel0').text().length > 0 && $('#AccordionSocialTitleLabel0').text() != "(Not Specified)" ||
+            $('#AccordionSocialTitleLabel1').text().length > 0 && $('#AccordionSocialTitleLabel1').text() != "(Not Specified)" ||
+            $('#AccordionSocialTitleLabel2').text().length > 0 && $('#AccordionSocialTitleLabel2').text() != "(Not Specified)")) {
+            updateProgressBar("12.264", $(".progress__percent").text(), 0);
+            socialtempBar = true;
+        } else
+            socialtempBar = false;
     }
 
     //refname
@@ -1116,6 +1133,7 @@ $(document).ready(function () {
     var preRefCompany = $('.refcompany');
     var preRefEmail = $('.refPhone');
     var preRefPhone = $('.refEmail');
+    var reftempBar = true
     $(".refname").each(function (index) {
         if ($($('.refname')[index]).val().length > 0 && index == 0) {
             $("#AccordionReferenceTitleLabel0").html($(this).val());
@@ -1228,6 +1246,19 @@ $(document).ready(function () {
             $('.refDiv').hide();
 
         }
+
+        if (($('#AccordionReferenceTitleLabel0').text().length > 0 && $('#AccordionReferenceTitleLabel0').text() != "(Not Specified)" ||
+            $('#AccordionReferenceTitleLabel1').text().length > 0 && $('#AccordionReferenceTitleLabel1').text() != "(Not Specified)" ||
+            $('#AccordionReferenceTitleLabel2').text().length > 0 && $('#AccordionReferenceTitleLabel2').text() != "(Not Specified)") && reftempBar) {
+            updateProgressBar("12.264", $(".progress__percent").text(), 1);
+        }
+        if (!($('#AccordionReferenceTitleLabel0').text().length > 0 && $('#AccordionReferenceTitleLabel0').text() != "(Not Specified)" ||
+            $('#AccordionReferenceTitleLabel1').text().length > 0 && $('#AccordionReferenceTitleLabel1').text() != "(Not Specified)" ||
+            $('#AccordionReferenceTitleLabel2').text().length > 0 && $('#AccordionReferenceTitleLabel2').text() != "(Not Specified)")) {
+            updateProgressBar("12.264", $(".progress__percent").text(), 0);
+            reftempBar = true;
+        } else
+            reftempBar = false;
     }
 
     function preRefCompChange() {
@@ -1270,239 +1301,82 @@ $(document).ready(function () {
     }
 
 
-    //AccordionSkillTitleLabel
-    //accordionSkill
+    //id_skill_set-0-skill
+    //preSkillName0
     //skilltitle
-    //skillcollapse
-
-    // $("#preSkillName0").hide()
-    // $("#preSkillName1").hide()
-    // $("#preSkillName2").hide()
-    // $("#preSkillName3").hide()
-    // $("#preSkillName4").hide()
-    // $("#preSkillName5").hide()
-    // $("#preSkillName6").hide()
-    // $("#preSkillName7").hide()
-    // $("#preSkillName8").hide()
-    // $("#preSkillName9").hide()
-    if ($("#id_skill_set-0-skill").val().length > 0) {
-        $("#preSkillName0").html($("#id_skill_set-0-skill").val() + '<br>');
-        $("#preSkillName0").show()
-    }
-    if ($("#id_skill_set-1-skill").val().length > 0) {
-        $("#preSkillName1").html($("#id_skill_set-1-skill").val() + '<br>');
-        $("#preSkillName1").show()
-    } if ($("#id_skill_set-2-skill").val().length > 0) {
-        $("#preSkillName2").html($("#id_skill_set-2-skill").val() + '<br>');
-        $("#preSkillName2").show()
-    } if ($("#id_skill_set-3-skill").val().length > 0) {
-        $("#preSkillName3").html($("#id_skill_set-3-skill").val() + '<br>');
-        $("#preSkillName3").show()
-    } if ($("#id_skill_set-4-skill").val().length > 0) {
-        $("#preSkillName4").html($("#id_skill_set-4-skill").val() + '<br>');
-        $("#preSkillName4").show()
-    } if ($("#id_skill_set-5-skill").val().length > 0) {
-        $("#preSkillName5").html($("#id_skill_set-5-skill").val() + '<br>');
-        $("#preSkillName5").show()
-    } if ($("#id_skill_set-6-skill").val().length > 0) {
-        $("#preSkillName6").html($("#id_skill_set-6-skill").val() + '<br>');
-        $("#preSkillName6").show()
-    } if ($("#id_skill_set-7-skill").val().length > 0) {
-        $("#preSkillName7").html($("#id_skill_set-7-skill").val() + '<br>');
-        $("#preSkillName7").show()
-    } if ($("#id_skill_set-8-skill").val().length > 0) {
-        $("#preSkillName8").html($("#id_skill_set-8-skill").val() + '<br>');
-        $("#preSkillName8").show()
-    }
-    if ($("#id_skill_set-9-skill").val().length > 0) {
-        $("#preSkillName9").html($("#id_skill_set-9-skill").val() + '<br>');
-        $("#preSkillName9").show()
-    }
-    var preSkill = $('.skilltitle');
-
-    $(".skillDiv").hide()
-    tempo = false;
-    preSkill.change(function () {
-        var self = $(this)
-        if (self.attr('id') == "id_skill_set-0-skill") {
-            $("#preSkillName0").html(self.val() + '<br>');
-            if (self.val() == '') {
-                $("#preSkillName0").hide()
-                tempo = false
-            } else {
-                $("#preSkillName0").show()
-                tempo = true
-            }
-        }
-        if (self.attr('id') == "id_skill_set-1-skill") {
-            $("#preSkillName1").html(self.val() + '<br>');
-            if (self.val() == '') {
-                $("#preSkillName1").hide()
-                tempo = false
-            } else {
-                $("#preSkillName1").show()
-            }
-        }
-        if (self.attr('id') == "id_skill_set-2-skill") {
-            $("#preSkillName2").html(self.val() + '<br>');
-            if (self.val() == '') {
-                $("#preSkillName2").hide()
-                tempo = false
-            } else {
-                $("#preSkillName2").show()
-                tempo = true
-            }
-        }
-        if (self.attr('id') == "id_skill_set-3-skill") {
-            $("#preSkillName3").html(self.val() + '<br>');
-            if (self.val() == '') {
-                $("#preSkillName3").hide()
-                tempo = false
-            } else {
-                $("#preSkillName3").show()
-                tempo = true
-            }
-        }
-        if (self.attr('id') == "id_skill_set-4-skill") {
-            $("#preSkillName4").html(self.val() + '<br>');
-            if (self.val() == '') {
-                $("#preSkillName4").hide()
-                tempo = false
-            } else {
-                $("#preSkillName4").show()
-                tempo = true
-            }
-        }
-        if (self.attr('id') == "id_skill_set-5-skill") {
-            $("#preSkillName5").html(self.val() + '<br>');
-            if (self.val() == '') {
-                $("#preSkillName5").hide()
-                tempo = false
-            } else {
-                $("#preSkillName5").show()
-                tempo = true
-            }
-        }
-        if (self.attr('id') == "id_skill_set-6-skill") {
-            $("#preSkillName6").html(self.val() + '<br>');
-            if (self.val() == '') {
-                $("#preSkillName6").hide()
-                tempo = false
-            } else {
-                $("#preSkillName6").show()
-                tempo = true
-            }
-        }
-        if (self.attr('id') == "id_skill_set-7-skill") {
-            $("#preSkillName7").html(self.val() + '<br>');
-            if (self.val() == '') {
-                $("#preSkillName7").hide()
-                tempo = false
-            } else {
-                $("#preSkillName7").show()
-                tempo = true
-            }
-        }
-        if (self.attr('id') == "id_skill_set-8-skill") {
-            $("#preSkillName8").html(self.val() + '<br>');
-            if (self.val() == '') {
-                $("#preSkillName8").hide()
-                tempo = false
-            } else {
-                $("#preSkillName8").show()
-                tempo = true
-            }
-        }
-        if (self.attr('id') == "id_skill_set-9-skill") {
-            $("#preSkillName9").html(self.val() + '<br>');
-            if (self.val() == '') {
-                $("#preSkillName9").hide()
-            } else {
-                $("#preSkillName9").show()
-                tempo = true
-            }
-        }
-        if ($("#preSkillName0").is(":hidden") &&
-            $("#preSkillName1").is(":hidden") &&
-            $("#preSkillName2").is(":hidden") &&
-            $("#preSkillName3").is(":hidden") &&
-            $("#preSkillName4").is(":hidden") &&
-            $("#preSkillName5").is(":hidden") &&
-            $("#preSkillName6").is(":hidden") &&
-            $("#preSkillName7").is(":hidden") &&
-            $("#preSkillName8").is(":hidden") &&
-            $("#preSkillName9").is(":hidden") && tempo == false
-        ) {
-            $(".skillDiv").hide()
+    var skilltempBar = true
+    $('.skillDiv').hide()
+    $('.skilltitle').each(function (index) {
+        if ($(this).val().length > 0) {
+            $('#preSkillName' + index).html($(this).val() + '<br>')
+            $('#preSkillName' + index).show();
         } else {
-            $(".skillDiv").show()
-            tempo = true
+            $('#preSkillName' + index).empty();
+            $('#preSkillName' + index).hide();
+
+            if ($('#preSkillName0').is(':empty') &&
+                $('#preSkillName1').is(':empty') &&
+                $('#preSkillName2').is(':empty') &&
+                $('#preSkillName3').is(':empty') &&
+                $('#preSkillName4').is(':empty') &&
+                $('#preSkillName5').is(':empty') &&
+                $('#preSkillName6').is(':empty') &&
+                $('#preSkillName7').is(':empty') &&
+                $('#preSkillName8').is(':empty') &&
+                $('#preSkillName9').is(':empty') && $('.skillDiv').is(":visible")
+            ) {
+                updateProgressBar("12.264", $(".progress__percent").text(), 0);
+                console.log("itsempty")
+                $('.skillDiv').hide()
+            } else if ($('.skillDiv').is(":hidden") && skilltempBar) {
+                console.log("itnotsempty")
+                updateProgressBar("12.264", $(".progress__percent").text(), 1);
+                skilltempBar = false
+                $('.skillDiv').show()
+            }
         }
+        $(this).on('change', function () {
+            if ($('#preSkillName' + index).html() == '' && !$(this).val()) {
+                console.log($('#preSkillName' + index).html() + '1')
+                $('#preSkillName' + index).empty();
+                $('#preSkillName' + index).hide();
+            } else {
+                if ($(this).val()) {
+                    $('#preSkillName' + index).html($(this).val() + '<br>')
+                } else {
+                    $('#preSkillName' + index).empty();
+                    $('#preSkillName' + index).hide();
+                }
+                $('#preSkillName' + index).show();
+            }
+            if ($('#preSkillName0').is(':empty') &&
+                $('#preSkillName1').is(':empty') &&
+                $('#preSkillName2').is(':empty') &&
+                $('#preSkillName3').is(':empty') &&
+                $('#preSkillName4').is(':empty') &&
+                $('#preSkillName5').is(':empty') &&
+                $('#preSkillName6').is(':empty') &&
+                $('#preSkillName7').is(':empty') &&
+                $('#preSkillName8').is(':empty') &&
+                $('#preSkillName9').is(':empty')
+            ) {
+                console.log("itsempty")
+                if (!skilltempBar) {
+                    updateProgressBar("12.264", $(".progress__percent").text(), 0);
+                    skilltempBar = true
+                }
+
+                $('.skillDiv').hide()
+            } else {
+
+                if (skilltempBar) {
+                    updateProgressBar("12.264", $(".progress__percent").text(), 1);
+                    skilltempBar = false
+                }
+                console.log("itnotsempty")
+
+                $('.skillDiv').show()
+            }
+        });
     });
-    // $(".skilltitle").each(function (index) {
-    //     if ($($('.skilltitle')[index]).val().length > 0 && index == 0) {
-    //         $("#preSkillName0").html($($('.skilltitle')[index]).val());
-    //         $('#preSkillName0').show();
-    //     } else {
-    //         $('#preSkillName0').hide();
-    //     }
-    //     if ($($('.skilltitle')[index]).val().length > 0 && index == 1) {
-    //         $("#preSkillName1").html($($('.skilltitle')[index]).val());
-    //         $('#preSkillName1').show();
-    //     } else {
-    //         $('.preSkillName1').hide();
-    //     }
-    //     if ($($('.skilltitle')[index]).val().length > 0 && index == 2) {
-    //         $("#preSkillName2").html($($('.skilltitle')[index]).val());
-    //         $('#preSkillName2').show();
-    //     } else {
-    //         $('#preSkillName2').hide();
-    //     }
-    // });
-
-    // accorSkillTemp = true;
-    // accorSkillTemp1 = true;
-
-    // var skillCounter = 0;
-    // $("#addSkill").click(function () {
-    //     $(".skillDiv").show();
-    //     if (skillCounter < 10) {
-
-    //         if (accorSkillTemp) {
-    //             updateProgressBar("11.884", $(".progress__percent").text(), 1);
-    //             accorSkillTemp = false;
-    //             accorSkillTemp1 = false;
-    //         }
-    //         var addPreSkill = '<span id="preSkillName' + skillCounter + '"></span> <br>';
-    //         var preSkill = $('.skilltitle');
-    //         $('#skillContent').append(addPreSkill);
-    //         for (const i of preSkill) {
-    //             i.addEventListener('change', preSkillNameChange);
-    //         }
-    //         skillCounter++;
-    //     }
-    // });
-
-    // function preSkillNameChange(index) {
-    //     console.log($(this))
-    //     if ($(this).val().length > 0 && index == 0) {
-    //         $("#preSkillName0").html($($('.skilltitle')[index]).val());
-    //         $('#preSkillName0').show();
-    //     } else {
-    //         $('#preSkillName0').hide();
-    //     }
-    //     if ($(this).val().length > 0 && index == 1) {
-    //         $("#preSkillName1").html($($('.skilltitle')[index]).val());
-    //         $('#preSkillName1').show();
-    //     } else {
-    //         $('.preSkillName1').hide();
-    //     }
-    //     if ($(this).val().length > 0 && index == 2) {
-    //         $("#preSkillName2").html($($('.skilltitle')[index]).val());
-    //         $('#preSkillName2').show();
-    //     } else {
-    //         $('#preSkillName2').hide();
-    //     }
-    // }
-
 });
