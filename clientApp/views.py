@@ -6,13 +6,14 @@ from django.forms import inlineformset_factory
 from django.conf import settings
 from django.template.loader import render_to_string
 from django.contrib.sites.shortcuts import get_current_site
+from django.contrib import messages
 import datetime
 from django.utils import timezone
 
 from .utils import send_html_mail
 from accounts.models import accounts
 from system.models import *
-from system.forms import manpowerForm
+from system.forms import *
 from .models import employmentHistory, personalDetails, education, link, reference, skill, article
 from .forms import *
 
@@ -23,8 +24,9 @@ from sklearn.metrics.pairwise import cosine_similarity
 
 def index(request):
     jobs = jobList.objects.all()
+    contactform = contactForm()
 
-    context = {'jobList': jobs}
+    context = {'jobList': jobs, 'contactform': contactform}
     if request.user.is_authenticated:
 
         client = accounts.objects.get(username=request.user)  # get Some User.
@@ -35,10 +37,27 @@ def index(request):
             form1 = manpowerForm(request.POST)
             if form1.is_valid():
                 form1.save()
-
-        context = {'group': group, 'jobList': jobs, 'form': form1}
+                messages.success(
+                    request, 'Your Request has been sent successfully!')
+                form1 = manpowerForm()
+        context = {'group': group, 'jobList': jobs,
+                   'form': form1, 'contactform': contactform}
 
     return render(request, 'main/Client/index.html', context)
+
+
+def sendmessage(request):
+    if request.user.is_authenticated:
+        if request.method == 'POST':
+            form1 = contactForm(request.POST)
+            if form1.is_valid():
+                print("hello")
+                form1.save()
+                messages.success(
+                    request, 'Your Message has been send successfully!!!')
+            print(form1.errors)
+
+    return redirect('index')
 
 
 def faq(request):

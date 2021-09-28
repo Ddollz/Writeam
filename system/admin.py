@@ -36,6 +36,18 @@ class manpowerAdmin(admin.ModelAdmin):
     )
 
 
+class contactAdmin(admin.ModelAdmin):
+    list_display = ('id', 'name', 'email', 'subject', 'message', 'lastSubmitted'
+                    )
+    readonly_fields = ('id', 'lastSubmitted')
+    search_fields = ('id', 'name',)
+    fieldsets = (
+    )
+    add_fieldsets = (
+    )
+
+
 admin.site.register(jobList, jobListAdmin)
 admin.site.register(jobSkill, jobSkillAdmin)
 admin.site.register(manpower, manpowerAdmin)
+admin.site.register(contact, contactAdmin)

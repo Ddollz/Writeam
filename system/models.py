@@ -66,3 +66,20 @@ class manpower(models.Model):
 
     def __str__(self):
         return self.department or ' '
+
+
+class contact(models.Model):
+    name = models.CharField(
+        verbose_name="Name", max_length=255, null=False)
+    email = models.EmailField(verbose_name='email', max_length=60, unique=True)
+    subject = models.CharField(
+        verbose_name="Subject", max_length=255, null=False)
+
+    message = models.TextField(
+        verbose_name="Message", max_length=500, null=True)
+
+    lastSubmitted = models.DateTimeField(
+        verbose_name="Date Submmited", auto_now_add=True)
+
+    def __str__(self):
+        return self.name or ' '

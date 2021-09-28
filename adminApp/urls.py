@@ -35,6 +35,12 @@ urlpatterns = [
     path("rejectedapp/", views.rejectedapp,
          name="rejectedapp"),
 
+    path("messages/", views.messagespage,
+         name="messages"),
+    path("messages/<int:pk>/", views.messagespage,
+         name="messages"),
+    path("messagesExport/",
+         views.exportMessages, name="messagesExport"),
 
     path("clientExport/<int:pk>/",
          views.exportClient, name="clientExport"),

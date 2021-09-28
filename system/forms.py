@@ -45,3 +45,22 @@ class manpowerForm(ModelForm):
     class Meta:
         model = manpower
         fields = '__all__'
+
+
+class contactForm(ModelForm):
+
+    name = forms.CharField(label="", required=True, widget=forms.TextInput(
+        attrs={'type': 'text', 'class': 'form-control', 'id': 'name', 'placeholder': 'Your Name'}))
+
+    email = forms.CharField(label="", required=True, widget=forms.TextInput(
+        attrs={'type': 'email', 'class': 'form-control', 'id': 'email', 'placeholder': 'Your Email'}))
+
+    subject = forms.CharField(label="", required=True, widget=forms.TextInput(
+        attrs={'type': 'text', 'class': 'form-control', 'id': 'subject', 'placeholder': 'Your Subject'}))
+
+    message = forms.CharField(label="", required=True, widget=forms.Textarea(
+        attrs={'type': 'text', 'class': 'form-control', 'style': 'height: 100px; ', 'placeholder': 'Message'}))
+
+    class Meta:
+        model = contact
+        fields = '__all__'

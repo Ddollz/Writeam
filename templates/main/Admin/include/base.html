@@ -196,15 +196,8 @@
                 <span class="tooltip">Analytics</span>
             </li> -->
 
-            <li>
-                <a href="{% url 'index'%}">
-                    <i class="bi bi-aspect-ratio"></i>
-                    <span class="links_name">Website Preview</span>
-                </a>
-                <span class="tooltip">Website Preview</span>
-            </li>
-            {% if request.user.groups.all.0|stringformat:'s' == 'HR Manager'%}
 
+            {% if request.user.groups.all.0|stringformat:'s' == 'HR Manager'%}
             <li class="dropdown">
                 {% if request.path == the_url6%}
                 <a href="{% url 'websetting'%}" class="active">
@@ -220,6 +213,21 @@
                 </a>
                 <span class="tooltip">Job Posting</span>
                 {% endif %}
+            </li>
+
+            <li>
+                <a href="{% url 'messages'%}">
+                    <i class="bi bi-chat-right-text"></i>
+                    <span class="links_name">Messages</span>
+                </a>
+                <span class="tooltip">Messages</span>
+            </li>
+            <li>
+                <a href="{% url 'index'%}">
+                    <i class="bi bi-aspect-ratio"></i>
+                    <span class="links_name">Website Preview</span>
+                </a>
+                <span class="tooltip">Website Preview</span>
             </li>
             {% endif %}
 

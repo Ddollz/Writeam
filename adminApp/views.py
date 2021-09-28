@@ -17,7 +17,7 @@ from clientApp.models import article, personalDetails, employmentHistory, educat
 from .models import onboardingApplicant
 from .forms import *
 
-from system.models import manpower
+from system.models import manpower, contact
 from system.forms import manpowerForm
 
 import random
@@ -113,6 +113,19 @@ def exportClient(request, pk=None):
         writer.writerow(ls)
 
     response['Content-Disposition'] = 'attachment; filename ="'+filename+'.csv"'
+    return response
+
+
+def exportMessages(request):
+    response = HttpResponse(content_type='text/csv')
+    writer = csv.writer(response)
+    writer.writerow(['id', 'Name', 'email', 'Subject', 'Message'])
+    for msgs in contact.objects.all().order_by('-id').values_list('id', 'name', 'email',
+                                                                  'subject', 'message'
+                                                                  ):
+        msgs = list(msgs)
+        writer.writerow(msgs)
+    response['Content-Disposition'] = 'attachment; filename ="Writeam Messages.csv"'
     return response
 
 
@@ -295,6 +308,18 @@ def rejectedapp(request):
     users = accounts.objects.all()
     context = {'applicantList': users, 'notifs': getLatestRecord()}
     return render(request, 'main/Admin/rejectedapp.html', context)
+
+
+@ allowed_users(allowed_roles=['HR Staff', 'HR Manager'])
+def messagespage(request, pk=None):
+    msgs = contact.objects.all()
+    context = {'msgs': msgs, 'notifs': getLatestRecord()}
+
+    if pk != None:
+        instance = contact.objects.get(id=pk)
+        context = {'msgs': msgs, 'notifs': getLatestRecord(),
+                   'instance': instance}
+    return render(request, 'main/Admin/messages.html', context)
 
 
 @ allowed_users(allowed_roles=['HR Staff', 'HR Manager'])

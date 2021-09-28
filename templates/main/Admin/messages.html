@@ -1,0 +1,124 @@
+{% extends 'main/Admin/include/base.html' %}
+
+{% load static%}
+{% block content%}
+<section class="home-section">
+    {% include 'main/Admin/include/topnavbar.html' %}
+    <div class="container-fluid px-4">
+
+        <div class="card mb-3" style="background-color:transparent; border:none">
+            <div class="card-body text-center">
+                <h1 class="fw-bold">Messages</h1>
+                <p class="fs-4">
+                    Welcome Recruiters!
+                </p>
+            </div>
+        </div>
+        <div class="row table-card p-2">
+            <div class="shadow p-0">
+                <div class="card ">
+                    <div class="card-body">
+
+                        <div class="card-title">
+                            <h3 class="fw-bold" style="text-shadow: 2px 2px 1px rgba(0, 0, 0, 0.246);">Message List
+                                <i class="bi bi-printer-fill print"></i>
+                                <a href="{%url 'messagesExport'%}"><i class="bi bi-file-arrow-down-fill printcsv"></i></a>
+                            </h3>
+                        </div>
+                        <table id="table2">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Subject</th>
+                                    <th>Message</th>
+                                    <th>Details</th>
+                                </tr>
+                            </thead>
+                            <tfoot>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Subject</th>
+                                    <th>Message</th>
+                                    <th>Details</th>
+                                </tr>
+                            </tfoot>
+                            <tbody>
+
+                                {% for msg in msgs%}
+                                <tr>
+                                    <td>{{msg.name}}</td>
+                                    <td>{{msg.email}}</td>
+                                    <td>{{msg.subject}}</td>
+                                    <td>{{msg.message}}</td>
+                                    <td><a href="{% url 'messages' msg.id %}" type="button" class="btn btn-primary">View</a></td>
+                                </tr>
+
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% if instance%}
+<!-- Modal -->
+<div class="modal fade score" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel"><img src="{% static 'assets/img/logos.png' %}" alt="" srcset="" width="50px" height="50px">
+                    {{instance|title}} Message
+                </h5>
+                <a type="button" href="{% url 'department'%}"><i class="bi bi-x-diamond text-white"></i></a>
+            </div>
+
+            <div class="modal-body userInfo">
+                <div class="row">
+
+                    <div class="col">
+                        <label for="department" class="form-label">Name</label>
+                        <p>{{instance.name}}</p>
+                    </div>
+                    <div class="col">
+                        <label for="datereq" class="form-label">Email</label>
+                        <p>{{instance.email}}</p>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col">
+                        <label for="noCan" class="form-label">Subject</label>
+                        <input type="text" class="form-control" id="noCan" value="{{instance.subject}}" readonly>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <div class="form-floating">
+                        <textarea class="form-control" readonly placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px">{{instance.message}}</textarea>
+                        <label for="floatingTextarea2">Comments</label>
+                    </div>
+                </div>
+                <button class="btn btn-outline-secondary text-center float-end border editButton">Edit</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endblock %}
+
+{% block scriptContent%}
+<script>
+    $(document).ready(function () {
+        var modaledit = '{{instance}}'
+        if (modaledit) {
+            console.log(modaledit)
+            $('#exampleModal').modal('show');
+        }
+    });
+
+</script>
+{% endblock%}
