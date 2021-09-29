@@ -20,6 +20,9 @@
                             <th>Nos of candidate</th>
                             <th>Accepted candidate</th>
                             <th>Request Date</th>
+                            {% if group|stringformat:'s' == 'HR Manager'%}
+                            <th>Status</th>
+                            {%endif%}
                             <th>Details</th>
                         </tr>
                     </thead>
@@ -32,6 +35,9 @@
                             <th>Nos of candidate</th>
                             <th>Accepted candidate</th>
                             <th>Request Date</th>
+                            {% if group|stringformat:'s' == 'HR Manager'%}
+                            <th>Status</th>
+                            {%endif%}
                             <th>Details</th>
                         </tr>
                     </tfoot>
@@ -41,19 +47,32 @@
                         <tr>
                             <td>{{manpower.id}}</td>
                             <td>
-                                {% if manpower.department == 'Copy Writer'%}
+                                {% if manpower.job_Title|stringformat:'s' == 'Copy Writer'%}
                                 <i class="bi bi-pencil-square fs-3 me-3 " style="color: #e74c3c"></i>
-                                {% elif manpower.department == 'Editor'%}
+                                {% elif manpower.job_Title|stringformat:'s' == 'Editor'%}
                                 <i class="bi bi-file-earmark-zip-fill fs-3 me-3 " style="color: #34495e"></i>
-                                {% elif manpower.department == 'Translator'%}
+                                {% elif manpower.job_Title|stringformat:'s' == 'Translator'%}
                                 <i class="bi bi-translate fs-3 me-3 " style="color: #2ecc71"></i>
                                 {% endif %}
                             </td>
                             <td>{{manpower.name}}</td>
-                            <td>{{manpower.department}}</td>
+                            <td>{{manpower.job_Title}}</td>
                             <td>{{manpower.nosCandidate}}</td>
                             <td>{{manpower.currentCandidate}}</td>
                             <td>{{manpower.requestDate}}</td>
+                            {% if group|stringformat:'s' == 'HR Manager'%}
+                            {% if not manpower.on_Going %}
+                            <td>
+                                <a href="{% url 'department' 'activate' manpower.id %}">
+                                    <i class="bi bi-x-circle fs-2" style="color: #e74c3c;"></i>
+                                </a>
+                            </td>
+                            {% else %}
+                            <td><i class="bi bi-check-circle fs-2" style="color: #2ecc71;"></i></td>
+
+                            {% endif %}
+
+                            {%endif%}
                             <td><a href="{% url 'department' manpower.id %}" type="button" class="btn btn-primary">View</a></td>
                         </tr>
 

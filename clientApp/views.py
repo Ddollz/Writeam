@@ -25,21 +25,31 @@ from sklearn.metrics.pairwise import cosine_similarity
 def index(request):
     jobs = jobList.objects.all()
     contactform = contactForm()
-
     context = {'jobList': jobs, 'contactform': contactform}
     if request.user.is_authenticated:
 
         client = accounts.objects.get(username=request.user)  # get Some User.
         group = client.groups.all()[0]
+        post = ''
+        if str(group) == 'Copy Writer Manager':
+            post = jobList.objects.get(job_Title='Copy Writer')
+        elif str(group) == 'Translator Manager':
+            post = jobList.objects.get(job_Title='Translator')
+        elif str(group) == 'Editor Manager':
+            post = jobList.objects.get(job_Title='Editor')
 
-        form1 = manpowerForm()
+        form1 = manpowerForm(
+            initial={'name': request.user.first_name + " " + request.user.last_name, 'job_Title': post})
         if request.method == 'POST':
             form1 = manpowerForm(request.POST)
             if form1.is_valid():
                 form1.save()
                 messages.success(
                     request, 'Your Request has been sent successfully!')
-                form1 = manpowerForm()
+                form1 = manpowerForm(
+                    initial={'name': request.user.first_name + " " + request.user.last_name, 'job_Title': post})
+
+            print(form1.errors)
         context = {'group': group, 'jobList': jobs,
                    'form': form1, 'contactform': contactform}
 

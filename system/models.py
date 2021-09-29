@@ -12,7 +12,7 @@ JOB_CHOICES = (
 
 class jobList(models.Model):
     job_Title = models.CharField(
-        verbose_name="Job Title", max_length=255, null=False)
+        verbose_name="Job Title", max_length=255, null=False, unique=True)
     job_Description = models.TextField(
         verbose_name="Job Description", max_length=255, null=False)
     is_onHire = models.BooleanField(default=True)
@@ -39,8 +39,9 @@ class jobSkill(models.Model):
 class manpower(models.Model):
     name = models.CharField(
         verbose_name="Requester Name", max_length=255, null=False)
-    department = models.CharField(
-        verbose_name="Department", choices=JOB_CHOICES, default='None', max_length=255, null=False)
+
+    job_Title = models.ForeignKey(
+        jobList, verbose_name="Department", null=True, on_delete=models.CASCADE)
 
     requestDate = models.DateTimeField(blank=True, null=True)
 
@@ -53,6 +54,7 @@ class manpower(models.Model):
     currentCandidate = models.PositiveIntegerField(
         verbose_name="Accepted of Candidate", default=0, null=True, blank=True)
 
+    on_Going = models.BooleanField(default=False)
     is_Finished = models.BooleanField(default=False)
 
     requirements = models.TextField(
@@ -65,7 +67,7 @@ class manpower(models.Model):
         verbose_name = "Manpower Request"
 
     def __str__(self):
-        return self.department or ' '
+        return self.job_Title.job_Title or ' '
 
 
 class contact(models.Model):

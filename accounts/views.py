@@ -93,7 +93,6 @@ def signupadmin(request):
     if request.method == 'POST':
         form = adminFormReg(request.POST)
         if form.is_valid():
-            form.is_staff = True
             user = form.save()
             group = Group.objects.get(name='HR Staff')
             user.groups.add(group)

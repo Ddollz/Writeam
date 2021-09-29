@@ -17,7 +17,7 @@ from clientApp.models import article, personalDetails, employmentHistory, educat
 from .models import onboardingApplicant
 from .forms import *
 
-from system.models import manpower, contact
+from system.models import jobList, manpower, contact
 from system.forms import manpowerForm
 
 import random
@@ -323,29 +323,49 @@ def messagespage(request, pk=None):
 
 
 @ allowed_users(allowed_roles=['HR Staff', 'HR Manager'])
-def department(request, pk=None):
+def department(request, type=None, pk=None):
     manpowers = manpower.objects.order_by('-requestDate')
-
-    context = {'manpowersList': manpowers,
-               'notifs': getLatestRecord()
-               }
 
     currentUser = accounts.objects.get(username=request.user)  # get Some User.
     group = currentUser.groups.all()[0]
+
+    context = {'group': group, 'manpowersList': manpowers,
+               'notifs': getLatestRecord()
+               }
+
     if pk != None:
         instance = manpower.objects.get(id=pk)
-        form1 = manpowerForm(instance=instance)
+        if type == None:
+            form1 = manpowerForm(instance=instance)
 
-        if request.method == 'POST':
-            form1 = manpowerForm(request.POST, instance=instance)
-            if form1.is_valid():
-                form1.save()
-                return redirect('department')
+            if request.method == 'POST':
+                form1 = manpowerForm(request.POST, instance=instance)
+                if form1.is_valid():
+                    form1.save()
+                    return redirect('department')
 
-        context = {'manpowersList': manpowers, 'group': group,
-                   'notifs': getLatestRecord(),
-                   'instance': instance, 'form': form1, }
+            context.update(
+                {'instance': instance, 'form': form1, })
+        if type == "activate":
+            if pk != None:
+                req = manpower.objects.get(id=pk)
+                req.on_Going = True
+                req.save()
+                postjob = jobList.objects.get(id=req.job_Title.id)
+                print(req.job_Title.id)
+                if not postjob.is_onHire:
+                    context.update({'postinstance': postjob})
     return render(request, 'main/Admin/department.html', context)
+
+
+def departmentActivate(request, pk=None):
+    if pk != None:
+        req = manpower.objects.get(id=pk)
+        print(req.on_Going)
+        req.on_Going = True
+        req.save()
+        context = {}
+    return redirect('department')
 
 
 @ allowed_users(allowed_roles=['HR Staff', 'HR Manager'])
@@ -383,17 +403,19 @@ def staffPosition(request, pk1=None, pk2=None):
 
 
 @ allowed_users(allowed_roles=['HR Manager'])
-def staffActivate(request, pk):
-    user = accounts.objects.get(id=pk)
-    user.is_active = True
-    user.save()
+def staffActivate(request, pk=None):
+    if pk != None:
+        user = accounts.objects.get(id=pk)
+        user.is_active = True
+        user.save()
     return redirect('adminUsers')
 
 
 @ allowed_users(allowed_roles=['HR Manager'])
 def staffDeactivate(request, pk):
-    user = accounts.objects.get(id=pk)
-    if user.id != request.user.id:
-        user.is_active = False
-        user.save()
+    if pk != None:
+        user = accounts.objects.get(id=pk)
+        if user.id != request.user.id:
+            user.is_active = False
+            user.save()
     return redirect('adminUsers')

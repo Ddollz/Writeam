@@ -52,6 +52,10 @@ urlpatterns = [
     path("department/<int:pk>/", views.department,
          name="department"),
 
+    path("department/<str:type>/<int:pk>/", views.department,
+         name="department"),
+
+
     path("departmentExport/",
          views.exportRequest, name="departmentExport"),
     #     path("addscore/<int:pk>", views.addScore, name="addscore"),

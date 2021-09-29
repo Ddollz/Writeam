@@ -10,11 +10,11 @@
                 <a class="dropdown-item" href="{% url 'department' notif.id %}" style="border-radius: 10px;">
                     <div class="d-flex py-1">
                         <div class="my-auto">
-                            {% if notif.department == 'Copy Writer'%}
+                            {% if notif.job_Title|stringformat:'s' == 'Copy Writer'%}
                             <i class="bi bi-pencil-square fs-3 me-3 " style="color: #e74c3c"></i>
-                            {% elif notif.department == 'Editor'%}
+                            {% elif notif.job_Title|stringformat:'s' == 'Editor'%}
                             <i class="bi bi-file-earmark-zip-fill fs-3 me-3 " style="color: #34495e"></i>
-                            {% elif notif.department == 'Translator'%}
+                            {% elif notif.job_Title|stringformat:'s' == 'Translator'%}
                             <i class="bi bi-translate fs-3 me-3 " style="color: #2ecc71"></i>
                             {% endif %}
                         </div>

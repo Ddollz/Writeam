@@ -25,7 +25,7 @@ class jobSkillAdmin(admin.ModelAdmin):
 
 
 class manpowerAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'department', 'requestDate', 'nosCandidate', 'currentCandidate', 'lastSubmitted', 'is_Finished'
+    list_display = ('id', 'name', 'job_Title', 'requestDate', 'nosCandidate', 'currentCandidate', 'lastSubmitted', 'is_Finished'
                     )
     readonly_fields = ('id', 'lastSubmitted')
     search_fields = ('id', 'name', 'department', 'requestDate',

@@ -27,9 +27,11 @@ class jobListForm(ModelForm):
 class manpowerForm(ModelForm):
 
     name = forms.CharField(label="", required=True, widget=forms.TextInput(
-        attrs={'type': 'text', 'class': 'form-control', 'id': 'Requesting', 'aria-describedby': 'Requesting'}))
-    department = forms.CharField(label="", required=True, widget=forms.Select(choices=JOB_CHOICES,
-                                                                              attrs={'class': 'form-select', 'id': 'department'}))
+        attrs={'type': 'text', 'class': 'form-control', 'id': 'Requesting'}))
+
+    job_Title = forms.ModelChoiceField(queryset=jobList.objects.all(), label="", required=True, widget=forms.Select(
+        attrs={'class': 'form-select',  'id': 'department'}))
+
     requestDate = forms.DateTimeField(label="", required=True, widget=forms.DateInput(
         attrs={'type': 'date', 'class': 'form-control', 'id': 'datereq'}))
 
@@ -45,6 +47,7 @@ class manpowerForm(ModelForm):
     class Meta:
         model = manpower
         fields = '__all__'
+        exclude = ['on_Going']
 
 
 class contactForm(ModelForm):

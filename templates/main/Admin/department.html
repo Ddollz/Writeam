@@ -20,22 +20,22 @@
                         <div class="card-title text-start text-uppercase fw-bold">Department Manager Request<span class="float-end count" id="span1">1/10</span></div>
                         <hr>
                         {% for manpower in notifs%}
-                        {% if not manpower.is_Finished%}
+                        {% if not manpower.is_Finished and manpower.on_Going%}
 
                         <div class="row item">
                             <div class="col-1">
-                                {% if manpower.department == 'Copy Writer'%}
+                                {% if manpower.job_Title|stringformat:'s' == 'Copy Writer'%}
                                 <i class="bi bi-pencil-square fs-3 me-3 " style="color: #e74c3c"></i>
-                                {% elif manpower.department == 'Editor'%}
+                                {% elif manpower.job_Title|stringformat:'s' == 'Editor'%}
                                 <i class="bi bi-file-earmark-zip-fill fs-3 me-3 " style="color: #34495e"></i>
-                                {% elif manpower.department == 'Translator'%}
+                                {% elif manpower.job_Title|stringformat:'s' == 'Translator'%}
                                 <i class="bi bi-translate fs-3 me-3 " style="color: #2ecc71"></i>
                                 {% endif %}
                             </div>
                             <div class="col align-self-center">
 
 
-                                <p class="mb-0 " style="font-weight:600;">{{manpower.department}} Department</p>
+                                <p class="mb-0 " style="font-weight:600;">{{manpower.job_Title}} Department</p>
                                 <p class="mb-0 text-secondary " style="font-size: 12px;">
 
                                     <span style="color: #e74c3c;">{{manpower.name}}</span>
@@ -45,7 +45,7 @@
 
                             <div class="col align-self-center">
 
-                                <p class="mb-0 " style="font-weight:600;">{{manpower.department}}</p>
+                                <p class="mb-0 " style="font-weight:600;">{{manpower.job_Title}}</p>
                                 <p class="mb-0 text-secondary " style="font-size: 12px;">
 
                                     <span style="color: #e74c3c;">{{manpower.currentCandidate}}/{{manpower.nosCandidate}}</span>
@@ -73,18 +73,18 @@
                         {% if manpower.is_Finished%}
                         <div class="row item">
                             <div class="col-1">
-                                {% if manpower.department == 'Copy Writer'%}
+                                {% if manpower.job_Title|stringformat:'s' == 'Copy Writer'%}
                                 <i class="bi bi-pencil-square fs-3 me-3 " style="color: #e74c3c"></i>
-                                {% elif manpower.department == 'Editor'%}
+                                {% elif manpower.job_Title|stringformat:'s' == 'Editor'%}
                                 <i class="bi bi-file-earmark-zip-fill fs-3 me-3 " style="color: #34495e"></i>
-                                {% elif manpower.department == 'Translator'%}
+                                {% elif manpower.job_Title|stringformat:'s' == 'Translator'%}
                                 <i class="bi bi-translate fs-3 me-3 " style="color: #2ecc71"></i>
                                 {% endif %}
                             </div>
                             <div class="col align-self-center">
 
 
-                                <p class="mb-0 " style="font-weight:600;">{{manpower.department}} Department</p>
+                                <p class="mb-0 " style="font-weight:600;">{{manpower.job_Title|stringformat:'s'}} Department</p>
                                 <p class="mb-0 text-secondary " style="font-size: 12px;">
 
                                     <span style="color: #e74c3c;">{{manpower.name}}</span>
@@ -94,7 +94,7 @@
 
                             <div class="col align-self-center">
 
-                                <p class="mb-0 " style="font-weight:600;">{{manpower.department}}</p>
+                                <p class="mb-0 " style="font-weight:600;">{{manpower.job_Title|stringformat:'s'}}</p>
                                 <p class="mb-0 text-secondary " style="font-size: 12px;">
 
                                     <span style="color: #e74c3c;">{{manpower.currentCandidate}}/{{manpower.nosCandidate}}</span>
@@ -127,8 +127,7 @@
 
 {% if instance%}
 <!-- Modal -->
-{% if group|stringformat:'s' == 'HR Manager'%}
-<div class="modal fade score" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade score" id="exampleModal" data-bs-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
@@ -145,11 +144,11 @@
 
                         <div class="col">
                             <label for="department" class="form-label">Department</label>
-                            <p>{{instance.department}}</p>
+                            <p>{{instance.job_Title}}</p>
                         </div>
                         <div class="col">
                             <label for="datereq" class="form-label">Date of Request</label>
-                            <p>{{instance.requestDate}}</p>
+                            <p>{{instance.job_Title}}</p>
                         </div>
                     </div>
 
@@ -175,7 +174,10 @@
                             <label for="float1">Skill / Qualifications & Experience Requirements</label>
                         </div>
                     </div>
+
+                    {% if group|stringformat:'s' == 'HR Manager'%}
                     <button class="btn btn-outline-secondary text-center float-end border editButton">Edit</button>
+                    {% endif %}
 
                 </div>
 
@@ -191,7 +193,7 @@
                             </div>
                             <div class="col">
                                 <label for="department" class="form-label">Department</label>
-                                {{form.department}}
+                                {{form.job_Title}}
                                 <!-- <select class="form-select">
                                     <option selected>Open this select menu</option>
                                     <option value="1">Copy Writer</option>
@@ -233,10 +235,30 @@
         </div>
     </div>
 </div>
-{% endif %}
+
 
 {% endif %}
+{% if postinstance%}
+
+<div class="modal fade" id="jobpost" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body  text-center">
+
+
+                <p class="h2"><i class="bi bi-check-circle-fill" style="font-size: 100px;"></i> <br> Request Accepted!,</p>
+                <p class="h5">But Job Post In {{postinstance}} is disabled!</p>
+                <a href="{% url 'department'%}" class="btn border text-center mb-5 mt-2" style="width: auto;">Continue</a>
+                <a href="{% url 'websetting/job' postinstance.id %}" class="btn border text-center mb-5 mt-2" style="width: auto;">Enable</a>
+                <!-- data-bs-dismiss="modal" -->
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
 {% endblock %}
+
 
 {% block scriptContent%}
 <script>
@@ -254,6 +276,11 @@
 
             getSpanCounter.innerHTML = countDraggableInContainer.length + "/10";
         })
+        var postinstance = '{{postinstance}}'
+        if (postinstance) {
+            console.log(postinstance)
+            $('#jobpost').modal('show');
+        }
     });
 
 </script>

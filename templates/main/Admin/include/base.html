@@ -146,8 +146,6 @@
 
             </li>
 
-            {% if request.user.groups.all.0|stringformat:'s' == 'HR Manager'%}
-
             <li>
                 {% if request.path == the_url7%}
                 <a href="{% url 'department' %}" class="active">
@@ -165,7 +163,6 @@
                 {% endif %}
 
             </li>
-            {% endif %}
 
             {% if request.user.groups.all.0|stringformat:'s' == 'HR Manager'%}
 
@@ -222,6 +219,8 @@
                 </a>
                 <span class="tooltip">Messages</span>
             </li>
+            {% endif %}
+
             <li>
                 <a href="{% url 'index'%}">
                     <i class="bi bi-aspect-ratio"></i>
@@ -229,7 +228,6 @@
                 </a>
                 <span class="tooltip">Website Preview</span>
             </li>
-            {% endif %}
 
             <li class="profile border-end border-top">
                 <a href="{% url 'updateProfile' request.user.id %}" style="border:none; background-color:transparent;">
