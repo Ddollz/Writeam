@@ -25,6 +25,7 @@ class applicantScoreForm(ModelForm):
             'is_editor': forms.HiddenInput(),
             'is_translator': forms.HiddenInput(),
             'submitApplication': forms.HiddenInput(),
+            'dateSubmit': forms.HiddenInput(),
             'is_validated': forms.HiddenInput(),
             'copywriterfinal': forms.HiddenInput(),
             'editorfinal': forms.HiddenInput(),

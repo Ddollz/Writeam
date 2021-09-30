@@ -17,6 +17,27 @@ def get_profile_article_filepath(self, filename):
     return f'article/{self.accounts.pk}/{filename}'
 
 
+class deploymentModel(models.Model):
+
+    accounts = models.OneToOneField(
+        accounts, null=True, on_delete=models.CASCADE)
+
+    username = models.CharField(
+        max_length=30, unique=True, blank=True, null=True)
+    password = models.CharField(max_length=30, blank=True, null=True)
+
+    is_gcash = models.BooleanField(default=False)
+    gname = models.CharField(max_length=255, blank=True, null=True)
+    gnumber = models.CharField(max_length=255, blank=True, null=True)
+
+    is_bank = models.BooleanField(default=False)
+    bname = models.CharField(max_length=255, blank=True, null=True)
+    bnumber = models.CharField(max_length=255, blank=True, null=True)
+
+    class Meta:
+        verbose_name = "Deployment"
+
+
 class jobapplication(models.Model):
     accounts = models.OneToOneField(
         accounts, null=True, on_delete=models.CASCADE)
@@ -53,7 +74,7 @@ class jobapplication(models.Model):
                                                   validators=[MaxValueValidator(100)], default=0, null=True, blank=True)
 
     remarks = models.TextField(max_length=255, null=True, blank=True,
-                               default="Writeam Staff are reviewing your resume and article")
+                               default="Please wait for the HR to view your application")
     progress = models.CharField(
         max_length=255, default='Writeam Staff\'s are reviewing your applications', null=True, blank=True)
 

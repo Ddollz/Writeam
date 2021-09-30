@@ -38,6 +38,9 @@ def index(request):
         elif str(group) == 'Editor Manager':
             post = jobList.objects.get(job_Title='Editor')
 
+        paymentForm = paymentform(instance=request.user.deploymentmodel)
+        forextForm = forexForm(instance=request.user.deploymentmodel)
+
         form1 = manpowerForm(
             initial={'name': request.user.first_name + " " + request.user.last_name, 'job_Title': post})
         if request.method == 'POST':
@@ -51,9 +54,66 @@ def index(request):
 
             print(form1.errors)
         context = {'group': group, 'jobList': jobs,
-                   'form': form1, 'contactform': contactform}
+                   'form': form1, 'contactform': contactform,
+                   'paymentform': paymentForm, 'forextForm': forextForm
+                   }
 
     return render(request, 'main/Client/index.html', context)
+
+
+def saveForex(request):
+    return redirect('index')
+
+
+def savepaymethod(request):
+    if request.user.is_authenticated:
+        if request.method == 'POST':
+            paymentForm = paymentform(
+                request.POST, instance=request.user.deploymentmodel)
+            if paymentForm.is_valid():
+                gnametemp = paymentForm.cleaned_data['gname']
+                gnumbertemp = paymentForm.cleaned_data['gnumber']
+                bnametemp = paymentForm.cleaned_data['bname']
+                bnumbertemp = paymentForm.cleaned_data['bnumber']
+
+                method = paymentForm.save(commit=False)
+                if gnametemp == '':
+                    method.gname = ''
+                    method.save()
+                if gnumbertemp == '':
+                    method.gnumber = ''
+                    method.save()
+
+                if bnametemp == '':
+                    method.bname = ''
+                    method.save()
+                if bnumbertemp == '':
+                    method.bnumber = ''
+                    method.save()
+
+                if method.gname != '' and method.gnumber != '':
+                    method.is_gcash = True
+                    method.save()
+                else:
+                    method.is_gcash = False
+                    method.save()
+                if method.bname != '' and method.bnumber != '':
+                    method.is_bank = True
+                    method.save()
+                else:
+                    method.is_bank = False
+                    method.save()
+
+                messages.success(
+                    request, 'Your Payment method save successfuly!')
+            else:
+                print(paymentForm.errors)
+
+    return redirect('index')
+
+
+def jobLastStep():
+    return redirect('index')
 
 
 def sendmessage(request):
@@ -262,47 +322,70 @@ def resume(request):
 
 def jobaccept(request, pk1):
     user = jobapplication.objects.get(accounts=request.user)
-    if user.jobAccepted == 'None':
-        if pk1 == 1:
-            user.dateAccepted = timezone.now()
-            user.jobAccepted = "Copy Writer"
-            manRequest = manpower.objects.filter(
-                department='Copy Writer').filter(is_Finished=False)
-            for man in manRequest:
-                if man.currentCandidate < man.nosCandidate:
-                    man.currentCandidate += 1
-                    man.save()
-                if man.currentCandidate >= man.nosCandidate:
-                    man.is_Finished = True
-                    man.save()
-            user.save()
-        elif pk1 == 2:
-            user.dateAccepted = timezone.now()
-            user.jobAccepted = "Editor"
-            manRequest = manpower.objects.filter(
-                department='Editor').filter(is_Finished=False)
+    method = deploymentModel.objects.get(accounts=request.user)
 
-            for man in manRequest:
-                if man.currentCandidate < man.nosCandidate:
-                    man.currentCandidate += 1
-                    man.save()
-                if man.currentCandidate >= man.nosCandidate:
-                    man.is_Finished = True
-                    man.save()
-            user.save()
-        elif pk1 == 3:
-            user.dateAccepted = timezone.now()
-            user.jobAccepted = "Translator"
-            manRequest = manpower.objects.filter(
-                department='Translator').filter(is_Finished=False)
-            for man in manRequest:
-                if man.currentCandidate < man.nosCandidate:
-                    man.currentCandidate += 1
-                    man.save()
-                if man.currentCandidate >= man.nosCandidate:
-                    man.is_Finished = True
-                    man.save()
-            user.save()
+    if user.jobAccepted == 'None':
+        if request.method == 'POST':
+            forexform = forexForm(
+                request.POST, instance=request.user.deploymentmodel)
+            if forexform.is_valid():
+                forexform.save()
+                if method.is_gcash or method.is_bank:
+                    if pk1 == 1:
+                        user.dateAccepted = timezone.now()
+                        user.jobAccepted = "Copy Writer"
+                        jobforeign = jobList.objects.get(
+                            job_Title='Copy Writer')
+                        manRequest = manpower.objects.filter(
+                            id=jobforeign.id).filter(is_Finished=False)
+                        for man in manRequest:
+                            if man.currentCandidate < man.nosCandidate:
+                                man.currentCandidate += 1
+                                man.save()
+                            if man.currentCandidate >= man.nosCandidate:
+                                man.is_Finished = True
+                                man.save()
+                        user.save()
+                    elif pk1 == 2:
+                        user.dateAccepted = timezone.now()
+                        user.jobAccepted = "Editor"
+
+                        jobforeign = jobList.objects.get(
+                            job_Title='Editor')
+                        manRequest = manpower.objects.filter(
+                            id=jobforeign.id).filter(is_Finished=False)
+
+                        for man in manRequest:
+                            if man.currentCandidate < man.nosCandidate:
+                                man.currentCandidate += 1
+                                man.save()
+                            if man.currentCandidate >= man.nosCandidate:
+                                man.is_Finished = True
+                                man.save()
+                        user.save()
+                    elif pk1 == 3:
+                        user.dateAccepted = timezone.now()
+                        user.jobAccepted = "Translator"
+                        jobforeign = jobList.objects.get(
+                            job_Title='Translator')
+                        manRequest = manpower.objects.filter(
+                            id=jobforeign.id).filter(is_Finished=False)
+                        for man in manRequest:
+                            if man.currentCandidate < man.nosCandidate:
+                                man.currentCandidate += 1
+                                man.save()
+                            if man.currentCandidate >= man.nosCandidate:
+                                man.is_Finished = True
+                                man.save()
+                        user.save()
+                else:
+                    messages.warning(
+                        request, 'You must have any payment method before accepting the job!')
+
+            else:
+                messages.warning(
+                    request, 'You must have an account before you start working!')
+
     return redirect('/')
 
 

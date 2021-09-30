@@ -1482,3 +1482,7 @@ section {
 #department {
   pointer-events: none;
 }
+
+.img-square {
+  border: 2px solid #80beef;
+}

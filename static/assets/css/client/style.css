@@ -60,9 +60,13 @@
   background-size: cover;
 }
 #hero .card {
-  height: 80%;
   border: none;
   border-radius: 10px;
+}
+
+#hero .card-header {
+  background-color: transparent;
+  font-weight: bold;
 }
 #hero h1 {
   margin: 0 0 10px 0;

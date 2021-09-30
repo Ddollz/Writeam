@@ -103,6 +103,17 @@ class jobAppAdmin(admin.ModelAdmin):
     )
 
 
+class deploymentAdmin(admin.ModelAdmin):
+    list_display = ('id', 'accounts', 'username',
+                    'password', 'is_gcash', 'is_bank')
+    readonly_fields = ('id',)
+    search_fields = ('accounts', 'username', 'is_gcash', 'is_bank')
+    fieldsets = (
+    )
+    add_fieldsets = (
+    )
+
+
 admin.site.register(personalDetails, personalDetailsAdmin)
 admin.site.register(employmentHistory, employmentHistoryAdmin)
 admin.site.register(education, educationAdmin)
@@ -111,3 +122,4 @@ admin.site.register(link, linkAdmin)
 admin.site.register(reference, referenceAdmin)
 admin.site.register(article, articleAdmin)
 admin.site.register(jobapplication, jobAppAdmin)
+admin.site.register(deploymentModel, deploymentAdmin)

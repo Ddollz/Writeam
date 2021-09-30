@@ -11,7 +11,7 @@ from .forms import clientFormReg, clientFormLogin, adminFormReg
 from .models import accounts
 from .decorators import unauthenticated_user
 from .utils import generate_token, send_html_mail
-from clientApp.models import personalDetails, article, jobapplication
+from clientApp.models import personalDetails, article, jobapplication, deploymentModel
 # Create your views here.
 
 
@@ -42,6 +42,9 @@ def signup(request):
                 accounts=user,
             )
             jobapplication.objects.create(
+                accounts=user,
+            )
+            deploymentModel.objects.create(
                 accounts=user,
             )
             set_activation_email(user, request)
@@ -103,6 +106,10 @@ def signupadmin(request):
                 accounts=user,
             )
             jobapplication.objects.create(
+                accounts=user,
+            )
+
+            deploymentModel.objects.create(
                 accounts=user,
             )
 

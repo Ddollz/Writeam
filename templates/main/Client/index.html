@@ -8,7 +8,7 @@
 {% if group|stringformat:'s' == 'Copy Writer Manager' or group|stringformat:'s' == 'Editor Manager' or group|stringformat:'s' == 'Translator Manager'%}
 {% include 'main/Client/include/applicantManagers.html' %}
 {% else %}
-{% include 'main/Client/include/clientDashboard.html' %}
+{% include 'main/Client/include/myDashboard.html' %}
 {% endif %}
 <main id="main">
   <!-- ======= About Section ======= -->
@@ -50,18 +50,22 @@
   </section>
   <!-- End About Section -->
 
+
+
   <!-- ======= Why Us Section ======= -->
   <section id="why-us" class="why-us">
     <div class="container">
-      <div class="row">
+      <div class="row text-center">
         <div class="col-lg-4" data-aos="fade-up">
           <div class="box disabled">
             {% if jobList.0.is_onHire %}
             <span><i class="bi bi-pencil-square fs-1"></i></span>
-            <h4>Hiring {{jobList.0}}</h4>
+            <h4 class='m-1'>Hiring {{jobList.0}}</h4>
+            <h5 class="text-secondary">Available</h5>
             {%else%}
             <span><i class="bi bi-pencil-square fs-1" style="color: gray;"></i></span>
-            <h4 style="text-decoration: line-through;">Hiring {{jobList.0}}</h4>
+            <h4 style="text-decoration: line-through;" class='m-1'>Hiring {{jobList.0}}</h4>
+            <h5 class="text-secondary">Unavailable</h5>
             {%endif%}
             <p>{{jobList.0.job_Description}}</p>
           </div>
@@ -72,11 +76,12 @@
 
             {% if jobList.1.is_onHire %}
             <span><i class="bi bi-file-earmark-zip-fill fs-1"></i></span>
-            <h4>Hiring {{jobList.1}}</h4>
+            <h4 class='m-1'>Hiring {{jobList.1}}</h4>
+            <h5 class="text-secondary">Available</h5>
             {%else%}
-
             <span><i class="bi bi-file-earmark-zip-fill fs-1" style="color: gray;"></i></span>
-            <h4 style="text-decoration: line-through;">Hiring {{jobList.1}}</h4>
+            <h4 style="text-decoration: line-through;" class='m-1'>Hiring {{jobList.1}}</h4>
+            <h5 class="text-secondary">Unavailable</h5>
             {%endif%}
 
             <p>{{jobList.1.job_Description}}</p>
@@ -89,11 +94,13 @@
             {% if jobList.2.is_onHire %}
 
             <span><i class="bi bi-translate fs-1"></i></span>
-            <h4>Hiring {{jobList.2}}</h4>
+            <h4 class='m-1'>Hiring {{jobList.2}}</h4>
+            <h5 class="text-secondary mt-0">Available</h5>
             {%else%}
 
             <span><i class="bi bi-translate fs-1" style="color: gray;"></i></span>
-            <h4 style="text-decoration: line-through;">Hiring {{jobList.2}}</h4>
+            <h4 style="text-decoration: line-through;" class='m-1'>Hiring {{jobList.2}}</h4>
+            <h5 class="text-secondary">Unavailable</h5>
 
             {%endif%}
 
@@ -586,14 +593,23 @@
     </div>
   </div>
   <!-- Modal -->
-  <div class="modal fade" id="contactsuccess" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal fade " id="contactsuccess" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="vertical-alignment-helper">
       <div class="modal-dialog vertical-align-center">
-        <div class="modal-content">
+        <div class="modal-content border-0">
           <div class="modal-body  text-center">
-            <p class="h2"><i class="bi bi-check-circle-fill" style="font-size: 100px;"></i> <br> Thank you,</p>
+            <p class="h2">
+              {% if messages %}
+              {% for message in messages%}
+              {% if message.tags != 'warning' %}
+              <i class="bi bi-check-circle-fill" style="font-size: 100px;"></i> <br> Thank you,
+              {% else %}
+              <i class="bi bi-x-circle-fill" style="font-size: 100px; color: #e57373;"></i> <br> Oh No,
+              {% endif %}
+              {% endfor %}
+              {% endif %}
+            </p>
             <p class="">
-
               {% if messages %}
               {% for message in messages%}
               {{message}}
@@ -611,6 +627,42 @@
             </div>
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="applymodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" style="width: 40rem;">
+      <div class="modal-content">
+        <form action="" method="post" id="formjob">
+          {% csrf_token %}
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Almost there!</h5>
+          </div>
+          <div class="modal-body">
+            You must sign up to our website www.forum.mt5.com, register there and then provide the following:
+            {{forextForm.non_field_errors}}
+
+            <div class="row mt-4">
+              <div class="col">
+                <label for="exampleInputEmail1" class="form-label">Forex Username*</label>
+                {{forextForm.username}}
+              </div>
+              <div class="col">
+                <label for="exampleInputEmail1" class="form-label">Forex Password*</label>
+                {{forextForm.password}}
+              </div>
+            </div>
+
+            <div class="text-secondary mt-2">
+              We will give your password to our IT to remove restrictions on your account so you can use the site tools easily
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" id='saveJob'>Apply now!</button>
+          </div>
+        </form>
       </div>
     </div>
   </div>
@@ -657,6 +709,21 @@
     var myModal = new bootstrap.Modal(document.getElementById("contactsuccess"), {});
     myModal.show();
   }
+
+  $(".applymodalb").click(function () {
+    console.log($(this).attr('data-url'))
+    var myModal = new bootstrap.Modal(document.getElementById("applymodal"), {});
+    $("#formjob").attr('action', $(this).attr('data-url'))
+    myModal.show();
+    // var url = draggable.getAttribute("data-url");
+    // location.replace(url)
+  });
+
+  $("#saveJob").click(function () {
+    document.getElementById("formjob").submit();
+
+  });
+
   const pages = document.querySelectorAll('.hero-page');
   var pageNo = 0
   console.log(pages.length)
@@ -702,5 +769,40 @@
       $(pages[pageNo]).addClass('active')
     }
   }
+
+
+  $(document).ready(function () {
+    const cardjob = $('.job-card');
+
+    cardjob.mouseenter(function () {
+
+      if ($(this).find('.backContent').is(':visible') && $(this).find('.frontContent').is(':hidden') ||
+        $(this).find('.backContent').is(':hidden') && $(this).find('.frontContent').is(':visible')
+      ) {
+        $(this).children('.frontContent').fadeOut(200, function () {
+
+          $(this).siblings('.backContent').fadeIn(200);
+          $(this).siblings('.backContent').mouseleave(function () {
+            $(this).fadeOut(200, function () {
+              $(this).siblings('.frontContent').fadeIn(200);
+            });
+          });
+
+        });
+      } else {
+        $(this).find('.backContent').hide()
+        $(this).find('.frontContent').show()
+      }
+    });
+
+
+    // cardjob.hover(function () {
+    //   $(this).children('.frontContent').hide()
+    //   $(this).children('.backContent').show()
+    // }, function () {
+    //   $(this).children('.frontContent').show()
+    //   $(this).children('.backContent').hide()
+    // });
+  });
 </script>
 {% endblock %}

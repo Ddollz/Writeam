@@ -146,3 +146,32 @@ class jobAppForm(ModelForm):
         widgets = {'submitApplication': forms.HiddenInput(
         ), 'jobAccepted': forms.HiddenInput()}
         exclude = ['accounts']
+
+
+class paymentform(ModelForm):
+    gname = forms.CharField(label="", required=False, widget=forms.TextInput(
+        attrs={'type': 'text', 'class': 'form-control', 'default': ''}))
+    gnumber = forms.CharField(label="", required=False, widget=forms.TextInput(
+        attrs={'type': 'text', 'class': 'form-control', 'default': ''}))
+    bname = forms.CharField(label="", required=False, widget=forms.TextInput(
+        attrs={'type': 'text', 'class': 'form-control', 'default': ''}))
+    bnumber = forms.CharField(label="", required=False, widget=forms.TextInput(
+        attrs={'type': 'text', 'class': 'form-control', 'default': ''}))
+
+    class Meta:
+        model = deploymentModel
+        fields = '__all__'
+        exclude = ['accounts', 'username', 'password', 'is_gcash', 'is_bank']
+
+
+class forexForm(ModelForm):
+    username = forms.CharField(label="", required=False, widget=forms.TextInput(
+        attrs={'type': 'text', 'class': 'form-control', 'default': ''}))
+    password = forms.CharField(label="", required=False, widget=forms.TextInput(
+        attrs={'type': 'text', 'class': 'form-control', 'default': ''}))
+
+    class Meta:
+        model = deploymentModel
+        fields = '__all__'
+        exclude = ['accounts', 'gname', 'gnumber', 'bname',
+                   'bnumber', 'is_gcash', 'is_bank']
