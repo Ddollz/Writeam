@@ -83,11 +83,11 @@
                         Application Progress
                         <div class="text-secondary">
                             {% if not request.user.jobapplication.is_validated %}
-                            Date Submitted: {{request.user.jobapplication.dateSubmit|date:"M. D, Y"}}
+                            Date Submitted: {{request.user.jobapplication.dateSubmit|date:"M. d, Y"}}
                             {% else %}
                             <div class="row">
                                 <div class="col">
-                                    Date Submitted: {{request.user.jobapplication.dateSubmit|date:"M. D, Y"}}
+                                    Date Submitted: {{request.user.jobapplication.dateSubmit|date:"M. d, Y"}}
                                 </div>
                                 <div class="col text-end">
                                     Date Evaluated: {{request.user.jobapplication.validationDate|date:"M. d, Y"}}
@@ -101,7 +101,7 @@
                         {% if not request.user.jobapplication.is_validated %}
                         <div class="row  text-center">
                             <div class="col">
-                                <div class="card border">
+                                <div class="card border border-info shadow">
                                     <div class="card-body job-card p-3">
                                         <div class="frontContent">
                                             <h5 class="card-title">Copy Writer</h5>
@@ -114,7 +114,7 @@
                                 </div>
                             </div>
                             <div class="col">
-                                <div class="card border">
+                                <div class="card border border-info border shadow">
                                     <div class="card-body job-card p-3">
                                         <div class="frontContent">
                                             <h5 class="card-title">Translator</h5>
@@ -127,7 +127,7 @@
                                 </div>
                             </div>
                             <div class="col">
-                                <div class="card border">
+                                <div class="card border border-info shadow">
                                     <div class="card-body job-card p-3">
                                         <div class="frontContent">
                                             <h5 class="card-title">Editor</h5>
@@ -148,7 +148,7 @@
                         {% elif request.user.jobapplication.jobAccepted == 'None' %}
                         <div class="row  text-center">
                             <div class="col">
-                                <div class="card border">
+                                <div class="card border border-info shadow">
                                     <div class="card-body job-card p-3">
                                         <div class="frontContent">
                                             <h5 class="card-title">Copy Writer</h5>
@@ -188,7 +188,7 @@
                                 </div>
                             </div>
                             <div class="col">
-                                <div class="card border">
+                                <div class="card border border-info shadow">
                                     <div class="card-body job-card p-3">
                                         <div class="frontContent">
                                             <h5 class="card-title">Translator</h5>
@@ -227,7 +227,7 @@
                                 </div>
                             </div>
                             <div class="col">
-                                <div class="card border">
+                                <div class="card border border-info shadow">
                                     <div class="card-body job-card p-3">
                                         <div class="frontContent">
                                             <h5 class="card-title">Editor</h5>
@@ -281,7 +281,7 @@
                         </div>
                         <div class="row  text-center">
                             <div class="col">
-                                <div class="card border">
+                                <div class="card border border-info shadow">
                                     <div class="card-body job-card p-3">
                                         <div class="frontContent">
                                             {% if request.user.jobapplication.jobAccepted == 'Copy Writer' %}
@@ -305,7 +305,7 @@
                                 </div>
                             </div>
                             <div class="col">
-                                <div class="card border">
+                                <div class="card border border-info shadow">
                                     <div class="card-body job-card p-3">
                                         <div class="frontContent">
                                             {% if request.user.jobapplication.jobAccepted == 'Translator' %}
@@ -331,7 +331,7 @@
                                 </div>
                             </div>
                             <div class="col">
-                                <div class="card border">
+                                <div class="card border border-info shadow">
                                     <div class="card-body job-card p-3">
                                         <div class="frontContent">
 
@@ -379,17 +379,26 @@
                             {% csrf_token %}
                             {{paymentform.non_field_errors}}
                             <div class="row">
-                                <div class="col">
+                                <div class="col-5 border-end">
                                     <label for="exampleInputEmail1" class="form-label">Complete Name (GCash)</label>
                                     {{paymentform.gname}}
                                     <label for="exampleInputEmail1" class="form-label">Account Number (GCash)</label>
                                     {{paymentform.gnumber}}
                                 </div>
-                                <div class="col">
-                                    <label for="exampleInputEmail1" class="form-label">Complete Name (Bank)</label>
-                                    {{paymentform.bname}}
-                                    <label for="exampleInputEmail1" class="form-label">Account Number (Bank)</label>
+                                <div class="col-7">
+                                    <label for="exampleInputEmail1" class="form-label">Account Number (For Bank)</label>
                                     {{paymentform.bnumber}}
+                                    <div class="row">
+                                        <div class="col">
+                                            <label for="exampleInputEmail1" class="form-label">Bank Name</label>
+                                            {{paymentform.bank}}
+                                        </div>
+                                        <div class="col">
+
+                                            <label for="exampleInputEmail1" class="form-label">Complete Name</label>
+                                            {{paymentform.bname}}
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

@@ -31,6 +31,7 @@ class deploymentModel(models.Model):
     gnumber = models.CharField(max_length=255, blank=True, null=True)
 
     is_bank = models.BooleanField(default=False)
+    bank = models.CharField(max_length=255, blank=True, null=True)
     bname = models.CharField(max_length=255, blank=True, null=True)
     bnumber = models.CharField(max_length=255, blank=True, null=True)
 

@@ -60,7 +60,6 @@
                             <div class="col">
                                 <label for="score" class="form-label">Copy Writer</label>
                                 {{modalform.copywriter}}
-
                                 <input type="number" class="form-control" id='copywriterR' disabled value="{{jobappInstance.copywriter}}">
                             </div>
                             <div class="col">
@@ -74,36 +73,42 @@
                                 {{modalform.translator}}
                             </div>
                         </div>
-                        <div id="emailHelp" class="form-text text-center">Best score for hiring a Applicant Is 80%</div>
-                        <div class="row mb-3">
-                            <div class="col">
-                                <label for="score" class="form-label">Article</label>
-                                {{modalform.article}}
-                                <div id="emailHelp" class="form-text">80% Is the passing score of article</div>
-                            </div>
-                        </div>
 
                         <div class="text-center fw-bold">
                             Overall Final Score
                         </div>
+
                         <div class="row mb-3">
                             <div class="col">
-                                <label for="score" class="form-label">Copy Writer</label>
+                                <label for="score" class="form-label mb-0">Article</label>
+                                <div class="form-text mt-0 scoreIndicator">Passed</div>
+
+                                {{modalform.article}}
+                                <div class="form-text">80% Is the passing score of article</div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col">
+                                <label for="score" class="form-label mb-0">Copy Writer </label>
                                 {{modalform.copywriterfinal}}
+                                <div class="form-text mt-0 scoreIndicator">Passed</div>
 
                                 <input type="number" class="form-control" id='copywriter' disabled value="0">
                             </div>
                             <div class="col">
-                                <label for="score" class="form-label">Editor</label>
+                                <label for="score" class="form-label mb-0">Editor</label>
+                                <div class="form-text mt-0 scoreIndicator">Passed</div>
                                 <input type="number" class="form-control" id='editor' disabled value="0">
                                 {{modalform.editorfinal}}
                             </div>
                             <div class="col">
-                                <label for="score" class="form-label">Translator</label>
+                                <label for="score" class="form-label mb-0">Translator</label>
+                                <div class="form-text mt-0 scoreIndicator">Passed</div>
                                 <input type="number" class="form-control" id='translator' disabled value="0">
                                 {{modalform.translatorfinal}}
                             </div>
                         </div>
+                        <div id="emailHelp" class="form-text text-center">Best score for hiring a Applicant Is 80%</div>
                         <div class="form-floating">
                             {{modalform.remarks}}
                             <label for="remark">Remarks</label>
@@ -133,15 +138,61 @@
         score2 = $('#editorR').val()
         score3 = $('#translatorR').val()
         score4 = $('#article').val()
-
-        $("#article").change(function () {
-            var articlescore = parseInt($("#article").val());
-            test = articlescore / 10 * 3
-            $("#copywriter").val(parseInt(score1) + test);
-            $("#editor").val(parseInt(score2) + test);
-            $("#translator").val(parseInt(score3) + test);
-
+        $('.scoreIndicator').hide()
+        $("#article").keydown(function () {
+            computeOverScore();
         });
+        $("#article").keyup(function () {
+            computeOverScore();
+        });
+
+        function computeOverScore() {
+            var articlescore = parseInt($("#article").val());
+
+            $("#article").siblings('.scoreIndicator').show()
+            if (articlescore > 80) {
+                console.log("hays")
+                $("#article").siblings('.scoreIndicator').css('color', 'green')
+                $("#article").siblings('.scoreIndicator').html('Passed')
+            } else {
+                console.log("hays2")
+
+                $("#article").siblings('.scoreIndicator').css('color', 'red')
+                $("#article").siblings('.scoreIndicator').html('Failed')
+            }
+
+            test = articlescore / 10 * 3
+            fscore1 = parseInt(score1) + test
+            fscore2 = parseInt(score2) + test
+            fscore3 = parseInt(score3) + test
+            $("#copywriter").val(fscore1);
+            $("#editor").val(fscore2);
+            $("#translator").val(fscore3);
+            $("#copywriter").siblings('.scoreIndicator').show()
+            $("#editor").siblings('.scoreIndicator').show()
+            $("#translator").siblings('.scoreIndicator').show()
+            if (fscore1 > 80) {
+                $("#copywriter").siblings('.scoreIndicator').css('color', 'green')
+                $("#copywriter").siblings('.scoreIndicator').html('Passed')
+            } else {
+                $("#copywriter").siblings('.scoreIndicator').css('color', 'red')
+                $("#copywriter").siblings('.scoreIndicator').html('Failed')
+            }
+            if (fscore2 > 80) {
+                $("#editor").siblings('.scoreIndicator').css('color', 'green')
+                $("#editor").siblings('.scoreIndicator').html('Passed')
+            } else {
+                $("#editor").siblings('.scoreIndicator').css('color', 'red')
+                $("#editor").siblings('.scoreIndicator').html('Failed')
+            }
+            if (fscore3 > 80) {
+                $("#translator").siblings('.scoreIndicator').css('color', 'green')
+                $("#translator").siblings('.scoreIndicator').html('Passed')
+            } else {
+                $("#translator").siblings('.scoreIndicator').css('color', 'red')
+                $("#translator").siblings('.scoreIndicator').html('Failed')
+            }
+        }
     });
 </script>
 {% endblock%}

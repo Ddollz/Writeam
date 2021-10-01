@@ -153,6 +153,8 @@ class paymentform(ModelForm):
         attrs={'type': 'text', 'class': 'form-control', 'default': ''}))
     gnumber = forms.CharField(label="", required=False, widget=forms.TextInput(
         attrs={'type': 'text', 'class': 'form-control', 'default': ''}))
+    bank = forms.CharField(label="", required=False, widget=forms.TextInput(
+        attrs={'type': 'text', 'class': 'form-control', 'default': ''}))
     bname = forms.CharField(label="", required=False, widget=forms.TextInput(
         attrs={'type': 'text', 'class': 'form-control', 'default': ''}))
     bnumber = forms.CharField(label="", required=False, widget=forms.TextInput(

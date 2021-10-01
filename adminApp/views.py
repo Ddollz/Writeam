@@ -14,7 +14,6 @@ from .utils import send_html_mail
 from accounts.decorators import unauthenticated_user, allowed_users
 from accounts.models import accounts
 from clientApp.models import article, personalDetails, employmentHistory, education, skill, link, reference, jobapplication
-from .models import onboardingApplicant
 from .forms import *
 
 from system.models import jobList, manpower, contact
