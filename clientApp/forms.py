@@ -145,7 +145,7 @@ class jobAppForm(ModelForm):
         fields = '__all__'
         widgets = {'submitApplication': forms.HiddenInput(
         ), 'jobAccepted': forms.HiddenInput()}
-        exclude = ['accounts']
+        exclude = ['accounts', 'dateAccepted', 'is_validated']
 
 
 class paymentform(ModelForm):

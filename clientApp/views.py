@@ -193,9 +193,10 @@ def resume(request):
             formfile.save()
             perDetails = form1.save()
             formapp = formapp.save(commit=False)
-            formapp.submitApplication = True
-            formapp.dateSubmit = timezone.now()
-            formapp.jobAccepted = 'None'
+            if request.user.jobapplication.jobAccepted == 'None':
+                formapp.submitApplication = True
+                formapp.dateSubmit = timezone.now()
+                formapp.jobAccepted = 'None'
             jobsDetails = jobList.objects.all()
 
             copywriterskills = ""
