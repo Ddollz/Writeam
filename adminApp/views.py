@@ -357,7 +357,6 @@ def department(request, type=None, pk=None):
                 req.on_Going = True
                 req.save()
                 postjob = jobList.objects.get(id=req.job_Title.id)
-                print(req.job_Title.id)
                 if not postjob.is_onHire:
                     context.update({'postinstance': postjob})
     return render(request, 'main/Admin/department.html', context)
@@ -366,10 +365,8 @@ def department(request, type=None, pk=None):
 def departmentActivate(request, pk=None):
     if pk != None:
         req = manpower.objects.get(id=pk)
-        print(req.on_Going)
         req.on_Going = True
         req.save()
-        context = {}
     return redirect('department')
 
 
