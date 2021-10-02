@@ -290,16 +290,22 @@ def onboarding(request, pk=None):
         countsTranslatorMonth.append(jobapplication.objects.filter(dateAccepted__year=todays_date.year,
                                                                    dateAccepted__month='0'+str(x)).filter(jobAccepted='Translator').count())
 
-    if pk is None:
-        context = {'applicantList': users, 'countclient': countOnboarding,
-                   'countWriter': countwriter, 'countEditor': counteditor, 'countTrans': counttranslator,
-                   'countwritertoday': countwritertoday, 'counteditortoday': counteditortoday, 'counttranslatortoday': counttranslatortoday,
-                   'avgScoreWriter': avgScoreWriter, 'avgScoreEditor': avgScoreEditor, 'avgScoreTrans': avgScoreTrans,
-                   'cities': cities,
-                   'countsEditorMonth': countsEditorMonth, 'countsCopywriterMonth': countsCopywriterMonth, 'countsTranslatorMonth': countsTranslatorMonth,
-                   'notifs': getLatestRecord()
-                   }
-        return render(request, 'main/Admin/onboarding.html', context)
+    # if pk is None:
+    context = {'applicantList': users, 'countclient': countOnboarding,
+               'countWriter': countwriter, 'countEditor': counteditor, 'countTrans': counttranslator,
+               'countwritertoday': countwritertoday, 'counteditortoday': counteditortoday, 'counttranslatortoday': counttranslatortoday,
+               'avgScoreWriter': avgScoreWriter, 'avgScoreEditor': avgScoreEditor, 'avgScoreTrans': avgScoreTrans,
+               'cities': cities,
+               'countsEditorMonth': countsEditorMonth, 'countsCopywriterMonth': countsCopywriterMonth, 'countsTranslatorMonth': countsTranslatorMonth,
+               'notifs': getLatestRecord()
+               }
+    if not pk is None:
+
+        user = accounts.objects.get(id=pk)
+        jobapps = jobapplication.objects.get(accounts=user)
+        print(jobapps)
+        context.update({'userdetail': user})
+    return render(request, 'main/Admin/onboarding.html', context)
 
 
 @ allowed_users(allowed_roles=['HR Staff', 'HR Manager'])

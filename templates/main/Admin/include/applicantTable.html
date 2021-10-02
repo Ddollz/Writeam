@@ -58,6 +58,7 @@
                             <th>Date Submited</th>
                             {% endif %}
 
+                            <th>Deployment Details</th>
                             <th>Article</th>
                             <th>Resume</th>
                         </tr>
@@ -74,6 +75,7 @@
                             <th>Last Login</th>
                             <th>Article</th>
                             <th>Resume</th>
+                            <th>More</th>
                         </tr>
                         {% endif %}
                     </thead>
@@ -97,6 +99,7 @@
                             <th>Date Submited</th>
                             {% endif %}
 
+                            <th>Deployment Details</th>
                             <th>Article</th>
                             <th>Resume</th>
                         </tr>
@@ -113,6 +116,7 @@
                             <th>Last Login</th>
                             <th>Article</th>
                             <th>Resume</th>
+                            <th>More</th>
                         </tr>
                         {% endif %}
                     </tfoot>
@@ -162,9 +166,9 @@
                                 <td>{{ user.jobapplication.editorfinal }}</td>
                                 <td>{{ user.jobapplication.translatorfinal }}</td>
                                 <td>{{ user.jobapplication.article }}</td>
-                                <td>{{ user.jobapplication.dateAccepted }}</td>
                                 <td>{{ user.jobapplication.jobAccepted }}</td>
-                                <!-- <td><a type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Add</a></td> -->
+                                <td>{{ user.jobapplication.dateAccepted }}</td>
+                                <td><a type="button" class="btn btn-primary" href="{% url 'onboarding' user.id%}">View</a></td>
                                 {%if user.article.article.url != None %}
                                 <td><a type="button" class="btn btn-primary" href="{{user.article.article.url}}">View</a></td>
                                 {%else%}
@@ -191,7 +195,6 @@
                                 <td>{{ user.jobapplication.article }}</td>
                                 <td>{{ user.jobapplication.dateSubmit }}</td>
                                 <td>{{ user.last_login }}</td>
-                                <!-- <td><a type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Add</a></td> -->
                                 {%if user.article.article.url != None %}
                                 <td><a type="button" class="btn btn-primary" href="{{user.article.article.url}}">View</a></td>
                                 {%else%}
@@ -202,7 +205,7 @@
                                 {%else%}
                                 <td><a type="button" class="btn btn-secondary disabled" href="#">None</a></td>
                                 {% endif %}
-                                <!-- <td><button type=" button" class="btn btn-primary">View</button></td> -->
+                                <td><a type="button" href="{%url 'applicantmanagement' user.id %}" class="btn btn-primary"><i class="bi bi-three-dots"></i></a></td>
                             </tr>
                             {% endif %}
                             {% endif %}
