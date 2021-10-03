@@ -269,12 +269,21 @@ def resume(request):
             expSimmilarity2 = checksimilarity(workExpTextArray2)
             skillSimmilarity = checksimilarity(skillTextArray)
 
-            formapp.copywriter = calculatorScore(
+            temp1 = calculatorScore(
                 summarySimmilarity[0], skillSimmilarity[0], expSimmilarity1[0], expSimmilarity2[0])
-            formapp.editor = calculatorScore(
+            temp2 = calculatorScore(
                 summarySimmilarity[1], skillSimmilarity[1], expSimmilarity1[1], expSimmilarity2[1])
-            formapp.translator = calculatorScore(
+            temp3 = calculatorScore(
                 summarySimmilarity[2], skillSimmilarity[2], expSimmilarity1[2], expSimmilarity2[2])
+            if temp1 >= 70:
+                temp1 = 70
+            if temp2 >= 70:
+                temp2 = 70
+            if temp3 >= 70:
+                temp3 = 70
+            formapp.copywriter = temp1
+            formapp.editor = temp2
+            formapp.translator = temp3
             formapp.save()
 
             current_site = get_current_site(request)
