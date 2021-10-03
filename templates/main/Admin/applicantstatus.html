@@ -31,14 +31,6 @@
                 {% csrf_token %}
                 {{modalform.non_field_errors}}
 
-                {{modalform.accounts}}
-                {{modalform.is_copywriter}}
-                {{modalform.is_editor}}
-                {{modalform.is_translator}}
-                {{modalform.submitApplication}}
-                {{modalform.is_validated}}
-                {{modalform.dateSubmit}}
-                {{modalform.jobAccepted}}
                 <div class="modal-header">
 
                     <h5 class="modal-title" id="exampleModalLabel"><img src="{% static 'assets/img/logos.png' %}" alt="" srcset="" width="50px" height="50px"> Applicant Score & Remarks</h5>
@@ -59,18 +51,15 @@
                         <div class="row mb-3">
                             <div class="col">
                                 <label for="score" class="form-label">Copy Writer</label>
-                                {{modalform.copywriter}}
                                 <input type="number" class="form-control" id='copywriterR' disabled value="{{jobappInstance.copywriter}}">
                             </div>
                             <div class="col">
                                 <label for="score" class="form-label">Editor</label>
                                 <input type="number" class="form-control" id='editorR' disabled value="{{jobappInstance.editor}}">
-                                {{modalform.editor}}
                             </div>
                             <div class="col">
                                 <label for="score" class="form-label">Translator</label>
                                 <input type="number" class="form-control" id='translatorR' disabled value="{{jobappInstance.translator}}">
-                                {{modalform.translator}}
                             </div>
                         </div>
 
@@ -90,7 +79,6 @@
                         <div class="row mb-3">
                             <div class="col">
                                 <label for="score" class="form-label mb-0">Copy Writer </label>
-                                {{modalform.copywriterfinal}}
                                 <div class="form-text mt-0 scoreIndicator">Passed</div>
 
                                 <input type="number" class="form-control" id='copywriter' disabled value="0">
@@ -99,13 +87,11 @@
                                 <label for="score" class="form-label mb-0">Editor</label>
                                 <div class="form-text mt-0 scoreIndicator">Passed</div>
                                 <input type="number" class="form-control" id='editor' disabled value="0">
-                                {{modalform.editorfinal}}
                             </div>
                             <div class="col">
                                 <label for="score" class="form-label mb-0">Translator</label>
                                 <div class="form-text mt-0 scoreIndicator">Passed</div>
                                 <input type="number" class="form-control" id='translator' disabled value="0">
-                                {{modalform.translatorfinal}}
                             </div>
                         </div>
                         <div id="emailHelp" class="form-text text-center">Best score for hiring a Applicant Is 80%</div>

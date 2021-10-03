@@ -19,20 +19,8 @@ class applicantScoreForm(ModelForm):
 
     class Meta:
         model = jobapplication
-        widgets = {
-            'accounts': forms.HiddenInput(),
-            'is_copywriter': forms.HiddenInput(),
-            'is_editor': forms.HiddenInput(),
-            'is_translator': forms.HiddenInput(),
-            'submitApplication': forms.HiddenInput(),
-            'dateSubmit': forms.HiddenInput(),
-            'is_validated': forms.HiddenInput(),
-            'copywriterfinal': forms.HiddenInput(),
-            'editorfinal': forms.HiddenInput(),
-            'translatorfinal': forms.HiddenInput(),
-            'copywriter': forms.HiddenInput(),
-            'editor': forms.HiddenInput(),
-            'translator': forms.HiddenInput(),
-            'jobAccepted': forms.HiddenInput(),
-        }
         fields = '__all__'
+        exclude = ['accounts', 'dateAccepted', 'is_copywriter', 'is_editor', 'is_translator', 'submitApplication',
+                   'is_validated', 'dateSubmit', 'jobAccepted',
+                   'copywriterfinal', 'editorfinal', 'translatorfinal', 'copywriter', 'editor', 'translator'
+                   ]
