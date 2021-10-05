@@ -320,14 +320,14 @@ def resume(request):
                        'error5': formset2.errors, 'error6': formset3.errors,
                        'error7': formset4.errors,
                        }
-            return render(request, 'main/Client/resume.html', context)
+            return render(request, 'main/Client/Resume.html', context)
 
     context = {'form1': form1, 'formfile': formfile, 'formapp': formapp,
                'formset': formset, 'formset1': formset1,
                'formset2': formset2, 'formset3': formset3,
                'formset4': formset4,
                }
-    return render(request, 'main/Client/resume.html', context)
+    return render(request, 'main/Client/Resume.html', context)
 
 
 def jobaccept(request, pk1):

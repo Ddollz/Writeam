@@ -170,7 +170,7 @@ def dashboard(request):
                'countAllCopywriter': countAllCopywriter, 'countAllEditor': countAllEditor,
                'countAllTranslator': countAllTranslator, 'countsAllApplicant': countsAllApplicant,
                'userList': users, 'notifs': getLatestRecord()}
-    return render(request, 'main/Admin/Dashboard.html', context)
+    return render(request, 'main/Admin/dashboard.html', context)
 
 
 @ allowed_users(allowed_roles=['HR Manager'])
