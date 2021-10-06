@@ -149,6 +149,30 @@ class jobAppForm(ModelForm):
                    'is_validated', 'validationDate', 'article']
 
 
+class acceptanceform(ModelForm):
+
+    gname = forms.CharField(label="", required=False, widget=forms.TextInput(
+        attrs={'type': 'text', 'class': 'form-control', 'default': ''}))
+    gnumber = forms.CharField(label="", required=False, widget=forms.TextInput(
+        attrs={'type': 'text', 'class': 'form-control', 'default': ''}))
+    bank = forms.CharField(label="", required=False, widget=forms.TextInput(
+        attrs={'type': 'text', 'class': 'form-control', 'default': ''}))
+    bname = forms.CharField(label="", required=False, widget=forms.TextInput(
+        attrs={'type': 'text', 'class': 'form-control', 'default': ''}))
+    bnumber = forms.CharField(label="", required=False, widget=forms.TextInput(
+        attrs={'type': 'text', 'class': 'form-control', 'default': ''}))
+
+    username = forms.CharField(label="", required=True, widget=forms.TextInput(
+        attrs={'type': 'text', 'class': 'form-control', 'default': ''}))
+    password = forms.CharField(label="", required=True, widget=forms.TextInput(
+        attrs={'type': 'text', 'class': 'form-control', 'default': ''}))
+
+    class Meta:
+        model = deploymentModel
+        fields = '__all__'
+        exclude = ['accounts', 'is_gcash', 'is_bank']
+
+
 class paymentform(ModelForm):
     gname = forms.CharField(label="", required=False, widget=forms.TextInput(
         attrs={'type': 'text', 'class': 'form-control', 'default': ''}))
@@ -165,16 +189,3 @@ class paymentform(ModelForm):
         model = deploymentModel
         fields = '__all__'
         exclude = ['accounts', 'username', 'password', 'is_gcash', 'is_bank']
-
-
-class forexForm(ModelForm):
-    username = forms.CharField(label="", required=False, widget=forms.TextInput(
-        attrs={'type': 'text', 'class': 'form-control', 'default': ''}))
-    password = forms.CharField(label="", required=False, widget=forms.TextInput(
-        attrs={'type': 'text', 'class': 'form-control', 'default': ''}))
-
-    class Meta:
-        model = deploymentModel
-        fields = '__all__'
-        exclude = ['accounts', 'gname', 'gnumber', 'bname',
-                   'bnumber', 'is_gcash', 'is_bank']

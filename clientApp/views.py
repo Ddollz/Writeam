@@ -10,6 +10,8 @@ from django.contrib import messages
 import datetime
 from django.utils import timezone
 
+from adminApp.views import department
+
 from .utils import send_html_mail
 from accounts.models import accounts
 from system.models import *
@@ -31,31 +33,64 @@ def index(request):
         client = accounts.objects.get(username=request.user)  # get Some User.
         group = client.groups.all()[0]
         post = ''
+        currentReq = ''
+        currentReqtobeAccepted = ''
         if str(group) == 'Copy Writer Manager':
             post = jobList.objects.get(job_Title='Copy Writer')
+            currentReq = manpower.objects.filter(
+                job_Title='1').filter(on_Going='True').latest('requestDate')
+
+            currentReqtobeAccepted = manpower.objects.filter(
+                job_Title='1').filter(on_Going='False')
+            if currentReqtobeAccepted:
+                currentReqtobeAccepted = currentReqtobeAccepted.latest(
+                    'requestDate')
+            else:
+                currentReqtobeAccepted = ''
         elif str(group) == 'Translator Manager':
             post = jobList.objects.get(job_Title='Translator')
+            currentReq = manpower.objects.filter(
+                job_Title='3').filter(on_Going='True').latest('requestDate')
+            currentReqtobeAccepted = manpower.objects.filter(
+                job_Title='3').filter(on_Going='False')
+            if currentReqtobeAccepted:
+                currentReqtobeAccepted = currentReqtobeAccepted.latest(
+                    'requestDate')
+            else:
+                currentReqtobeAccepted = ''
         elif str(group) == 'Editor Manager':
             post = jobList.objects.get(job_Title='Editor')
+            currentReq = manpower.objects.filter(
+                job_Title='2').filter(on_Going='True').latest('requestDate')
+            currentReqtobeAccepted = manpower.objects.filter(
+                job_Title='2').filter(on_Going='False')
+            if currentReqtobeAccepted:
+                currentReqtobeAccepted = currentReqtobeAccepted.latest(
+                    'requestDate')
+            else:
+                currentReqtobeAccepted = ''
 
         paymentForm = paymentform(instance=request.user.deploymentmodel)
-        forextForm = forexForm(instance=request.user.deploymentmodel)
+        forextForm = acceptanceform(instance=request.user.deploymentmodel)
 
         form1 = manpowerForm(
-            initial={'name': request.user.first_name + " " + request.user.last_name, 'job_Title': post})
+            initial={'name': request.user.first_name + " " + request.user.last_name, 'job_Title': post, 'email': request.user.email})
         if request.method == 'POST':
             form1 = manpowerForm(request.POST)
+
             if form1.is_valid():
                 form1.save()
                 messages.success(
                     request, 'Your Request has been sent successfully!')
                 form1 = manpowerForm(
                     initial={'name': request.user.first_name + " " + request.user.last_name, 'job_Title': post})
+                return redirect('index')
 
             print(form1.errors)
         context = {'group': group, 'jobList': jobs,
                    'form': form1, 'contactform': contactform,
-                   'paymentform': paymentForm, 'forextForm': forextForm
+                   'paymentform': paymentForm, 'forextForm': forextForm,
+                   'currentReq': currentReq, 'currentReqtobeAccepted': currentReqtobeAccepted
                    }
 
     return render(request, 'main/Client/index.html', context)
@@ -336,9 +371,50 @@ def jobaccept(request, pk1):
 
     if user.jobAccepted == 'None':
         if request.method == 'POST':
-            forexform = forexForm(
+            forexform = acceptanceform(
                 request.POST, instance=request.user.deploymentmodel)
             if forexform.is_valid():
+                username = forexform.cleaned_data['username']
+                password = forexform.cleaned_data['password']
+                gnametemp = forexform.cleaned_data['gname']
+                gnumbertemp = forexform.cleaned_data['gnumber']
+                bnametemp = forexform.cleaned_data['bname']
+                bnumbertemp = forexform.cleaned_data['bnumber']
+
+                method = forexform.save(commit=False)
+
+                if gnametemp == '':
+                    method.gname = ''
+                    method.save()
+                if gnumbertemp == '':
+                    method.gnumber = ''
+                    method.save()
+
+                if bnametemp == '':
+                    method.bname = ''
+                    method.save()
+                if bnumbertemp == '':
+                    method.bnumber = ''
+                    method.save()
+
+                if method.gname != '' and method.gnumber != '':
+                    method.is_gcash = True
+                    method.save()
+                else:
+                    method.is_gcash = False
+                    method.save()
+                if method.bname != '' and method.bnumber != '':
+                    method.is_bank = True
+                    method.save()
+                else:
+                    method.is_bank = False
+                    method.save()
+
+                if username == '' and password == '':
+                    messages.warning(
+                        request, 'You must have any payment method before accepting the job!')
+                    return redirect('/')
+
                 forexform.save()
                 if method.is_gcash or method.is_bank:
                     if pk1 == 1:

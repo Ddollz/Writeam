@@ -354,6 +354,14 @@ def department(request, type=None, pk=None):
                 {'instance': instance, 'form': form1, })
         if type == "activate":
             if pk != None:
+
+                current_site = get_current_site(request)
+
+                template = render_to_string(
+                    'main/Emails/manpowerActivate.html', {'name':  instance.name, 'domain': current_site})
+
+                send_html_mail('WriTeam: The are changes your application progress', template, [
+                    instance.email], settings.EMAIL_HOST_USER)
                 req = manpower.objects.get(id=pk)
                 req.on_Going = True
                 req.save()

@@ -658,9 +658,44 @@
             <div class="text-secondary mt-2">
               We will give your password to our IT to remove restrictions on your account so you can use the site tools easily
             </div>
+            <hr>
+
+            My Payment Method
+            <div class="text-secondary">
+              <div id="emailHelp" class="form-text">
+                We require you to add your bank account for compensation
+              </div>
+            </div>
+            {% csrf_token %}
+            {{forextForm.non_field_errors}}
+            <div class="row">
+              <div class="col">
+                <label for="exampleInputEmail1" class="form-label">Complete Name (GCash)</label>
+                {{forextForm.gname}}
+              </div>
+              <div class="col">
+                <label for="exampleInputEmail1" class="form-label">Account Number (GCash)</label>
+                {{forextForm.gnumber}}
+              </div>
+            </div>
+            <div class="">
+              <label for="exampleInputEmail1" class="form-label">Account Number (For Bank)</label>
+              {{forextForm.bnumber}}
+              <div class="row">
+                <div class="col">
+                  <label for="exampleInputEmail1" class="form-label">Bank Name</label>
+                  {{forextForm.bank}}
+                </div>
+                <div class="col">
+
+                  <label for="exampleInputEmail1" class="form-label">Complete Name</label>
+                  {{forextForm.bname}}
+                </div>
+              </div>
+            </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-primary" id='saveJob'>Apply now!</button>
+            <button type="button" class="btn btn-primary" style="width: auto;" id='saveJob'>Confirm Application</button>
           </div>
         </form>
       </div>
@@ -803,6 +838,10 @@
     //   $(this).children('.frontContent').show()
     //   $(this).children('.backContent').hide()
     // });
+    $("#requestbutton").click(function () {
+
+      $("#manpowerform").submit();
+    });
   });
 </script>
 {% endblock %}

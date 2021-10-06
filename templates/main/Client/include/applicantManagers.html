@@ -16,15 +16,38 @@
             <div class="col-lg-6 d-flex flex-column justify-content-center">
                 <div class="card shadow" style="height: auto;">
                     <div class="card-body">
-                        <h5 class="card-title">Welcome Managers!<span class='float-end'>Manpower Request Form</span></h5>
+                        <h5 class="card-title">Welcome {{request.user.first_name|title}} {{request.user.last_name|title}}!<span class='float-end'>Manpower Request Form</span></h5>
                         <hr>
-                        <form action="{% url 'index' %}" method="POST">
+                        {% if currentReqtobeAccepted != ''%}
+                        To be accepted <span class="fw-bold">{{currentReqtobeAccepted}}:</span>
+                        <span style="color: #e74c3c;">
+                            {{currentReqtobeAccepted.currentCandidate}}/{{currentReqtobeAccepted.nosCandidate}}
+                        </span>
+
+                        <br>
+                        {% endif %}
+                        {% if currentReq != ''%}
+                        {% if currentReq.is_Finished%}
+                        Previous <span class="fw-bold">{{currentReq}}:</span>
+                        <span style="color: #2ecc71;">{{currentReq.currentCandidate}}/{{currentReq.nosCandidate}}</span>
+                        {% else %}
+                        Ongoing Request <span class="fw-bold">{{currentReq}}:</span>
+                        <span style="color: #2ecc71;">{{currentReq.currentCandidate}}/{{currentReq.nosCandidate}}</span>
+                        {% endif %}
+                        {% endif %}
+
+                        {% if currentReqtobeAccepted != '' or currentReq != ''%}
+                        <hr>
+                        {% endif %}
+
+                        <form action="{% url 'index' %}" id='manpowerform' method="POST">
                             {% csrf_token %}
                             {{form.non_field_errors}}
                             <div class="row mb-3">
                                 <div class="col">
                                     <label for="Requesting" class="form-label">Requester Name</label>
                                     {{form.name}}
+                                    {{form.email}}
                                     <!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> -->
                                 </div>
                                 <div class="col">
@@ -67,7 +90,13 @@
                                     <label for="float2">Skill / Qualifications & Experience Requirements</label>
                                 </div>
                             </div>
+                            {% if currentReq.on_Going and not currentReq.is_Finished %}
+                            <button type="button" class="btn btn-outline-secondary text-center float-end next" data-bs-toggle="modal" data-bs-target="#request">Continue</button>
+
+                            {% else %}
                             <button type="submit" class="btn btn-outline-secondary text-center float-end next">Submit</button>
+                            {% endif %}
+
                         </form>
                     </div>
                 </div>
@@ -129,3 +158,24 @@
         </div>
     </div>
 </section>
+
+{% if currentReq.on_Going and not currentReq.is_Finished %}
+<!-- Modal -->
+<div class="modal fade" id="request" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" style="width: 40rem;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">There are ongoing request!</h5>
+            </div>
+            <div class="modal-body">
+                By clicking submit the current request will be cancelled
+                Ongoing Request <span class="fw-bold">{{currentReq}}:</span>
+                <span style="color: #2ecc71;">{{currentReq.currentCandidate}}/{{currentReq.nosCandidate}}</span>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id='requestbutton' class="btn btn-primary">Confirm Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}

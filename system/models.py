@@ -39,6 +39,8 @@ class jobSkill(models.Model):
 class manpower(models.Model):
     name = models.CharField(
         verbose_name="Requester Name", max_length=255, null=False)
+    email = models.CharField(
+        verbose_name="Requester Email", max_length=255, null=True, blank=True)
 
     job_Title = models.ForeignKey(
         jobList, verbose_name="Department", null=True, on_delete=models.CASCADE)

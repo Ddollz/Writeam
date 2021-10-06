@@ -248,8 +248,134 @@
 
 
     {% block content %}
+
+
+
     {% endblock %}
 
+    {% if userdetail %}
+
+    <!-- Modal -->
+    <div class="modal fade score" id="detail" data-bs-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel"><img src="{% static 'assets/img/logos.png' %}" alt="" srcset="" width="50px" height="50px">
+                        {{userdetail|title}}'s Profile Details
+                    </h5>
+                    <a type="button" href="{% url 'onboarding'%}"><i class="bi bi-x-diamond text-white"></i></a>
+                </div>
+
+                <div class="modal-body userInfo">
+
+                    <div class="page-modal active">
+                        <div class="bd-highlight d-flex justify-content-center">
+                            <img class="img-square" width="200" height="200" src="{{request.user.personaldetails.profile_image.url}}" draggable="false" />
+                        </div>
+                        <hr>
+                        <div class="row mb-2">
+                            <div class="col fw-bold">
+                                My profile
+                            </div>
+                            <div class="col text-end text-secondary">
+                                {{userdetail.personaldetails.address}} {{userdetail.personaldetails.city}}
+                                {{userdetail.personaldetails.country}} {{userdetail.personaldetails.postalcode}}
+                            </div>
+                        </div>
+
+                        <div class="row mb-0">
+                            <div class="col">
+                                {{userdetail.personaldetails.fname}}
+                                {{userdetail.personaldetails.lname}}
+                            </div>
+                            <div class="col text-end">
+                                {{userdetail.personaldetails.phone}}
+                            </div>
+                        </div>
+                        <hr class="mb-2">
+                        {{userdetail.personaldetails.email}}
+                        <hr class="mb-3 mt-2">
+
+                        <div class="row">
+                            <div class="col">
+                                <div class="fw-bold">Article <a href="{{userdetail.article.article.url}}"><i class="bi bi-cloud-arrow-down-fill"></i></a></div>
+                                {{userdetail.article.headline}}
+                            </div>
+                            <div class="col text-end">
+                                <div class="fw-bold"> <a href="{% url 'resumePrev' userdetail.id %}"><i class="bi bi-cloud-arrow-down-fill"></i></a>Resume</div>
+                                {{userdetail.personaldetails.jobTitle}}
+                            </div>
+                        </div>
+                        <hr class="mb-3 mt-2">
+                        <div class="row">
+                            <div class="col">
+                                Date Joined
+                                <div class="text-secondary" style="font-size: 15px;">
+                                    {{userdetail.date_joined}}
+                                </div>
+                            </div>
+                            <div class="col text-end">
+                                Last Login
+                                <div class="text-secondary" style="font-size: 15px;">
+                                    {{userdetail.last_login}}
+
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+
+                            <div class="col">
+                                <label for="department" class="form-label">Forex Username</label>
+                                <p>{{userdetail.deploymentmodel.username}}</p>
+                            </div>
+                            <div class="col text-end">
+                                <label for="datereq" class="form-label">Forex Password</label>
+                                <p>{{userdetail.deploymentmodel.password}}</p>
+                            </div>
+                        </div>
+
+                        <hr class="p-0 mt-0">
+
+                        {% if userdetail.deploymentmodel.is_gcash %}
+                        <div class="row">
+                            <div class="col">
+                                <label for="department" class="form-label">Complete GCash Name</label>
+                                <p>{{userdetail.deploymentmodel.gname|title}}</p>
+                            </div>
+                            <div class="col text-end">
+                                <label for="datereq" class="form-label">GCash Number</label>
+                                <p>{{userdetail.deploymentmodel.gnumber}}</p>
+                            </div>
+                        </div>
+                        {% endif %}
+                        <hr class="p-0 mt-0">
+                        {% if userdetail.deploymentmodel.is_bank %}
+                        <div class="row">
+
+                            <div class="col text-start">
+
+                                <label for="department" class="form-label">Bank</label>
+                                <p>{{userdetail.deploymentmodel.bank}}</p>
+                            </div>
+
+                            <div class="col text-center">
+                                <label for="department" class="form-label">Complete Bank Name</label>
+                                <p>{{userdetail.deploymentmodel.bname|title}}</p>
+                            </div>
+                            <div class="col text-end">
+
+                                <label for="department" class="form-label">Bank Number</label>
+                                <p>{{userdetail.deploymentmodel.bnumber}}</p>
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
 
     <script>
         let sidebar = document.querySelector(".sidebar");

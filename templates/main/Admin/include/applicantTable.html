@@ -58,9 +58,7 @@
                             <th>Date Submited</th>
                             {% endif %}
 
-                            <th>Deployment Details</th>
-                            <th>Article</th>
-                            <th>Resume</th>
+                            <th>Profile Details</th>
                         </tr>
                         {% elif request.path == current_url3 %}
                         <tr>
@@ -79,8 +77,7 @@
                             <th>Last Login</th>
                             <th>Date Submited</th>
                             {% endif %}
-                            <th>Article</th>
-                            <th>Resume</th>
+                            <th>Profile Details</th>
                         </tr>
                         {% else %}
                         <tr>
@@ -93,8 +90,7 @@
                             <th>Article Score</th>
                             <th>Date Submited</th>
                             <th>Last Login</th>
-                            <th>Article</th>
-                            <th>Resume</th>
+                            <th>Profile Details</th>
                             <th>More</th>
                         </tr>
                         {% endif %}
@@ -118,9 +114,8 @@
                             <th>Last Login</th>
                             <th>Date Submited</th>
                             {% endif %}
+                            <th>Profile Details</th>
 
-                            <th>Article</th>
-                            <th>Resume</th>
                         </tr>
                         {% elif request.path == current_url3 %}
                         <tr>
@@ -139,8 +134,7 @@
                             <th>Last Login</th>
                             <th>Date Submited</th>
                             {% endif %}
-                            <th>Article</th>
-                            <th>Resume</th>
+                            <th>Profile Details</th>
                         </tr>
                         {% else %}
                         <tr>
@@ -153,8 +147,7 @@
                             <th>Article Score</th>
                             <th>Date Submited</th>
                             <th>Last Login</th>
-                            <th>Article</th>
-                            <th>Resume</th>
+                            <th>Profile Details</th>
                             <th>More</th>
                         </tr>
                         {% endif %}
@@ -177,19 +170,8 @@
                             <td>{{ user.jobapplication.article }}</td>
                             <td>{{ user.jobapplication.dateSubmit }}</td>
                             <td>{{ user.last_login }}</td>
-                            <!-- <td><a type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Add</a></td> -->
-                            {%if user.article.article.url != None %}
-                            <td><a type="button" class="btn btn-primary" href="{{user.article.article.url}}">View</a></td>
-                            {%else%}
-                            <td><a type="button" class="btn btn-secondary disabled" href="#">None</a></td>
-                            {% endif %}
-                            {%if user.personaldetails.fname != None %}
-                            <td><a type="button" class="btn btn-primary" href="{% url 'resumePrev' user.id %}">View</a></td>
-                            {%else%}
-                            <td><a type="button" class="btn btn-secondary disabled" href="#">None</a></td>
-                            {% endif %}
-                            <!-- <td><button type=" button" class="btn btn-primary">View</button></td> -->
-                            </tr>
+
+                            <td><a type="button" class="btn btn-primary" href="{% url 'onboarding' user.id%}">View</a></td>
                             {% endif %}
                             {% endif %}
 
@@ -208,17 +190,6 @@
                                 <td>{{ user.jobapplication.jobAccepted }}</td>
                                 <td>{{ user.jobapplication.dateAccepted }}</td>
                                 <td><a type="button" class="btn btn-primary" href="{% url 'onboarding' user.id%}">View</a></td>
-                                {%if user.article.article.url != None %}
-                                <td><a type="button" class="btn btn-primary" href="{{user.article.article.url}}">View</a></td>
-                                {%else%}
-                                <td><a type="button" class="btn btn-secondary disabled" href="#">None</a></td>
-                                {% endif %}
-                                {%if user.personaldetails.fname != None %}
-                                <td><a type="button" class="btn btn-primary" href="{% url 'resumePrev' user.id %}">View</a></td>
-                                {%else%}
-                                <td><a type="button" class="btn btn-secondary disabled" href="#">None</a></td>
-                                {% endif %}
-                                <!-- <td><button type=" button" class="btn btn-primary">View</button></td> -->
                             </tr>
                             {% endif %}
                             {% endif %}
@@ -234,21 +205,12 @@
                                 <td>{{ user.jobapplication.article }}</td>
                                 <td>{{ user.jobapplication.dateSubmit }}</td>
                                 <td>{{ user.last_login }}</td>
-                                {%if user.article.article.url != None %}
-                                <td><a type="button" class="btn btn-primary" href="{{user.article.article.url}}">View</a></td>
-                                {%else%}
-                                <td><a type="button" class="btn btn-secondary disabled" href="#">None</a></td>
-                                {% endif %}
-                                {%if user.personaldetails.fname != None %}
-                                <td><a type="button" class="btn btn-primary" href="{% url 'resumePrev' user.id %}">View</a></td>
-                                {%else%}
-                                <td><a type="button" class="btn btn-secondary disabled" href="#">None</a></td>
-                                {% endif %}
+
+                                <td><a type="button" class="btn btn-primary" href="{% url 'onboarding' user.id%}">View</a></td>
                                 {%if user.jobapplication.submitApplication %}
                                 <td><a type="button" href="{%url 'applicantmanagement' user.id %}" class="btn btn-primary"><i class="bi bi-three-dots"></i></a></td>
                                 {%else%}
                                 <td><a type="button" href="{%url 'applicantmanagement' user.id %}" class="btn btn-primary" style="background-color: gray; pointer-events: none;"><i class="bi bi-three-dots"></i></a></td>
-
                                 {% endif %}
 
                             </tr>

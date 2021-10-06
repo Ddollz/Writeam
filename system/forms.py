@@ -47,6 +47,7 @@ class manpowerForm(ModelForm):
     class Meta:
         model = manpower
         fields = '__all__'
+        widgets = {'email': forms.HiddenInput()}
         exclude = ['on_Going']
 
 

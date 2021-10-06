@@ -368,10 +368,16 @@
 
                     <form action="{% url 'payment'%}" method="POST">
                         <div class="card-header p-4">
-                            My Payment Method <button type="submit" class="btn btn-outline-secondary float-end text-center">Save</button>
+                            My Payment Method
+                            {% if request.user.jobapplication.jobAccepted == 'None'%}
+                            <button type="submit" disabled class="btn btn-outline-secondary float-end text-center">Save</button>
+                            {%else%}
+                            <button type="submit" class="btn btn-outline-secondary float-end text-center">Save</button>
+                            {%endif%}
+
                             <div class="text-secondary">
                                 <div id="emailHelp" class="form-text">
-                                    We require you to add any payment method below before applying.
+                                    You may add your bank account once you are hired
                                 </div>
                             </div>
                         </div>
