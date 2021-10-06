@@ -125,6 +125,8 @@
         score3 = $('#translatorR').val()
         score4 = $('#article').val()
         $('.scoreIndicator').hide()
+
+        computeOverScore();
         $("#article").keydown(function () {
             computeOverScore();
         });

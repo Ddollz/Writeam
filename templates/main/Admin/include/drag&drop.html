@@ -2,7 +2,7 @@
     <div class="col" style="background-color: transparent;">
         <div class="card shadow">
             <div class="card-body drag-body screening">
-                <div class="card-title text-start text-uppercase fw-bold">Latest Job Match<span class="float-end count" id="span1">0/10</span></div>
+                <div class="card-title text-start text-uppercase fw-bold">Latest Job Match<span class="float-end count" id="span1">0/5</span></div>
 
                 <hr>
                 {% for user in randomApplicants%}
@@ -69,7 +69,7 @@
     <div class="col">
         <div class="card shadow">
             <div class="card-body drag-body onboarding">
-                <div class="card-title text-start text-uppercase fw-bold">Latest Onboarding Applicants<span class="float-end count" id="span2">0/10</span></div>
+                <div class="card-title text-start text-uppercase fw-bold">Latest Onboarding Applicants<span class="float-end count" id="span2">0/5</span></div>
                 <hr>
 
                 {% for user in randomApplicants%}
@@ -129,7 +129,7 @@
     <div class="col">
         <div class="card shadow">
             <div class="card-body drag-body repreview">
-                <div class="card-title text-start text-uppercase fw-bold">Latest Rejected Applicants<span class="float-end count" id="span3">1/10</span></div>
+                <div class="card-title text-start text-uppercase fw-bold">Latest Rejected Applicants<span class="float-end count" id="span3">1/5</span></div>
                 <hr>
                 {% for user in randomApplicants%}
                 {% if user.jobapplication.is_validated%}

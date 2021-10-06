@@ -185,38 +185,39 @@ def applicantManagement(request, pk=None):
 
     users = accounts.objects.all()
     userList = accounts.objects.filter(
-        groups__name='Clients').order_by('-id')[:10]
+        groups__name='Clients').order_by('-id')[:5]
 
     # ?/end/
     if request.method == 'POST':
 
         instance = accounts.objects.get(id=pk)
         user = jobapplication.objects.get(accounts=instance)
-        modalform = applicantScoreForm(request.POST, instance=user)
-        # print(modalform)
-        if modalform.is_valid():
-            score4 = modalform.cleaned_data['article']
-            tempscore = int(score4)/10*3
-            score1 = int(user.copywriter) + tempscore
-            score2 = int(user.editor) + tempscore
-            score3 = int(user.translator) + tempscore
-            modalform = modalform.save(commit=False)
-            modalform.copywriterfinal = score1
-            modalform.editorfinal = score2
-            modalform.translatorfinal = score3
+        if user.submitApplication is True:
+            modalform = applicantScoreForm(request.POST, instance=user)
+            # print(modalform)
+            if modalform.is_valid():
+                score4 = modalform.cleaned_data['article']
+                tempscore = int(score4)/10*3
+                score1 = int(user.copywriter) + tempscore
+                score2 = int(user.editor) + tempscore
+                score3 = int(user.translator) + tempscore
+                modalform = modalform.save(commit=False)
+                modalform.copywriterfinal = score1
+                modalform.editorfinal = score2
+                modalform.translatorfinal = score3
 
-            modalform.is_validated = True
-            modalform.validationDate = timezone.now()
+                modalform.is_validated = True
+                modalform.validationDate = timezone.now()
 
-            current_site = get_current_site(request)
-            template = render_to_string(
-                'main/Emails/ResumeSuccess.html', {'name':  instance.username, 'domain': current_site})
-            send_html_mail('WriTeam: The are changes your application progress', template, [
-                           instance.email], settings.EMAIL_HOST_USER)
-            modalform.save()
-            return redirect('applicantmanagement')
-        else:
-            print(modalform.errors)
+                current_site = get_current_site(request)
+                template = render_to_string(
+                    'main/Emails/ResumeSuccess.html', {'name':  instance.username, 'domain': current_site})
+                send_html_mail('WriTeam: The are changes your application progress', template, [
+                    instance.email], settings.EMAIL_HOST_USER)
+                modalform.save()
+                return redirect('applicantmanagement')
+            else:
+                print(modalform.errors)
 
     if pk is None:
         context = {'applicantList': users,

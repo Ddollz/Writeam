@@ -40,7 +40,7 @@
 
                 <table id="datatablesSimple">
                     <thead>
-                        {% if request.path == current_url3 or request.path == current_url2 %}
+                        {% if request.path == current_url2 %}
                         <tr>
                             <th>ID</th>
                             <th>Avatar</th>
@@ -59,6 +59,26 @@
                             {% endif %}
 
                             <th>Deployment Details</th>
+                            <th>Article</th>
+                            <th>Resume</th>
+                        </tr>
+                        {% elif request.path == current_url3 %}
+                        <tr>
+                            <th>ID</th>
+                            <th>Avatar</th>
+                            <th>Name</th>
+                            <th>Copy Writer FS</th>
+                            <th>Editor FS</th>
+                            <th>Translator FS</th>
+                            <th>Article Score</th>
+
+                            {% if request.path == current_url2%}
+                            <th>Job Accepted</th>
+                            <th>Date Accepted</th>
+                            {% else %}
+                            <th>Last Login</th>
+                            <th>Date Submited</th>
+                            {% endif %}
                             <th>Article</th>
                             <th>Resume</th>
                         </tr>
@@ -81,7 +101,7 @@
                     </thead>
                     <tfoot>
 
-                        {% if request.path == current_url3 or request.path == current_url2 %}
+                        {% if request.path == current_url2 %}
                         <tr>
                             <th>ID</th>
                             <th>Avatar</th>
@@ -99,7 +119,26 @@
                             <th>Date Submited</th>
                             {% endif %}
 
-                            <th>Deployment Details</th>
+                            <th>Article</th>
+                            <th>Resume</th>
+                        </tr>
+                        {% elif request.path == current_url3 %}
+                        <tr>
+                            <th>ID</th>
+                            <th>Avatar</th>
+                            <th>Name</th>
+                            <th>Copy Writer FS</th>
+                            <th>Editor FS</th>
+                            <th>Translator FS</th>
+                            <th>Article Score</th>
+
+                            {% if request.path == current_url2%}
+                            <th>Job Accepted</th>
+                            <th>Date Accepted</th>
+                            {% else %}
+                            <th>Last Login</th>
+                            <th>Date Submited</th>
+                            {% endif %}
                             <th>Article</th>
                             <th>Resume</th>
                         </tr>
@@ -205,7 +244,13 @@
                                 {%else%}
                                 <td><a type="button" class="btn btn-secondary disabled" href="#">None</a></td>
                                 {% endif %}
+                                {%if user.jobapplication.submitApplication %}
                                 <td><a type="button" href="{%url 'applicantmanagement' user.id %}" class="btn btn-primary"><i class="bi bi-three-dots"></i></a></td>
+                                {%else%}
+                                <td><a type="button" href="{%url 'applicantmanagement' user.id %}" class="btn btn-primary" style="background-color: gray; pointer-events: none;"><i class="bi bi-three-dots"></i></a></td>
+
+                                {% endif %}
+
                             </tr>
                             {% endif %}
                             {% endif %}

@@ -4,7 +4,7 @@ from .models import *
 
 
 class personalDetailsAdmin(admin.ModelAdmin):
-    list_display = ('accounts', 'jobTitle', 'fname',
+    list_display = ('id', 'accounts', 'jobTitle', 'fname',
                     'lname', 'city', 'email', 'phone')
 
     search_fields = ('JobTitle', 'city')

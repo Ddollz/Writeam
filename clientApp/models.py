@@ -125,8 +125,8 @@ class personalDetails(models.Model):
     address = models.CharField(max_length=200, null=True)
     birthplace = models.CharField(max_length=200, null=True)
     birthdate = models.CharField(max_length=200, null=True)
-    nationality = models.CharField(max_length=200, null=True)
-    profSummary = models.TextField(max_length=500, null=True)
+    nationality = models.CharField(max_length=200, null=True, blank=True)
+    profSummary = models.TextField(max_length=1000, null=True)
     postalcode = models.PositiveIntegerField(
         validators=[MaxValueValidator(9999)], null=True)
 

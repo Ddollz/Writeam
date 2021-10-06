@@ -23,7 +23,7 @@ $(document).ready(function () {
     containers.forEach((container, index) => {
         const countDraggableInContainer = container.querySelectorAll('.draggable')
         const getSpanCounter = container.querySelector('.count');
-        getSpanCounter.innerHTML = countDraggableInContainer.length + "/10";
+        getSpanCounter.innerHTML = countDraggableInContainer.length + "/5";
 
         const getAddButtons = container.querySelectorAll('.addScore');
         const getViewButtons = container.querySelectorAll('.viewScore');
@@ -62,7 +62,7 @@ $(document).ready(function () {
             containers.forEach((container, index) => {
                 const countDraggableInContainer = container.querySelectorAll('.draggable')
                 const getSpanCounter = container.querySelector('.count');
-                getSpanCounter.innerHTML = countDraggableInContainer.length + "/10";
+                getSpanCounter.innerHTML = countDraggableInContainer.length + "/5";
 
                 const getAddButtons = container.querySelectorAll('.addScore');
                 const getViewButtons = container.querySelectorAll('.viewScore');
