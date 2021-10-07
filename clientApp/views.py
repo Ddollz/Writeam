@@ -165,6 +165,116 @@ def sendmessage(request):
     return redirect('index')
 
 
+def jobaccept(request, pk1):
+    user = jobapplication.objects.get(accounts=request.user)
+    method = deploymentModel.objects.get(accounts=request.user)
+
+    if user.jobAccepted == 'None':
+        if request.method == 'POST':
+            forexform = acceptanceform(
+                request.POST, instance=request.user.deploymentmodel)
+            if forexform.is_valid():
+                username = forexform.cleaned_data['username']
+                password = forexform.cleaned_data['password']
+                gnametemp = forexform.cleaned_data['gname']
+                gnumbertemp = forexform.cleaned_data['gnumber']
+                bnametemp = forexform.cleaned_data['bname']
+                bnumbertemp = forexform.cleaned_data['bnumber']
+
+                method = forexform.save(commit=False)
+
+                if gnametemp == '':
+                    method.gname = ''
+                    method.save()
+                if gnumbertemp == '':
+                    method.gnumber = ''
+                    method.save()
+
+                if bnametemp == '':
+                    method.bname = ''
+                    method.save()
+                if bnumbertemp == '':
+                    method.bnumber = ''
+                    method.save()
+
+                if method.gname != '' and method.gnumber != '':
+                    method.is_gcash = True
+                    method.save()
+                else:
+                    method.is_gcash = False
+                    method.save()
+                if method.bname != '' and method.bnumber != '':
+                    method.is_bank = True
+                    method.save()
+                else:
+                    method.is_bank = False
+                    method.save()
+
+                if username == '' and password == '':
+                    messages.warning(
+                        request, 'You must have any payment method before accepting the job!')
+                    return redirect('/')
+
+                forexform.save()
+                if method.is_gcash or method.is_bank:
+                    if pk1 == 1:
+                        user.dateAccepted = timezone.now()
+                        user.jobAccepted = "Copy Writer"
+                        jobforeign = jobList.objects.get(
+                            job_Title='Copy Writer')
+                        manRequest = manpower.objects.filter(
+                            id=jobforeign.id).filter(is_Finished=False)
+                        for man in manRequest:
+                            if man.currentCandidate < man.nosCandidate:
+                                man.currentCandidate += 1
+                                man.save()
+                            if man.currentCandidate >= man.nosCandidate:
+                                man.is_Finished = True
+                                man.save()
+                        user.save()
+                    elif pk1 == 2:
+                        user.dateAccepted = timezone.now()
+                        user.jobAccepted = "Editor"
+
+                        jobforeign = jobList.objects.get(
+                            job_Title='Editor')
+                        manRequest = manpower.objects.filter(
+                            id=jobforeign.id).filter(is_Finished=False)
+
+                        for man in manRequest:
+                            if man.currentCandidate < man.nosCandidate:
+                                man.currentCandidate += 1
+                                man.save()
+                            if man.currentCandidate >= man.nosCandidate:
+                                man.is_Finished = True
+                                man.save()
+                        user.save()
+                    elif pk1 == 3:
+                        user.dateAccepted = timezone.now()
+                        user.jobAccepted = "Translator"
+                        jobforeign = jobList.objects.get(
+                            job_Title='Translator')
+                        manRequest = manpower.objects.filter(
+                            id=jobforeign.id).filter(is_Finished=False)
+                        for man in manRequest:
+                            if man.currentCandidate < man.nosCandidate:
+                                man.currentCandidate += 1
+                                man.save()
+                            if man.currentCandidate >= man.nosCandidate:
+                                man.is_Finished = True
+                                man.save()
+                        user.save()
+                else:
+                    messages.warning(
+                        request, 'You must have any payment method before accepting the job!')
+
+            else:
+                messages.warning(
+                    request, 'You must have an account before you start working!')
+
+    return redirect('/')
+
+
 def faq(request):
     context = {}
     if request.user.is_authenticated:
@@ -173,8 +283,6 @@ def faq(request):
         context = {'group': client.groups.all()[0]}
 
     return render(request, 'main/Client/faq.html', context)
-
-# @allowed_users(allowed_roles=['Clients', 'HR Staff', 'HR Manager'])
 
 
 @login_required(login_url='signup')
@@ -363,116 +471,6 @@ def resume(request):
                'formset4': formset4,
                }
     return render(request, 'main/Client/Resume.html', context)
-
-
-def jobaccept(request, pk1):
-    user = jobapplication.objects.get(accounts=request.user)
-    method = deploymentModel.objects.get(accounts=request.user)
-
-    if user.jobAccepted == 'None':
-        if request.method == 'POST':
-            forexform = acceptanceform(
-                request.POST, instance=request.user.deploymentmodel)
-            if forexform.is_valid():
-                username = forexform.cleaned_data['username']
-                password = forexform.cleaned_data['password']
-                gnametemp = forexform.cleaned_data['gname']
-                gnumbertemp = forexform.cleaned_data['gnumber']
-                bnametemp = forexform.cleaned_data['bname']
-                bnumbertemp = forexform.cleaned_data['bnumber']
-
-                method = forexform.save(commit=False)
-
-                if gnametemp == '':
-                    method.gname = ''
-                    method.save()
-                if gnumbertemp == '':
-                    method.gnumber = ''
-                    method.save()
-
-                if bnametemp == '':
-                    method.bname = ''
-                    method.save()
-                if bnumbertemp == '':
-                    method.bnumber = ''
-                    method.save()
-
-                if method.gname != '' and method.gnumber != '':
-                    method.is_gcash = True
-                    method.save()
-                else:
-                    method.is_gcash = False
-                    method.save()
-                if method.bname != '' and method.bnumber != '':
-                    method.is_bank = True
-                    method.save()
-                else:
-                    method.is_bank = False
-                    method.save()
-
-                if username == '' and password == '':
-                    messages.warning(
-                        request, 'You must have any payment method before accepting the job!')
-                    return redirect('/')
-
-                forexform.save()
-                if method.is_gcash or method.is_bank:
-                    if pk1 == 1:
-                        user.dateAccepted = timezone.now()
-                        user.jobAccepted = "Copy Writer"
-                        jobforeign = jobList.objects.get(
-                            job_Title='Copy Writer')
-                        manRequest = manpower.objects.filter(
-                            id=jobforeign.id).filter(is_Finished=False)
-                        for man in manRequest:
-                            if man.currentCandidate < man.nosCandidate:
-                                man.currentCandidate += 1
-                                man.save()
-                            if man.currentCandidate >= man.nosCandidate:
-                                man.is_Finished = True
-                                man.save()
-                        user.save()
-                    elif pk1 == 2:
-                        user.dateAccepted = timezone.now()
-                        user.jobAccepted = "Editor"
-
-                        jobforeign = jobList.objects.get(
-                            job_Title='Editor')
-                        manRequest = manpower.objects.filter(
-                            id=jobforeign.id).filter(is_Finished=False)
-
-                        for man in manRequest:
-                            if man.currentCandidate < man.nosCandidate:
-                                man.currentCandidate += 1
-                                man.save()
-                            if man.currentCandidate >= man.nosCandidate:
-                                man.is_Finished = True
-                                man.save()
-                        user.save()
-                    elif pk1 == 3:
-                        user.dateAccepted = timezone.now()
-                        user.jobAccepted = "Translator"
-                        jobforeign = jobList.objects.get(
-                            job_Title='Translator')
-                        manRequest = manpower.objects.filter(
-                            id=jobforeign.id).filter(is_Finished=False)
-                        for man in manRequest:
-                            if man.currentCandidate < man.nosCandidate:
-                                man.currentCandidate += 1
-                                man.save()
-                            if man.currentCandidate >= man.nosCandidate:
-                                man.is_Finished = True
-                                man.save()
-                        user.save()
-                else:
-                    messages.warning(
-                        request, 'You must have any payment method before accepting the job!')
-
-            else:
-                messages.warning(
-                    request, 'You must have an account before you start working!')
-
-    return redirect('/')
 
 
 def checksimilarity(textarray):
